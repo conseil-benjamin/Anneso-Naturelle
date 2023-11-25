@@ -1,0 +1,12 @@
+select {
+  display: flex;
+  height: 4vh;
+  margin: 0 2em 0 0;
+}
+
+.divSelect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2em 0 0 0;
+}

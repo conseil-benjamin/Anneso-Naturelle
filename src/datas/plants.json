@@ -1,0 +1,22 @@
+[
+  {
+    "name": "monstera",
+    "category": "classique",
+    "id": "1ed",
+    "light": 2,
+    "water": 3,
+    "cover": "https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322942/Monstera.jpg",
+    "price": 15,
+    "description": "Le Monstera, aussi appelé plante à fenêtre, est une plante d'intérieur très populaire pour ses grandes feuilles découpées et sa facilité d'entretien. En plus d'être esthétique, il contribue à purifier l'air et apporte une touche de jungle à votre intérieur."
+  },
+  {
+    "name": "ficus lyrata",
+    "category": "classique",
+    "id": "2ab",
+    "light": 3,
+    "water": 1,
+    "cover": "https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322942/Lyrata.jpg",
+    "price": 16,
+    "description": "Le Ficus Lyrata, également connu sous le nom de Figuier lyre, est une plante aux feuilles en forme de violon très élégante. Cette plante d'intérieur impressionnante apporte une ambiance tropicale et s'épanouit dans des conditions de lumière vive."
+  }
+]
