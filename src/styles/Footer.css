@@ -1,18 +1,48 @@
 .lmj-footer {
-	color: black;
-	padding: 32px;
-	border-top: solid 3px black;
-	display: flex;
-	justify-content: flex-start;
-	flex-direction: column;
-	align-items: center;
-	font-weight: 500;
+  background-color: #ded2b2;
+  color: black;
+  padding: 32px;
+  border-top: solid 3px black;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
 }
 
 .lmj-footer-elem {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-input{
-	padding: 0.5em;
+.icon-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.iconSocial {
+  height: 1.5em;
+  margin: 1em 0 0 2em;
+}
+
+.footer-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.btn-footer-contact {
+  background-color: #8a6e36;
+  color: #ffffff;
+  padding: 1.5em;
+  border-radius: 20px;
+  transition: all 0.5s;
+  margin: 2em 0 2em 0;
+}
+
+.btn-footer-contact:hover {
+  background-color: #ded2b2;
+  color: #000000;
 }

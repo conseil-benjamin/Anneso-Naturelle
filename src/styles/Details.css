@@ -6,7 +6,7 @@
 }
 
 .return {
-  margin: 1em 0 0 2em;
+  padding: 1em 0 0 2em;
 }
 
 img {
@@ -31,7 +31,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2em;
+    padding: 2em 0 2em 0;
 }
 
 .button-56 {

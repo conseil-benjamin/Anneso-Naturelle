@@ -34,13 +34,3 @@
   color: black;
 }
 
-img,
-button,
-select,
-option {
-  cursor: pointer;
-}
-
-button{
-  border-radius: 5px;
-}

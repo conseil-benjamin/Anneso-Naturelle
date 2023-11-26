@@ -8,6 +8,7 @@ import Details from "./Details";
 import Login from "./Login";
 import Profil from "./Profil";
 import PrivateRoutes from "../utils/PrivateRoutes";
+import Register from "./Register";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -48,6 +49,7 @@ function App() {
             <Route element={<PrivateRoutes />}>
               <Route path="/Profil" element={<Profil />} />
             </Route>
+            <Route path="Register" element={<Register />} />
           </Routes>
         </div>
         <Footer />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { plantList } from "../datas/plantList";
 import PlantItem from "./PlantItem";
 import Categories from "./Categories";
@@ -8,7 +8,23 @@ import { Link } from "react-router-dom";
 function ShoppingList({ cart, updateCart }) {
   const [activeCategory, setActiveCategory] = useState("");
   const [triageActive, setActiveTriage] = useState("");
+  //const [plantList, setPlantList] = useState("");
 
+  /*
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/v1/products");
+        const plantList = await response.json();
+        console.log(plantList);
+        setPlantList(plantList);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+*/
   let nameTable = plantList;
 
   // Appliquer le tri si triageActive est défini
