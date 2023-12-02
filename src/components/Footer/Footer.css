@@ -46,3 +46,8 @@
   background-color: #ded2b2;
   color: #000000;
 }
+
+.div-lien-juridique{
+  display: flex;
+  gap: 1em;
+}

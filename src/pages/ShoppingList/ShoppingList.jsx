@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { plantList } from "../datas/plantList";
-import PlantItem from "./PlantItem";
-import Categories from "./Categories";
-import "../styles/ShoppingList.css";
-import { Link } from "react-router-dom";
+import PlantItem from "../../components/PlantItem/PlantItem";
+import Categories from "../../components/Categories/Categories";
+import "./ShoppingList.css";
+import { useNavigate } from "react-router-dom";
 
 function ShoppingList({ cart, updateCart }) {
   const [activeCategory, setActiveCategory] = useState("");
   const [triageActive, setActiveTriage] = useState("");
-  //const [plantList, setPlantList] = useState("");
+  const [isAddElement, setAddElement] = useState(false);
+  const [plantList, setPlantList] = useState([]);
+  const [btnClique, setBtnDetailsClique] = useState(false);
+  const navigate = useNavigate();
 
-  /*
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +25,7 @@ function ShoppingList({ cart, updateCart }) {
     };
     fetchData();
   }, []);
-*/
+
   let nameTable = plantList;
 
   // Appliquer le tri si triageActive est défini
@@ -83,6 +84,7 @@ function ShoppingList({ cart, updateCart }) {
     } else {
       updateCart([...cart, { name, price, amount: 1 }]);
     }
+    setAddElement(true);
   }
 
   return (
@@ -108,22 +110,21 @@ function ShoppingList({ cart, updateCart }) {
                   description={description}
                 />
                 <button onClick={() => addToCart(name, price)}>Ajouter</button>
-                <Link
-                  to={{
-                    pathname: "/Details",
-                    state: {
-                      cover,
-                      name,
-                      water,
-                      light,
-                      price,
-                      category,
-                      description,
-                    },
-                  }}
-                >
-                  <button>Détails</button>
-                </Link>
+                <button onClick={() => setBtnDetailsClique(true)}>
+                  {btnClique
+                    ? navigate("/Details", {
+                        state: {
+                          cover,
+                          name,
+                          water,
+                          light,
+                          price,
+                          description,
+                        },
+                      })
+                    : null}
+                  Détails
+                </button>
               </div>
             ) : null
         )}

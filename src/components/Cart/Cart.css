@@ -3,9 +3,10 @@
   background-color: #31b572;
   padding: 32px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   width: 300px;
+  z-index: 3;
 }
 
 .lmj-cart-add-button {

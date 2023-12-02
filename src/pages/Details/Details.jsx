@@ -1,14 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import "../styles/Details.css";
-import CareScale from "./CareScale";
+import "./Details.css";
+import CareScale from "../../components/CareScale/CareScale";
 
 function Details() {
   const location = useLocation();
-  const { state } = location;
-  console.log(state);
 
   const { cover, name, water, light, price, category, description } =
-    state || {};
+    location.state || {};
 
   return (
     <div className="bodyElementDetails">
@@ -24,9 +22,8 @@ function Details() {
           />
         </Link>
       </div>
-
       <div className="details-list">
-        <h1>Détails plante : {cover}</h1>
+        <h1>Détails plante : {name}</h1>
         <img src={cover} width={250} height={250} alt="Image plante"></img>
         <p>Nom : {name}</p>
         <p>Plante {category}</p>

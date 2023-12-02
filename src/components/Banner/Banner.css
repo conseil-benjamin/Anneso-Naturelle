@@ -5,16 +5,25 @@
   padding: 32px;
   border-bottom: solid 3px black;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-direction: row;
   align-items: center;
+  top: 0;
+  width: 100%;
+  height: 1.75em;
+  z-index: 1;
 }
 
 .lmj-title {
   padding-left: 32px;
+  font-size: 1.25rem;
 }
 
 .lmj-logo {
   height: 45px;
   width: 45px;
+}
+
+.btn-profil{
+  
 }

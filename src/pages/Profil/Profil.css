@@ -1,0 +1,26 @@
+.btn-sign-out {
+  margin: 2em;
+  background-color: #8a6e36;
+  color: #ffffff;
+  padding: 1.5em;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+
+.icon-signOut {
+  padding: 0 0 0 1em;
+}
+
+.div-infos-client{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.navbar-profil{
+  position: relative;
+  top: 0;
+  right: 0;
+  flex-direction: column;
+}

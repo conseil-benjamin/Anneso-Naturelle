@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
-import "../styles/Cart.css";
+import "./Cart.css";
 
-function Cart({ cart, updateCart }) {
+function Cart({ cart, updateCart, isAddElement }) {
   const [isOpen, setIsOpen] = useState(true);
 
   const total = cart.reduce(
     (acc, plantType) => acc + plantType.amount * plantType.price,
     0
   );
+
+  useEffect(() => {
+    isAddElement ? setIsOpen(true) : setIsOpen(false);
+  }, []);
 
   const removeFromCart = (index) => {
     const updatedCart = [...cart];
