@@ -22,7 +22,7 @@ function Banner({ logo, collection, aPropos, contact, panier }) {
           const clientFound = users.find(({ id }) => id === clientId);
           if (clientFound) {
             setProfilClique(false);
-            navigate("/Profil", {
+            navigate("/Profil/infos-persos", {
               state: {
                 id: clientFound.id,
                 nom: clientFound.nom,

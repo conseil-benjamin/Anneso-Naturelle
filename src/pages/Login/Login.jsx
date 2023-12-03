@@ -18,8 +18,11 @@ function Login() {
   const Swal = require("sweetalert2");
 
   const isLogged = localStorage.getItem("id");
+  const [clientId, setClientId] = useState(
+    isLogged ? JSON.parse(isLogged) : null
+  );
 
-  isLogged ? navigate("/Profil") : console.log("dzqdqz");
+  isLogged ? navigate("/Profil/infos-persos") : console.log("dada");
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
@@ -31,13 +34,21 @@ function Login() {
         try {
           const response = await fetch("http://localhost:5000/api/v1/users");
           const users = await response.json();
+          const response2 = await fetch(
+            "http://localhost:5000/api/v1/commandes"
+          );
+          const commandes = await response2.json();
           console.log(users);
+          console.log(commandes);
           const clientFound = users.find(
             ({ adresseEmail, mdp }) =>
               emailValue === adresseEmail && passwordValue === mdp
           );
-          if (clientFound) {
-            navigate("/Profil", {
+          const commandesFound = commandes.find(
+            ({ idClient }) => clientId === idClient
+          );
+          if (clientFound || commandesFound) {
+            navigate("/Profil/infos-persos", {
               state: {
                 id: clientFound.id,
                 nom: clientFound.nom,

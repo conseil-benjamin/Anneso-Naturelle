@@ -16,7 +16,7 @@ function Footer() {
       <div className="lmj-footer-elem">
         <div className="footer-text">
           <h2>Anne'so Naturelle</h2>
-          <p>Pour les passionné·e·s de pierres </p>
+          <p>Pour les passionné·e·s de pierres 💎💎</p>
           <button
             className="btn-footer-contact"
             onClick={() => setBtnContacterClique(true)}

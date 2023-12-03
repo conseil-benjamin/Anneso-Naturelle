@@ -14,6 +14,9 @@ import Contact from "../pages/Contact/Contact";
 import MentionsLegales from "../pages/MentionsLegales/MentionsLegales";
 import ConditionsUtilisations from "../pages/ConditionsUtilisation/ConditionsUtilisation";
 import ConditionsGenerales from "../pages/ConditionsGenerales/ConditionsGenerales";
+import Erreur404 from "../pages/Erreur404/Erreur404";
+import Commandes from "../pages/Commandes/Commandes";
+import Adresses from "../pages/Adresses/Adresses";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -73,7 +76,9 @@ function App() {
             <Route path="/Details" element={<Details />} />
             <Route path="/Login" element={<Login />} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/Profil" element={<Profil />} />
+              <Route path="/Profil/infos-persos" element={<Profil />} />
+              <Route path="/Profil/commandes" element={<Commandes />} />
+              <Route path="/Profil/adresses" element={<Adresses />} />
             </Route>
             <Route path="Register" element={<Register />} />
             <Route path="Apropos" element={<Apropos />} />
@@ -87,6 +92,7 @@ function App() {
               path="conditions-generales"
               element={<ConditionsGenerales />}
             />
+            <Route path="/*" element={<Erreur404 />} />
           </Routes>
         </div>
         <Footer />

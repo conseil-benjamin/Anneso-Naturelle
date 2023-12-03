@@ -1,0 +1,41 @@
+[
+  {
+    "_id": {
+      "$oid": "656748daf1f3c898e1f7e501"
+    },
+    "userId": "1952781575",
+    "nomPersonne": "Alix",
+    "prenomPersonne": "Lilian",
+    "adresse": "9 rue de maupertuis",
+    "codePostal": "75001",
+    "ville": "Paris",
+    "complementAdresse": "",
+    "pays": "France"
+  },
+  {
+    "_id": {
+      "$oid": "656748daf1f3c898e1f7e503"
+    },
+    "userId": "1952781574",
+    "nomPersonne": "Lefebvre",
+    "prenomPersonne": "Sophie",
+    "adresse": "23 rue du Paradis",
+    "codePostal": "31000",
+    "ville": "Toulouse",
+    "complementAdresse": "",
+    "pays": "France"
+  },
+  {
+    "_id": {
+      "$oid": "656748daf1f3c898e1f7e504"
+    },
+    "userId": "1952781574",
+    "nomPersonne": "Lefebvre",
+    "prenomPersonne": "Sophie",
+    "adresse": "3 place des Lilas",
+    "codePostal": "44000",
+    "ville": "Nantes",
+    "complementAdresse": "",
+    "pays": "France"
+  }
+]
