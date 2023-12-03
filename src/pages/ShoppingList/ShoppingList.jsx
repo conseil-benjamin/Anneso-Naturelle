@@ -26,6 +26,28 @@ function ShoppingList({ cart, updateCart }) {
     fetchData();
   }, []);
 
+  const handleDetailsClique = (
+    cover,
+    name,
+    water,
+    light,
+    price,
+    description,
+    category
+  ) => {
+    navigate("/Details", {
+      state: {
+        cover: cover,
+        name: name,
+        water: water,
+        light: light,
+        price: price,
+        description: description,
+        category: category,
+      },
+    });
+  };
+
   let nameTable = plantList;
 
   // Appliquer le tri si triageActive est défini
@@ -110,19 +132,19 @@ function ShoppingList({ cart, updateCart }) {
                   description={description}
                 />
                 <button onClick={() => addToCart(name, price)}>Ajouter</button>
-                <button onClick={() => setBtnDetailsClique(true)}>
-                  {btnClique
-                    ? navigate("/Details", {
-                        state: {
-                          cover,
-                          name,
-                          water,
-                          light,
-                          price,
-                          description,
-                        },
-                      })
-                    : null}
+                <button
+                  onClick={() =>
+                    handleDetailsClique(
+                      cover,
+                      name,
+                      water,
+                      light,
+                      price,
+                      description,
+                      category
+                    )
+                  }
+                >
                   Détails
                 </button>
               </div>

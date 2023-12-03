@@ -9,8 +9,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Footer() {
-  const [btnContactClique, setBtnContacterClique] = useState(false);
   const navigate = useNavigate();
+
+  const handleClickContact = () => {
+    navigate("Contact");
+  };
+
   return (
     <footer className="lmj-footer">
       <div className="lmj-footer-elem">
@@ -19,11 +23,10 @@ function Footer() {
           <p>Pour les passionné·e·s de pierres 💎💎</p>
           <button
             className="btn-footer-contact"
-            onClick={() => setBtnContacterClique(true)}
+            onClick={() => handleClickContact(true)}
           >
             Me contacter
           </button>
-          {btnContactClique ? navigate("Contact") : null}
           <p>© 2023 - Anne-Shopie</p>
           <div className="div-lien-juridique">
             <a href="Mentions-Legales">Mentions Légales - </a>

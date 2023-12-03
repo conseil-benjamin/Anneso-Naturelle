@@ -17,6 +17,7 @@ import ConditionsGenerales from "../pages/ConditionsGenerales/ConditionsGenerale
 import Erreur404 from "../pages/Erreur404/Erreur404";
 import Commandes from "../pages/Commandes/Commandes";
 import Adresses from "../pages/Adresses/Adresses";
+import Panier from "../pages/Panier/Panier";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -49,21 +50,23 @@ function App() {
             </a>
           }
           aPropos={
-            <a href="Apropos" className="lmj-title">
+            <a href="/Apropos" className="lmj-title">
               A propos
             </a>
           }
           contact={
-            <a href="Contact" className="lmj-title">
+            <a href="/Contact" className="lmj-title">
               Contact
             </a>
           }
           panier={
-            <img
-              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701431057/panier.png"
-              alt="La maison jungle"
-              className="lmj-logo"
-            />
+            <a href="/Panier">
+              <img
+                src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701431057/panier.png"
+                alt="Panier"
+                className="lmj-logo"
+              />
+            </a>
           }
         />
         <div className="lmj-layout-inner">
@@ -91,6 +94,10 @@ function App() {
             <Route
               path="conditions-generales"
               element={<ConditionsGenerales />}
+            />
+            <Route
+              path="panier"
+              element={<Panier cart={cart} updateCart={updateCart} />}
             />
             <Route path="/*" element={<Erreur404 />} />
           </Routes>
