@@ -1,0 +1,12 @@
+.div-adresses {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 3em 0 3em 0;
+}
+
+.div-main-page-adresses {
+  display: flex;
+  flex-direction: row;
+}

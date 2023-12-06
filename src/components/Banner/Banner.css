@@ -22,8 +22,10 @@
 .lmj-logo {
   height: 45px;
   width: 45px;
+  transform: scale(
+    1.8
+  );
 }
 
-.btn-profil{
-  
+.btn-profil {
 }

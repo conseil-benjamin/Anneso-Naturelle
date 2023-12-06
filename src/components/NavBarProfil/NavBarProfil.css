@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 15em;
+  margin: 0 18em 0 0;
+  background-color: #ded2b2;
+}
+
+.navbar > button {
+  margin: 0 0 2em 0;
+  width: 10em;
+  height: 2em;
+}

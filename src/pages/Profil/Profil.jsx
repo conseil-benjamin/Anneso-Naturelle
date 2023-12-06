@@ -1,90 +1,107 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
 import "./Profil.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 
 function Profil() {
   const location = useLocation();
-  const {
-    id,
-    nom,
-    prenom,
-    adresses,
-    adresseEmail,
-    mdp,
-    numeroTel,
-    iconProfil,
-  } = location.state || {};
-  const navigate = useNavigate();
+  const { nom, prenom, adresseEmail, numeroTel, iconProfil, civilite } =
+    location.state || {};
+  const option1 = useRef();
+  const option2 = useRef();
 
-  const [infosPersoClique, setInfosPersoClique] = useState(true);
-  const [commandesClique, setCommandesClique] = useState(false);
-  const [adressesClique, setAdressesClique] = useState(false);
+  const [NumeroTelephone, setNumeroTelephone] = useState("");
+  const [Prenom, setPrenom] = useState("");
+  const [Nom, setNom] = useState("");
+  const [AdresseEmail, setAdresseEmail] = useState("");
+  const [Civilite, setCivilite] = useState("");
+  const [IconProfil, setIconProfil] = useState("");
 
-  function deconnect() {
-    localStorage.removeItem("id");
-    navigate("/");
-  }
-
+  // changer son mot de passe
   useEffect(() => {
-    if (commandesClique) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            "http://localhost:5000/api/v1/commandes"
-          );
-          const commandes = await response.json();
-          const commandesFound = commandes.find(
-            ({ idClient }) => id === idClient
-          );
-          navigate("/Profil/commandes", {
-            state: {
-              idCommande: commandesFound.idCommande,
-              date: commandesFound.date,
-              // marche pas fait crash
-              //contenuCommande: commandesFound.contenuCommande,
-              prixTotal: commandesFound.prixTotal,
-            },
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-    }
-  }, [commandesClique]);
-
+    setNumeroTelephone(numeroTel);
+    setPrenom(prenom);
+    setNom(nom);
+    setAdresseEmail(adresseEmail);
+    setCivilite(civilite);
+    setIconProfil(iconProfil);
+    // attribuer check au bon bouton radio (marche pas pour l'instant)
+   // option1.current.value === Civilite ? 
+  }, []);
   return (
-    <div className="div-infos-client">
-      <img src={iconProfil} alt="icone_profil"></img>
-      <div className="navbar-profil">
-        <a
-          href="/Profil/infos-persos"
-          onClick={() => setInfosPersoClique(true)}
-        >
-          Infos personnelles
-        </a>
-        <hr />
-        <hr />
-        <a href="">Mes commandes</a>
-        <button onClick={() => setCommandesClique(true)}>Commandes</button>
-      </div>
-      {infosPersoClique ? (
-        <div className="div-infos-perso">
-          <h2>Identifiant {id}</h2>
-          <h2>Nom : {nom}</h2>
-          <h2>Prénom : {prenom}</h2>
-          <h2>Adresse Email : {adresseEmail}</h2>
-          <h2>Mot de passe : {mdp}</h2>
-          <h2>Numéro de téléphone : {numeroTel}</h2>
+    <>
+      <div className="div-main-profil">
+        <NavBarProfil></NavBarProfil>
+        <div className="div-infos-client">
+          <div className="image-profil-modifier">
+            <img
+              src={iconProfil}
+              alt="icone_profil"
+              width={130}
+              height={130}
+            ></img>
+            <input
+              type="file"
+              onChange={(e) => setIconProfil(e.target.value)}
+            ></input>
+            <img
+              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701823970/Icons/modifier.png"
+              width={24}
+              height={24}
+              id="iconModifier"
+              alt="icone_modifier"
+            ></img>
+          </div>
+
+          <div className="div-infos-perso">
+            <label>Nom</label>
+            <input
+              className="input-login"
+              value={Nom}
+              onChange={(e) => setNom(e.target.value)}
+            />
+            <label>Prénom</label>
+            <input
+              className="input-login"
+              value={Prenom}
+              onChange={(e) => setPrenom(e.target.value)}
+            />
+            <label>Adresse Email</label>
+            <input
+              className="input-login"
+              value={AdresseEmail}
+              onChange={(e) => setAdresseEmail(e.target.value)}
+            />
+            <label>Numéro de téléphone</label>
+            <input
+              className="input-login"
+              value={NumeroTelephone}
+              placeholder="Numéro de téléphone"
+              onChange={(e) => setNumeroTelephone(e.target.value)}
+            />
+            <div className="radio-btn-genre">
+              <label>Madame</label>
+              <input
+                type="radio"
+                id="option1"
+                name="options"
+                value="Madame"
+                ref={option1}
+              ></input>
+              <label>Monsieur</label>
+              <input
+                type="radio"
+                id="option2"
+                name="options"
+                value="Monsieur"
+                ref={option2}
+              ></input>
+            </div>
+            <button>Enregistrer Informations</button>
+          </div>
         </div>
-      ) : null}
-      <button className="btn-sign-out" onClick={() => deconnect()}>
-        Se déconnecter
-        <FontAwesomeIcon className="icon-signOut" icon={faSignOutAlt} />
-      </button>
-    </div>
+      </div>
+    </>
   );
 }
 

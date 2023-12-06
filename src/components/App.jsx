@@ -32,7 +32,7 @@ function App() {
         <Banner
           logo={
             <img
-              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322942/Logo.png"
+              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701819626/Logo1.png"
               alt="logo"
               className="lmj-logo"
             />
@@ -64,7 +64,6 @@ function App() {
               <img
                 src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701431057/panier.png"
                 alt="Panier"
-                className="lmj-logo"
               />
             </a>
           }

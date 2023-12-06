@@ -30,5 +30,37 @@
       }
     ],
     "prixTotal": 60.75
+  },
+  {
+    "idCommande": "CMD124",
+    "idClient": "1952781575",
+    "date": "2023-12-05",
+    "contenuCommande": [
+      {
+        "produit": "Nom du produit 1",
+        "prix": 29.99
+      },
+      {
+        "produit": "Nom du produit 3",
+        "prix": 10.75
+      }
+    ],
+    "prixTotal": 40.74
+  },
+  {
+    "idCommande": "CMD790",
+    "idClient": "1952781574",
+    "date": "2023-12-05",
+    "contenuCommande": [
+      {
+        "produit": "Nom du produit 2",
+        "prix": 15.5
+      },
+      {
+        "produit": "Nom du produit 4",
+        "prix": 50.0
+      }
+    ],
+    "prixTotal": 65.5
   }
 ]

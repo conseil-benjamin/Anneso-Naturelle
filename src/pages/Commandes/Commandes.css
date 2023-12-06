@@ -1,0 +1,12 @@
+.div-commandes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3em 0 3em 0;
+}
+
+.div-une-commande {
+  margin: 2em;
+  padding: 2em;
+  margin: 2px solid black;
+}

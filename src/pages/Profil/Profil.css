@@ -1,26 +1,43 @@
-.btn-sign-out {
-  margin: 2em;
-  background-color: #8a6e36;
-  color: #ffffff;
-  padding: 1.5em;
-  border-radius: 20px;
-  transition: all 0.5s;
-}
-
-.icon-signOut {
-  padding: 0 0 0 1em;
-}
-
-.div-infos-client{
+.div-infos-client {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: 3em 0 3em 0;
 }
 
-.navbar-profil{
-  position: relative;
-  top: 0;
-  right: 0;
+.div-main-profil {
+  display: flex;
+  flex-direction: row;
+}
+
+.div-infos-perso {
+  display: flex;
   flex-direction: column;
+}
+
+.div-infos-perso > button {
+  margin: 2em 0 0 0;
+  padding: 0.5em;
+}
+
+.radio-btn-genre {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.div-infos-client > img {
+  margin: 0 0 2em 0;
+}
+
+.image-profil-modifier {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-profil-modifier > input {
+  display: flex;
+  align-items: end;
+  display: none;
 }
