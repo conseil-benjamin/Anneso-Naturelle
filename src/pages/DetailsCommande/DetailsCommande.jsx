@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import "./DetailsCommande.css";
 import { useEffect, useState } from "react";
+import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 
 function DetailsCommande() {
   const { numOrder } = useParams();
@@ -24,6 +25,7 @@ function DetailsCommande() {
 
   return (
     <>
+    <NavBarProfil></NavBarProfil>
       <h2>Commande N°{numOrder}</h2>
       {/*
 

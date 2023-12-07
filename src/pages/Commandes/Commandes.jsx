@@ -27,6 +27,7 @@ function Commandes() {
           {commandes ? (
             tableauObjet.map((commande) => (
               <CardCommande
+                key={commande.idCommande}
                 idCommande={commande.idCommande}
                 date={commande.date}
                 prixTotal={commande.prixTotal}

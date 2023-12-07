@@ -8,6 +8,7 @@ function NavBarProfil() {
   const [infosPersoClique, setInfosPersoClique] = useState(false);
   const [commandesClique, setCommandesClique] = useState(false);
   const [adressesClique, setAdressesClique] = useState(false);
+  const [favorisClique, setFavorisClique] = useState(false);
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
@@ -122,6 +123,30 @@ function NavBarProfil() {
     }
   }, [infosPersoClique]);
 
+  useEffect(() => {
+    if (favorisClique) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:5000/api/v1/favoris/" + clientId
+          );
+          const favoris = await response.json();
+          console.log(favoris);
+          favoris
+            ? navigate("/Profil/favoris/", {
+                state: {
+                  favoris: favoris,
+                },
+              })
+            : navigate("/Profil/favoris/");
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+    }
+  }, [favorisClique]);
+
   return (
     <>
       <div className="navbar">
@@ -133,6 +158,8 @@ function NavBarProfil() {
         </button>
         <hr />
         <button onClick={() => setCommandesClique(true)}>Commandes</button>
+        <hr />
+        <button onClick={() => setFavorisClique(true)}>Favoris</button>
         <hr />
         <button onClick={() => setAdressesClique(true)}>Adresse</button>
         <hr />

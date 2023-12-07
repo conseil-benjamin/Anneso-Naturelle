@@ -1,0 +1,20 @@
+[
+  {
+    "idClient": "1952781575",
+    "coverArticle": "url_de_limage1.jpg",
+    "prixArticle": 29.99,
+    "nomArticle": "Cactus"
+  },
+  {
+    "idClient": "1952781575",
+    "coverArticle": "url_de_limage2.jpg",
+    "prixArticle": 15.5,
+    "nomArticle": "Lila"
+  },
+  {
+    "idClient": "1952781576",
+    "coverArticle": "url_de_limage3.jpg",
+    "prixArticle": 49.99,
+    "nomArticle": "Monstera"
+  }
+]
