@@ -34,20 +34,12 @@ function Login() {
         try {
           const response = await fetch("http://localhost:5000/api/v1/users");
           const users = await response.json();
-          const response2 = await fetch(
-            "http://localhost:5000/api/v1/commandes"
-          );
-          const commandes = await response2.json();
           console.log(users);
-          console.log(commandes);
           const clientFound = users.find(
             ({ adresseEmail, mdp }) =>
               emailValue === adresseEmail && passwordValue === mdp
           );
-          const commandesFound = commandes.find(
-            ({ idClient }) => clientId === idClient
-          );
-          if (clientFound || commandesFound) {
+          if (clientFound) {
             navigate("/Profil/infos-persos", {
               state: {
                 id: clientFound.id,

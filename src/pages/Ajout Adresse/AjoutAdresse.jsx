@@ -105,7 +105,7 @@ function AjoutAdresse() {
   useEffect(() => {}, []);
 */
   return (
-    <div className="body-element">
+    <div className="body-page-addAdresse">
       <NavBarProfil></NavBarProfil>
       <div className="formulaire-ajout-adresse">
         <div className="formulaire-en-colonne" id="form1">

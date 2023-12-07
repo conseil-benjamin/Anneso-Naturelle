@@ -133,6 +133,7 @@ function ShoppingList({ cart, updateCart }) {
                 />
                 <button onClick={() => addToCart(name, price)}>Ajouter</button>
                 <button
+                  id="btn-details-plant"
                   onClick={() =>
                     handleDetailsClique(
                       cover,

@@ -1,13 +1,13 @@
-.body-element{
-    display: flex;
-    flex-direction: row;
+.body-page-addAdresse {
+  display: flex;
+  flex-direction: row;
 }
 
-.formulaire-en-colonne{
-    display: flex;
-    flex-direction: column;
+.formulaire-en-colonne {
+  display: flex;
+  flex-direction: column;
 }
 
-#form1{
-    margin: 2em 0 2em;
+#form1 {
+  margin: 2em 0 2em;
 }

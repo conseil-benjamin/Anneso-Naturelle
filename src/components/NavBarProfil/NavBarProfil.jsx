@@ -11,8 +11,9 @@ function NavBarProfil() {
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
-  const [name, setName] = useState("");
   const isLogged = localStorage.getItem("id");
+  const isName = localStorage.getItem("name");
+  const [name, setName] = useState(isName ? isName : null);
   const [clientId, setClientId] = useState(
     isLogged ? JSON.parse(isLogged) : null
   );
@@ -27,17 +28,20 @@ function NavBarProfil() {
             "http://localhost:5000/api/v1/commandes"
           );
           const commandes = await response.json();
-          const commandesFound = commandes.find(
+          const commandesFound = commandes.filter(
             ({ idClient }) => clientId === idClient
           );
           commandesFound
             ? navigate("/Profil/commandes", {
                 state: {
+                  commandes: commandesFound,
+                  /*
                   idCommande: commandesFound.idCommande,
                   date: commandesFound.date,
                   // marche pas fait crash
                   //contenuCommande: commandesFound.contenuCommande,
                   prixTotal: commandesFound.prixTotal,
+                */
                 },
               })
             : navigate("/Profil/commandes");
@@ -59,7 +63,7 @@ function NavBarProfil() {
             ({ userId }) => clientId === userId
           );
           adressesFound
-            ? navigate("/Profil/adresses", {
+            ? navigate("/Profil/adresses/", {
                 state: {
                   idClient: adressesFound.userId,
                   nom: adressesFound.nomPersonne,
@@ -71,7 +75,7 @@ function NavBarProfil() {
                   pays: adressesFound.adressesFound,
                 },
               })
-            : navigate("/Profil/adresses");
+            : navigate("/Profil/adresses/");
         } catch (error) {
           console.error(error);
         }
@@ -89,7 +93,6 @@ function NavBarProfil() {
           console.log(users);
           const clientFound = users.find(({ id }) => clientId === id);
           if (clientFound) {
-            setName(clientFound.prenom + " " + clientFound.nom);
             navigate("/Profil/infos-persos", {
               state: {
                 id: clientFound.id,
@@ -122,7 +125,9 @@ function NavBarProfil() {
   return (
     <>
       <div className="navbar">
-        <p>Bonjour {name}</p>
+        <h3>
+          <u>Bonjour {name}</u>
+        </h3>
         <button onClick={() => setInfosPersoClique(true)}>
           Mes Informations
         </button>

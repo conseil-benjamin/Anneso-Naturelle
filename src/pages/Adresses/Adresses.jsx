@@ -29,7 +29,9 @@ function Adresses() {
   //!location.state && isLogged ?
 
   useEffect(() => {
-    navigate("/Profil/adresses/addAdresse")
+    if (btnAddAdresseClique) {
+      navigate("/Profil/adresses/addAdresse");
+    }
   }, [btnAddAdresseClique]);
 
   return (

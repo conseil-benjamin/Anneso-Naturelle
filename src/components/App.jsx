@@ -19,6 +19,7 @@ import Commandes from "../pages/Commandes/Commandes";
 import Adresses from "../pages/Adresses/Adresses";
 import Panier from "../pages/Panier/Panier";
 import AjoutAdresse from "../pages/Ajout Adresse/AjoutAdresse";
+import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -65,6 +66,9 @@ function App() {
               <img
                 src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701431057/panier.png"
                 alt="Panier"
+                width={45}
+                height={45}
+                id="icone_panier"
               />
             </a>
           }
@@ -85,6 +89,10 @@ function App() {
               <Route
                 path="/Profil/adresses/addAdresse"
                 element={<AjoutAdresse />}
+              />
+              <Route
+                path="/Profil/commandes/:numOrder"
+                element={<DetailsCommande />}
               />
             </Route>
             <Route path="Register" element={<Register />} />

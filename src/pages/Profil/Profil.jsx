@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 function Profil() {
   const location = useLocation();
-  const { id, nom, prenom, adresseEmail, numeroTel, iconProfil, civilite } =
+  const { nom, prenom, adresseEmail, numeroTel, iconProfil, civilite } =
     location.state || {};
   const option1 = useRef();
   const option2 = useRef();
@@ -16,14 +16,18 @@ function Profil() {
   const [Nom, setNom] = useState("");
   const [AdresseEmail, setAdresseEmail] = useState("");
   const [Civilite, setCivilite] = useState("");
-  const [IconProfil, setIconProfil] = useState("");
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const [idClient, setIdClient] = useState("");
   const [nomPrenom, setNomPrenom] = useState("");
 
   const cookieIdClient = Cookies.get("userId");
   const cookieNomPrenom = Cookies.get("firstAndLastName");
-/*
+
+  localStorage.setItem("name", nom + " " + prenom);
+  /*
   cookieNomPrenom
     ? setIdClient(cookieNomPrenom)
     : Cookies.set("firsAndLastName", nom + "" + prenom, {
@@ -33,7 +37,7 @@ function Profil() {
         sameSite: "strict",
       });
 */
-/*
+  /*
   cookieIdClient
     ? setIdClient(cookieIdClient)
     : Cookies.set("userId", id, {
@@ -50,7 +54,7 @@ function Profil() {
     setNom(nom);
     setAdresseEmail(adresseEmail);
     setCivilite(civilite);
-    setIconProfil(iconProfil);
+
     // attribuer check au bon bouton radio (marche pas pour l'instant)
     // option1.current.value === Civilite ?
   }, []);
@@ -59,27 +63,8 @@ function Profil() {
       <div className="div-main-profil">
         <NavBarProfil></NavBarProfil>
         <div className="div-infos-client">
-          <div className="image-profil-modifier">
-            <img
-              src={iconProfil}
-              alt="icone_profil"
-              width={130}
-              height={130}
-            ></img>
-            <input
-              type="file"
-              onChange={(e) => setIconProfil(e.target.value)}
-            ></input>
-            <img
-              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701823970/Icons/modifier.png"
-              width={24}
-              height={24}
-              id="iconModifier"
-              alt="icone_modifier"
-            ></img>
-          </div>
-
           <div className="div-infos-perso">
+            <h2>Informations principales</h2>
             <label>Nom</label>
             <input
               className="input-login"
@@ -123,8 +108,29 @@ function Profil() {
                 ref={option2}
               ></input>
             </div>
-            <button>Enregistrer Informations</button>
+            <button>Enregistrer modifications</button>
           </div>
+        </div>
+        <div className="div-change-password">
+        <h2>Modifier mon mot de passe</h2>
+          <input
+            className="input-login"
+            value={password}
+            placeholder="Mot de passe actuel"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            className="input-login"
+            value={newPassword}
+            placeholder="Nouveau mot de passe"
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <input
+            className="input-login"
+            value={confirmNewPassword}
+            placeholder="Confirmer nouveau mot de passe"
+            onChange={(e) => setConfirmNewPassword(e.target.value)}
+          />
         </div>
       </div>
     </>

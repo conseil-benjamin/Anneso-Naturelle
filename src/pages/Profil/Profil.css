@@ -41,3 +41,17 @@
   align-items: end;
   display: none;
 }
+
+.div-change-password {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 0 0 3em;
+}
+
+.div-change-password > input {
+  margin: 1em 0 1.5em 0;
+}
+
+.div-change-password > h2 {
+  margin: 1em 0 1em 0;
+}
