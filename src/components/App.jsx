@@ -18,6 +18,7 @@ import Erreur404 from "../pages/Erreur404/Erreur404";
 import Commandes from "../pages/Commandes/Commandes";
 import Adresses from "../pages/Adresses/Adresses";
 import Panier from "../pages/Panier/Panier";
+import AjoutAdresse from "../pages/Ajout Adresse/AjoutAdresse";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -81,6 +82,10 @@ function App() {
               <Route path="/Profil/infos-persos" element={<Profil />} />
               <Route path="/Profil/commandes" element={<Commandes />} />
               <Route path="/Profil/adresses" element={<Adresses />} />
+              <Route
+                path="/Profil/adresses/addAdresse"
+                element={<AjoutAdresse />}
+              />
             </Route>
             <Route path="Register" element={<Register />} />
             <Route path="Apropos" element={<Apropos />} />

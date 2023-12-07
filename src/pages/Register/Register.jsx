@@ -23,7 +23,7 @@ function Register() {
 
   const isLogged = localStorage.getItem("id");
 
-  isLogged ? navigate("/Profil") : console.log("dzqdqz");
+  isLogged ? navigate("/Profil/infos-perso") : console.log("dzqdqz");
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");

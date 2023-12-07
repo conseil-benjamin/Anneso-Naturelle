@@ -22,13 +22,19 @@ function Commandes() {
       <div className="div-main-profil">
         <NavBarProfil></NavBarProfil>
         <div className="div-commandes">
-          <div className="div-une-commande">
-            <h1>Vos Commandes</h1>
-            <h2>Id :{idCommande}</h2>
-            <h2>Date : {date}</h2>
-            <h2>Contenu commande : {contenuCommande}</h2>
-            <h2>Prix total : {prixTotal}</h2>
-          </div>
+          {idCommande ? (
+            <div className="div-une-commande">
+              <h1>Vos Commandes</h1>
+              <h2>Id :{idCommande}</h2>
+              <h2>Date : {date}</h2>
+              <h2>Contenu commande : {contenuCommande}</h2>
+              <h2>Prix total : {prixTotal}</h2>
+            </div>
+          ) : (
+            <div>
+              <h1>Aucune commande pour le moment.</h1>
+            </div>
+          )}
         </div>
       </div>
     </>

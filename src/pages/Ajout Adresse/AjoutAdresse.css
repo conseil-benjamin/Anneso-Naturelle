@@ -1,0 +1,13 @@
+.body-element{
+    display: flex;
+    flex-direction: row;
+}
+
+.formulaire-en-colonne{
+    display: flex;
+    flex-direction: column;
+}
+
+#form1{
+    margin: 2em 0 2em;
+}

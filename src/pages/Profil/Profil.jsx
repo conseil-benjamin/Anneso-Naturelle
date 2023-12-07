@@ -2,10 +2,11 @@ import { useLocation } from "react-router-dom";
 import "./Profil.css";
 import { useState, useEffect, useRef } from "react";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
+import Cookies from "js-cookie";
 
 function Profil() {
   const location = useLocation();
-  const { nom, prenom, adresseEmail, numeroTel, iconProfil, civilite } =
+  const { id, nom, prenom, adresseEmail, numeroTel, iconProfil, civilite } =
     location.state || {};
   const option1 = useRef();
   const option2 = useRef();
@@ -17,6 +18,31 @@ function Profil() {
   const [Civilite, setCivilite] = useState("");
   const [IconProfil, setIconProfil] = useState("");
 
+  const [idClient, setIdClient] = useState("");
+  const [nomPrenom, setNomPrenom] = useState("");
+
+  const cookieIdClient = Cookies.get("userId");
+  const cookieNomPrenom = Cookies.get("firstAndLastName");
+/*
+  cookieNomPrenom
+    ? setIdClient(cookieNomPrenom)
+    : Cookies.set("firsAndLastName", nom + "" + prenom, {
+        expires: 14,
+        secure: true,
+        httpOnly: true,
+        sameSite: "strict",
+      });
+*/
+/*
+  cookieIdClient
+    ? setIdClient(cookieIdClient)
+    : Cookies.set("userId", id, {
+        expires: 14,
+        secure: true,
+        httpOnly: true,
+        sameSite: "strict",
+      });
+*/
   // changer son mot de passe
   useEffect(() => {
     setNumeroTelephone(numeroTel);
@@ -26,7 +52,7 @@ function Profil() {
     setCivilite(civilite);
     setIconProfil(iconProfil);
     // attribuer check au bon bouton radio (marche pas pour l'instant)
-   // option1.current.value === Civilite ? 
+    // option1.current.value === Civilite ?
   }, []);
   return (
     <>

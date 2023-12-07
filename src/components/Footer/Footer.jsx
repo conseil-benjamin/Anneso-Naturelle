@@ -27,7 +27,7 @@ function Footer() {
           >
             Me contacter
           </button>
-          <p>© 2023 - Anne-Shopie</p>
+          <p id="titre-footer">© 2023 - Anne-Shopie</p>
           <div className="div-lien-juridique">
             <a href="Mentions-Legales">Mentions Légales - </a>
             <a href="conditions-utilisations">Conditions d'Utilisation -</a>

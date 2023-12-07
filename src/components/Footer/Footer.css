@@ -54,3 +54,7 @@
   display: flex;
   gap: 1em;
 }
+
+.titre-footer {
+  font-family: "Playfair Display", serif;
+}

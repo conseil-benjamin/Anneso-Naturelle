@@ -30,15 +30,17 @@ function NavBarProfil() {
           const commandesFound = commandes.find(
             ({ idClient }) => clientId === idClient
           );
-          navigate("/Profil/commandes", {
-            state: {
-              idCommande: commandesFound.idCommande,
-              date: commandesFound.date,
-              // marche pas fait crash
-              //contenuCommande: commandesFound.contenuCommande,
-              prixTotal: commandesFound.prixTotal,
-            },
-          });
+          commandesFound
+            ? navigate("/Profil/commandes", {
+                state: {
+                  idCommande: commandesFound.idCommande,
+                  date: commandesFound.date,
+                  // marche pas fait crash
+                  //contenuCommande: commandesFound.contenuCommande,
+                  prixTotal: commandesFound.prixTotal,
+                },
+              })
+            : navigate("/Profil/commandes");
         } catch (error) {
           console.error(error);
         }
@@ -56,18 +58,20 @@ function NavBarProfil() {
           const adressesFound = adresses.find(
             ({ userId }) => clientId === userId
           );
-          navigate("/Profil/adresses", {
-            state: {
-              idClient: adressesFound.userId,
-              nom: adressesFound.nomPersonne,
-              prenom: adressesFound.prenomPersonne,
-              adresse: adressesFound.adresse,
-              codePostal: adressesFound.codePostal,
-              ville: adressesFound.ville,
-              complementAdresse: adressesFound.complementAdresse,
-              pays: adressesFound.adressesFound,
-            },
-          });
+          adressesFound
+            ? navigate("/Profil/adresses", {
+                state: {
+                  idClient: adressesFound.userId,
+                  nom: adressesFound.nomPersonne,
+                  prenom: adressesFound.prenomPersonne,
+                  adresse: adressesFound.adresse,
+                  codePostal: adressesFound.codePostal,
+                  ville: adressesFound.ville,
+                  complementAdresse: adressesFound.complementAdresse,
+                  pays: adressesFound.adressesFound,
+                },
+              })
+            : navigate("/Profil/adresses");
         } catch (error) {
           console.error(error);
         }
@@ -120,7 +124,7 @@ function NavBarProfil() {
       <div className="navbar">
         <p>Bonjour {name}</p>
         <button onClick={() => setInfosPersoClique(true)}>
-          Informations Personnelles
+          Mes Informations
         </button>
         <hr />
         <button onClick={() => setCommandesClique(true)}>Commandes</button>
