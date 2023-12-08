@@ -1,4 +1,5 @@
 import "./CardFavoris.css";
+import PropTypes from "prop-types"; // ES6
 
 function CardFavoris({ coverArticle, prixArticle, nomArticle }) {
   return (
@@ -14,5 +15,10 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle }) {
     </div>
   );
 }
+CardFavoris.propTypes = {
+  coverArticle: PropTypes.string.isRequired,
+  prixArticle: PropTypes.number.isRequired,
+  nomArticle: PropTypes.string.isRequired,
+};
 
 export default CardFavoris;

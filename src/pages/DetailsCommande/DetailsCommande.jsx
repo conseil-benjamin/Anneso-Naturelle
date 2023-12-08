@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import "./DetailsCommande.css";
 import { useEffect, useState } from "react";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 
 function DetailsCommande() {
+  const location = useLocation();
+  const { contenuCommande } = location.state || {};
   const { numOrder } = useParams();
   const [commande, setCommande] = useState([]);
+  const tableauObjet = Object.values(commande);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,24 +26,36 @@ function DetailsCommande() {
     fetchData();
   }, []);
 
+  const produitCommande = contenuCommande.map((commande) => (
+    <>
+      <h2>{commande.produit}</h2>
+      <img
+        src={commande.cover}
+        height={100}
+        width={100}
+        alt="image_produit"
+      ></img>
+      <h3>{commande.prix} €</h3>
+    </>
+  ));
+
   return (
     <>
-    <NavBarProfil></NavBarProfil>
-      <h2>Commande N°{numOrder}</h2>
-      {/*
-
-      <div className="div-commande">
-        {commande ? (
-          commande.map((commandeDetails) => (
-            <h1>{commandeDetails.idCommande}</h1>
-          ))
-        ) : (
-          <div>
-            <h1>Aucune commande pour le moment</h1>
-          </div>
-        )}
+      <div className="div-principal-detailsCommande">
+        <NavBarProfil></NavBarProfil>
+        <div className="div-commandes">
+          <h2>
+            <u>Commande N°{numOrder}</u>
+          </h2>
+          {commande ? (
+            tableauObjet.map((commande, index) => <>{produitCommande[index]}</>)
+          ) : (
+            <div>
+              <h1>Aucune commande pour le moment</h1>
+            </div>
+          )}
+        </div>
       </div>
-      */}
     </>
   );
 }

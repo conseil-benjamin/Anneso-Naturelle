@@ -31,6 +31,7 @@ function Commandes() {
                 idCommande={commande.idCommande}
                 date={commande.date}
                 prixTotal={commande.prixTotal}
+                contenuCommande={commande.contenuCommande}
               ></CardCommande>
             ))
           ) : (

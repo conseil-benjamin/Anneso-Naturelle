@@ -1,0 +1,12 @@
+.div-commandes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-principal-detailsCommande{
+    display: flex;
+    flex-direction: row;
+}
+

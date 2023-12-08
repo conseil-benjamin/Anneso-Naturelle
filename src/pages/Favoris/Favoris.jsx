@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import "./Favoris.css";
 import CardFavoris from "../../components/CardFavoris/CardFavoris";
+import PropTypes from "prop-types"; // ES6
 
 function Favoris() {
   const location = useLocation();

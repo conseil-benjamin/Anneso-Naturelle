@@ -23,9 +23,11 @@ function Profil() {
   const [idClient, setIdClient] = useState("");
   const [nomPrenom, setNomPrenom] = useState("");
 
+  /* Cookies - Marche pas trop - a voir plus tard
   const cookieIdClient = Cookies.get("userId");
   const cookieNomPrenom = Cookies.get("firstAndLastName");
 
+  */
   localStorage.setItem("name", nom + " " + prenom);
   /*
   cookieNomPrenom
@@ -112,7 +114,7 @@ function Profil() {
           </div>
         </div>
         <div className="div-change-password">
-        <h2>Modifier mon mot de passe</h2>
+          <h2>Modifier mon mot de passe</h2>
           <input
             className="input-login"
             value={password}

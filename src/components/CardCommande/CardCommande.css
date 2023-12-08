@@ -5,6 +5,7 @@
   border: 2px solid black;
   margin: 1em 1em 2em 1em;
   width: 25em;
+  border-radius: 15px;
 }
 
 .container-left,
