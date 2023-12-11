@@ -1,0 +1,41 @@
+@import "../../styles/colors.scss";
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 15em;
+  margin: 0 18em 0 0;
+  background-color: $dark-moss-green;
+  color: #ffff;
+  border-radius: 0 10px 10px 0;
+}
+
+.navbar > button {
+  margin: 0 0 0 0;
+  width: 80%;
+  background-color: transparent; /* ou background-color: initial; */
+  border: 1px solid #000; /* Ajoutez une bordure si nécessaire */
+  color: #000; /* Couleur du texte */
+  padding: 10px 15px; /* Ajoutez un rembourrage pour le style du bouton */
+  text-decoration: none; /* Supprimez la soulignement du texte si le bouton est utilisé comme lien */
+  display: inline-block; /* Permet au bouton de se comporter comme un élément en ligne avec des propriétés de bloc */
+  cursor: pointer;
+  border: none;
+  font-size: 1.25em;
+  color: white;
+}
+
+.navbar > button:hover {
+  color: white; /* Change la couleur du texte au survol */
+  background-color: #394049; /* Change la couleur de fond au survol */
+}
+
+.navbar > hr {
+  width: 80%;
+}
+
+.navbar > h3 {
+  margin: 1em 0 3em 0;
+}

@@ -9,6 +9,7 @@
 .div-main-profil {
   display: flex;
   flex-direction: row;
+  background-color: #fefae0;
 }
 
 .div-infos-perso {
@@ -54,4 +55,4 @@
 
 .div-change-password > h2 {
   margin: 1em 0 1em 0;
-}
+}/*# sourceMappingURL=Profil.css.map */

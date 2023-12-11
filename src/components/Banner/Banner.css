@@ -1,6 +1,6 @@
 .lmj-banner {
-  background-color: #ded2b2;
-  color: black;
+  background-color: #606c38;
+  color: white;
   text-align: right;
   padding: 32px;
   border-bottom: solid 3px black;
@@ -8,7 +8,6 @@
   justify-content: space-evenly;
   flex-direction: row;
   align-items: center;
-  top: 0;
   width: 100%;
   height: 1.75em;
   z-index: 1;
@@ -22,11 +21,9 @@
 .lmj-logo {
   height: 45px;
   width: 45px;
-  transform: scale(
-    1.8
-  );
+  transform: scale(1.8);
 }
 
-#icone_panier{
+#icone_panier {
   margin: 0 0 0 1em;
-}
+}/*# sourceMappingURL=Banner.css.map */

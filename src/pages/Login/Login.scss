@@ -1,0 +1,54 @@
+@import "../../styles/colors.scss";
+
+.body-element {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $cornsilk;
+}
+
+.input-login {
+  padding: 0.8em;
+  margin: 0 0 1em 0;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.btn-login {
+  margin: 2em;
+  background-color: $pakistan-green;
+  color: #ffffff;
+  padding: 1.5em;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+
+.icon-signIn {
+  padding: 0 0 0 1em;
+}
+
+.btn-login:hover {
+  background-color: #ded2b2;
+  color: #000000;
+}
+
+.div-password {
+  margin: 0 0 0 3em;
+}
+
+.div-password > button {
+  margin: 0 0 0 1.5em;
+}
+
+.bold-text {
+  font-weight: bold;
+  margin: 0 0 0 0.5em;
+}
+
+.div-text-bold {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

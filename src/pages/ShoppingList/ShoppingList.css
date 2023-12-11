@@ -1,13 +1,15 @@
 .lmj-shopping-list {
+  background-color: #fefae0;
   width: 100%;
 }
 
 .lmj-plant-list {
   list-style-type: none;
-  padding: 32px;
+  padding: 2em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0;
 }
 
 .button-56 {
@@ -29,7 +31,8 @@
   position: relative;
   text-align: center;
   text-decoration: none;
-  user-select: none;
+  -moz-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
 }
@@ -62,6 +65,11 @@
   outline: 0;
 }
 
-#btn-details-plant{
-  margin: 0 0 0 1em;
+button {
+  background-color: #283618;
+  color: white;
 }
+
+#btn-details-plant {
+  margin: 0 0 0 1em;
+}/*# sourceMappingURL=ShoppingList.css.map */

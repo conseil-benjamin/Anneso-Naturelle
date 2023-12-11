@@ -108,7 +108,7 @@ function Register() {
   useEffect(() => {}, []);
 
   return (
-    <div className="body-element">
+    <div className="body-element-register">
       <h1>Création de compte</h1>
       <input
         className="input-login"

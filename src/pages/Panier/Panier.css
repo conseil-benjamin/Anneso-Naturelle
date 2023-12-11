@@ -1,18 +1,27 @@
-.panier {
+.body-element-panier {
+  background-color: #fefae0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-
-.div-1-element-panier {
+.body-element-panier h1 {
+  margin: 0;
+  padding: 1.5em;
+}
+.body-element-panier .div-1-element-panier {
   display: flex;
   flex-direction: row;
   margin: 0 0 3em 0;
   border: 2px solid black;
   padding: 3em;
 }
-
-.div-1-element-panier > select {
+.body-element-panier .div-1-element-panier > select {
   margin: 0 3em 0 1em;
 }
+.body-element-panier .div-panier-vide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5em;
+}/*# sourceMappingURL=Panier.css.map */

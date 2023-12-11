@@ -1,0 +1,16 @@
+@import "../../styles/colors.scss";
+
+.body-page-addAdresse {
+  display: flex;
+  flex-direction: row;
+  background-color: $cornsilk;
+}
+
+.formulaire-en-colonne {
+  display: flex;
+  flex-direction: column;
+}
+
+#form1 {
+  margin: 2em 0 2em;
+}

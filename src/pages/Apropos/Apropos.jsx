@@ -3,8 +3,8 @@ import "./Apropos.css";
 function Apropos() {
   return (
     <>
-      <h1>Anne Sophie</h1>
       <div className="div-text-aPropos">
+        <h1>Anne Sophie</h1>
         <p>
           Je m’appelle Anne-Sophie, j’ai 50 ans. J’ai découvert l’univers des
           Pierres naturelles il y a 10 ans. <br />

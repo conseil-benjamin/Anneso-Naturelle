@@ -21,6 +21,7 @@ import Panier from "../pages/Panier/Panier";
 import AjoutAdresse from "../pages/Ajout Adresse/AjoutAdresse";
 import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 import Favoris from "../pages/Favoris/Favoris";
+import HomePage from "../pages/HomePage/HomePage";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -113,6 +114,10 @@ function App() {
               path="panier"
               element={<Panier cart={cart} updateCart={updateCart} />}
             />
+            <Route
+              path="collections"
+              element=<ShoppingList cart={cart} updateCart={updateCart} />
+            />
             <Route path="/*" element={<Erreur404 />} />
           </Routes>
         </div>
@@ -125,8 +130,11 @@ function App() {
 function Home({ cart, updateCart }) {
   return (
     <>
+      {/*
       <Cart cart={cart} updateCart={updateCart} />
-      <ShoppingList cart={cart} updateCart={updateCart} />
+      */}
+
+      <HomePage></HomePage>
     </>
   );
 }

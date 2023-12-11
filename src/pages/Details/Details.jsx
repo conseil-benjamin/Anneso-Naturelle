@@ -11,7 +11,7 @@ function Details() {
   return (
     <div className="bodyElementDetails">
       <div className="return">
-        <Link to="/">
+        <Link to="/collections">
           <img
             src={
               "https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322943/Icon_retour_arriere.png"
@@ -40,7 +40,7 @@ function Details() {
       </div>
       <div className="div-Btn-Commande">
         <button class="button-56" role="button">
-          Commander
+          Ajouter au panier
         </button>
       </div>
     </div>

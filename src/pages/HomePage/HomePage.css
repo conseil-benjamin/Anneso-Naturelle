@@ -1,0 +1,27 @@
+.first-page-accueil-body {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefae0;
+  display: flex;
+  justify-content: end;
+  padding: 9em;
+}
+.first-page-accueil-body .background-text-accueil {
+  background-color: #bc6c25;
+  border-radius: 20px;
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+.first-page-accueil-body .img_accueil {
+  z-index: 2;
+  border-radius: 225.275px 225.275px 0px 0px;
+  background-image: url("../../Images/Rectangle 7.png");
+}
+.first-page-accueil-body .text-div-accueil {
+  display: flex;
+  flex-direction: column;
+}
+.first-page-accueil-body .braceletAccueil {
+  transform: rotate(45deg);
+}/*# sourceMappingURL=HomePage.css.map */

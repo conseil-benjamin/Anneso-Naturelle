@@ -1,0 +1,10 @@
+@import "../../styles/colors.scss";
+
+.body-element-register {
+  padding: 2em 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $cornsilk;
+}

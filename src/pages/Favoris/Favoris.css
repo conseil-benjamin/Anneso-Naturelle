@@ -1,9 +1,10 @@
-.body-page-favoris{
-    display: flex;
-    flex-direction: row;
+.body-page-favoris {
+  display: flex;
+  flex-direction: row;
+  background-color: #fefae0;
 }
 
-.container-right-favoris{
-    display: flex;
-    flex-direction: column;
-}
+.container-right-favoris {
+  display: flex;
+  flex-direction: column;
+}/*# sourceMappingURL=Favoris.css.map */

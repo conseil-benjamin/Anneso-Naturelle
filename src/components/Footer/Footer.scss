@@ -1,0 +1,63 @@
+@import "../../styles/colors.scss";
+@import "../../styles/index.scss";
+
+.lmj-footer {
+  background-color: $dark-moss-green;
+  color: white;
+  padding: 32px;
+  border-top: solid 3px black;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.lmj-footer-elem {
+  margin-bottom: 10px;
+}
+
+.icon-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.iconSocial {
+  height: 1.5em;
+  margin: 1em 0 0 2em;
+}
+
+.footer-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.btn-footer-contact {
+  color: #ffffff;
+  padding: 1.5em;
+  border-radius: 20px;
+  transition: all 0.5s;
+  margin: 2em 0 2em 0;
+}
+
+.btn-footer-contact:hover {
+  background-color: #ded2b2;
+  color: #000000;
+}
+
+.div-lien-juridique {
+  color: white;
+  display: flex;
+  gap: 1em;
+}
+
+.titre-footer {
+  font-family: "Playfair Display", serif;
+}

@@ -11,8 +11,10 @@
   padding: 1.5em;
   border-radius: 20px;
   transition: all 0.5s;
+  background-color: #283618;
+  color: white;
 }
 
 .icon-signOut {
   padding: 0 0 0 1em;
-}
+}/*# sourceMappingURL=ButtonSignOut.css.map */

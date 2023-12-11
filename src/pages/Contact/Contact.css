@@ -2,26 +2,27 @@
   display: flex;
   flex-direction: row;
   height: 80vh;
-  background-color: #ded2b2;
+  background-color: #fefae0;
 }
 
-.img-contact{
+.img-contact {
   margin: 2.5em 0 5em 2em;
   height: 70vh;
   width: 40%;
-  object-fit:fill;
+  -o-object-fit: fill;
+     object-fit: fill;
 }
 
-.input-contact{
+.input-contact {
   display: flex;
   flex-direction: column;
   margin: 5em 0 0 2em;
 }
 
-.input-contact > input{
+.input-contact > input {
   padding: 0.8em;
   margin: 0 0 1em 0;
   width: 30em;
   border-radius: 10px;
   margin: 0 0 4em 0;
-}
+}/*# sourceMappingURL=Contact.css.map */

@@ -1,6 +1,7 @@
 .body-page-addAdresse {
   display: flex;
   flex-direction: row;
+  background-color: #fefae0;
 }
 
 .formulaire-en-colonne {
@@ -10,4 +11,4 @@
 
 #form1 {
   margin: 2em 0 2em;
-}
+}/*# sourceMappingURL=AjoutAdresse.css.map */

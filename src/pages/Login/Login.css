@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #fefae0;
 }
 
 .input-login {
@@ -15,7 +16,7 @@
 
 .btn-login {
   margin: 2em;
-  background-color: #8a6e36;
+  background-color: #283618;
   color: #ffffff;
   padding: 1.5em;
   border-radius: 20px;
@@ -44,8 +45,8 @@
   margin: 0 0 0 0.5em;
 }
 
-.div-text-bold{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+.div-text-bold {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}/*# sourceMappingURL=Login.css.map */

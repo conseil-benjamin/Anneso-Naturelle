@@ -1,0 +1,31 @@
+@import "../../styles/colors.scss";
+
+.body-element-panier {
+  background-color: $cornsilk;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h1 {
+    margin: 0;
+    padding: 1.5em;
+  }
+  .div-1-element-panier {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 3em 0;
+    border: 2px solid black;
+    padding: 3em;
+  }
+
+  .div-1-element-panier > select {
+    margin: 0 3em 0 1em;
+  }
+
+  .div-panier-vide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5em;
+  }
+}

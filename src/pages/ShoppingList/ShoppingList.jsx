@@ -17,7 +17,6 @@ function ShoppingList({ cart, updateCart }) {
       try {
         const response = await fetch("http://localhost:5000/api/v1/products");
         const plantList = await response.json();
-        console.log(plantList);
         setPlantList(plantList);
       } catch (error) {
         console.error(error);

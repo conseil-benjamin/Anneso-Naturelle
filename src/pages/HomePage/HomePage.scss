@@ -1,0 +1,31 @@
+@import "../../styles/colors.scss";
+
+.first-page-accueil-body {
+  display: flex;
+  flex-direction: column;
+  background-color: $cornsilk;
+  display: flex;
+  justify-content: end;
+  padding: 9em;
+  .background-text-accueil {
+    background-color: $tigers-eye;
+    border-radius: 20px;
+    padding: 2em;
+    display: flex;
+    justify-content: space-between;
+  }
+  .img-div-accueil {
+  }
+  .img_accueil {
+    z-index: 2;
+    border-radius: 225.275px 225.275px 0px 0px;
+    background-image: url("../../Images/Rectangle 7.png");
+  }
+  .text-div-accueil {
+    display: flex;
+    flex-direction: column;
+  }
+  .braceletAccueil {
+    transform: rotate(45deg);
+  }
+}

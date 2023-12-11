@@ -49,7 +49,7 @@ function Banner({ logo, collection, aPropos, contact, panier }) {
     <>
       <div className="lmj-banner">
         <Link to="/">{logo}</Link>
-        {collection}
+        <Link to="/collections">{collection}</Link>
         {aPropos}
         {contact}
         <div className="icon-header">

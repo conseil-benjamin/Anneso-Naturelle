@@ -1,0 +1,31 @@
+@import "../../styles/colors.css";
+
+.lmj-banner {
+  background-color: $dark-moss-green;
+  color: white;
+  text-align: right;
+  padding: 32px;
+  border-bottom: solid 3px black;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 1.75em;
+  z-index: 1;
+}
+
+.lmj-title {
+  padding-left: 32px;
+  font-size: 1.25rem;
+}
+
+.lmj-logo {
+  height: 45px;
+  width: 45px;
+  transform: scale(1.8);
+}
+
+#icone_panier {
+  margin: 0 0 0 1em;
+}

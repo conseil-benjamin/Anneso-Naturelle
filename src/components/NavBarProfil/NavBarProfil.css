@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .navbar {
   display: flex;
   align-items: center;
@@ -5,9 +6,9 @@
   flex-direction: column;
   width: 15em;
   margin: 0 18em 0 0;
-  background-color: #2d333b;
-  border-radius: 0 10px 10px 0;
+  background-color: #606c38;
   color: white;
+  border-radius: 0 10px 10px 0;
 }
 
 .navbar > button {
@@ -30,10 +31,10 @@
   background-color: #394049; /* Change la couleur de fond au survol */
 }
 
-.navbar > hr{
-  width: 80%
+.navbar > hr {
+  width: 80%;
 }
 
-.navbar > h3{
+.navbar > h3 {
   margin: 1em 0 3em 0;
-}
+}/*# sourceMappingURL=NavBarProfil.css.map */

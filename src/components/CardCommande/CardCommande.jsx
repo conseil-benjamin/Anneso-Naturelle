@@ -42,6 +42,7 @@ CardCommande.propTypes = {
   idCommande: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   prixTotal: PropTypes.number.isRequired,
+  contenuCommande: PropTypes.object.isRequired,
 };
 
 export default CardCommande;

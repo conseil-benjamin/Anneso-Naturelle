@@ -1,0 +1,60 @@
+@import "../../styles/colors.scss";
+
+.div-infos-client {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 3em 0 3em 0;
+}
+
+.div-main-profil {
+  display: flex;
+  flex-direction: row;
+  background-color: $cornsilk;
+}
+
+.div-infos-perso {
+  display: flex;
+  flex-direction: column;
+}
+
+.div-infos-perso > button {
+  margin: 2em 0 0 0;
+  padding: 0.5em;
+}
+
+.radio-btn-genre {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.div-infos-client > img {
+  margin: 0 0 2em 0;
+}
+
+.image-profil-modifier {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-profil-modifier > input {
+  display: flex;
+  align-items: end;
+  display: none;
+}
+
+.div-change-password {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 0 0 3em;
+}
+
+.div-change-password > input {
+  margin: 1em 0 1.5em 0;
+}
+
+.div-change-password > h2 {
+  margin: 1em 0 1em 0;
+}

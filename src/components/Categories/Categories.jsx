@@ -36,12 +36,12 @@ function Categories({
       </select>
       {triageActive ? (
         <button onClick={() => setActiveTriage("")}>
-          Réinitialiser Filtre
+          Réinitialiser Trie
         </button>
       ) : null}
       {activeCategory ? (
         <button onClick={() => setActiveCategory("")}>
-          Réinitialiser Trie
+          Réinitialiser Filtre
         </button>
       ) : null}
     </div>

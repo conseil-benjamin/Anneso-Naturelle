@@ -35,6 +35,7 @@ function Login() {
           const response = await fetch("http://localhost:5000/api/v1/users");
           const users = await response.json();
           console.log(users);
+          // loader pendant la recherce d'un compte
           const clientFound = users.find(
             ({ adresseEmail, mdp }) =>
               emailValue === adresseEmail && passwordValue === mdp
@@ -54,6 +55,7 @@ function Login() {
             });
             localStorage.setItem("id", JSON.stringify(clientFound.id));
           } else {
+            // loader pendant la recherce d'un compte
             Swal.fire({
               text: "Compte non trouvé avec cette combinaison email/mot de passe",
               icon: "error",

@@ -1,0 +1,12 @@
+@import "../../styles/colors.scss";
+
+.body-page-favoris {
+  display: flex;
+  flex-direction: row;
+  background-color: $cornsilk;
+}
+
+.container-right-favoris {
+  display: flex;
+  flex-direction: column;
+}
