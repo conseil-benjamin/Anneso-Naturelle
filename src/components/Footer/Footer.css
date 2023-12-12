@@ -90,9 +90,11 @@ html {
 }
 
 .div-lien-juridique {
-  color: white;
   display: flex;
   gap: 1em;
+}
+.div-lien-juridique a {
+  color: white;
 }
 
 .titre-footer {

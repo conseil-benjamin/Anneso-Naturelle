@@ -35,7 +35,7 @@ function Categories({
         <option value={"plusLumiere"}>Plus de lumière</option>
       </select>
       {triageActive ? (
-        <button onClick={() => setActiveTriage("")}>
+        <button id="btn-trie" onClick={() => setActiveTriage("")}>
           Réinitialiser Trie
         </button>
       ) : null}

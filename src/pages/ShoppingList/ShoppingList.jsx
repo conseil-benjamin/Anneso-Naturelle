@@ -129,8 +129,11 @@ function ShoppingList({ cart, updateCart }) {
                   light={light}
                   price={price}
                   description={description}
+                  category={category}
                 />
-                <button onClick={() => addToCart(name, price)}>Ajouter</button>
+                <button onClick={() => addToCart(name, price)} id="btn-ajouter">
+                  Ajouter
+                </button>
                 <button
                   id="btn-details-plant"
                   onClick={() =>

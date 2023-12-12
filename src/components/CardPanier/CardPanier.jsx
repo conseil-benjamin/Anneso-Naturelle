@@ -10,7 +10,7 @@ function CardPanier({ name, price, amount, index }) {
     updateCart(updatedCart);
     window.location.reload();
   };
-  const [amountElement, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -19,20 +19,26 @@ function CardPanier({ name, price, amount, index }) {
     (acc, plantType) => acc + plantType.amount * plantType.price,
     0
   );
+
   useEffect(() => {
+    updateCart([{ name, price, amount: selectedValue }]);
     localStorage.setItem("cart", JSON.stringify(cart));
-  }, [total]);
+    console.log(total);
+    //selectedValue !== amountElement ?
+    //window.location.reload();
+  }, [selectedValue]);
 
   return (
     /**
      * ! Problème choix nombre plantes, total n'incrémente pas
+     * ! Problème prix, il incrémente mal
      */
     <>
       <div className="main-panier-page">
         <h4 className="name-element">{name}</h4>
         <h4>{price} €</h4>
         <select
-          value={amountElement}
+          value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
         >
           <option value={amount}>{amount}</option>

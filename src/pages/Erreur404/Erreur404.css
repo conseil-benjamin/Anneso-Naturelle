@@ -1,4 +1,21 @@
-body {
-  background-image: url("../../../public/icons/Rectangle.png"),
-    lightgray 0% 0% / 100px 100px repeat;
+.body-erreur-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-image: url("../../Images/Rectangle.png");
+  .container-right-erreur {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .erreur404 {
+    margin: 0;
+    padding: 0;
+    font-size: 5rem;
+  }
+  .btn-back-to-home{
+    padding: 1em;
+  }
 }

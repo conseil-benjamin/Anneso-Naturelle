@@ -1,10 +1,37 @@
 @import "../../styles/colors.scss";
 
+.bodyElementDetails {
+  background-color: $cornsilk;
+  display: flex;
+  flex-direction: row;
+  padding: 0 0 2em 0;
+  margin: 0;
+  .return-to-collection {
+    img{
+      margin: 1em;
+    }
+  }
+  .container-left-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10em 0 2em;
+    #image_produit {
+      transform: rotate(345deg);
+      width: 25em;
+      height: 25em;
+    }
+  }
+}
+
 .details-list {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  .description{
+    max-width: 30rem;
+  }
 }
 
 .return {
@@ -13,14 +40,6 @@
 
 img {
   border-radius: 30px;
-}
-
-.bodyElementDetails {
-  background-color: $cornsilk;
-}
-
-.description {
-  margin: 3rem 20rem 0 20em;
 }
 
 .careScaleDetails {
@@ -51,7 +70,7 @@ img {
   justify-content: center;
   line-height: 24px;
   max-width: 100%;
-  padding: 0 25px;
+  margin: 2em 0 0 0;
   position: relative;
   text-align: center;
   text-decoration: none;

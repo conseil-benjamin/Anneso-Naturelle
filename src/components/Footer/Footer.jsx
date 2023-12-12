@@ -19,7 +19,7 @@ function Footer() {
       <div className="lmj-footer-elem">
         <div className="footer-text">
           <h2 className="titre-footer">Anne'so Naturelle</h2>
-          <p>Pour les passionné·e·s de pierres 💎💎</p>
+          <p className="titre-footer">Chaque bijou raconte une histoire</p>
           <button
             className="btn-footer-contact"
             onClick={() => handleClickContact(true)}

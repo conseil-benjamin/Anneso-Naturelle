@@ -22,6 +22,8 @@ import AjoutAdresse from "../pages/Ajout Adresse/AjoutAdresse";
 import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 import Favoris from "../pages/Favoris/Favoris";
 import HomePage from "../pages/HomePage/HomePage";
+import panier from "../Images/icons8-basket-48.png";
+import clientIcon from "../Images/icons8-user-48.png";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -41,37 +43,24 @@ function App() {
               className="lmj-logo"
             />
           }
-          clientIcon={
-            <img
-              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1700332931/Icon_user.png"
-              alt="icon_profil"
-              className="lmj-logo"
-            />
-          }
           collection={
-            <a href="/" className="lmj-title">
+            <a href="/" className="lmj-title" style={{ color: "white" }}>
               Collections
             </a>
           }
           aPropos={
-            <a href="/Apropos" className="lmj-title">
+            <a href="/Apropos" className="lmj-title" style={{ color: "white" }}>
               A propos
             </a>
           }
           contact={
-            <a href="/Contact" className="lmj-title">
+            <a href="/Contact" className="lmj-title" style={{ color: "white" }}>
               Contact
             </a>
           }
           panier={
             <a href="/Panier">
-              <img
-                src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701431057/panier.png"
-                alt="Panier"
-                width={45}
-                height={45}
-                id="icone_panier"
-              />
+              <img src={panier} alt="Panier" id="icone_panier" />
             </a>
           }
         />
@@ -82,8 +71,11 @@ function App() {
               path="/"
               element={<Home cart={cart} updateCart={updateCart} />}
             />{" "}
-            <Route path="/Details" element={<Details />} />
-            <Route path="/Login" element={<Login />} />
+            <Route
+              path="/Details"
+              element={<Details cart={cart} updateCart={updateCart} />}
+            />
+            <Route path="/login" element={<Login />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/Profil/infos-persos" element={<Profil />} />
               <Route path="/Profil/commandes" element={<Commandes />} />
@@ -133,7 +125,6 @@ function Home({ cart, updateCart }) {
       {/*
       <Cart cart={cart} updateCart={updateCart} />
       */}
-
       <HomePage></HomePage>
     </>
   );

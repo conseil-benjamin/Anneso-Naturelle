@@ -1,9 +1,7 @@
-@import "../../styles/colors.css";
+@import "../../styles/colors.scss";
 
 .lmj-banner {
   background-color: $dark-moss-green;
-  color: white;
-  text-align: right;
   padding: 32px;
   border-bottom: solid 3px black;
   display: flex;
@@ -13,6 +11,12 @@
   width: 100%;
   height: 1.75em;
   z-index: 1;
+  transition: top 0.3s;
+  // position: fixed;
+  //top: 0;
+  a{
+    color: white;
+  }
 }
 
 .lmj-title {

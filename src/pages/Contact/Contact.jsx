@@ -1,7 +1,9 @@
 import "./Contact.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMobileAndroidAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMobileAndroidAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import dame from "../../Images/dame_assise.png";
+import cactus from "../../Images/cactus.png";
 function Contact() {
   const [email, setEmail] = useState("");
   const [nomPrenom, setNomPrenom] = useState("");
@@ -9,11 +11,13 @@ function Contact() {
 
   return (
     <div className="body-page-contact">
-      <img
-        className="img-contact"
-        src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701177724/Contact/contact.jpg"
-      ></img>
+      <div className="images">
+        <img src={cactus} alt="cactus" width={150} height={300}></img>
+        <img src={dame} alt="image_dame" width={500} height={500}></img>
+      </div>
       <div className="input-contact">
+        <h1>Me contacter</h1>
+
         <input
           placeholder="Nom Prénom"
           value={nomPrenom}
@@ -24,14 +28,14 @@ function Contact() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></input>
-        <input
+        <textarea
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-        ></input>
+        ></textarea>
         <button className="btn-login">
           Me contacter
-          <FontAwesomeIcon icon={faMobileAndroidAlt} className="icon-signIn" />
+          <FontAwesomeIcon icon={faEnvelope} className="icon-signIn" />
         </button>
       </div>
     </div>

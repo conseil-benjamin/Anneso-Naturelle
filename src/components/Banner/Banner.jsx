@@ -54,7 +54,7 @@ function Banner({ logo, collection, aPropos, contact, panier }) {
         {contact}
         <div className="icon-header">
           <img
-            src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1700332931/Icon_user.png"
+            src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1702409603/icon_user_white.png"
             onClick={() => setProfilClique(true)}
           />
           {panier}

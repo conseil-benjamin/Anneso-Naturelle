@@ -5,13 +5,16 @@ import CardPanier from "../../components/CardPanier/CardPanier";
 function Panier() {
   const savedCart = localStorage.getItem("cart");
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   const total = cart.reduce(
     (acc, plantType) => acc + plantType.amount * plantType.price,
     0
   );
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  }, [total]);
 
   return (
     <>
