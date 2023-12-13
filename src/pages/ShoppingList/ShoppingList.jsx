@@ -26,6 +26,7 @@ function ShoppingList({ cart, updateCart }) {
   }, []);
 
   const handleDetailsClique = (
+    id,
     cover,
     name,
     water,
@@ -34,8 +35,9 @@ function ShoppingList({ cart, updateCart }) {
     description,
     category
   ) => {
-    navigate("/Details", {
+    navigate("/Details/" + id, {
       state: {
+        id: id,
         cover: cover,
         name: name,
         water: water,
@@ -123,6 +125,7 @@ function ShoppingList({ cart, updateCart }) {
             !activeCategory || activeCategory === category ? (
               <div key={id} className="btn-plant">
                 <PlantItem
+                  id={id}
                   cover={cover}
                   name={name}
                   water={water}
@@ -138,6 +141,7 @@ function ShoppingList({ cart, updateCart }) {
                   id="btn-details-plant"
                   onClick={() =>
                     handleDetailsClique(
+                      id,
                       cover,
                       name,
                       water,

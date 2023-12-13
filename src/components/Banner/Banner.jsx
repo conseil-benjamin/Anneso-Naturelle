@@ -1,4 +1,4 @@
-import "./Banner.css";
+import "./Banner.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 

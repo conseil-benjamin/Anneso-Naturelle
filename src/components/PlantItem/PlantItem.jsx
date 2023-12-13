@@ -3,6 +3,7 @@ import CareScale from "../CareScale/CareScale";
 import "./PlantItem.css";
 
 function PlantItem({
+  id,
   cover,
   name,
   water,
@@ -21,8 +22,9 @@ function PlantItem({
     description,
     category
   ) => {
-    navigate("/Details", {
+    navigate("/Details/" + id, {
       state: {
+        id: id,
         cover: cover,
         name: name,
         water: water,

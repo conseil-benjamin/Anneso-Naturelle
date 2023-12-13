@@ -72,7 +72,7 @@ function App() {
               element={<Home cart={cart} updateCart={updateCart} />}
             />{" "}
             <Route
-              path="/Details"
+              path="/Details/:id"
               element={<Details cart={cart} updateCart={updateCart} />}
             />
             <Route path="/login" element={<Login />} />

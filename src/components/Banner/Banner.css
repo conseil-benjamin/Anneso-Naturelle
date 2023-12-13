@@ -9,10 +9,6 @@
   width: 100%;
   height: 1.75em;
   z-index: 1;
-  transition: top 0.3s;
-}
-.lmj-banner a {
-  color: white;
 }
 
 .lmj-title {

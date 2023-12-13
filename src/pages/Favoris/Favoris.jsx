@@ -9,6 +9,7 @@ function Favoris() {
   const { favoris } = location.state || {};
 
   const tableauObjet = Object.values(favoris);
+  console.log(tableauObjet);
 
   return (
     <div className="body-page-favoris">
@@ -22,6 +23,7 @@ function Favoris() {
               coverArticle={favori.coverArticle}
               prixArticle={favori.prixArticle}
               nomArticle={favori.nomArticle}
+              idProduct={favori.idProduct}
             ></CardFavoris>
           ))
         ) : (
