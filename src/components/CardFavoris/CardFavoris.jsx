@@ -8,6 +8,25 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
+  const handleDeleteFavorite = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/v1/favoris/delete/" + idProduct,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Données supprimé avec succès!");
+      } else {
+        console.error("Erreur lors de la suppression des données.");
+      }
+    } catch (error) {
+      console.error("Erreur de connexion au serveur:", error);
+    }
+  };
+
   useEffect(() => {
     if (imageClique) {
       const fetchData = async () => {
@@ -58,7 +77,7 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
       </div>
       <div className="container-right">
         <h4>{nomArticle}</h4>
-        <button>Supprimer</button>
+        <button onClick={() => handleDeleteFavorite()}>Supprimer</button>
       </div>
     </div>
   );
@@ -67,6 +86,7 @@ CardFavoris.propTypes = {
   coverArticle: PropTypes.string.isRequired,
   prixArticle: PropTypes.number.isRequired,
   nomArticle: PropTypes.string.isRequired,
+  idProduct: PropTypes.string.isRequired,
 };
 
 export default CardFavoris;

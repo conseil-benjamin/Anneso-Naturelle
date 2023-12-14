@@ -5,6 +5,10 @@
   flex-direction: column;
   margin: 3em 0 3em 0;
 }
+.div-infos-client .btn-genre {
+  padding: 1em;
+  width: auto;
+}
 
 .div-main-profil {
   display: flex;

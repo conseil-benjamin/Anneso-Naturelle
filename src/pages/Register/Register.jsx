@@ -17,6 +17,7 @@ function Register() {
   const [nomValue, setNomValue] = useState("");
   const [prenomValue, setPrenomValue] = useState("");
   const [numeroTelValue, setNumeroTelValue] = useState("");
+  const [Civilite, setCivilite] = useState("");
 
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const navigate = useNavigate();
@@ -105,8 +106,6 @@ function Register() {
     }
   };
 
-  useEffect(() => {}, []);
-
   return (
     <div className="body-element-register">
       <h1>Création de compte</h1>
@@ -163,6 +162,31 @@ function Register() {
         onBlur={handleBlur}
         onChange={(e) => setConfPasswordValue(e.target.value)}
       />
+      <div className="radio-btn-genre-register">
+        {Civilite === "Monsieur" ? (
+          <>
+            <button
+              className="btn-genre"
+              style={{ backgroundColor: "white", color: "black" }}
+              onClick={() => setCivilite("Madame")}
+            >
+              Madame
+            </button>
+            <button className="btn-genre">Monsieur</button>
+          </>
+        ) : (
+          <>
+            <button className="btn-genre">Madame</button>
+            <button
+              className="btn-genre"
+              style={{ backgroundColor: "white", color: "black" }}
+              onClick={() => setCivilite("Monsieur")}
+            >
+              Monsieur
+            </button>
+          </>
+        )}
+      </div>
       <p>
         Contrainte mot de passe : - 8 caractères - 1 Majuscules - 1 chiffre - 1
         caractère spéciale (,?;.:/! ...)

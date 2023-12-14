@@ -8,12 +8,14 @@ import {
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Loader } from "../../utils/Loader";
 
 function Login() {
   const [inputType, setInputType] = useState("password");
   const [passwordValue, setPasswordValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [isBtnCliquer, setBtnCliquer] = useState(false);
+  const [isDataLoading, setDataLoading] = useState(false);
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
@@ -22,20 +24,27 @@ function Login() {
     isLogged ? JSON.parse(isLogged) : null
   );
 
-  isLogged ? navigate("/Profil/infos-persos") : console.log("dada");
+  isLogged && navigate("/Profil/infos-persos");
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "enter") {
+      console.log(e.key);
+      setBtnCliquer(true);
+    }
+  };
+
   useEffect(() => {
     if (isBtnCliquer) {
       const fetchData = async () => {
+        setDataLoading(true);
         try {
           const response = await fetch("http://localhost:5000/api/v1/users");
           const users = await response.json();
           console.log(users);
-          // loader pendant la recherce d'un compte
           const clientFound = users.find(
             ({ adresseEmail, mdp }) =>
               emailValue === adresseEmail && passwordValue === mdp
@@ -65,6 +74,8 @@ function Login() {
           }
         } catch (error) {
           console.error(error);
+        } finally {
+          setDataLoading(false);
         }
       };
       fetchData();
@@ -73,39 +84,48 @@ function Login() {
 
   return (
     <div className="body-element">
-      <h1>Connexion</h1>
-      <input
-        className="input-login"
-        placeholder="Adresse Email"
-        value={emailValue}
-        onChange={(e) => setEmailValue(e.target.value)}
-      ></input>
-      <div className="div-password">
-        <input
-          className="input-login"
-          type={inputType}
-          value={passwordValue}
-          placeholder="Mot de passe"
-          onChange={(e) => setPasswordValue(e.target.value)}
-        />
-        <button onClick={togglePasswordVisibility}>
-          {inputType === "password" ? (
-            <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
-          ) : (
-            <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
-          )}
-        </button>
-      </div>
-      <button className="btn-login" onClick={() => setBtnCliquer(true)}>
-        Se connecter
-        <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn" />
-      </button>
-      <div className="div-text-bold">
-        <p>Première visite ?</p>
-        <a href="Register" className="bold-text">
-          Inscrivez-vous
-        </a>
-      </div>
+      {isDataLoading ? (
+        <div className="loader-div">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <h1>Connexion</h1>
+          <input
+            className="input-login"
+            placeholder="Adresse Email"
+            value={emailValue}
+            onChange={(e) => setEmailValue(e.target.value)}
+          ></input>
+          <div className="div-password">
+            <input
+              className="input-login"
+              type={inputType}
+              value={passwordValue}
+              placeholder="Mot de passe"
+              onChange={(e) => setPasswordValue(e.target.value)}
+              onKeyUp={(e) => handleKeyPress(e)}
+            />
+            <button onClick={togglePasswordVisibility} onke>
+              {inputType === "password" ? (
+                <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
+              )}
+            </button>
+          </div>
+          <button className="btn-login" onClick={() => setBtnCliquer(true)}>
+            Se connecter
+            <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn" />
+          </button>
+          <div className="div-text-bold">
+            <p>Première visite ?</p>
+            <a href="Register" className="bold-text">
+              Inscrivez-vous
+            </a>
+          </div>
+        </>
+      )}
     </div>
   );
 }

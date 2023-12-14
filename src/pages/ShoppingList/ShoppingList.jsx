@@ -15,13 +15,19 @@ function ShoppingList({ cart, updateCart }) {
   const [isAddElement, setAddElement] = useState(false);
   const [plantList, setPlantList] = useState([]);
   const [btnClique, setBtnDetailsClique] = useState(false);
-  const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
   const idClientStorage = localStorage.getItem("id");
   const [idClient, setIdClient] = useState(
     idClientStorage ? JSON.parse(idClientStorage) : []
   );
-
+  let nameTable = plantList;
+  const [favorite, setFavorite] = useState(false);
+  /*
+  const [favorite, setFavorite] = useState(
+    nameTable.map(() => ({ isFavorite: false }))
+  );
+  console.log(favorite);
+  */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,7 +66,14 @@ function ShoppingList({ cart, updateCart }) {
   };
 
   const handleClickFavoris = async (cover, price, name, id) => {
+    /*
+    setFavorite((prevEtats) => {
+      const nouveauxEtats = [...prevEtats];
+      nouveauxEtats[index] = { isFavorite: true };
+      return nouveauxEtats;
+    });
     setFavorite(true);
+    */
     const favori = {
       idClient: idClient,
       coverArticle: cover,
@@ -89,8 +102,6 @@ function ShoppingList({ cart, updateCart }) {
       console.error("Erreur de connexion au serveur:", error);
     }
   };
-
-  let nameTable = plantList;
 
   // Appliquer le tri si triageActive est défini
   if (triageActive) {
@@ -203,7 +214,7 @@ function ShoppingList({ cart, updateCart }) {
                   />
                 ) : (
                   <FontAwesomeIcon
-                    icon={faHeartbeat}
+                    icon="fa-regular fa-heart"
                     className="icon-signIn"
                     onClick={() => handleClickFavoris(cover, price, name, id)}
                   />

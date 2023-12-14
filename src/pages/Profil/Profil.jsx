@@ -1,15 +1,13 @@
 import { useLocation } from "react-router-dom";
 import "./Profil.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import Cookies from "js-cookie";
 
 function Profil() {
   const location = useLocation();
-  const { nom, prenom, adresseEmail, numeroTel, iconProfil, civilite } =
+  const { nom, prenom, adresseEmail, mdp, numeroTel, civilite } =
     location.state || {};
-  const option1 = useRef();
-  const option2 = useRef();
 
   const [NumeroTelephone, setNumeroTelephone] = useState("");
   const [Prenom, setPrenom] = useState("");
@@ -22,6 +20,7 @@ function Profil() {
 
   const [idClient, setIdClient] = useState("");
   const [nomPrenom, setNomPrenom] = useState("");
+  console.log(Civilite + civilite);
 
   /* Cookies - Marche pas trop - a voir plus tard
   const cookieIdClient = Cookies.get("userId");
@@ -50,15 +49,13 @@ function Profil() {
       });
 */
   // changer son mot de passe
+  
   useEffect(() => {
     setNumeroTelephone(numeroTel);
     setPrenom(prenom);
     setNom(nom);
     setAdresseEmail(adresseEmail);
     setCivilite(civilite);
-
-    // attribuer check au bon bouton radio (marche pas pour l'instant)
-    // option1.current.value === Civilite ?
   }, []);
   return (
     <>
@@ -93,22 +90,30 @@ function Profil() {
               onChange={(e) => setNumeroTelephone(e.target.value)}
             />
             <div className="radio-btn-genre">
-              <label>Madame</label>
-              <input
-                type="radio"
-                id="option1"
-                name="options"
-                value="Madame"
-                ref={option1}
-              ></input>
-              <label>Monsieur</label>
-              <input
-                type="radio"
-                id="option2"
-                name="options"
-                value="Monsieur"
-                ref={option2}
-              ></input>
+              {console.log(Civilite)}
+              {Civilite === "Monsieur" ? (
+                <>
+                  <button
+                    className="btn-genre"
+                    style={{ backgroundColor: "white", color: "black" }}
+                    onClick={() => setCivilite("Madame")}
+                  >
+                    Madame
+                  </button>
+                  <button className="btn-genre">Monsieur</button>
+                </>
+              ) : (
+                <>
+                  <button className="btn-genre">Madame</button>
+                  <button
+                    className="btn-genre"
+                    style={{ backgroundColor: "white", color: "black" }}
+                    onClick={() => setCivilite("Monsieur")}
+                  >
+                    Monsieur
+                  </button>
+                </>
+              )}
             </div>
             <button>Enregistrer modifications</button>
           </div>

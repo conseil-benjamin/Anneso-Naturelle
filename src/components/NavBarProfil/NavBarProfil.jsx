@@ -96,14 +96,11 @@ function NavBarProfil() {
           if (clientFound) {
             navigate("/Profil/infos-persos", {
               state: {
-                id: clientFound.id,
                 nom: clientFound.nom,
                 prenom: clientFound.prenom,
-                adresses: clientFound.adresses,
                 adresseEmail: clientFound.adresseEmail,
                 mdp: clientFound.mdp,
                 numeroTel: clientFound.numeroTel,
-                iconProfil: clientFound.iconProfil,
                 civilite: clientFound.civilite,
               },
             });
