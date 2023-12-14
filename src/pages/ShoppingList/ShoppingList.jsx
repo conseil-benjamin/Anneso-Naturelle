@@ -3,6 +3,11 @@ import PlantItem from "../../components/PlantItem/PlantItem";
 import Categories from "../../components/Categories/Categories";
 import "./ShoppingList.css";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeartbeat,
+  faHeartCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 function ShoppingList({ cart, updateCart }) {
   const [activeCategory, setActiveCategory] = useState("");
@@ -10,7 +15,12 @@ function ShoppingList({ cart, updateCart }) {
   const [isAddElement, setAddElement] = useState(false);
   const [plantList, setPlantList] = useState([]);
   const [btnClique, setBtnDetailsClique] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
+  const idClientStorage = localStorage.getItem("id");
+  const [idClient, setIdClient] = useState(
+    idClientStorage ? JSON.parse(idClientStorage) : []
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +57,37 @@ function ShoppingList({ cart, updateCart }) {
         category: category,
       },
     });
+  };
+
+  const handleClickFavoris = async (cover, price, name, id) => {
+    setFavorite(true);
+    const favori = {
+      idClient: idClient,
+      coverArticle: cover,
+      prixArticle: price,
+      idProduct: id,
+      nomArticle: name,
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/v1/favoris/insert/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(favori),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Données insérées avec succès!");
+      } else {
+        console.error("Erreur lors de l'insertion des données.");
+      }
+    } catch (error) {
+      console.error("Erreur de connexion au serveur:", error);
+    }
   };
 
   let nameTable = plantList;
@@ -154,6 +195,19 @@ function ShoppingList({ cart, updateCart }) {
                 >
                   Détails
                 </button>
+                {favorite ? (
+                  <FontAwesomeIcon
+                    icon={faHeartCircleCheck}
+                    className="icon-signIn"
+                    onClick={() => handleClickFavoris(cover, price, name, id)}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faHeartbeat}
+                    className="icon-signIn"
+                    onClick={() => handleClickFavoris(cover, price, name, id)}
+                  />
+                )}
               </div>
             ) : null
         )}
