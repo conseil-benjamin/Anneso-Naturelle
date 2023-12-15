@@ -11,21 +11,26 @@ function CardPanier({ name, price, amount, index }) {
     window.location.reload();
   };
   const [selectedValue, setSelectedValue] = useState("");
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  const total = cart.reduce(
-    (acc, plantType) => acc + plantType.amount * plantType.price,
-    0
-  );
+  localStorage.setItem("cart", JSON.stringify(cart));
 
   useEffect(() => {
-    updateCart([{ name, price, amount: selectedValue }]);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    console.log(total);
-    //selectedValue !== amountElement ?
-    //window.location.reload();
+    selectedValue &&
+      localStorage.setItem("nbElement", JSON.stringify(selectedValue));
+    const selectedValueFromLocal = JSON.parse(
+      localStorage.getItem("nbElement")
+    );
+    const currentPlantSaved = cart.find((plant) => plant.name === name);
+    const updatedCart = currentPlantSaved
+      ? cart.filter((plant) => plant.name !== name)
+      : [...cart, { name, price, amount: 0 }];
+    updateCart([
+      ...updatedCart,
+      {
+        name,
+        price,
+        amount: selectedValueFromLocal,
+      },
+    ]);
   }, [selectedValue]);
 
   return (

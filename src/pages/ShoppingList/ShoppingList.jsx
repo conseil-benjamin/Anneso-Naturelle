@@ -188,7 +188,7 @@ function ShoppingList({ cart, updateCart }) {
           />
         </div>
       </div>
-
+      <hr />
       <ul className="lmj-plant-list">
         {nameTable.map(
           ({ id, cover, name, water, light, price, category, description }) =>

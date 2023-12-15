@@ -9,6 +9,9 @@
   margin: 0;
   padding: 1.5em;
 }
+.body-element-panier button {
+  padding: 0.8em;
+}
 .body-element-panier .div-1-element-panier {
   display: flex;
   flex-direction: row;
@@ -24,4 +27,14 @@
   align-items: center;
   justify-content: center;
   padding: 5em;
+}
+.body-element-panier .panier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 0 2em 0;
+}
+.body-element-panier #btn-vider-panier {
+  margin: 0 0 4em 0;
 }/*# sourceMappingURL=Panier.css.map */

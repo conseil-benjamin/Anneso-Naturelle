@@ -22,20 +22,22 @@ function Panier() {
         <h1>Votre panier</h1>
         {cart.length > 0 ? (
           <div className="panier">
-            <ul>
-              {cart.map((cartElement, index) => (
-                <CardPanier
-                  key={`${cartElement.name}-${index}`}
-                  name={cartElement.name}
-                  price={cartElement.price}
-                  amount={cartElement.amount}
-                  index={index}
-                ></CardPanier>
-              ))}
-            </ul>
+            {cart.map((cartElement, index) => (
+              <CardPanier
+                key={`${cartElement.name}-${index}`}
+                name={cartElement.name}
+                price={cartElement.price}
+                amount={cartElement.amount}
+                index={index}
+              ></CardPanier>
+            ))}
+            <button id="btn-vider-panier" onClick={() => updateCart([])}>
+              Vider le panier
+            </button>
             <h3>Total :{total}€</h3>
-            <button>Passer commande</button>
-            <button onClick={() => updateCart([])}>Vider le panier</button>
+            <div>
+              <button>Passer commande</button>
+            </div>
           </div>
         ) : (
           <div className="div-panier-vide">
