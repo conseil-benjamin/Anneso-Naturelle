@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PlantItem from "../../components/PlantItem/PlantItem";
+import FiltreTrie from "../../components/FIltreTrie/FiltreTrie";
 import Categories from "../../components/Categories/Categories";
 import "./ShoppingList.css";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ function ShoppingList({ cart, updateCart }) {
   const [idClient, setIdClient] = useState(
     idClientStorage ? JSON.parse(idClientStorage) : []
   );
+  const [productAdd, setProductAdd] = useState(false);
   let nameTable = plantList;
   const [favorite, setFavorite] = useState(false);
   /*
@@ -40,6 +42,13 @@ function ShoppingList({ cart, updateCart }) {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (productAdd) {
+      navigate("/Panier");
+      setProductAdd(false);
+    }
+  }, [productAdd]);
 
   const handleDetailsClique = (
     id,
@@ -147,6 +156,7 @@ function ShoppingList({ cart, updateCart }) {
   );
 
   function addToCart(name, price) {
+    setProductAdd(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     if (currentPlantSaved) {
       const cartFilteredCurrentPlant = cart.filter(
@@ -164,13 +174,21 @@ function ShoppingList({ cart, updateCart }) {
 
   return (
     <div className="lmj-shopping-list">
-      <Categories
-        categories={categories}
-        setActiveCategory={setActiveCategory}
-        activeCategory={activeCategory}
-        triageActive={triageActive}
-        setActiveTriage={setActiveTriage}
-      />
+      <div className="categories-and-filtre-and-trie">
+        <div className="categories">
+          <Categories></Categories>
+        </div>
+        <div className="filtre-and-trie">
+          <FiltreTrie
+            categories={categories}
+            setActiveCategory={setActiveCategory}
+            activeCategory={activeCategory}
+            triageActive={triageActive}
+            setActiveTriage={setActiveTriage}
+          />
+        </div>
+      </div>
+
       <ul className="lmj-plant-list">
         {nameTable.map(
           ({ id, cover, name, water, light, price, category, description }) =>
@@ -214,7 +232,7 @@ function ShoppingList({ cart, updateCart }) {
                   />
                 ) : (
                   <FontAwesomeIcon
-                    icon="fa-regular fa-heart"
+                    icon={faHeartCircleCheck}
                     className="icon-signIn"
                     onClick={() => handleClickFavoris(cover, price, name, id)}
                   />

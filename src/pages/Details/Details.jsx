@@ -23,8 +23,6 @@ function Details({ cart, updateCart }) {
         );
         const product = await response.json();
         setProduit(product);
-        console.log(product);
-        console.log(produit);
       } catch (error) {
         console.error(error);
       } finally {
@@ -35,6 +33,8 @@ function Details({ cart, updateCart }) {
   }, [id]);
 
   function addToCart(name, price) {
+    setProductAdd(true);
+    setAddElement(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     const updatedCart = currentPlantSaved
       ? cart.filter((plant) => plant.name !== name)
@@ -48,15 +48,14 @@ function Details({ cart, updateCart }) {
         amount: currentPlantSaved ? currentPlantSaved.amount + 1 : 1,
       },
     ]);
+  }
 
-    setProductAdd(true);
-    setAddElement(true);
-
+  useEffect(() => {
     if (productAdd) {
       navigate("/Panier");
       setProductAdd(false);
     }
-  }
+  }, [productAdd]);
 
   return (
     <div className="bodyElementDetails">

@@ -3,6 +3,26 @@
 .lmj-shopping-list {
   background-color: $cornsilk;
   width: 100%;
+  .categories-and-filtre-and-trie {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 2em 0 0 0;
+    a {
+      margin: 0 2em 0 0;
+      font-size: 1.25rem;
+      transition: 1s ease-in-out;
+      &::after {
+        margin: 0 0 51em 0;
+        transition: 2s ease-in-out;
+      }
+      &:hover {
+        margin: 0 2em 0 0;
+      }
+    }
+  }
+  
 }
 
 .lmj-plant-list {
@@ -72,7 +92,7 @@ button {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
-#btn-ajouter{
+#btn-ajouter {
   margin: 0 0 0 0.7em;
 }
 button:hover {

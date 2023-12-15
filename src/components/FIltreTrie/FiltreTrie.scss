@@ -1,0 +1,15 @@
+#btn-trie {
+  margin: 0 1em 0 1em;
+}
+
+.divSelect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  select {
+    display: flex;
+    height: 4vh;
+    margin: 0 2em 0 0;
+    border-radius: 10px;
+  }
+}
