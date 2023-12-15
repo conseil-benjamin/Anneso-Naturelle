@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PlantItem from "../../components/PlantItem/PlantItem";
-import FiltreTrie from "../../components/FIltreTrie/FiltreTrie";
+import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 import Categories from "../../components/Categories/Categories";
 import "./ShoppingList.css";
 import { useNavigate } from "react-router-dom";
@@ -159,15 +159,18 @@ function ShoppingList({ cart, updateCart }) {
     setProductAdd(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     if (currentPlantSaved) {
+      let amountTotal = currentPlantSaved.amount;
       const cartFilteredCurrentPlant = cart.filter(
         (plant) => plant.name !== name
       );
       updateCart([
         ...cartFilteredCurrentPlant,
-        { name, price, amount: currentPlantSaved.amount + 1 },
+        { name, price, amount: amountTotal + 1 },
       ]);
+      localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
     } else {
       updateCart([...cart, { name, price, amount: 1 }]);
+      localStorage.setItem("nbElement", JSON.stringify(1));
     }
     setAddElement(true);
   }

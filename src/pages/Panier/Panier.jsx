@@ -16,6 +16,11 @@ function Panier() {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [total]);
 
+  const viderPanier = () => {
+    localStorage.setItem("nbElement", JSON.stringify(0));
+    updateCart([]);
+  };
+
   return (
     <>
       <div className="body-element-panier">
@@ -31,7 +36,7 @@ function Panier() {
                 index={index}
               ></CardPanier>
             ))}
-            <button id="btn-vider-panier" onClick={() => updateCart([])}>
+            <button id="btn-vider-panier" onClick={() => viderPanier()}>
               Vider le panier
             </button>
             <h3>Total :{total}€</h3>
