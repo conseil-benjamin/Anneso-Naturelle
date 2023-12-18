@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function ShoppingList({ cart, updateCart }) {
+  console.log(cart);
   const [activeCategory, setActiveCategory] = useState("");
   const [triageActive, setActiveTriage] = useState("");
   const [isAddElement, setAddElement] = useState(false);

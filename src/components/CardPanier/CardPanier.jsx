@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import "./CardPanier.scss";
 
-function CardPanier({ name, price, amount, index, cover }) {
+function CardPanier({
+  name,
+  price,
+  amount,
+  index,
+  cover,
+  setTotalPanier,
+  removeFromCart,
+}) {
   const savedCart = localStorage.getItem("cart");
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
-  const removeFromCart = (index) => {
-    const updatedCart = [...cart];
-    updatedCart.splice(index, 1);
-    updateCart(updatedCart);
-    window.location.reload();
-  };
   const [selectedValue, setSelectedValue] = useState("");
   localStorage.setItem("cart", JSON.stringify(cart));
 
@@ -20,6 +22,7 @@ function CardPanier({ name, price, amount, index, cover }) {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
     localStorage.setItem("total", JSON.stringify(total));
+    setTotalPanier(total);
   }, [total]);
 
   useEffect(() => {
@@ -31,15 +34,17 @@ function CardPanier({ name, price, amount, index, cover }) {
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     const updatedCart = currentPlantSaved
       ? cart.filter((plant) => plant.name !== name)
-      : [...cart, { name, price, amount: 0 }];
+      : [...cart, { cover, name, price, amount: 0 }];
     updateCart([
       ...updatedCart,
       {
+        cover,
         name,
         price,
         amount: selectedValueFromLocal,
       },
     ]);
+    setTotalPanier(total);
   }, [selectedValue]);
 
   return (

@@ -34,20 +34,22 @@ function Details({ cart, updateCart }) {
 
   function addToCart(cover, name, price) {
     setProductAdd(true);
-    setAddElement(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
-    const updatedCart = currentPlantSaved
-      ? cart.filter((plant) => plant.name !== name)
-      : [...cart, { cover, name, price, amount: 0 }];
-
-    updateCart([
-      ...updatedCart,
-      {
-        name,
-        price,
-        amount: currentPlantSaved ? currentPlantSaved.amount + 1 : 1,
-      },
-    ]);
+    if (currentPlantSaved) {
+      let amountTotal = currentPlantSaved.amount;
+      const cartFilteredCurrentPlant = cart.filter(
+        (plant) => plant.name !== name
+      );
+      updateCart([
+        ...cartFilteredCurrentPlant,
+        { cover, name, price, amount: amountTotal + 1 },
+      ]);
+      localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
+    } else {
+      updateCart([...cart, { cover, name, price, amount: 1 }]);
+      localStorage.setItem("nbElement", JSON.stringify(1));
+    }
+    setAddElement(true);
   }
 
   useEffect(() => {

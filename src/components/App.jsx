@@ -29,6 +29,7 @@ function App() {
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart(cart);
   }, [cart]);
 
   return (
@@ -70,11 +71,7 @@ function App() {
         />
         <div className="lmj-layout-inner">
           <Routes>
-            <Route
-              exact
-              path="/"
-              element={<Home cart={cart} updateCart={updateCart} />}
-            />{" "}
+            <Route exact path="/" element={<Home />} />{" "}
             <Route
               path="/Details/:id"
               element={<Details cart={cart} updateCart={updateCart} />}
