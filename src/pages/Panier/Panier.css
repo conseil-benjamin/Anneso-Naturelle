@@ -37,4 +37,8 @@
 }
 .body-element-panier #btn-vider-panier {
   margin: 0 0 4em 0;
+}
+.body-element-panier select {
+  border-radius: 10px;
+  padding: 0.5em;
 }/*# sourceMappingURL=Panier.css.map */

@@ -29,4 +29,10 @@
   justify-content: center;
   align-items: center;
   margin: 0 0 0 1em;
-}/*# sourceMappingURL=Contact.css.map */
+}
+
+@media (max-width: 1100px ) {
+  .body-page-contact {
+    flex-direction: column;
+  }
+}

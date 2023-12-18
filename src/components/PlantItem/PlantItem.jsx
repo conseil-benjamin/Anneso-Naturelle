@@ -36,7 +36,7 @@ function PlantItem({
     });
   };
   return (
-    <li className="lmj-plant-item">
+    <div className="lmj-plant-item">
       <img
         className="lmj-plant-item-cover"
         src={cover}
@@ -53,13 +53,11 @@ function PlantItem({
           )
         }
       />
-      {name}
-      <span className="lmj-plant-item-price">{price}€</span>
-      <div>
-        <CareScale careType="water" scaleValue={water} />
-        <CareScale careType="light" scaleValue={light} />
+      <div className="product-item-infos">
+       {name}
+       <span className="lmj-plant-item-price">{price}€</span>
       </div>
-    </li>
+    </div>
   );
 }
 

@@ -1,7 +1,22 @@
 .div-text-aPropos {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   background-color: #fefae0;
+  padding: 3em;
+}
+.div-text-aPropos .a-propos-texte {
+  margin: 0 0 0 3em;
+}
+.div-text-aPropos .a-propos-div-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .div-text-aPropos {
+    flex-direction: column;
+  }
 }/*# sourceMappingURL=Apropos.css.map */
