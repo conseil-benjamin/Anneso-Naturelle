@@ -1,0 +1,10 @@
+.main-div-categories {
+  display: flex;
+  flex-direction: row;
+  .div-icon-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,11 @@
+.page-conditions-generales {
+  background-color: #fefae0;
+  padding: 0.5em;
+}
+.page-conditions-generales h1,
+.page-conditions-generales p {
+  margin: 0;
+}
+.page-conditions-generales #last-p {
+  padding: 0 0 1em 0;
+}/*# sourceMappingURL=ConditionsGenerales.css.map */

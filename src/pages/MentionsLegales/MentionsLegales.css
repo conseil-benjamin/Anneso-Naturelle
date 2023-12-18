@@ -1,0 +1,10 @@
+.page-mentions-legales {
+  background-color: #fefae0;
+  padding: 0.5em;
+}
+.page-mentions-legales h1, .page-mentions-legales p {
+  margin: 0;
+}
+.page-mentions-legales #last-p {
+  padding: 0 0 1em 0;
+}/*# sourceMappingURL=MentionsLegales.css.map */

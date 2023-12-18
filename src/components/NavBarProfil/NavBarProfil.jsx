@@ -36,13 +36,6 @@ function NavBarProfil() {
             ? navigate("/Profil/commandes", {
                 state: {
                   commandes: commandesFound,
-                  /*
-                  idCommande: commandesFound.idCommande,
-                  date: commandesFound.date,
-                  // marche pas fait crash
-                  //contenuCommande: commandesFound.contenuCommande,
-                  prixTotal: commandesFound.prixTotal,
-                */
                 },
               })
             : navigate("/Profil/commandes");
@@ -60,20 +53,13 @@ function NavBarProfil() {
         try {
           const response = await fetch("http://localhost:5000/api/v1/adresses");
           const adresses = await response.json();
-          const adressesFound = adresses.find(
+          const adressesFound = adresses.filter(
             ({ userId }) => clientId === userId
           );
           adressesFound
             ? navigate("/Profil/adresses/", {
                 state: {
-                  idClient: adressesFound.userId,
-                  nom: adressesFound.nomPersonne,
-                  prenom: adressesFound.prenomPersonne,
-                  adresse: adressesFound.adresse,
-                  codePostal: adressesFound.codePostal,
-                  ville: adressesFound.ville,
-                  complementAdresse: adressesFound.complementAdresse,
-                  pays: adressesFound.adressesFound,
+                  adresses: adressesFound,
                 },
               })
             : navigate("/Profil/adresses/");

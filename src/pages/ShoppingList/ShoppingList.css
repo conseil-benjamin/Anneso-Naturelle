@@ -21,6 +21,9 @@
 .lmj-shopping-list .categories-and-filtre-and-trie a:hover {
   margin: 0 2em 0 0;
 }
+.lmj-shopping-list .hr-collections {
+  border-style: solid; /* Style de la ligne */
+}
 
 .lmj-plant-list {
   list-style-type: none;

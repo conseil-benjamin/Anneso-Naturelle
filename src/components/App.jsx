@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Banner from "./Banner";
-import Cart from "./Cart/Cart";
 import Footer from "./Footer/Footer";
 import ShoppingList from "../pages/ShoppingList/ShoppingList";
 import Details from "../pages/Details/Details";
@@ -23,7 +22,7 @@ import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 import Favoris from "../pages/Favoris/Favoris";
 import HomePage from "../pages/HomePage/HomePage";
 import panier from "../Images/icons8-basket-48.png";
-import clientIcon from "../Images/icons8-user-48.png";
+import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -46,6 +45,11 @@ function App() {
           collection={
             <a href="/" className="lmj-title" style={{ color: "white" }}>
               Collections
+            </a>
+          }
+          creationPersonalise={
+            <a href="#" className="lmj-title" style={{ color: "white" }}>
+              Creation Personalisé
             </a>
           }
           aPropos={
@@ -81,8 +85,12 @@ function App() {
               <Route path="/Profil/commandes" element={<Commandes />} />
               <Route path="/Profil/adresses" element={<Adresses />} />
               <Route
-                path="/Profil/adresses/addAdresse"
+                path="/Profil/adresses/ajoutAdresse"
                 element={<AjoutAdresse />}
+              />
+              <Route
+                path="/Profil/adresses/:numAdresse"
+                element={<DetailsAdresses />}
               />
               <Route
                 path="/Profil/commandes/:numOrder"
@@ -108,7 +116,7 @@ function App() {
             />
             <Route
               path="collections"
-              element=<ShoppingList cart={cart} updateCart={updateCart} />
+              element={<ShoppingList cart={cart} updateCart={updateCart} />}
             />
             <Route path="/*" element={<Erreur404 />} />
           </Routes>
@@ -119,12 +127,9 @@ function App() {
   );
 }
 
-function Home({ cart, updateCart }) {
+function Home() {
   return (
     <>
-      {/*
-      <Cart cart={cart} updateCart={updateCart} />
-      */}
       <HomePage></HomePage>
     </>
   );

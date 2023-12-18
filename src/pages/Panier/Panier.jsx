@@ -30,6 +30,7 @@ function Panier() {
             {cart.map((cartElement, index) => (
               <CardPanier
                 key={`${cartElement.name}-${index}`}
+                cover={cartElement.cover}
                 name={cartElement.name}
                 price={cartElement.price}
                 amount={cartElement.amount}

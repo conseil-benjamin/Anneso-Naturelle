@@ -1,0 +1,11 @@
+.page-conditions-utilisation {
+  background-color: #fefae0;
+  padding: 0.5em;
+}
+.page-conditions-utilisation h1,
+.page-conditions-utilisation p {
+  margin: 0;
+}
+.page-conditions-utilisation #last-p {
+  padding: 0 0 1em 0;
+}/*# sourceMappingURL=ConditionsUtilisation.css.map */

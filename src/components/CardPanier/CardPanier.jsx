@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CardPanier.scss";
 
-function CardPanier({ name, price, amount, index }) {
+function CardPanier({ name, price, amount, index, cover }) {
   const savedCart = localStorage.getItem("cart");
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   const removeFromCart = (index) => {
@@ -12,6 +12,15 @@ function CardPanier({ name, price, amount, index }) {
   };
   const [selectedValue, setSelectedValue] = useState("");
   localStorage.setItem("cart", JSON.stringify(cart));
+
+  const total = cart.reduce(
+    (acc, plantType) => acc + plantType.amount * plantType.price,
+    0
+  );
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("total", JSON.stringify(total));
+  }, [total]);
 
   useEffect(() => {
     selectedValue &&
@@ -40,6 +49,8 @@ function CardPanier({ name, price, amount, index }) {
      */
     <>
       <div className="main-panier-page">
+        <img src={cover} height={125} width={125}></img>
+        {"\u00A0"} {"\u00A0"}
         <h4 className="name-element">{name}</h4>
         <h4>{price} €</h4>
         <select

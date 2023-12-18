@@ -1,3 +1,7 @@
+.div-principal-detailsCommande {
+  background-color: #fefae0;
+}
+
 .div-commande {
   display: flex;
   flex-direction: row;

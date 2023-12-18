@@ -112,6 +112,13 @@ function AjoutAdresse() {
           <h1>Ajout d'une adresse</h1>
           <input
             className="input-login"
+            value={adresse}
+            placeholder="Adresse"
+            //onBlur={handleBlurPassword}
+            onChange={(e) => setAdresse(e.target.value)}
+          />
+          <input
+            className="input-login"
             value={codePostal}
             placeholder="Code Postal"
             //onBlur={handleBlurPassword}
@@ -123,13 +130,6 @@ function AjoutAdresse() {
             placeholder="Ville"
             //onBlur={handleBlurPassword}
             onChange={(e) => setVille(e.target.value)}
-          />
-          <input
-            className="input-login"
-            value={adresse}
-            placeholder="Adressse"
-            //onBlur={handleBlurPassword}
-            onChange={(e) => setAdresse(e.target.value)}
           />
           <input
             className="input-login"

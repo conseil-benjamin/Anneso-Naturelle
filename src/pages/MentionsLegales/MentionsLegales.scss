@@ -1,0 +1,12 @@
+@import "../../styles/colors.scss";
+
+.page-mentions-legales {
+  background-color: $cornsilk;
+  padding: 0.5em;
+  h1, p {
+    margin: 0;
+  }
+  #last-p{
+    padding: 0 0 1em 0;
+  }
+}

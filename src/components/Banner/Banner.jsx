@@ -2,7 +2,14 @@ import "./Banner.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function Banner({ logo, collection, aPropos, contact, panier }) {
+function Banner({
+  logo,
+  collection,
+  aPropos,
+  contact,
+  panier,
+  creationPersonalise,
+}) {
   const isLoggedOrNot = localStorage.getItem("id");
   const [profilClique, setProfilClique] = useState(false);
   const navigate = useNavigate();
@@ -50,6 +57,7 @@ function Banner({ logo, collection, aPropos, contact, panier }) {
       <div className="lmj-banner">
         <Link to="/">{logo}</Link>
         <Link to="/collections">{collection}</Link>
+        {creationPersonalise}
         {aPropos}
         {contact}
         <div className="icon-header">

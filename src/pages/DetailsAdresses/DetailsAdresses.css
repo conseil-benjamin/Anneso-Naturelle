@@ -1,0 +1,14 @@
+.div-main-details-adresse {
+  display: flex;
+  flex-direction: row;
+  background-color: #fefae0;
+}
+
+.infos-details-adresse {
+  display: flex;
+  flex-direction: column;
+}
+
+#form1 {
+  margin: 2em 0 2em;
+}/*# sourceMappingURL=DetailsAdresses.css.map */

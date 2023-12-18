@@ -1,0 +1,16 @@
+.card-adresse-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 2px solid black;
+  margin: 1em 1em 2em 1em;
+  width: 25em;
+  border-radius: 15px;
+}
+
+.container-left,
+.container-right {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8em;
+}

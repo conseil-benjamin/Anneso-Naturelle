@@ -155,7 +155,7 @@ function ShoppingList({ cart, updateCart }) {
     []
   );
 
-  function addToCart(name, price) {
+  function addToCart(cover, name, price) {
     setProductAdd(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     if (currentPlantSaved) {
@@ -165,11 +165,11 @@ function ShoppingList({ cart, updateCart }) {
       );
       updateCart([
         ...cartFilteredCurrentPlant,
-        { name, price, amount: amountTotal + 1 },
+        { cover, name, price, amount: amountTotal + 1 },
       ]);
       localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
     } else {
-      updateCart([...cart, { name, price, amount: 1 }]);
+      updateCart([...cart, { cover, name, price, amount: 1 }]);
       localStorage.setItem("nbElement", JSON.stringify(1));
     }
     setAddElement(true);
@@ -191,7 +191,7 @@ function ShoppingList({ cart, updateCart }) {
           />
         </div>
       </div>
-      <hr />
+      <hr className="hr-collections" />
       <ul className="lmj-plant-list">
         {nameTable.map(
           ({ id, cover, name, water, light, price, category, description }) =>
@@ -207,7 +207,10 @@ function ShoppingList({ cart, updateCart }) {
                   description={description}
                   category={category}
                 />
-                <button onClick={() => addToCart(name, price)} id="btn-ajouter">
+                <button
+                  onClick={() => addToCart(cover, name, price)}
+                  id="btn-ajouter"
+                >
                   Ajouter
                 </button>
                 <button

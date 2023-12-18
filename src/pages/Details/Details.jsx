@@ -32,13 +32,13 @@ function Details({ cart, updateCart }) {
     fetchData();
   }, [id]);
 
-  function addToCart(name, price) {
+  function addToCart(cover, name, price) {
     setProductAdd(true);
     setAddElement(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     const updatedCart = currentPlantSaved
       ? cart.filter((plant) => plant.name !== name)
-      : [...cart, { name, price, amount: 0 }];
+      : [...cart, { cover, name, price, amount: 0 }];
 
     updateCart([
       ...updatedCart,
@@ -106,7 +106,9 @@ function Details({ cart, updateCart }) {
                 <button
                   className="button-56"
                   role="button"
-                  onClick={() => addToCart(produit.name, produit.price)}
+                  onClick={() =>
+                    addToCart(produit.cover, produit.name, produit.price)
+                  }
                 >
                   Ajouter au panier
                 </button>

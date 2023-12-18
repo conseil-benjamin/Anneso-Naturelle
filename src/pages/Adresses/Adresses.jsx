@@ -2,21 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import "./Adresses.css";
+import CardAdressses from "../../components/CardAdresses/CardAdresses";
 
 function Adresses() {
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    idClient,
-    nom,
-    prenom,
-    adresse,
-    codePostal,
-    ville,
-    complementAdresse,
-    pays,
-  } = location.state || {};
+  const { adresses } = location.state || {};
+  console.log(adresses);
 
+  const tableauObjet = Object.values(adresses);
   const isLogged = localStorage.getItem("id");
   const [btnAddAdresseClique, setbtnAddAdresseClique] = useState(false);
 
@@ -30,7 +24,7 @@ function Adresses() {
 
   useEffect(() => {
     if (btnAddAdresseClique) {
-      navigate("/Profil/adresses/addAdresse");
+      navigate("/Profil/adresses/ajoutAdresse");
     }
   }, [btnAddAdresseClique]);
 
@@ -39,17 +33,21 @@ function Adresses() {
       <div className="div-main-page-adresses">
         <NavBarProfil></NavBarProfil>
         <div className="div-adresses">
-          {adresse ? (
-            <div className="div-une-adresse">
-              <h1>Vos Adresses</h1>
-              <p>Nom :{nom}</p>
-              <p>Prenom : {prenom}</p>
-              <p>Adresse : {adresse}</p>
-              <p>Code Postal: {codePostal}</p>
-              <p>ville: {ville}</p>
-              <p>Complément adresse : {complementAdresse}</p>
-              <p>Pays : {pays}</p>
-            </div>
+          <h1>Mes adresses</h1>
+          {adresses ? (
+            tableauObjet.map((adresse) => (
+              <CardAdressses
+                adresseId={adresse.adresseId}
+                nomPersonne={adresse.nomPersonne}
+                prenomPersonne={adresse.prenomPersonne}
+                adresse={adresse.adresse}
+                codePostal={adresse.codePostal}
+                pays={adresse.pays}
+                ville={adresse.ville}
+                complementAdresse={adresse.complementAdresse}
+                numTel={adresse.numTel}
+              ></CardAdressses>
+            ))
           ) : (
             <div>
               <h2>Aucune adresse pour le moment</h2>
