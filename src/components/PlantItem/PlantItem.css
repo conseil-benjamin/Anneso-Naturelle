@@ -14,8 +14,5 @@
   text-transform: capitalize;
 }
 .lmj-plant-item .product-item-infos {
-  margin: 0.5em 0 0.5em 0;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+  margin: 0.5em 0 0.25em 0;
 }/*# sourceMappingURL=PlantItem.css.map */

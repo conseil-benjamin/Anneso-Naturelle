@@ -6,20 +6,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 2em 0 0 0;
+  justify-content: space-between;
+  padding: 2em 0 0 2em;
 }
 .lmj-shopping-list .categories-and-filtre-and-trie a {
-  margin: 0 2em 0 0;
+  margin: 0 2em 0 2em;
   font-size: 1.25rem;
   transition: 1s ease-in-out;
 }
-.lmj-shopping-list .categories-and-filtre-and-trie a::after {
-  margin: 0 0 51em 0;
-  transition: 2s ease-in-out;
-}
 .lmj-shopping-list .categories-and-filtre-and-trie a:hover {
-  margin: 0 2em 0 0;
+  border-bottom: 2px solid black;
+  cursor: pointer;
 }
 .lmj-shopping-list .hr-collections {
   border-style: solid; /* Style de la ligne */

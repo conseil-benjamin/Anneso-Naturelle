@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./Categories.css";
 
 function Categories() {
@@ -11,15 +9,10 @@ function Categories() {
         // ou alors via l'url, on récupère l'url imaginons -> /collections/bracelets
       }
       <div className="main-div-categories">
-        <div className="div-icon-search">
-          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-        </div>
-        <div>
           <a>Bracelets</a>
           <a>Boucles d'oreilles</a>
           <a>Esotérique Support à encens</a>
           <a>Acessoires</a>
-        </div>
       </div>
     </>
   );

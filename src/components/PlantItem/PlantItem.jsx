@@ -54,8 +54,10 @@ function PlantItem({
         }
       />
       <div className="product-item-infos">
-       {name}
-       <span className="lmj-plant-item-price">{price}€</span>
+        <div className="container-left-infos-product">{name}</div>
+        <div>
+          <span className="lmj-plant-item-price">{price}€</span>
+        </div>
       </div>
     </div>
   );

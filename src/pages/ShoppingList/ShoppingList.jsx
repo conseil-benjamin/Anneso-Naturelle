@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeartbeat,
   faHeartCircleCheck,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 
 function ShoppingList({ cart, updateCart }) {
@@ -179,18 +180,15 @@ function ShoppingList({ cart, updateCart }) {
   return (
     <div className="lmj-shopping-list">
       <div className="categories-and-filtre-and-trie">
-        <div className="categories">
-          <Categories></Categories>
-        </div>
-        <div className="filtre-and-trie">
-          <FiltreTrie
-            categories={categories}
-            setActiveCategory={setActiveCategory}
-            activeCategory={activeCategory}
-            triageActive={triageActive}
-            setActiveTriage={setActiveTriage}
-          />
-        </div>
+        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+        <Categories></Categories>
+        <FiltreTrie
+          categories={categories}
+          setActiveCategory={setActiveCategory}
+          activeCategory={activeCategory}
+          triageActive={triageActive}
+          setActiveTriage={setActiveTriage}
+        />
       </div>
       <hr className="hr-collections" />
       <ul className="lmj-plant-list">
