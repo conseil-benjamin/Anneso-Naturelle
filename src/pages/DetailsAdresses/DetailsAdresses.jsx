@@ -45,6 +45,7 @@ function DetailsAdresses() {
       <NavBarProfil></NavBarProfil>
       <div className="div-infos-adresse">
         <div className="infos-details-adresse" id="form1">
+          <h1>Modifier votre adresse</h1>
           <label>Adresse</label>
           <input
             className="input-login"

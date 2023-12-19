@@ -1,6 +1,11 @@
 import "./Categories.css";
 
-function Categories() {
+function Categories({
+  setBraceletsClique,
+  setBoucleOreilleClique,
+  setEncensClique,
+  setAccesoiresClique,
+}) {
   return (
     <>
       {
@@ -9,10 +14,10 @@ function Categories() {
         // ou alors via l'url, on récupère l'url imaginons -> /collections/bracelets
       }
       <div className="main-div-categories">
-          <a>Bracelets</a>
-          <a>Boucles d'oreilles</a>
-          <a>Esotérique Support à encens</a>
-          <a>Acessoires</a>
+        <a onClick={() => setBraceletsClique(true)}>Bracelets</a>
+        <a onClick={() => setBoucleOreilleClique(true)}>Boucles d'oreilles</a>
+        <a onClick={() => setEncensClique(true)}>Esotérique Support à encens</a>
+        <a onClick={() => setAccesoiresClique(true)}>Acessoires</a>
       </div>
     </>
   );

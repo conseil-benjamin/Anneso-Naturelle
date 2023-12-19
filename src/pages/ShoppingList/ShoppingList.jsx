@@ -12,19 +12,24 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function ShoppingList({ cart, updateCart }) {
-  console.log(cart);
+  // console.log(cart);
   const [activeCategory, setActiveCategory] = useState("");
   const [triageActive, setActiveTriage] = useState("");
   const [isAddElement, setAddElement] = useState(false);
-  const [plantList, setPlantList] = useState([]);
+  const [productList, setproductList] = useState([]);
   const [btnClique, setBtnDetailsClique] = useState(false);
+  const [braceletsClique, setBraceletsClique] = useState(false);
+  const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
+  const [encensClique, setEncensClique] = useState(false);
+  const [accesoiresClique, setAccesoiresClique] = useState(false);
+
   const navigate = useNavigate();
   const idClientStorage = localStorage.getItem("id");
   const [idClient, setIdClient] = useState(
     idClientStorage ? JSON.parse(idClientStorage) : []
   );
   const [productAdd, setProductAdd] = useState(false);
-  let nameTable = plantList;
+  let nameTable = productList;
   const [favorite, setFavorite] = useState(false);
   /*
   const [favorite, setFavorite] = useState(
@@ -35,15 +40,85 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/v1/products");
-        const plantList = await response.json();
-        setPlantList(plantList);
+        const response = await fetch(
+          "http://localhost:5000/api/v1/products/bracelets"
+        );
+        const productList = await response.json();
+        setproductList(productList);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (braceletsClique) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:5000/api/v1/products/bracelets"
+          );
+          const productList = await response.json();
+          setproductList(productList);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+    }
+  }, [braceletsClique]);
+
+  useEffect(() => {
+    if (accesoiresClique) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:5000/api/v1/products/accessoires"
+          );
+          const productList = await response.json();
+          setproductList(productList);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+    }
+  }, [accesoiresClique]);
+
+  useEffect(() => {
+    if (encensClique) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:5000/api/v1/products/encens"
+          );
+          const productList = await response.json();
+          setproductList(productList);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+    }
+  }, [encensClique]);
+
+  useEffect(() => {
+    if (boucleOreilleClique) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:5000/api/v1/products/boucles-oreilles"
+          );
+          const productList = await response.json();
+          setproductList(productList);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+    }
+  }, [boucleOreilleClique]);
 
   useEffect(() => {
     if (productAdd) {
@@ -116,7 +191,7 @@ function ShoppingList({ cart, updateCart }) {
 
   // Appliquer le tri si triageActive est défini
   if (triageActive) {
-    nameTable = [...plantList]; // Créer une copie pour ne pas modifier plantList directement
+    nameTable = [...productList]; // Créer une copie pour ne pas modifier productList directement
 
     /* Mon code :
     if (triageActive === "croissant") {
@@ -151,7 +226,7 @@ function ShoppingList({ cart, updateCart }) {
       nameTable = [...nameTable].sort(sortFunctions[triageActive]);
     }
   }
-  const categories = plantList.reduce(
+  const categories = productList.reduce(
     (acc, plant) =>
       acc.includes(plant.category) ? acc : acc.concat(plant.category),
     []
@@ -181,7 +256,12 @@ function ShoppingList({ cart, updateCart }) {
     <div className="lmj-shopping-list">
       <div className="categories-and-filtre-and-trie">
         <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-        <Categories></Categories>
+        <Categories
+          setBraceletsClique={setBraceletsClique}
+          setAccesoiresClique={setAccesoiresClique}
+          setBoucleOreilleClique={setBoucleOreilleClique}
+          setEncensClique={setEncensClique}
+        ></Categories>
         <FiltreTrie
           categories={categories}
           setActiveCategory={setActiveCategory}
