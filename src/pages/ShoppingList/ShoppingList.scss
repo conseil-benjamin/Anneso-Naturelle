@@ -1,4 +1,5 @@
 @import "../../styles/colors.scss";
+@import "../../styles/index.scss";
 
 .lmj-shopping-list {
   background-color: $cornsilk;
@@ -85,17 +86,8 @@
   outline: 0;
 }
 
-button {
-  background-color: $pakistan-green;
-  color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-}
 #btn-ajouter {
   margin: 0 0 0 0.7em;
-}
-button:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 #btn-details-plant {

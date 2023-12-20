@@ -1,6 +1,8 @@
 import PropTypes from "prop-types"; // ES6
 import "./CardAdresses.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 function CardAdressses({
   adresseId,
@@ -14,7 +16,8 @@ function CardAdressses({
   numTel,
 }) {
   const navigate = useNavigate();
-  const handleUpdateAdresse = () => {
+
+  const handleClickEditAdresse = () => {
     navigate(`/Profil/adresses/${adresseId}`, {
       state: {
         adresseId: adresseId,
@@ -33,14 +36,25 @@ function CardAdressses({
   return (
     <div className="card-adresse-main">
       <div className="container-left">
-        {adresse}
+        <h4>{adresse}</h4>
         <br />
-        {ville} {"\u00A0"}
-        {codePostal}
+        <div className="div-ville-cp">
+          <h4>
+            {ville} {"\u00A0"}
+          </h4>
+          <h4>{codePostal}</h4>
+        </div>
+        <br />
+        <h4>{pays}</h4>
       </div>
       <div className="container-right">
-        {pays}
-        <button onClick={() => handleUpdateAdresse()}>Modifier</button>
+        <button id="btn-modifer-adresse">
+          <FontAwesomeIcon
+            icon={faEdit}
+            onClick={() => handleClickEditAdresse()}
+            className="fa-2x" // Ou "fa-2x", "fa-3x", etc.
+          />
+        </button>
       </div>
     </div>
   );
@@ -51,5 +65,8 @@ CardAdressses.propTypes = {
   ville: PropTypes.string.isRequired,
   codePostal: PropTypes.string.isRequired,
   pays: PropTypes.string.isRequired,
+  complementAdresse: PropTypes.string.isRequired,
+  nomPersonne: PropTypes.string,
+  numTel: PropTypes.string.isRequired,
 };
 export default CardAdressses;

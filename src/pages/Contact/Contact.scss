@@ -1,4 +1,5 @@
 @import "../../styles/colors.scss";
+@import "../../styles/index.scss";
 
 .body-page-contact {
   display: flex;
@@ -7,11 +8,13 @@
   flex-direction: row;
   background-color: $cornsilk;
   padding: 0 0 2.5em 0;
+  font-size: clamp(16px, 5vw, 24px);
   .input-contact {
     display: flex;
     flex-direction: column;
     margin: 5em 0 0 2em;
   }
+
   .input-contact > input {
     padding: 0.8em;
     width: 30em;
@@ -34,7 +37,7 @@
 }
 
 @media (max-width: 1100px) {
-  .body-page-contact{
+  .body-page-contact {
     display: flex;
     align-items: center;
     justify-content: center;

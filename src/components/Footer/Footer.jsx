@@ -5,15 +5,31 @@ import {
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import "./Footer.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
+import { useState } from "react";
 
 function Footer() {
   const navigate = useNavigate();
+  const [redirect, setRedirect] = useState(false);
+  const [redirection, setRedirection] = useState("");
 
   const handleClickContact = () => {
     navigate("Contact");
   };
 
+  const handleClickSocials = (redirection) => {
+    redirection === "facebook"
+      ? window.open(
+          "https://www.facebook.com/profile.php?id=100075994402255",
+          "_blank"
+        )
+      : redirection === "instagram"
+      ? window.open(
+          "https://www.instagram.com/anneso2273/?igshid=OGQ5ZDc2ODk2ZA%3D%3D",
+          "_blank"
+        )
+      : window.open("https://www.tiktok.com/@anneso2273", "_blank");
+  };
   return (
     <footer className="lmj-footer">
       <div className="lmj-footer-elem">
@@ -37,10 +53,18 @@ function Footer() {
           <FontAwesomeIcon
             className="iconSocial"
             icon={faFacebook}
-            //onClick="https://instagram.com"
+            onClick={() => handleClickSocials("facebook")}
           />
-          <FontAwesomeIcon className="iconSocial" icon={faInstagram} />
-          <FontAwesomeIcon className="iconSocial" icon={faTiktok} />
+          <FontAwesomeIcon
+            className="iconSocial"
+            icon={faInstagram}
+            onClick={() => handleClickSocials("instagram")}
+          />
+          <FontAwesomeIcon
+            className="iconSocial"
+            icon={faTiktok}
+            onClick={() => handleClickSocials("tiktok")}
+          />
         </div>
       </div>
     </footer>

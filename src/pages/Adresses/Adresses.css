@@ -1,13 +1,65 @@
-.div-adresses {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 3em 0 3em 0;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+img,
+button,
+select,
+option {
+  cursor: pointer;
+}
+
+button {
+  border-radius: 5px;
+  background-color: #283618;
+  color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.425s ease-in-out;
+}
+
+button:hover:hover {
+  background-color: #ded2b2;
+  color: #000000;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+  font-weight: bold;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .div-main-page-adresses {
   display: flex;
   flex-direction: row;
   background-color: #fefae0;
+}
+.div-main-page-adresses .div-adresses {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 3em 0 3em 0;
+}
+.div-main-page-adresses .div-adresses #adbtn-add-adresse {
+  padding: 1em;
 }/*# sourceMappingURL=Adresses.css.map */

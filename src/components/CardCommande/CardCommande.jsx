@@ -25,9 +25,9 @@ function CardCommande({ idCommande, date, prixTotal, contenuCommande }) {
 
   return (
     <div className="div-commande">
-      <div className="container-left">
+      <div className="container-left">{coverImages[1]}</div>
+      <div>
         <h4>Commande N°{idCommande}</h4>
-        {coverImages[1]}
         <h4>{prixTotal} €</h4>
       </div>
       <div className="container-right">

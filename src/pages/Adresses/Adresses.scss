@@ -1,15 +1,18 @@
 @import "../../styles/colors.scss";
-
-.div-adresses {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 3em 0 3em 0;
-}
+@import "../../styles/index.scss";
 
 .div-main-page-adresses {
   display: flex;
   flex-direction: row;
   background-color: $cornsilk;
+  .div-adresses {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 3em 0 3em 0;
+    #adbtn-add-adresse {
+      padding: 1em;
+    }
+  }
 }

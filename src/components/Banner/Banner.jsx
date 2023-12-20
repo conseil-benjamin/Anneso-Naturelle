@@ -55,7 +55,7 @@ function Banner({
   return (
     <>
       <div className="lmj-banner">
-        <Link to="/">{logo}</Link>
+        <Link to="/collections">{logo}</Link>
         <Link to="/collections">{collection}</Link>
         {creationPersonalise}
         {aPropos}

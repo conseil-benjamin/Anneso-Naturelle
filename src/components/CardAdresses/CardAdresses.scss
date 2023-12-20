@@ -13,4 +13,15 @@
   display: flex;
   flex-direction: column;
   margin: 0.8em;
+  #btn-modifer-adresse{
+    padding: 0.5em;
+    margin: 0.75em 0 0; 
+  }
+  h4{
+    margin: 0.25em 0 0 0;
+  }
+  .div-ville-cp{
+    display: flex;
+    flex-direction: row;
+  }
 }

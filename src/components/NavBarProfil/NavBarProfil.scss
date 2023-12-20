@@ -1,4 +1,5 @@
 @import "../../styles/colors.scss";
+@import "../../styles/index.scss";
 
 .navbar {
   display: flex;
@@ -31,6 +32,8 @@
   color: white; /* Change la couleur du texte au survol */
   background-color: #394049; /* Change la couleur de fond au survol */
 }
+
+
 
 .navbar > hr {
   width: 80%;

@@ -44,7 +44,7 @@ function App() {
             />
           }
           collection={
-            <a href="/" className="lmj-title" style={{ color: "white" }}>
+            <a href="/collections" className="lmj-title" style={{ color: "white" }}>
               Collections
             </a>
           }

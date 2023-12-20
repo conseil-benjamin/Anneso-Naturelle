@@ -53,7 +53,7 @@ function Adresses() {
               <h2>Aucune adresse pour le moment</h2>
             </div>
           )}
-          <button onClick={() => setbtnAddAdresseClique(true)}>
+          <button onClick={() => setbtnAddAdresseClique(true)} id="btn-add-adresse">
             Ajouter une adresse
           </button>
         </div>

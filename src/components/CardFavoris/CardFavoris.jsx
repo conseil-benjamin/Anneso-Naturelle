@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import "./CardFavoris.css";
 import PropTypes from "prop-types"; // ES6
 import { useNavigate } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
@@ -73,11 +74,17 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
           height={150}
           onClick={() => setImageClique(true)}
         ></img>
+      </div>
+      <div>
+        <h4>{nomArticle}</h4>
         <h4>{prixArticle} €</h4>
       </div>
       <div className="container-right">
-        <h4>{nomArticle}</h4>
-        <button onClick={() => handleDeleteFavorite()}>Supprimer</button>
+        <FontAwesomeIcon
+          icon={faTrash}
+          className="fa-2x"
+          onClick={() => handleDeleteFavorite()}
+        />
       </div>
     </div>
   );
