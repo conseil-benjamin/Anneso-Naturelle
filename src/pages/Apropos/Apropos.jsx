@@ -17,8 +17,8 @@ function Apropos() {
             accessoires en pierres naturelles. Le but est de vous accompagner au
             quotidien et tout cela accompagné de méditation et de relaxation.
             <br />
-            <br /> Vous découvrirez différentes rubriques pour votre bien être
-            personnel et pour votre bien être environnant.
+            <br /> Vous découvrirez différentes rubriques pour votre bien-être
+            personnel et pour votre bien-être environnant.
           </p>
         </div>
       </div>

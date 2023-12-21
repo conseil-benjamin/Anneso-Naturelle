@@ -1,4 +1,5 @@
 import "./FiltreTrie.css";
+import Select from "react-select";
 
 function FiltreTrie({
   setActiveCategory,
@@ -9,7 +10,8 @@ function FiltreTrie({
 }) {
   return (
     <div className="divSelect">
-      <select
+      {/**
+       * <select
         value={activeCategory}
         onChange={(e) => setActiveCategory(e.target.value)}
         className="lmj-categories-select"
@@ -21,6 +23,7 @@ function FiltreTrie({
           </option>
         ))}
       </select>
+       */}
       <select
         value={triageActive}
         onChange={(e) => setActiveTriage(e.target.value)}
@@ -29,10 +32,12 @@ function FiltreTrie({
         <option value={"nom"}>Nom</option>
         <option value={"croissant"}>Prix croissant</option>
         <option value={"decroissant"}>Prix décroissant</option>
-        <option value={"moinsArrosage"}>Moins d'arrosage</option>
+        {/**
+         *  <option value={"moinsArrosage"}>Moins d'arrosage</option>
         <option value={"plusArrosage"}>Plus d'arrosage</option>
         <option value={"moinsLumiere"}>Moins de lumière</option>
         <option value={"plusLumiere"}>Plus de lumière</option>
+         */}
       </select>
       {triageActive ? (
         <button id="btn-trie" onClick={() => setActiveTriage("")}>

@@ -7,6 +7,12 @@ function Panier() {
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   const [total, setTotal] = useState(0);
 
+  const removeFromCart = (index) => {
+    const updatedCart = [...cart];
+    updatedCart.splice(index, 1);
+    updateCart(updatedCart);
+  };
+  
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
 
@@ -20,12 +26,6 @@ function Panier() {
   const viderPanier = () => {
     localStorage.setItem("nbElement", JSON.stringify(0));
     updateCart([]);
-  };
-
-  const removeFromCart = (index) => {
-    const updatedCart = [...cart];
-    updatedCart.splice(index, 1);
-    updateCart(updatedCart);
   };
 
   return (

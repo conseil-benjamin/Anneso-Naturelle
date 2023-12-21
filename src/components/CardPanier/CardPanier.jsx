@@ -48,10 +48,6 @@ function CardPanier({
   }, [selectedValue]);
 
   return (
-    /**
-     * ! Problème choix nombre plantes, total n'incrémente pas
-     * ! Problème prix, il incrémente mal
-     */
     <>
       <div className="main-panier-page">
         <img src={cover} height={125} width={125}></img>

@@ -18,7 +18,7 @@ function ShoppingList({ cart, updateCart }) {
   const [isAddElement, setAddElement] = useState(false);
   const [productList, setproductList] = useState([]);
   const [btnClique, setBtnDetailsClique] = useState(false);
-  const [braceletsClique, setBraceletsClique] = useState(false);
+  const [braceletsClique, setBraceletsClique] = useState(true);
   const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
   const [encensClique, setEncensClique] = useState(false);
   const [accesoiresClique, setAccesoiresClique] = useState(false);
@@ -44,6 +44,7 @@ function ShoppingList({ cart, updateCart }) {
           "http://localhost:5000/api/v1/products/bracelets"
         );
         const productList = await response.json();
+        setproductList([]);
         setproductList(productList);
       } catch (error) {
         console.error(error);
@@ -51,6 +52,11 @@ function ShoppingList({ cart, updateCart }) {
     };
     fetchData();
   }, []);
+
+  const whichCategoryIsClicked = () => {
+    encensClique && setEncensClique(false);
+    boucleOreilleClique && setBoucleOreilleClique(false);
+  };
 
   useEffect(() => {
     if (braceletsClique) {
@@ -60,7 +66,11 @@ function ShoppingList({ cart, updateCart }) {
             "http://localhost:5000/api/v1/products/bracelets"
           );
           const productList = await response.json();
+          setproductList([]);
           setproductList(productList);
+          setAccesoiresClique(false);
+          setBoucleOreilleClique(false);
+          setEncensClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -77,7 +87,11 @@ function ShoppingList({ cart, updateCart }) {
             "http://localhost:5000/api/v1/products/accessoires"
           );
           const productList = await response.json();
+          setproductList([]);
           setproductList(productList);
+          setBraceletsClique(false);
+          setBoucleOreilleClique(false);
+          setEncensClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -94,7 +108,11 @@ function ShoppingList({ cart, updateCart }) {
             "http://localhost:5000/api/v1/products/encens"
           );
           const productList = await response.json();
+          setproductList([]);
           setproductList(productList);
+          setBraceletsClique(false);
+          setBoucleOreilleClique(false);
+          setAccesoiresClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -111,7 +129,11 @@ function ShoppingList({ cart, updateCart }) {
             "http://localhost:5000/api/v1/products/boucles-oreilles"
           );
           const productList = await response.json();
+          setproductList([]);
           setproductList(productList);
+          setBraceletsClique(false);
+          setAccesoiresClique(false);
+          setEncensClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -257,6 +279,10 @@ function ShoppingList({ cart, updateCart }) {
       <div className="categories-and-filtre-and-trie">
         <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
         <Categories
+          braceletClique={braceletsClique}
+          boucleOreilleClique={boucleOreilleClique}
+          encensClique={encensClique}
+          accesoiresClique={accesoiresClique}
           setBraceletsClique={setBraceletsClique}
           setAccesoiresClique={setAccesoiresClique}
           setBoucleOreilleClique={setBoucleOreilleClique}

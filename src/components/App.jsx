@@ -38,13 +38,17 @@ function App() {
         <Banner
           logo={
             <img
-              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1701819626/Logo1.png"
+              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1703114666/logo1.png"
               alt="logo"
               className="lmj-logo"
             />
           }
           collection={
-            <a href="/collections" className="lmj-title" style={{ color: "white" }}>
+            <a
+              href="/collections"
+              className="lmj-title"
+              style={{ color: "white" }}
+            >
               Collections
             </a>
           }
@@ -55,7 +59,7 @@ function App() {
           }
           aPropos={
             <a href="/Apropos" className="lmj-title" style={{ color: "white" }}>
-              A propos
+              A propos de moi
             </a>
           }
           contact={

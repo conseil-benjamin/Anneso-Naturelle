@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Details.css";
-import CareScale from "../../components/CareScale/CareScale";
 import { Loader } from "../../utils/Loader";
+import Categories from "../../components/Categories/Categories";
+import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 
 function Details({ cart, updateCart }) {
   const navigate = useNavigate();
@@ -77,45 +78,38 @@ function Details({ cart, updateCart }) {
               />
             </Link>
           </div>
-          <div className="container-left-details">
-            {tableauObjet.map((produit) => (
-              <img
-                key={produit.id}
-                src={produit.cover}
-                width={250}
-                height={250}
-                alt="Image plante"
-                id="image_produit"
-              />
-            ))}
-          </div>
-          <div className="details-list">
-            {tableauObjet.map((produit) => (
-              <div key={produit.id}>
-                <h1>{produit.name}</h1>
-                <p>Nom : {produit.name}</p>
-                <p>Plante {produit.category}</p>
-                <div className="careScaleDetails">
-                  <p> Echelle d'arrosage nécessaire : (1-3) </p>
-                  <CareScale careType="water" scaleValue={produit.water} />
+          <div className="div-container-left-plus-right">
+            <div className="container-left-details">
+              {tableauObjet.map((produit) => (
+                <img
+                  key={produit.id}
+                  src={produit.cover}
+                  width={250}
+                  height={250}
+                  alt="Image plante"
+                  id="image_produit"
+                />
+              ))}
+            </div>
+            <div className="details-list">
+              {tableauObjet.map((produit) => (
+                <div key={produit.id}>
+                  <h1>{produit.name}</h1>
+                  <p>Prix : {produit.price} €</p>
+                  <p className="description">{produit.description}</p>
+                  <p>Autres infos à venir ...</p>
+                  <button
+                    className="button-56"
+                    role="button"
+                    onClick={() =>
+                      addToCart(produit.cover, produit.name, produit.price)
+                    }
+                  >
+                    Ajouter au panier
+                  </button>
                 </div>
-                <div className="careScaleDetails">
-                  <p> Echelle de luminosité nécessaire : (1-3) </p>
-                  <CareScale careType="light" scaleValue={produit.light} />
-                </div>
-                <p>Prix : {produit.price} €</p>
-                <p className="description">{produit.description}</p>
-                <button
-                  className="button-56"
-                  role="button"
-                  onClick={() =>
-                    addToCart(produit.cover, produit.name, produit.price)
-                  }
-                >
-                  Ajouter au panier
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </>
       )}

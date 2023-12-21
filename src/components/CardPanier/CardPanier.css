@@ -9,7 +9,7 @@
   padding: 1em;
 }
 .main-panier-page .name-element {
-  min-width: 8em;
+  max-width: 7em;
 }
 .main-panier-page select {
   margin: 0 1em 0 1em;
