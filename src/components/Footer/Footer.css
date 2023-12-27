@@ -49,8 +49,8 @@ html {
 }
 
 .lmj-footer {
-  background-color: #606c38;
-  color: white;
+  background-color: #22242a;
+  color: #ededee;
   border-top: solid 3px black;
   padding: 0 0 1em 0;
   display: flex;
@@ -104,7 +104,7 @@ html {
   gap: 1em;
 }
 .div-lien-juridique a {
-  color: white;
+  color: #F73F24;
 }
 
 .titre-footer {

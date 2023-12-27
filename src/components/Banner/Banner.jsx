@@ -1,6 +1,8 @@
 import "./Banner.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Banner({
   logo,
@@ -55,17 +57,30 @@ function Banner({
   return (
     <>
       <div className="lmj-banner">
-        <Link to="/collections">{logo}</Link>
-        <Link to="/collections">{collection}</Link>
-        {creationPersonalise}
-        {aPropos}
-        {contact}
-        <div className="icon-header">
-          <img
-            src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1702409603/icon_user_white.png"
-            onClick={() => setProfilClique(true)}
-          />
-          {panier}
+        <div>
+          <h2>Anne'so Naturelle</h2>
+        </div>
+        <div className="second-barre-banner">
+        <div>
+          <h2>Test</h2>
+        </div>
+          {/**
+             <Link to="/collections">{logo}</Link>
+           */}
+          <a href="/">Accueil</a>
+          <Link to="/collections">{collection}</Link>
+          {creationPersonalise}
+          {aPropos}
+          {contact}
+          <div className="icon-header">
+            <a href="login">
+              <FontAwesomeIcon
+                icon={faUserAlt}
+                onClick={() => setProfilClique(true)}
+              />
+            </a>
+            {panier}
+          </div>
         </div>
       </div>
     </>

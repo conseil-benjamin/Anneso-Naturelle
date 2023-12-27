@@ -1,14 +1,21 @@
 .lmj-banner {
-  background-color: #606c38;
-  padding: 32px;
-  border-bottom: solid 3px black;
+  background-color: #f2f0ec;
   display: flex;
   justify-content: space-evenly;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 1.75em;
   z-index: 1;
+}
+.lmj-banner h2 {
+  margin: 1em 0 0.05em 0;
+}
+.lmj-banner .second-barre-banner {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .lmj-title {

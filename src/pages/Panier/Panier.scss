@@ -1,17 +1,17 @@
 @import "../../styles/colors.scss";
 
 .body-element-panier {
-  background-color: $cornsilk;
+  padding: 5em;
+  background-color: $background-color;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  h1 {
-    margin: 0;
-    padding: 1.5em;
-  }
-  button {
-    padding: 0.8em;
+  flex-direction: row;
+  position: relative;
+  .panier-check-out {
+    position: sticky;
+    top: 0;
+    padding: 0 0 0 5em;
   }
   .div-1-element-panier {
     display: flex;
@@ -41,7 +41,7 @@
   #btn-vider-panier {
     margin: 0 0 4em 0;
   }
-  select{
+  select {
     border-radius: 10px;
     padding: 0.5em;
   }

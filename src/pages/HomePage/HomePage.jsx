@@ -1,5 +1,4 @@
 import imgAccueil from "../../Images/img_accueil.png";
-import rectangle from "../../Images/Rectangle 7.png";
 import braceletAccueil from "../../Images/bracelet_accueil.jpeg";
 import "./HomePage.scss";
 

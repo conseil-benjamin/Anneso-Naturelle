@@ -2,8 +2,8 @@
 @import "../../styles/index.scss";
 
 .lmj-footer {
-  background-color: $dark-moss-green;
-  color: white;
+  background-color: #22242a;
+  color: #ededee;
   border-top: solid 3px black;
   padding: 0 0 1em 0;
   display: flex;
@@ -56,7 +56,7 @@
   display: flex;
   gap: 1em;
   a {
-    color: white;
+    color: #F73F24;
   }
 }
 

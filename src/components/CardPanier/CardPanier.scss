@@ -1,12 +1,13 @@
 .main-panier-page{
     display: flex;
     flex-direction: row;
-    border: 2px solid black;
-    border-radius: 20px;
     margin: 0 0 1em 0;
     align-items: center;
     justify-content: center;
     padding: 1em;
+    img{
+        border-radius: 5px;
+    }
     .name-element{
         max-width: 7em;
     }

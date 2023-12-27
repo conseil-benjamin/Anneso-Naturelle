@@ -1,0 +1,21 @@
+[
+  {
+    "numeroPanier": "1",
+    "numeroClient": "1952781575",
+    "contenuPanier": [
+      {
+        "nom": "Bracelet bleue",
+        "cover": "adresseCoverArticle",
+        "prix": 15,
+        "nombre": 2
+      },
+      {
+        "nom": "Bracelet rouge",
+        "cover": "adresseCoverArticle",
+        "prix": 25,
+        "nombre": 2
+      }
+    ],
+    "prixTotal": 40
+  }
+]

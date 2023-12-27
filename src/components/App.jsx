@@ -23,6 +23,8 @@ import Favoris from "../pages/Favoris/Favoris";
 import HomePage from "../pages/HomePage/HomePage";
 import panier from "../Images/icons8-basket-48.png";
 import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -47,29 +49,41 @@ function App() {
             <a
               href="/collections"
               className="lmj-title"
-              style={{ color: "white" }}
+              style={{ color: "#27393b" }}
             >
               Collections
             </a>
           }
           creationPersonalise={
-            <a href="#" className="lmj-title" style={{ color: "white" }}>
+            <a href="#" className="lmj-title" style={{ color: "#27393b" }}>
               Creation Personalisé
             </a>
           }
           aPropos={
-            <a href="/Apropos" className="lmj-title" style={{ color: "white" }}>
+            <a
+              href="/Apropos"
+              className="lmj-title"
+              style={{ color: "#27393b" }}
+            >
               A propos de moi
             </a>
           }
           contact={
-            <a href="/Contact" className="lmj-title" style={{ color: "white" }}>
+            <a
+              href="/Contact"
+              className="lmj-title"
+              style={{ color: "#27393b" }}
+            >
               Contact
             </a>
           }
           panier={
             <a href="/Panier">
-              <img src={panier} alt="Panier" id="icone_panier" />
+              <FontAwesomeIcon
+                icon={faShoppingBasket}
+                alt="Panier"
+                id="icone_panier"
+              />
             </a>
           }
         />

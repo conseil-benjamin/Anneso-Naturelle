@@ -1,5 +1,5 @@
 import "./FiltreTrie.css";
-import Select from "react-select";
+//import Select from "react-select";
 
 function FiltreTrie({
   setActiveCategory,
