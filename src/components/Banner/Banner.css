@@ -1,7 +1,6 @@
 .lmj-banner {
   background-color: #f2f0ec;
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -15,7 +14,19 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+}
+.lmj-banner .second-barre-banner .icon-socials-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5em 0 0;
+}
+.lmj-banner .second-barre-banner .icon-socials-banner .iconSocial:hover {
+  cursor: pointer;
+}
+.lmj-banner .second-barre-banner .icon-header {
+  padding: 0 0 0 5em;
 }
 
 .lmj-title {
@@ -23,12 +34,10 @@
   font-size: 1.25rem;
 }
 
-.lmj-logo {
-  height: 45px;
-  width: 45px;
-  transform: scale(1.8);
-}
-
 #icone_panier {
   margin: 0 0 0 1em;
+}
+
+#icon-user-a:hover {
+  cursor: pointer;
 }/*# sourceMappingURL=Banner.css.map */

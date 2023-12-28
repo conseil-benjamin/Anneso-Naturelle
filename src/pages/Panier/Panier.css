@@ -2,14 +2,12 @@
   padding: 5em;
   background-color: #f2f0ec;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: row;
   position: relative;
 }
 .body-element-panier .panier-check-out {
   position: sticky;
-  top: 0;
   padding: 0 0 0 5em;
 }
 .body-element-panier .div-1-element-panier {
@@ -30,10 +28,18 @@
 }
 .body-element-panier .panier {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 0 0 2em 0;
+}
+.body-element-panier .panier #span-code-promo {
+  padding: 1em 0 0 1em;
+}
+.body-element-panier .panier #span-code-promo :hover {
+  cursor: pointer;
+}
+.body-element-panier .panier #title-panier {
+  padding: 0 0 0 1em;
 }
 .body-element-panier #btn-vider-panier {
   margin: 0 0 4em 0;
@@ -41,4 +47,13 @@
 .body-element-panier select {
   border-radius: 10px;
   padding: 0.5em;
+}
+
+@media (max-width: 930px) {
+  .body-element-panier {
+    flex-direction: column;
+  }
+  .body-element-panier .panier-check-out {
+    padding: 0;
+  }
 }/*# sourceMappingURL=Panier.css.map */

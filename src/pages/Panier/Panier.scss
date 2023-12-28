@@ -4,13 +4,11 @@
   padding: 5em;
   background-color: $background-color;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: row;
   position: relative;
   .panier-check-out {
     position: sticky;
-    top: 0;
     padding: 0 0 0 5em;
   }
   .div-1-element-panier {
@@ -33,10 +31,18 @@
   }
   .panier {
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 0 0 2em 0;
+    #span-code-promo {
+      padding: 1em 0 0 1em;
+      :hover {
+        cursor: pointer;
+      }
+    }
+    #title-panier {
+      padding: 0 0 0 1em;
+    }
   }
   #btn-vider-panier {
     margin: 0 0 4em 0;
@@ -44,5 +50,14 @@
   select {
     border-radius: 10px;
     padding: 0.5em;
+  }
+}
+
+@media (max-width: 930px) {
+  .body-element-panier{
+    flex-direction: column;
+    .panier-check-out{
+      padding: 0;
+    }
   }
 }

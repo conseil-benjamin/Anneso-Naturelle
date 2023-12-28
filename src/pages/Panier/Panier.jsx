@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Panier.css";
 import CardPanier from "../../components/CardPanier/CardPanier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faTag } from "@fortawesome/free-solid-svg-icons";
 
 function Panier() {
   const savedCart = localStorage.getItem("cart");
@@ -33,51 +33,56 @@ function Panier() {
   return (
     <>
       <div className="body-element-panier">
-        <h3>Mon panier</h3>
         {cart.length > 0 ? (
-          <div className="panier">
-            {cart.map((cartElement, index) => (
-              <CardPanier
-                key={`${cartElement.name}-${index}`}
-                cover={cartElement.cover}
-                name={cartElement.name}
-                price={cartElement.price}
-                amount={cartElement.amount}
-                index={index}
-                totalPanier={total}
-                setTotalPanier={setTotal}
-                removeFromCart={removeFromCart}
-              />
-            ))}
-            <hr />
-            {/**
+          <>
+            <div className="panier">
+              <h3 id="title-panier">Mon panier</h3>
+              <hr className="hr-custom" />
+              {cart.map((cartElement, index) => (
+                <CardPanier
+                  key={`${cartElement.name}-${index}`}
+                  cover={cartElement.cover}
+                  name={cartElement.name}
+                  price={cartElement.price}
+                  amount={cartElement.amount}
+                  index={index}
+                  totalPanier={total}
+                  setTotalPanier={setTotal}
+                  removeFromCart={removeFromCart}
+                />
+              ))}
+              {/**
              <button id="btn-vider-panier" onClick={viderPanier}>
               Vider le panier
             </button>
              */}
-            <span>Saisir un code promo</span>
-          </div>
+              <span id="span-code-promo">
+                <FontAwesomeIcon icon={faTag} />
+                {"\u00A0"} Saisir un code promo
+              </span>
+            </div>
+            <div className="panier-check-out">
+              <h3>Résumé de la commande</h3>
+              <hr />
+              <h4>Sous-total {total} €</h4>
+              <h4>
+                Estimation de la livraison :{" "}
+                {total >= 50 ? <span>Offerts*</span> : "5 €"}
+              </h4>
+              <hr />
+              <h2>Total {total >= 50 ? total : total + 5} €</h2>
+              <button>Passer commande</button>
+              <p>
+                <FontAwesomeIcon icon={faLock} />
+                {"\u00A0"} Paiement sécurisé
+              </p>
+            </div>
+          </>
         ) : (
           <div className="div-panier-vide">
             <h2>Votre panier est vide</h2>
           </div>
         )}
-        <div className="panier-check-out">
-          <h3>Résumé de la commande</h3>
-          <hr />
-          <h4>Sous-total {total} €</h4>
-          <h4>
-            Estimation de la livraison :{" "}
-            {total >= 50 ? <span>Offerts*</span> : "5 €"}
-          </h4>
-          <hr />
-          <h2>Total {total >= 50 ? total : total + 5} €</h2>
-          <button>Passer commande</button>
-          <p>
-            <FontAwesomeIcon icon={faLock} />
-            {"\u00A0"} Paiement sécurisé
-          </p>
-        </div>
       </div>
     </>
   );

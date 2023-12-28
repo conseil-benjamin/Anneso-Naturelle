@@ -5,13 +5,11 @@ import {
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import "./Footer.css";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Footer() {
   const navigate = useNavigate();
-  const [redirect, setRedirect] = useState(false);
-  const [redirection, setRedirection] = useState("");
 
   const handleClickContact = () => {
     navigate("Contact");

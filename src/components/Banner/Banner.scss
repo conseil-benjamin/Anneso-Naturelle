@@ -3,13 +3,10 @@
 .lmj-banner {
   background-color: #f2f0ec;
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
   width: 100%;
   z-index: 1;
-  // position: fixed;
-  //top: 0;
   h2 {
     margin: 1em 0 0.05em 0;
   }
@@ -18,7 +15,19 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    .icon-socials-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5em 0 0;
+      .iconSocial:hover {
+        cursor: pointer;
+      }
+    }
+    .icon-header {
+      padding: 0 0 0 5em;
+    }
   }
 }
 
@@ -27,12 +36,9 @@
   font-size: 1.25rem;
 }
 
-.lmj-logo {
-  height: 45px;
-  width: 45px;
-  transform: scale(1.8);
-}
-
 #icone_panier {
   margin: 0 0 0 1em;
+}
+#icon-user-a:hover {
+  cursor: pointer;
 }

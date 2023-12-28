@@ -1,0 +1,10 @@
+.main-div-categories{
+    display: flex;
+    flex-direction: column;
+    span{
+        margin: 0.5em 0 1em 0;
+    }
+    a{
+        padding-bottom: 1em;
+    }
+}

@@ -6,8 +6,8 @@ import "./ShoppingList.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeartbeat,
   faHeartCircleCheck,
+  faHeart,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -296,7 +296,7 @@ function ShoppingList({ cart, updateCart }) {
           setActiveTriage={setActiveTriage}
         />
       </div>
-      <hr className="hr-collections" />
+      <hr className="hr-custom" />
       <ul className="lmj-plant-list">
         {nameTable.map(
           ({ id, cover, name, water, light, price, category, description }) =>
@@ -343,7 +343,7 @@ function ShoppingList({ cart, updateCart }) {
                   />
                 ) : (
                   <FontAwesomeIcon
-                    icon={faHeartCircleCheck}
+                    icon={faHeart}
                     className="icon-signIn"
                     onClick={() => handleClickFavoris(cover, price, name, id)}
                   />

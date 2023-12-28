@@ -71,6 +71,8 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.icon-socials .iconSocial:hover {
   cursor: pointer;
 }
 

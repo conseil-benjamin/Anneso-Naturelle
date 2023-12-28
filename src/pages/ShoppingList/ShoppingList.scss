@@ -4,19 +4,22 @@
 .lmj-shopping-list {
   background-color: #f2f0ec;
   width: 100%;
+  display: flex;
+  flex-direction: row;
   .categories-and-filtre-and-trie {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 2em 0 0 2em;
+    max-width: 10em;
     a {
       margin: 0 2em 0 2em;
       font-size: 1.25rem;
       transition: 0.25s ease-in-out;
       &:hover {
-        border-bottom: 2px solid black;
         cursor: pointer;
+        color: rgba(0, 0, 0, 0.5);
       }
     }
   }
@@ -40,4 +43,8 @@
 
 #btn-details-plant {
   margin: 0 0 0 1em;
+}
+.hr-custom {
+  margin: 0 2em 0 0;
+  padding: 0;
 }

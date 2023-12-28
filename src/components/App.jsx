@@ -83,6 +83,7 @@ function App() {
                 icon={faShoppingBasket}
                 alt="Panier"
                 id="icone_panier"
+                size="2x"
               />
             </a>
           }

@@ -1,1 +1,10 @@
-/*# sourceMappingURL=Categories.css.map */
+.main-div-categories {
+  display: flex;
+  flex-direction: column;
+}
+.main-div-categories span {
+  margin: 0.5em 0 1em 0;
+}
+.main-div-categories a {
+  padding-bottom: 1em;
+}/*# sourceMappingURL=Categories.css.map */

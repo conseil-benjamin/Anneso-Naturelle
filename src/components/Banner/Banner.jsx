@@ -3,7 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  faFacebook,
+  faInstagram,
+  faTiktok,
+} from "@fortawesome/free-brands-svg-icons";
 function Banner({
   logo,
   collection,
@@ -20,6 +24,20 @@ function Banner({
     isLoggedOrNot ? JSON.parse(isLoggedOrNot) : null
   );
 
+  const handleClickSocials = (redirection) => {
+    redirection === "facebook"
+      ? window.open(
+          "https://www.facebook.com/profile.php?id=100075994402255",
+          "_blank"
+        )
+      : redirection === "instagram"
+      ? window.open(
+          "https://www.instagram.com/anneso2273/?igshid=OGQ5ZDc2ODk2ZA%3D%3D",
+          "_blank"
+        )
+      : window.open("https://www.tiktok.com/@anneso2273", "_blank");
+  };
+
   useEffect(() => {
     if (clientId && profilClique) {
       const fetchData = async () => {
@@ -31,7 +49,7 @@ function Banner({
           const clientFound = users.find(({ id }) => id === clientId);
           if (clientFound) {
             setProfilClique(false);
-            navigate("/Profil/infos-persos", {
+            navigate("/profil/infos-persos", {
               state: {
                 id: clientFound.id,
                 nom: clientFound.nom,
@@ -61,22 +79,46 @@ function Banner({
           <h2>Anne'so Naturelle</h2>
         </div>
         <div className="second-barre-banner">
-        <div>
-          <h2>Test</h2>
-        </div>
+          <div className="icon-socials-banner">
+            {" "}
+            <span>
+              <FontAwesomeIcon
+                className="iconSocial"
+                icon={faFacebook}
+                onClick={() => handleClickSocials("facebook")}
+              />
+            </span>
+            <span>
+              <FontAwesomeIcon
+                className="iconSocial"
+                icon={faInstagram}
+                onClick={() => handleClickSocials("instagram")}
+              />
+            </span>
+            <span>
+              <FontAwesomeIcon
+                className="iconSocial"
+                icon={faTiktok}
+                onClick={() => handleClickSocials("tiktok")}
+              />
+            </span>
+          </div>
           {/**
              <Link to="/collections">{logo}</Link>
            */}
-          <a href="/">Accueil</a>
+          <a href="/" className="lmj-title">
+            Accueil
+          </a>
           <Link to="/collections">{collection}</Link>
           {creationPersonalise}
           {aPropos}
           {contact}
           <div className="icon-header">
-            <a href="login">
+            <a id="icon-user-a">
               <FontAwesomeIcon
                 icon={faUserAlt}
                 onClick={() => setProfilClique(true)}
+                size="2x"
               />
             </a>
             {panier}

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CardPanier.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function CardPanier({
   name,
@@ -70,16 +72,16 @@ function CardPanier({
           <option value="8">8</option>
           <option value="9">9</option>
         </select>
-        <img
-          src={
-            "https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322942/Icon_Supprimer.png"
-          }
-          alt="icon supprimer"
-          onClick={() => removeFromCart(index)}
-          width={25}
-          height={25}
-        />
+        <a href="#">
+          <FontAwesomeIcon
+            icon={faXmark}
+            onClick={() => removeFromCart(index)}
+            alt="icon supprimer"
+            className="custom-size"
+          ></FontAwesomeIcon>
+        </a>
       </div>
+      <hr className="hr-custom" />
     </>
   );
 }

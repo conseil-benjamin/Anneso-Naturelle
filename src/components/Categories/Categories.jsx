@@ -18,18 +18,22 @@ function Categories({
         // ou alors via l'url, on récupère l'url imaginons -> /collections/bracelets
       }
       <div className="main-div-categories">
+        <span>Filtrer par </span>
+        <hr className="hr-custom" />
+        <span>Catégorie</span>
         <a
           onClick={() => setBraceletsClique(true)}
           style={{
-            borderBottom: braceletClique ? "2px solid #606c38ff" : null,
+            fontWeight: braceletClique ? "bold" : "300",
           }}
         >
           Bracelets
         </a>
+
         <a
           onClick={() => setBoucleOreilleClique(true)}
           style={{
-            borderBottom: boucleOreilleClique ? "2px solid #606c38ff" : null,
+            fontWeight: boucleOreilleClique ? "bold" : "300",
           }}
         >
           Boucles d'oreilles
@@ -37,7 +41,7 @@ function Categories({
         <a
           onClick={() => setEncensClique(true)}
           style={{
-            borderBottom: encensClique ? "2px solid #606c38ff" : null,
+            fontWeight: encensClique ? "bold" : "300",
           }}
         >
           Esotérique Support à encens
@@ -45,11 +49,12 @@ function Categories({
         <a
           onClick={() => setAccesoiresClique(true)}
           style={{
-            borderBottom: accesoiresClique ? "2px solid #283618ff" : null,
+            fontWeight: accesoiresClique ? "bold" : "300",
           }}
         >
           Acessoires
         </a>
+        <hr className="hr-custom" />
       </div>
     </>
   );
