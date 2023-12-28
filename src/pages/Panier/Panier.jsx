@@ -8,6 +8,7 @@ function Panier() {
   const savedCart = localStorage.getItem("cart");
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   const [total, setTotal] = useState(0);
+  const [codePromoClique, setCodePromoClique] = useState(false);
 
   const removeFromCart = (index) => {
     const updatedCart = [...cart];
@@ -56,10 +57,21 @@ function Panier() {
               Vider le panier
             </button>
              */}
-              <span id="span-code-promo">
-                <FontAwesomeIcon icon={faTag} />
-                {"\u00A0"} Saisir un code promo
-              </span>
+              <div className="div-code-promo">
+                <span id="span-code-promo">
+                  <FontAwesomeIcon
+                    icon={faTag}
+                    onClick={() => setCodePromoClique(true)}
+                  />
+                  {"\u00A0"} Saisir un code promo
+                </span>
+                {codePromoClique ? (
+                  <>
+                    <input style={{ width: "25%", padding: "0.5em" }}></input>
+                    <button style={{padding: "0.5em"}}>Appliquer</button>
+                  </>
+                ) : null}
+              </div>
             </div>
             <div className="panier-check-out">
               <h3>Résumé de la commande</h3>

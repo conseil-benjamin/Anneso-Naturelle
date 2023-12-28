@@ -34,12 +34,16 @@
     justify-content: center;
     flex-direction: column;
     padding: 0 0 2em 0;
-    #span-code-promo {
-      padding: 1em 0 0 1em;
-      :hover {
-        cursor: pointer;
+    .div-code-promo {
+      padding: 1em 0 0 0;
+      #span-code-promo {
+        padding: 1em 1em 0 1em;
+        :hover {
+          cursor: pointer;
+        }
       }
     }
+
     #title-panier {
       padding: 0 0 0 1em;
     }
@@ -54,9 +58,9 @@
 }
 
 @media (max-width: 930px) {
-  .body-element-panier{
+  .body-element-panier {
     flex-direction: column;
-    .panier-check-out{
+    .panier-check-out {
       padding: 0;
     }
   }
