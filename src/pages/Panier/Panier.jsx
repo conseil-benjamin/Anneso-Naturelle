@@ -64,13 +64,13 @@ function Panier() {
             <div className="panier-check-out">
               <h3>Résumé de la commande</h3>
               <hr />
-              <h4>Sous-total {total} €</h4>
+              <h4>Sous-total : {total} €</h4>
               <h4>
                 Estimation de la livraison :{" "}
                 {total >= 50 ? <span>Offerts*</span> : "5 €"}
               </h4>
               <hr />
-              <h2>Total {total >= 50 ? total : total + 5} €</h2>
+              <h2>Total : {total >= 50 ? total : total + 5} €</h2>
               <button>Passer commande</button>
               <p>
                 <FontAwesomeIcon icon={faLock} />

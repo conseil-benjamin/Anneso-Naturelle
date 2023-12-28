@@ -18,7 +18,8 @@ function ShoppingList({ cart, updateCart }) {
   const [isAddElement, setAddElement] = useState(false);
   const [productList, setproductList] = useState([]);
   const [btnClique, setBtnDetailsClique] = useState(false);
-  const [braceletsClique, setBraceletsClique] = useState(true);
+  const [toutClique, setToutClique] = useState(true);
+  const [braceletsClique, setBraceletsClique] = useState(false);
   const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
   const [encensClique, setEncensClique] = useState(false);
   const [accesoiresClique, setAccesoiresClique] = useState(false);
@@ -40,9 +41,7 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/v1/products/bracelets"
-        );
+        const response = await fetch("http://localhost:5000/api/v1/products");
         const productList = await response.json();
         setproductList([]);
         setproductList(productList);
@@ -52,11 +51,6 @@ function ShoppingList({ cart, updateCart }) {
     };
     fetchData();
   }, []);
-
-  const whichCategoryIsClicked = () => {
-    encensClique && setEncensClique(false);
-    boucleOreilleClique && setBoucleOreilleClique(false);
-  };
 
   useEffect(() => {
     if (braceletsClique) {
@@ -71,6 +65,7 @@ function ShoppingList({ cart, updateCart }) {
           setAccesoiresClique(false);
           setBoucleOreilleClique(false);
           setEncensClique(false);
+          setToutClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -92,6 +87,7 @@ function ShoppingList({ cart, updateCart }) {
           setBraceletsClique(false);
           setBoucleOreilleClique(false);
           setEncensClique(false);
+          setToutClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -99,6 +95,26 @@ function ShoppingList({ cart, updateCart }) {
       fetchData();
     }
   }, [accesoiresClique]);
+
+  useEffect(() => {
+    if (toutClique) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:5000/api/v1/products");
+          const productList = await response.json();
+          setproductList([]);
+          setproductList(productList);
+          setBraceletsClique(false);
+          setBoucleOreilleClique(false);
+          setEncensClique(false);
+          setAccesoiresClique(false);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+    }
+  }, [toutClique]);
 
   useEffect(() => {
     if (encensClique) {
@@ -113,6 +129,7 @@ function ShoppingList({ cart, updateCart }) {
           setBraceletsClique(false);
           setBoucleOreilleClique(false);
           setAccesoiresClique(false);
+          setToutClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -134,6 +151,7 @@ function ShoppingList({ cart, updateCart }) {
           setBraceletsClique(false);
           setAccesoiresClique(false);
           setEncensClique(false);
+          setToutClique(false);
         } catch (error) {
           console.error(error);
         }
@@ -277,7 +295,10 @@ function ShoppingList({ cart, updateCart }) {
   return (
     <div className="lmj-shopping-list">
       <div className="categories-and-filtre-and-trie">
-        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+        <div className="div-recherche-produit">
+          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+          <input></input>
+        </div>
         <Categories
           braceletClique={braceletsClique}
           boucleOreilleClique={boucleOreilleClique}
@@ -287,6 +308,8 @@ function ShoppingList({ cart, updateCart }) {
           setAccesoiresClique={setAccesoiresClique}
           setBoucleOreilleClique={setBoucleOreilleClique}
           setEncensClique={setEncensClique}
+          setToutClique={setToutClique}
+          toutClique={toutClique}
         ></Categories>
         <FiltreTrie
           categories={categories}

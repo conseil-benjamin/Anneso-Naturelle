@@ -3,7 +3,7 @@ import "./CardFavoris.css";
 import PropTypes from "prop-types"; // ES6
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
       </div>
       <div className="container-right">
         <FontAwesomeIcon
-          icon={faTrash}
+          icon={faXmark}
           className="fa-2x"
           onClick={() => handleDeleteFavorite()}
         />

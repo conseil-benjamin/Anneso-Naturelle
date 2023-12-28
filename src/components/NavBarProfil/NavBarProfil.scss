@@ -4,11 +4,10 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   width: 15em;
   margin: 0 18em 0 0;
-  background-color: $dark-moss-green;
+  background-color: $secondary-color;
   color: #ffff;
   border-radius: 0 10px 10px 0;
 }

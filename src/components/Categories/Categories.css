@@ -2,9 +2,18 @@
   display: flex;
   flex-direction: column;
 }
+.main-div-categories .categories-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .main-div-categories span {
-  margin: 0.5em 0 1em 0;
+  margin: 0.5em 2em 1em 0;
+  min-width: 7em;
 }
 .main-div-categories a {
   padding-bottom: 1em;
+}
+.main-div-categories .icon-categories {
+  cursor: pointer;
 }/*# sourceMappingURL=Categories.css.map */

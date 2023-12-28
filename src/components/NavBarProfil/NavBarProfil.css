@@ -52,11 +52,10 @@ html {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   width: 15em;
   margin: 0 18em 0 0;
-  background-color: #606c38;
+  background-color: #22242a;
   color: white;
   border-radius: 0 10px 10px 0;
 }

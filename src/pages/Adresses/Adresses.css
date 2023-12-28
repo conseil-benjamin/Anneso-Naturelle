@@ -51,7 +51,7 @@ html {
 .div-main-page-adresses {
   display: flex;
   flex-direction: row;
-  background-color: #fefae0;
+  background-color: #f2f0ec;
 }
 .div-main-page-adresses .div-adresses {
   display: flex;

@@ -103,9 +103,6 @@ function Banner({
               />
             </span>
           </div>
-          {/**
-             <Link to="/collections">{logo}</Link>
-           */}
           <a href="/" className="lmj-title">
             Accueil
           </a>

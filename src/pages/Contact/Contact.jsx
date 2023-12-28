@@ -32,6 +32,7 @@ function Contact() {
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          style={{fontSize: 20}}
         ></textarea>
         <button className="btn-login">
           Me contacter

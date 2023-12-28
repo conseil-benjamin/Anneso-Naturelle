@@ -1,10 +1,19 @@
-.main-div-categories{
+.main-div-categories {
+  display: flex;
+  flex-direction: column;
+  .categories-div {
     display: flex;
-    flex-direction: column;
-    span{
-        margin: 0.5em 0 1em 0;
-    }
-    a{
-        padding-bottom: 1em;
-    }
+    justify-content: space-around;
+    align-items: center;
+  }
+  span {
+    margin: 0.5em 2em 1em 0;
+    min-width: 7em;
+  }
+  a {
+    padding-bottom: 1em;
+  }
+  .icon-categories {
+    cursor: pointer;
+  }
 }
