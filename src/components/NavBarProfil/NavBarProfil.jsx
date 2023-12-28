@@ -134,7 +134,7 @@ function NavBarProfil() {
     <>
       <div className="navbar">
         <h3>
-          <u>Bonjour {name}</u>
+          Bonjour {name}
         </h3>
         <button onClick={() => setInfosPersoClique(true)}>
           Mes Informations

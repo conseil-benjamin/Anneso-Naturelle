@@ -48,7 +48,7 @@ function Categories({
               onClick={() => setToutClique(true)}
               style={{
                 fontWeight: toutClique ? "bold" : "300",
-                fontSize: 18,
+                fontSize: 16,
               }}
             >
               Tout
@@ -57,7 +57,7 @@ function Categories({
               onClick={() => setBraceletsClique(true)}
               style={{
                 fontWeight: braceletClique ? "bold" : "300",
-                fontSize: 18,
+                fontSize: 16,
               }}
             >
               Bracelets
@@ -67,7 +67,7 @@ function Categories({
               onClick={() => setBoucleOreilleClique(true)}
               style={{
                 fontWeight: boucleOreilleClique ? "bold" : "300",
-                fontSize: 18,
+                fontSize: 16,
               }}
             >
               Boucles d'oreilles
@@ -76,7 +76,7 @@ function Categories({
               onClick={() => setEncensClique(true)}
               style={{
                 fontWeight: encensClique ? "bold" : "300",
-                fontSize: 18,
+                fontSize: 16,
               }}
             >
               Esotérique Support à encens
@@ -85,7 +85,7 @@ function Categories({
               onClick={() => setAccesoiresClique(true)}
               style={{
                 fontWeight: accesoiresClique ? "bold" : "300",
-                fontSize: 18,
+                fontSize: 16,
               }}
             >
               Acessoires
