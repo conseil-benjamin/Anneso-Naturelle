@@ -25,7 +25,7 @@ function Profil() {
   /* Cookies - Marche pas trop - a voir plus tard
   const cookieIdClient = Cookies.get("userId");
   const cookieNomPrenom = Cookies.get("firstAndLastName");
-
+  
   */
   localStorage.setItem("name", nom + " " + prenom);
   /*

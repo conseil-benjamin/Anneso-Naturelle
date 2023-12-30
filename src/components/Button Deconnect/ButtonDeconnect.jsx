@@ -2,11 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./ButtonSignOut.css";
+import Cookies from "js-cookie";
 
 function ButtonDeconnect() {
   const navigate = useNavigate();
   function deconnect() {
-    localStorage.removeItem("id");
+    Cookies.remove("token");
     navigate("/");
   }
 

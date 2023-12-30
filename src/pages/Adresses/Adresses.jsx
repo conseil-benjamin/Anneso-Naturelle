@@ -20,7 +20,6 @@ function Adresses() {
   const [clientId, setClientId] = useState(
     isLogged ? JSON.parse(isLogged) : null
   );
-  //!location.state && isLogged ?
 
   useEffect(() => {
     if (btnAddAdresseClique) {

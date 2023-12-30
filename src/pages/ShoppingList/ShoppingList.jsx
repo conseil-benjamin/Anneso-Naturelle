@@ -10,6 +10,7 @@ import {
   faHeart,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import { Loader } from "../../utils/Loader";
 
 function ShoppingList({ cart, updateCart }) {
   // console.log(cart);
@@ -41,7 +42,9 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/v1/products");
+        const response = await fetch(
+          "https://anneso-naturelle-api.onrender.com/api/v1/products"
+        );
         const productList = await response.json();
         setproductList([]);
         setproductList(productList);
@@ -57,7 +60,7 @@ function ShoppingList({ cart, updateCart }) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/products/bracelets"
+            "https://anneso-naturelle-api.onrender.com/api/v1/products/bracelets"
           );
           const productList = await response.json();
           setproductList([]);
@@ -79,7 +82,7 @@ function ShoppingList({ cart, updateCart }) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/products/accessoires"
+            "https://anneso-naturelle-api.onrender.com/api/v1/products/accessoires"
           );
           const productList = await response.json();
           setproductList([]);
@@ -100,7 +103,9 @@ function ShoppingList({ cart, updateCart }) {
     if (toutClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/products");
+          const response = await fetch(
+            "https://anneso-naturelle-api.onrender.com/api/v1/products"
+          );
           const productList = await response.json();
           setproductList([]);
           setproductList(productList);
@@ -121,7 +126,7 @@ function ShoppingList({ cart, updateCart }) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/products/encens"
+            "https://anneso-naturelle-api.onrender.com/api/v1/products/encens"
           );
           const productList = await response.json();
           setproductList([]);
@@ -143,7 +148,7 @@ function ShoppingList({ cart, updateCart }) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/products/boucles-oreilles"
+            "https://anneso-naturelle-api.onrender.com/api/v1/products/boucles-oreilles"
           );
           const productList = await response.json();
           setproductList([]);
@@ -209,7 +214,7 @@ function ShoppingList({ cart, updateCart }) {
     };
     try {
       const response = await fetch(
-        "http://localhost:5000/api/v1/favoris/insert/",
+        "https://anneso-naturelle-api.onrender.com/api/v1/favoris/insert",
         {
           method: "POST",
           headers: {
@@ -295,10 +300,10 @@ function ShoppingList({ cart, updateCart }) {
   return (
     <div className="lmj-shopping-list">
       <div className="categories-and-filtre-and-trie">
-        <div className="div-recherche-produit">
+        {/* <div className="div-recherche-produit">
           <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
           <input></input>
-        </div>
+        </div> */}
         <Categories
           braceletClique={braceletsClique}
           boucleOreilleClique={boucleOreilleClique}
@@ -319,7 +324,6 @@ function ShoppingList({ cart, updateCart }) {
           setActiveTriage={setActiveTriage}
         />
       </div>
-      <hr className="hr-custom" />
       <ul className="lmj-plant-list">
         {nameTable.map(
           ({ id, cover, name, water, light, price, category, description }) =>

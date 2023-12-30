@@ -9,22 +9,20 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Loader } from "../../utils/Loader";
+import Cookies from "js-cookie";
 
 function Login() {
   const [inputType, setInputType] = useState("password");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [emailValue, setEmailValue] = useState("");
+  const [password, setpassword] = useState("");
+  const [email, setemail] = useState("");
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const [isDataLoading, setDataLoading] = useState(false);
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
-  const isLogged = localStorage.getItem("id");
-  const [clientId, setClientId] = useState(
-    isLogged ? JSON.parse(isLogged) : null
-  );
-
-  isLogged && navigate("/Profil/infos-persos");
+  const setCookie = (token) => {
+    Cookies.set("auth_token", token, { expires: 7 });
+  };
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
@@ -37,48 +35,51 @@ function Login() {
     }
   };
 
+  const getTokenAuthentification = async () => {
+    const user = {
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCookie(data.token);
+      } else {
+        console.error("Erreur lors de la création du compte");
+      }
+    } catch (error) {
+      console.error("Erreur de connexion au serveur:", error);
+    }
+  };
+
   useEffect(() => {
     if (isBtnCliquer) {
-      const fetchData = async () => {
+      try {
         setDataLoading(true);
-        try {
-          const response = await fetch("http://localhost:5000/api/v1/users");
-          const users = await response.json();
-          console.log(users);
-          const clientFound = users.find(
-            ({ adresseEmail, mdp }) =>
-              emailValue === adresseEmail && passwordValue === mdp
-          );
-          if (clientFound) {
-            navigate("/Profil/infos-persos", {
-              state: {
-                id: clientFound.id,
-                nom: clientFound.nom,
-                prenom: clientFound.prenom,
-                adresses: clientFound.adresses,
-                adresseEmail: clientFound.adresseEmail,
-                mdp: clientFound.mdp,
-                numeroTel: clientFound.numeroTel,
-                iconProfil: clientFound.iconProfil,
-              },
-            });
-            localStorage.setItem("id", JSON.stringify(clientFound.id));
-          } else {
-            // loader pendant la recherce d'un compte
-            Swal.fire({
-              text: "Compte non trouvé avec cette combinaison email/mot de passe",
-              icon: "error",
-              confirmButtonText: "Ok",
-            });
-            setBtnCliquer(false);
-          }
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setDataLoading(false);
+        const token = getTokenAuthentification();
+        if (token) {
+          navigate("/Profil/infos-persos");
+        } else {
+          Swal.fire({
+            text: "Compte non trouvé avec cette combinaison email/mot de passe",
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+          setBtnCliquer(false);
         }
-      };
-      fetchData();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setDataLoading(false);
+      }
     }
   }, [isBtnCliquer]);
 
@@ -94,16 +95,16 @@ function Login() {
           <input
             className="input-login"
             placeholder="Adresse Email"
-            value={emailValue}
-            onChange={(e) => setEmailValue(e.target.value)}
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
           ></input>
           <div className="div-password">
             <input
               className="input-login"
               type={inputType}
-              value={passwordValue}
+              value={password}
               placeholder="Mot de passe"
-              onChange={(e) => setPasswordValue(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               onKeyUp={(e) => handleKeyPress(e)}
             />
             <button onClick={togglePasswordVisibility} onke>

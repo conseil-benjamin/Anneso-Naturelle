@@ -1,11 +1,32 @@
 .main-div-categories {
   display: flex;
   flex-direction: column;
+  margin: 0 0 0 2em;
 }
 .main-div-categories .categories-div {
   display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid #dbdbdb;
+  min-width: 15em;
+  margin: 0 0 0.6em 0;
+}
+.main-div-categories .categories-div :hover {
+  cursor: pointer;
+}
+.main-div-categories .categories-div .header-categories {
+  display: flex;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  padding: 0.5em;
+}
+.main-div-categories .div-max-and-min-filter {
+  display: flex;
+}
+.main-div-categories .div-max-and-min-filter input {
+  max-width: 4em;
+  margin: 0 0.5em 0 0;
 }
 .main-div-categories span {
   margin: 0.5em 2em 1em 0;

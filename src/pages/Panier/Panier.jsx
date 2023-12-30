@@ -9,6 +9,8 @@ function Panier() {
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   const [total, setTotal] = useState(0);
   const [codePromoClique, setCodePromoClique] = useState(false);
+  const [codePromo, setCodePromo] = useState("");
+  const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
 
   const removeFromCart = (index) => {
     const updatedCart = [...cart];
@@ -25,6 +27,13 @@ function Panier() {
     );
     setTotal(newTotal);
   }, [cart]);
+
+  useEffect(() => {
+    codePromoAppliquer && codePromo !== "salut"
+      ? alert("Mauvais code !")
+      : alert("Bon code !");
+    setCodePromoAppliquer(false);
+  }, [codePromoAppliquer]);
 
   const viderPanier = () => {
     localStorage.setItem("nbElement", JSON.stringify(0));
@@ -67,8 +76,16 @@ function Panier() {
                 </span>
                 {codePromoClique ? (
                   <>
-                    <input style={{ width: "25%", padding: "0.5em" }}></input>
-                    <button style={{padding: "0.5em"}}>Appliquer</button>
+                    <input
+                      style={{ width: "25%", padding: "0.5em" }}
+                      onChange={(e) => setCodePromo(e.target.value)}
+                    ></input>
+                    <button
+                      style={{ padding: "0.5em" }}
+                      onClick={() => setCodePromoAppliquer(true)}
+                    >
+                      Appliquer
+                    </button>
                   </>
                 ) : null}
               </div>

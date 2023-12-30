@@ -8,21 +8,13 @@ import {
   faInstagram,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
-function Banner({
-  logo,
-  collection,
-  aPropos,
-  contact,
-  panier,
-  creationPersonalise,
-}) {
-  const isLoggedOrNot = localStorage.getItem("id");
+import Cookies from "js-cookie";
+
+function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   const [profilClique, setProfilClique] = useState(false);
   const navigate = useNavigate();
 
-  const [clientId, setClientId] = useState(
-    isLoggedOrNot ? JSON.parse(isLoggedOrNot) : null
-  );
+  const jwtToken = Cookies.get("token");
 
   const handleClickSocials = (redirection) => {
     redirection === "facebook"
@@ -39,31 +31,34 @@ function Banner({
   };
 
   useEffect(() => {
-    if (clientId && profilClique) {
+    console.log(jwtToken);
+    if (jwtToken && profilClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/users");
-          const users = await response.json();
-          console.log(users);
-          console.log(isLoggedOrNot);
-          const clientFound = users.find(({ id }) => id === clientId);
-          if (clientFound) {
+          const response = await fetch("http://localhost:5000/api/v1/users", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          });
+          const user = await response.json();
+          console.log(user);
+          if (user) {
             setProfilClique(false);
             navigate("/profil/infos-persos", {
               state: {
-                id: clientFound.id,
-                nom: clientFound.nom,
-                prenom: clientFound.prenom,
-                adresses: clientFound.adresses,
-                adresseEmail: clientFound.adresseEmail,
-                mdp: clientFound.mdp,
-                numeroTel: clientFound.numeroTel,
-                iconProfil: clientFound.iconProfil,
+                id: user.id,
+                nom: user.nom,
+                prenom: user.prenom,
+                adresseEmail: user.adresseEmail,
+                mdp: user.mdp,
+                numeroTel: user.numeroTel,
               },
             });
           }
         } catch (error) {
-          console.error(error);
+          console.error("Erreur de connexion au serveur:", error);
         }
       };
       fetchData();

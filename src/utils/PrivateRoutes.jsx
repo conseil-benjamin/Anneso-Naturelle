@@ -1,9 +1,10 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 const PrivateRoutes = () => {
-  const isLoggedOrNot = localStorage.getItem("id");
-  const [auth, setChemin] = useState(isLoggedOrNot ? true : false);
+  const jwstoken = Cookies.get("token");
+  const [auth, setChemin] = useState(jwstoken ? true : false);
   return auth ? <Outlet /> : <Navigate to="/login" />;
 };
 
