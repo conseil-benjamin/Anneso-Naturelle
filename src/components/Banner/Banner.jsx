@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   const [profilClique, setProfilClique] = useState(false);
   const navigate = useNavigate();
+  const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
 
   const jwtToken = Cookies.get("token");
 
@@ -114,6 +115,11 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
               />
             </a>
             {panier}
+            {nbArticles > 0 ? (
+              <a href="panier">
+                <span className="span-nb-articles">{nbArticles}</span>
+              </a>
+            ) : null}
           </div>
         </div>
       </div>

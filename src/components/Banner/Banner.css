@@ -28,6 +28,16 @@
 }
 .lmj-banner .second-barre-banner .icon-header {
   padding: 0 0 0 5em;
+  position: relative;
+}
+.lmj-banner .second-barre-banner .icon-header .span-nb-articles {
+  background-color: #f73f24;
+  color: white;
+  border-radius: 10em;
+  padding: 1px 6px;
+  position: absolute;
+  top: 45%;
+  right: -1%;
 }
 
 .lmj-title {

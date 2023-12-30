@@ -97,7 +97,10 @@ html {
 }
 
 #btn-ajouter {
+  background-color: #b23c00;
   margin: 0 0 0 0.7em;
+  width: 78%;
+  padding: 0.25em;
 }
 
 #btn-details-plant {

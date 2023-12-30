@@ -13,12 +13,12 @@
     padding: 2em 0 0 2em;
     max-width: 12em;
     position: sticky;
-    .div-recherche-produit{
+    .div-recherche-produit {
       display: flex;
       flex-direction: row;
       align-items: center;
       padding: 0 0 2em 0;
-      input{
+      input {
         max-width: 72%;
         margin: 0 0 0 1em;
         border-radius: 9px;
@@ -50,7 +50,10 @@
 }
 
 #btn-ajouter {
+  background-color: #b23c00;
   margin: 0 0 0 0.7em;
+  width: 78%;
+  padding: 0.25em;
 }
 
 #btn-details-plant {
@@ -60,7 +63,7 @@
   margin: 0 2em 0 0;
   padding: 0;
 }
-.hr-horizontal-categories{
+.hr-horizontal-categories {
   margin: 0 2em 0 0;
   padding: 0;
   width: 100%;

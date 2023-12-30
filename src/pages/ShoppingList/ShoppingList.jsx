@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeartCircleCheck,
-  faHeart,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/fontawesome-free-regular";
 import { Loader } from "../../utils/Loader";
 
 function ShoppingList({ cart, updateCart }) {
@@ -234,7 +234,6 @@ function ShoppingList({ cart, updateCart }) {
     }
   };
 
-  // Appliquer le tri si triageActive est défini
   if (triageActive) {
     nameTable = [...productList]; // Créer une copie pour ne pas modifier productList directement
 
@@ -271,11 +270,6 @@ function ShoppingList({ cart, updateCart }) {
       nameTable = [...nameTable].sort(sortFunctions[triageActive]);
     }
   }
-  const categories = productList.reduce(
-    (acc, plant) =>
-      acc.includes(plant.category) ? acc : acc.concat(plant.category),
-    []
-  );
 
   function addToCart(cover, name, price) {
     setProductAdd(true);
@@ -293,6 +287,8 @@ function ShoppingList({ cart, updateCart }) {
     } else {
       updateCart([...cart, { cover, name, price, amount: 1 }]);
       localStorage.setItem("nbElement", JSON.stringify(1));
+      const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+      localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
     }
     setAddElement(true);
   }
@@ -315,14 +311,9 @@ function ShoppingList({ cart, updateCart }) {
           setEncensClique={setEncensClique}
           setToutClique={setToutClique}
           toutClique={toutClique}
-        ></Categories>
-        <FiltreTrie
-          categories={categories}
-          setActiveCategory={setActiveCategory}
-          activeCategory={activeCategory}
           triageActive={triageActive}
           setActiveTriage={setActiveTriage}
-        />
+        ></Categories>
       </div>
       <ul className="lmj-plant-list">
         {nameTable.map(
@@ -345,23 +336,27 @@ function ShoppingList({ cart, updateCart }) {
                 >
                   Ajouter
                 </button>
-                <button
-                  id="btn-details-plant"
-                  onClick={() =>
-                    handleDetailsClique(
-                      id,
-                      cover,
-                      name,
-                      water,
-                      light,
-                      price,
-                      description,
-                      category
-                    )
-                  }
-                >
-                  Détails
-                </button>
+                {/**
+                   
+                  <button
+                    id="btn-details-plant"
+                    onClick={() =>
+                      handleDetailsClique(
+                        id,
+                        cover,
+                        name,
+                        water,
+                        light,
+                        price,
+                        description,
+                        category
+                      )
+                    }
+                  >
+                    Détails
+                  </button>
+                  */}
+
                 {favorite ? (
                   <FontAwesomeIcon
                     icon={faHeartCircleCheck}

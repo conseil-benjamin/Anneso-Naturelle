@@ -5,7 +5,7 @@ import {
   faChevronUp,
   faFilter,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -20,6 +20,8 @@ function Categories({
   setAccesoiresClique,
   setToutClique,
   toutClique,
+  triageActive,
+  setActiveTriage,
 }) {
   const [categoriesClique, setCategoriesClique] = useState(false);
   const [prixClique, setPrixClique] = useState(false);
@@ -27,6 +29,7 @@ function Categories({
   const [range, setRange] = useState([0, 100]); // Valeurs initiales du slider
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(100);
+  const [selectedOption, setSelectedOption] = useState("option1");
 
   const handleSliderChange = (min, max, range) => {
     setMin(min);
@@ -43,6 +46,10 @@ function Categories({
       setPrixClique(true);
     } else if (filter === "prix" && prixClique) {
       setPrixClique(false);
+    } else if (filter === "trie" && !trieClique) {
+      setTrieClique(true);
+    } else if (filter === "trie" && trieClique) {
+      setTrieClique(false);
     }
     /**
      * ! Marche pas totalement
@@ -59,6 +66,7 @@ function Categories({
     backgroundColor: "#434748", // Remplacez par la couleur que vous souhaitez
     height: 7,
   };
+
   return (
     <>
       <div className="main-div-categories">
@@ -67,7 +75,10 @@ function Categories({
           <span style={{ margin: "0 0 0 0.5em" }}>Filtrer</span>
         </div>
         <div className="categories-div">
-          <div className="header-categories">
+          <div
+            className="header-categories"
+            onClick={() => handleDivClique("trie")}
+          >
             <span>Trier par</span>
             {!trieClique ? (
               <FontAwesomeIcon
@@ -83,6 +94,43 @@ function Categories({
               ></FontAwesomeIcon>
             )}
           </div>
+          {trieClique ? (
+            <>
+              <div className="radio-trie-div">
+                <label>
+                  <input
+                    type="radio"
+                    value="nom"
+                    checked={triageActive === "nom"}
+                    onChange={(e) => setActiveTriage(e.target.value)}
+                  ></input>
+                  Nom
+                </label>
+              </div>
+              <div className="radio-trie-div">
+                <label>
+                  <input
+                    type="radio"
+                    value="croissant"
+                    checked={triageActive === "croissant"}
+                    onChange={(e) => setActiveTriage(e.target.value)}
+                  ></input>
+                  Prix croissant
+                </label>
+              </div>
+              <div className="radio-trie-div">
+                <label>
+                  <input
+                    type="radio"
+                    value="decroissant"
+                    checked={triageActive === "decroissant"}
+                    onChange={(e) => setActiveTriage(e.target.value)}
+                  ></input>
+                  Prix décroissant
+                </label>
+              </div>
+            </>
+          ) : null}
         </div>
         <div className="categories-div">
           <div
@@ -188,7 +236,7 @@ function Categories({
                   value={max}
                 ></input>
               </div>
-              <div>
+              <div className="slider-div">
                 <Slider
                   range
                   defaultValue={[0, 100]}

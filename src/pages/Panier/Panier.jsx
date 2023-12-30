@@ -16,6 +16,10 @@ function Panier() {
     const updatedCart = [...cart];
     updatedCart.splice(index, 1);
     updateCart(updatedCart);
+    const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+    if (nbArticles > 0) {
+      localStorage.setItem("nbArticles", nbArticles - 1);
+    }
   };
 
   useEffect(() => {
@@ -28,12 +32,14 @@ function Panier() {
     setTotal(newTotal);
   }, [cart]);
 
-  useEffect(() => {
+  /** 
+   *   useEffect(() => {
     codePromoAppliquer && codePromo !== "salut"
       ? alert("Mauvais code !")
       : alert("Bon code !");
     setCodePromoAppliquer(false);
   }, [codePromoAppliquer]);
+  */
 
   const viderPanier = () => {
     localStorage.setItem("nbElement", JSON.stringify(0));

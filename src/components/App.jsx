@@ -21,10 +21,9 @@ import AjoutAdresse from "../pages/Ajout Adresse/AjoutAdresse";
 import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 import Favoris from "../pages/Favoris/Favoris";
 import HomePage from "../pages/HomePage/HomePage";
-import panier from "../Images/icons8-basket-48.png";
 import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
@@ -80,7 +79,7 @@ function App() {
           panier={
             <a href="/Panier">
               <FontAwesomeIcon
-                icon={faShoppingBasket}
+                icon={faShoppingCart}
                 alt="Panier"
                 id="icone_panier"
                 size="2x"
