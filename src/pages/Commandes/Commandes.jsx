@@ -9,13 +9,9 @@ function Commandes() {
 
   const tableauObjet = Object.values(commandes);
 
-  const isLogged = localStorage.getItem("id");
   // faire en sorte que quand le client arrive sur cette page sans cliquer sur un bouton qui l'anmmène (un navigate)
   // on récupère son id, et on refais une requete api pour récupérer les données du client connecté
   // a voir plus tard - pas essentielle maintenant
-  const [clientId, setClientId] = useState(
-    isLogged ? JSON.parse(isLogged) : null
-  );
   //!location.state && isLogged ?
 
   return (

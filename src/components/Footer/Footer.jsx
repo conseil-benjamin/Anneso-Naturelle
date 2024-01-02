@@ -40,11 +40,17 @@ function Footer() {
           >
             Me contacter
           </button>
-          <p id="titre-footer">© 2023 - Anne-Shopie</p>
+          <p id="titre-footer">© 2024 - Anne-Shopie</p>
           <div className="div-lien-juridique">
-            <a href="Mentions-Legales">Mentions Légales - </a>
-            <a href="conditions-utilisations">Conditions d'Utilisation -</a>
-            <a href="conditions-generales">Conditions Générales</a>
+            <a href="Mentions-Legales" style={{ color: "#B23C00" }}>
+              Mentions Légales -{" "}
+            </a>
+            <a href="conditions-utilisations" style={{ color: "#B23C00" }}>
+              Conditions d'Utilisation -
+            </a>
+            <a href="conditions-generales" style={{ color: "#B23C00" }}>
+              Conditions Générales
+            </a>
           </div>
         </div>
         <div className="icon-socials">

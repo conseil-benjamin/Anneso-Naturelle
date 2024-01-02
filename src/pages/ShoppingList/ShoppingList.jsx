@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/fontawesome-free-regular";
 import { Loader } from "../../utils/Loader";
+import Cookies from "js-cookie";
 
 function ShoppingList({ cart, updateCart }) {
   // console.log(cart);
@@ -26,13 +27,11 @@ function ShoppingList({ cart, updateCart }) {
   const [accesoiresClique, setAccesoiresClique] = useState(false);
 
   const navigate = useNavigate();
-  const idClientStorage = localStorage.getItem("id");
-  const [idClient, setIdClient] = useState(
-    idClientStorage ? JSON.parse(idClientStorage) : []
-  );
   const [productAdd, setProductAdd] = useState(false);
   let nameTable = productList;
   const [favorite, setFavorite] = useState(false);
+  const jwtToken = Cookies.get("auth_token");
+
   /*
   const [favorite, setFavorite] = useState(
     nameTable.map(() => ({ isFavorite: false }))
@@ -206,7 +205,7 @@ function ShoppingList({ cart, updateCart }) {
     setFavorite(true);
     */
     const favori = {
-      idClient: idClient,
+      idClient: jwtToken,
       coverArticle: cover,
       prixArticle: price,
       idProduct: id,
@@ -214,7 +213,7 @@ function ShoppingList({ cart, updateCart }) {
     };
     try {
       const response = await fetch(
-        "https://anneso-naturelle-api.onrender.com/api/v1/favoris/insert",
+        "http://localhost:5000/api/v1/favoris/insert",
         {
           method: "POST",
           headers: {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./NavBarProfil.css";
 import ButtonDeconnect from "../../components/Button Deconnect/ButtonDeconnect";
+import Cookies from "js-cookie";
 
 function NavBarProfil() {
   const [infosPersoClique, setInfosPersoClique] = useState(false);
@@ -12,12 +13,9 @@ function NavBarProfil() {
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
-  const isLogged = localStorage.getItem("id");
   const isName = localStorage.getItem("name");
   const [name, setName] = useState(isName ? isName : null);
-  const [clientId, setClientId] = useState(
-    isLogged ? JSON.parse(isLogged) : null
-  );
+  const jwtToken = Cookies.get("auth_token");
 
   //isLogged ? navigate("/Profil/infos-persos") : console.log("dada");
 
@@ -30,7 +28,7 @@ function NavBarProfil() {
           );
           const commandes = await response.json();
           const commandesFound = commandes.filter(
-            ({ idClient }) => clientId === idClient
+            ({ idClient }) => 1 === idClient
           );
           commandesFound
             ? navigate("/Profil/commandes", {
@@ -54,7 +52,7 @@ function NavBarProfil() {
           const response = await fetch("http://localhost:5000/api/v1/adresses");
           const adresses = await response.json();
           const adressesFound = adresses.filter(
-            ({ userId }) => clientId === userId
+            ({ userId }) => 1 === userId
           );
           adressesFound
             ? navigate("/Profil/adresses/", {
@@ -75,10 +73,16 @@ function NavBarProfil() {
     if (infosPersoClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/users");
+          const response = await fetch("http://localhost:5000/api/v1/users/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          });
           const users = await response.json();
           console.log(users);
-          const clientFound = users.find(({ id }) => clientId === id);
+          const clientFound = users.find(({ id }) => 1 === id);
           if (clientFound) {
             navigate("/Profil/infos-persos", {
               state: {
@@ -111,7 +115,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/favoris/" + clientId
+            "http://localhost:5000/api/v1/favoris/" + 1
           );
           const favoris = await response.json();
           console.log(favoris);
@@ -133,9 +137,7 @@ function NavBarProfil() {
   return (
     <>
       <div className="navbar">
-        <h3>
-          Bonjour {name}
-        </h3>
+        <h3>Bonjour {name}</h3>
         <button onClick={() => setInfosPersoClique(true)}>
           Mes Informations
         </button>

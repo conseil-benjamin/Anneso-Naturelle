@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 function Profil() {
   const location = useLocation();
-  const { nom, prenom, adresseEmail, mdp, numeroTel, civilite } =
+  const { nom, prenom, adresseEmail, numeroTel, civilite } =
     location.state || {};
 
   const [NumeroTelephone, setNumeroTelephone] = useState("");
@@ -20,36 +20,8 @@ function Profil() {
 
   const [idClient, setIdClient] = useState("");
   const [nomPrenom, setNomPrenom] = useState("");
-  console.log(Civilite + civilite);
 
-  /* Cookies - Marche pas trop - a voir plus tard
-  const cookieIdClient = Cookies.get("userId");
-  const cookieNomPrenom = Cookies.get("firstAndLastName");
-  
-  */
   localStorage.setItem("name", nom + " " + prenom);
-  /*
-  cookieNomPrenom
-    ? setIdClient(cookieNomPrenom)
-    : Cookies.set("firsAndLastName", nom + "" + prenom, {
-        expires: 14,
-        secure: true,
-        httpOnly: true,
-        sameSite: "strict",
-      });
-*/
-  /*
-  cookieIdClient
-    ? setIdClient(cookieIdClient)
-    : Cookies.set("userId", id, {
-        expires: 14,
-        secure: true,
-        httpOnly: true,
-        sameSite: "strict",
-      });
-*/
-  // changer son mot de passe
-  
   useEffect(() => {
     setNumeroTelephone(numeroTel);
     setPrenom(prenom);
@@ -90,7 +62,6 @@ function Profil() {
               onChange={(e) => setNumeroTelephone(e.target.value)}
             />
             <div className="radio-btn-genre">
-              {console.log(Civilite)}
               {Civilite === "Monsieur" ? (
                 <>
                   <button

@@ -53,7 +53,7 @@ function Login() {
         const data = await response.json();
         setCookie(data.token);
       } else {
-        console.error("Erreur lors de la création du compte");
+        console.error("Client non trouvé");
       }
     } catch (error) {
       console.error("Erreur de connexion au serveur:", error);

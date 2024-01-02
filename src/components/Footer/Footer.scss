@@ -1,5 +1,4 @@
 @import "../../styles/colors.scss";
-@import "../../styles/index.scss";
 
 .lmj-footer {
   background-color: #22242a;
@@ -24,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  .iconSocial:hover{
+  .iconSocial:hover {
     cursor: pointer;
   }
 }
@@ -57,9 +56,6 @@
 .div-lien-juridique {
   display: flex;
   gap: 1em;
-  a {
-    color: #F73F24;
-  }
 }
 
 .titre-footer {

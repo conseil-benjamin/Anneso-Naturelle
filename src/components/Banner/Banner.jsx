@@ -15,7 +15,7 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   const navigate = useNavigate();
   const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
 
-  const jwtToken = Cookies.get("token");
+  const jwtToken = Cookies.get("auth_token");
 
   const handleClickSocials = (redirection) => {
     redirection === "facebook"
@@ -36,7 +36,7 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
     if (jwtToken && profilClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/users", {
+          const response = await fetch("http://localhost:5000/api/v1/users/", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -76,7 +76,6 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
         </div>
         <div className="second-barre-banner">
           <div className="icon-socials-banner">
-            {" "}
             <span>
               <FontAwesomeIcon
                 className="iconSocial"

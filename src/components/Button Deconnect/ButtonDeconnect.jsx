@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 function ButtonDeconnect() {
   const navigate = useNavigate();
   function deconnect() {
-    Cookies.remove("token");
+    Cookies.remove("auth_token");
     navigate("/");
   }
 
