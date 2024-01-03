@@ -2,12 +2,13 @@ import { useLocation } from "react-router-dom";
 import "./Profil.css";
 import { useState, useEffect } from "react";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
-import Cookies from "js-cookie";
 
 function Profil() {
   const location = useLocation();
   const { nom, prenom, adresseEmail, numeroTel, civilite } =
     location.state || {};
+
+  console.log(nom + prenom + adresseEmail);
 
   const [NumeroTelephone, setNumeroTelephone] = useState("");
   const [Prenom, setPrenom] = useState("");
@@ -17,9 +18,6 @@ function Profil() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
-  const [idClient, setIdClient] = useState("");
-  const [nomPrenom, setNomPrenom] = useState("");
 
   localStorage.setItem("name", nom + " " + prenom);
   useEffect(() => {

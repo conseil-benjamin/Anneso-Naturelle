@@ -30,8 +30,8 @@ function CardCommande({ idCommande, date, prixTotal, contenuCommande }) {
         <h4>Commande N°{idCommande}</h4>
         <h4>{prixTotal} €</h4>
       </div>
-      <div className="container-right">
-        <h4>{date}</h4>
+      <div className="container-right" style={{ margin: "1em 1em 0 0" }}>
+        <h4 style={{width: "6em"}}>{date}</h4>
         <button onClick={() => handleClickDetails()}>Voir détails</button>
       </div>
     </div>

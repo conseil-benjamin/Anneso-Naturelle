@@ -8,5 +8,6 @@
 
 .container-right-favoris {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

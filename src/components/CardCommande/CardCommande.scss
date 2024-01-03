@@ -1,24 +1,24 @@
 @import "../../styles/colors.scss";
 
-.div-principal-detailsCommande {
-  background-color: $cornsilk;
-}
 .div-commande {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border: 2px solid black;
   margin: 1em 1em 2em 1em;
-  width: 25em;
-  border-radius: 15px;
+  width: 30em;
+  border-radius: 11px;
 }
 
 .container-left,
 .container-right {
   display: flex;
   flex-direction: column;
-  margin: 0.8em;
-  h4{
+  margin: 0 2em 0 0;
+  h4 {
     margin: 0 0 0.5em 0;
+  }
+  img {
+    border-radius: 9px 0 0 9px;
   }
 }

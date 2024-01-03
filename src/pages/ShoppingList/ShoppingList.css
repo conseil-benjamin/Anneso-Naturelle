@@ -52,9 +52,38 @@ html {
   background-color: #f2f0ec;
   width: 100%;
   display: flex;
+  flex-direction: column;
+}
+.lmj-shopping-list .div-recherche-produit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0 10em;
+}
+.lmj-shopping-list .div-recherche-produit :hover {
+  cursor: pointer;
+}
+.lmj-shopping-list .div-recherche-produit .search-bar-class {
+  font-size: 1.5em;
+  background-color: #282e32;
+  padding: 0.3em;
+  border-radius: 0 9px 9px 0;
+  margin: 0 5em 0 0;
+  border: 1px solid black;
+  color: #6e7a85;
+}
+.lmj-shopping-list .div-recherche-produit input {
+  width: 27%;
+  border-radius: 9px 0 0 9px;
+  padding: 0.5em;
+  font-size: 1.05rem;
+}
+.lmj-shopping-list .div-categories-plus-products-list {
+  display: flex;
   flex-direction: row;
 }
-.lmj-shopping-list .categories-and-filtre-and-trie {
+.lmj-shopping-list .div-categories-plus-products-list .categories-and-filtre-and-trie {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,24 +91,12 @@ html {
   max-width: 12em;
   position: sticky;
 }
-.lmj-shopping-list .categories-and-filtre-and-trie .div-recherche-produit {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 0 2em 0;
-}
-.lmj-shopping-list .categories-and-filtre-and-trie .div-recherche-produit input {
-  max-width: 72%;
-  margin: 0 0 0 1em;
-  border-radius: 9px;
-  padding: 0.25em;
-}
-.lmj-shopping-list .categories-and-filtre-and-trie a {
+.lmj-shopping-list .div-categories-plus-products-list .categories-and-filtre-and-trie a {
   margin: 0 0.75em 0 0.75em;
   font-size: 1.25rem;
   transition: 0.25s ease-in-out;
 }
-.lmj-shopping-list .categories-and-filtre-and-trie a:hover {
+.lmj-shopping-list .div-categories-plus-products-list .categories-and-filtre-and-trie a:hover {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
 }
@@ -90,16 +107,23 @@ html {
 .lmj-plant-list {
   list-style-type: none;
   padding: 2em;
+  margin: 0 0 0 2em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0;
+}
+.lmj-plant-list .loader-div-shopping-list {
+  margin: auto;
+}
+.lmj-plant-list .button-add-to-basket-plus-heart {
+  display: flex;
+  align-items: center;
 }
 
 #btn-ajouter {
   background-color: #b23c00;
   margin: 0 0 0 0.7em;
-  width: 78%;
+  width: 72%;
   padding: 0.25em;
 }
 

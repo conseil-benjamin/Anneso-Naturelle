@@ -4,6 +4,8 @@ import { faMobileAndroidAlt, faEnvelope } from "@fortawesome/free-solid-svg-icon
 import { useState } from "react";
 import dame from "../../Images/dame_assise.png";
 import cactus from "../../Images/cactus.png";
+import { components } from "react-select";
+
 function Contact() {
   const [email, setEmail] = useState("");
   const [nomPrenom, setNomPrenom] = useState("");

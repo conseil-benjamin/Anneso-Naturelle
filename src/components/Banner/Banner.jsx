@@ -32,7 +32,6 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   };
 
   useEffect(() => {
-    console.log(jwtToken);
     if (jwtToken && profilClique) {
       const fetchData = async () => {
         try {
@@ -44,7 +43,6 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
             },
           });
           const user = await response.json();
-          console.log(user);
           if (user) {
             setProfilClique(false);
             navigate("/profil/infos-persos", {
@@ -53,7 +51,6 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
                 nom: user.nom,
                 prenom: user.prenom,
                 adresseEmail: user.adresseEmail,
-                mdp: user.mdp,
                 numeroTel: user.numeroTel,
               },
             });
@@ -115,7 +112,7 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
             </a>
             {panier}
             {nbArticles > 0 ? (
-              <a href="panier">
+              <a href="/panier">
                 <span className="span-nb-articles">{nbArticles}</span>
               </a>
             ) : null}

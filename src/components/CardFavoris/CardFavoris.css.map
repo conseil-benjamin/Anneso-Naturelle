@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"CardFavoris.css"}
+{"version":3,"sources":["CardFavoris.scss","CardFavoris.css"],"names":[],"mappings":"AAAA;EACE,iBAAA;ACCF;ADCI;EACE,YAAA;EACA,aAAA;EACA,YAAA;ACCN","file":"CardFavoris.css"}

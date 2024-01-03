@@ -70,8 +70,6 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
       <div className="container-left">
         <img
           src={coverArticle}
-          width={150}
-          height={150}
           onClick={() => setImageClique(true)}
         ></img>
       </div>
@@ -84,6 +82,7 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
           icon={faXmark}
           className="fa-2x"
           onClick={() => handleDeleteFavorite()}
+          style={{ margin: "0.3em 0.3em 0 0" }}
         />
       </div>
     </div>

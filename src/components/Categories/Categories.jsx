@@ -71,8 +71,8 @@ function Categories({
     <>
       <div className="main-div-categories">
         <div style={{ margin: "0 0 1em 0" }}>
-          <FontAwesomeIcon icon={faFilter} />
-          <span style={{ margin: "0 0 0 0.5em" }}>Filtrer</span>
+          <FontAwesomeIcon icon={faFilter} style={{ fontSize: "1.25em" }} />
+          <span style={{ margin: "0 0 0 0.5em", fontSize: "1.25em" }}>Filtrer</span>
         </div>
         <div className="categories-div">
           <div

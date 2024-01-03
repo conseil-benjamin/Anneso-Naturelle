@@ -12,7 +12,6 @@
 .container-right {
   display: flex;
   flex-direction: column;
-  margin: 0.8em;
 }
 .container-left #btn-modifer-adresse,
 .container-right #btn-modifer-adresse {

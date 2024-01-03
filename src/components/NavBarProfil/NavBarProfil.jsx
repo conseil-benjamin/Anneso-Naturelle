@@ -24,16 +24,20 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/commandes"
+            "http://localhost:5000/api/v1/commandes/",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            }
           );
           const commandes = await response.json();
-          const commandesFound = commandes.filter(
-            ({ idClient }) => 1 === idClient
-          );
-          commandesFound
+          commandes
             ? navigate("/Profil/commandes", {
                 state: {
-                  commandes: commandesFound,
+                  commandes: commandes,
                 },
               })
             : navigate("/Profil/commandes");
@@ -49,15 +53,21 @@ function NavBarProfil() {
     if (adressesClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/adresses");
-          const adresses = await response.json();
-          const adressesFound = adresses.filter(
-            ({ userId }) => 1 === userId
+          const response = await fetch(
+            "http://localhost:5000/api/v1/adresses/",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            }
           );
-          adressesFound
+          const adresses = await response.json();
+          adresses
             ? navigate("/Profil/adresses/", {
                 state: {
-                  adresses: adressesFound,
+                  adresses: adresses,
                 },
               })
             : navigate("/Profil/adresses/");
@@ -80,21 +90,19 @@ function NavBarProfil() {
               Authorization: `Bearer ${jwtToken}`,
             },
           });
-          const users = await response.json();
-          console.log(users);
-          const clientFound = users.find(({ id }) => 1 === id);
-          if (clientFound) {
+          const user = await response.json();
+          console.log(user);
+          const userArray = [...user];
+          if (user) {
             navigate("/Profil/infos-persos", {
               state: {
-                nom: clientFound.nom,
-                prenom: clientFound.prenom,
-                adresseEmail: clientFound.adresseEmail,
-                mdp: clientFound.mdp,
-                numeroTel: clientFound.numeroTel,
-                civilite: clientFound.civilite,
+                nom: userArray.nom,
+                prenom: userArray.prenom,
+                adresseEmail: userArray.adresseEmail,
+                numeroTel: userArray.numeroTel,
+                civilite: userArray.civilite,
               },
             });
-            localStorage.setItem("id", JSON.stringify(clientFound.id));
           } else {
             Swal.fire({
               text: "Erreur lors de la récupération de vos données ",
@@ -115,7 +123,14 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/favoris/" + 1
+            "http://localhost:5000/api/v1/favoris/",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            }
           );
           const favoris = await response.json();
           console.log(favoris);

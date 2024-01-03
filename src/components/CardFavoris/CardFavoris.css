@@ -1,1 +1,8 @@
-/*# sourceMappingURL=CardFavoris.css.map */
+.div-commande {
+  max-height: 190px;
+}
+.div-commande .container-left img {
+  width: 190px;
+  height: 190px;
+  height: 100%;
+}/*# sourceMappingURL=CardFavoris.css.map */

@@ -31,6 +31,7 @@ function ShoppingList({ cart, updateCart }) {
   let nameTable = productList;
   const [favorite, setFavorite] = useState(false);
   const jwtToken = Cookies.get("auth_token");
+  const [isDataLoading, setDataLoading] = useState(false);
 
   /*
   const [favorite, setFavorite] = useState(
@@ -40,6 +41,7 @@ function ShoppingList({ cart, updateCart }) {
   */
   useEffect(() => {
     const fetchData = async () => {
+      setDataLoading(true);
       try {
         const response = await fetch(
           "https://anneso-naturelle-api.onrender.com/api/v1/products"
@@ -47,6 +49,7 @@ function ShoppingList({ cart, updateCart }) {
         const productList = await response.json();
         setproductList([]);
         setproductList(productList);
+        setDataLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -57,6 +60,7 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     if (braceletsClique) {
       const fetchData = async () => {
+        setDataLoading(true);
         try {
           const response = await fetch(
             "https://anneso-naturelle-api.onrender.com/api/v1/products/bracelets"
@@ -68,6 +72,7 @@ function ShoppingList({ cart, updateCart }) {
           setBoucleOreilleClique(false);
           setEncensClique(false);
           setToutClique(false);
+          setDataLoading(false);
         } catch (error) {
           console.error(error);
         }
@@ -79,6 +84,7 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     if (accesoiresClique) {
       const fetchData = async () => {
+        setDataLoading(true);
         try {
           const response = await fetch(
             "https://anneso-naturelle-api.onrender.com/api/v1/products/accessoires"
@@ -90,6 +96,7 @@ function ShoppingList({ cart, updateCart }) {
           setBoucleOreilleClique(false);
           setEncensClique(false);
           setToutClique(false);
+          setDataLoading(false);
         } catch (error) {
           console.error(error);
         }
@@ -101,6 +108,7 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     if (toutClique) {
       const fetchData = async () => {
+        setDataLoading(true);
         try {
           const response = await fetch(
             "https://anneso-naturelle-api.onrender.com/api/v1/products"
@@ -112,6 +120,7 @@ function ShoppingList({ cart, updateCart }) {
           setBoucleOreilleClique(false);
           setEncensClique(false);
           setAccesoiresClique(false);
+          setDataLoading(false);
         } catch (error) {
           console.error(error);
         }
@@ -123,6 +132,7 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     if (encensClique) {
       const fetchData = async () => {
+        setDataLoading(true);
         try {
           const response = await fetch(
             "https://anneso-naturelle-api.onrender.com/api/v1/products/encens"
@@ -134,6 +144,7 @@ function ShoppingList({ cart, updateCart }) {
           setBoucleOreilleClique(false);
           setAccesoiresClique(false);
           setToutClique(false);
+          setDataLoading(false);
         } catch (error) {
           console.error(error);
         }
@@ -145,6 +156,7 @@ function ShoppingList({ cart, updateCart }) {
   useEffect(() => {
     if (boucleOreilleClique) {
       const fetchData = async () => {
+        setDataLoading(true);
         try {
           const response = await fetch(
             "https://anneso-naturelle-api.onrender.com/api/v1/products/boucles-oreilles"
@@ -156,6 +168,7 @@ function ShoppingList({ cart, updateCart }) {
           setAccesoiresClique(false);
           setEncensClique(false);
           setToutClique(false);
+          setDataLoading(false);
         } catch (error) {
           console.error(error);
         }
@@ -218,6 +231,7 @@ function ShoppingList({ cart, updateCart }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
           },
           body: JSON.stringify(favori),
         }
@@ -236,25 +250,6 @@ function ShoppingList({ cart, updateCart }) {
   if (triageActive) {
     nameTable = [...productList]; // Créer une copie pour ne pas modifier productList directement
 
-    /* Mon code :
-    if (triageActive === "croissant") {
-      nameTable = nameTable.sort((a, b) => a.price - b.price);
-    } else if (triageActive === "decroissant") {
-      nameTable = nameTable.sort((a, b) => b.price - a.price);
-    } else if (triageActive === "moinsArrosage") {
-      nameTable = nameTable.sort((a, b) => a.water - b.water);
-    } else if (triageActive === "plusArrosage") {
-      nameTable = nameTable.sort((a, b) => b.water - a.water);
-    } else if (triageActive === "moinsLumiere") {
-      nameTable = nameTable.sort((a, b) => a.light - b.light);
-    } else if (triageActive === "plusLumiere") {
-      nameTable = nameTable.sort((a, b) => b.light - a.light);
-    } else if (triageActive === "nom") {
-      nameTable = nameTable.sort((a, b) => (a.name > b.name ? 1 : -1));
-    }
-*/
-
-    // code plus concis :
     const sortFunctions = {
       croissant: (a, b) => a.price - b.price,
       decroissant: (a, b) => b.price - a.price,
@@ -294,85 +289,92 @@ function ShoppingList({ cart, updateCart }) {
 
   return (
     <div className="lmj-shopping-list">
-      <div className="categories-and-filtre-and-trie">
-        {/* <div className="div-recherche-produit">
-          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-          <input></input>
-        </div> */}
-        <Categories
-          braceletClique={braceletsClique}
-          boucleOreilleClique={boucleOreilleClique}
-          encensClique={encensClique}
-          accesoiresClique={accesoiresClique}
-          setBraceletsClique={setBraceletsClique}
-          setAccesoiresClique={setAccesoiresClique}
-          setBoucleOreilleClique={setBoucleOreilleClique}
-          setEncensClique={setEncensClique}
-          setToutClique={setToutClique}
-          toutClique={toutClique}
-          triageActive={triageActive}
-          setActiveTriage={setActiveTriage}
-        ></Categories>
+      <div className="div-recherche-produit">
+        <input></input>
+        <FontAwesomeIcon
+          icon={faSearch}
+          className="search-bar-class"
+        ></FontAwesomeIcon>
       </div>
-      <ul className="lmj-plant-list">
-        {nameTable.map(
-          ({ id, cover, name, water, light, price, category, description }) =>
-            !activeCategory || activeCategory === category ? (
-              <div key={id} className="btn-plant">
-                <PlantItem
-                  id={id}
-                  cover={cover}
-                  name={name}
-                  water={water}
-                  light={light}
-                  price={price}
-                  description={description}
-                  category={category}
-                />
-                <button
-                  onClick={() => addToCart(cover, name, price)}
-                  id="btn-ajouter"
-                >
-                  Ajouter
-                </button>
-                {/**
-                   
-                  <button
-                    id="btn-details-plant"
-                    onClick={() =>
-                      handleDetailsClique(
-                        id,
-                        cover,
-                        name,
-                        water,
-                        light,
-                        price,
-                        description,
-                        category
-                      )
-                    }
-                  >
-                    Détails
-                  </button>
-                  */}
-
-                {favorite ? (
-                  <FontAwesomeIcon
-                    icon={faHeartCircleCheck}
-                    className="icon-signIn"
-                    onClick={() => handleClickFavoris(cover, price, name, id)}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className="icon-signIn"
-                    onClick={() => handleClickFavoris(cover, price, name, id)}
-                  />
-                )}
-              </div>
-            ) : null
-        )}
-      </ul>
+      <div className="div-categories-plus-products-list">
+        <div className="categories-and-filtre-and-trie">
+          <Categories
+            braceletClique={braceletsClique}
+            boucleOreilleClique={boucleOreilleClique}
+            encensClique={encensClique}
+            accesoiresClique={accesoiresClique}
+            setBraceletsClique={setBraceletsClique}
+            setAccesoiresClique={setAccesoiresClique}
+            setBoucleOreilleClique={setBoucleOreilleClique}
+            setEncensClique={setEncensClique}
+            setToutClique={setToutClique}
+            toutClique={toutClique}
+            triageActive={triageActive}
+            setActiveTriage={setActiveTriage}
+          ></Categories>
+        </div>
+        <ul className="lmj-plant-list">
+          {isDataLoading ? (
+            <div className="loader-div-shopping-list">
+              <Loader />
+            </div>
+          ) : (
+            nameTable.map(
+              ({
+                id,
+                cover,
+                name,
+                water,
+                light,
+                price,
+                category,
+                description,
+              }) =>
+                !activeCategory || activeCategory === category ? (
+                  <div key={id} className="btn-plant">
+                    <PlantItem
+                      id={id}
+                      cover={cover}
+                      name={name}
+                      water={water}
+                      light={light}
+                      price={price}
+                      description={description}
+                      category={category}
+                    />
+                    <div className="button-add-to-basket-plus-heart">
+                      <button
+                        onClick={() => addToCart(cover, name, price)}
+                        id="btn-ajouter"
+                      >
+                        Ajouter
+                      </button>
+                      {favorite ? (
+                        <FontAwesomeIcon
+                          icon={faHeartCircleCheck}
+                          className="icon-signIn"
+                          onClick={() =>
+                            handleClickFavoris(cover, price, name, id)
+                          }
+                          style={{ fontSize: "1.25em" }}
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faHeart}
+                          className="icon-signIn"
+                          onClick={() =>
+                            handleClickFavoris(cover, price, name, id)
+                          }
+                          style={{ fontSize: "1.25em" }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                ) : null
+            )
+          )}
+        </ul>
+      </div>
     </div>
   );
 }
