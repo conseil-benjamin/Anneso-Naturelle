@@ -15,7 +15,7 @@ function Adresses() {
 
   useEffect(() => {
     if (btnAddAdresseClique) {
-      navigate("/Profil/adresses/ajoutAdresse");
+      navigate("/profil/adresses/ajoutAdresse");
     }
   }, [btnAddAdresseClique]);
 

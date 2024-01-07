@@ -41,6 +41,9 @@
 .main-div-categories .slider-div {
   margin: 1em;
 }
+.main-div-categories .slider-div #btn-valider-filtre-prix {
+  margin: 1em 0 0 0;
+}
 .main-div-categories span {
   margin: 0.5em 2em 1em 0;
   min-width: 7em;

@@ -2,14 +2,35 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #f2f0ec;
-  padding: 3em;
   font-size: clamp(16px, 5vw, 24px);
-  font-weight: 400;
+  font-weight: 300;
+  padding: 0 0 2em 0;
 }
 .div-text-aPropos .a-propos-texte {
   margin: 0 0 0 3em;
+  display: flex;
+  flex-direction: row;
+}
+.div-text-aPropos .a-propos-texte #text-1, .div-text-aPropos .a-propos-texte #text-2, .div-text-aPropos .a-propos-texte #text-3, .div-text-aPropos .a-propos-texte #text-4, .div-text-aPropos .a-propos-texte #text-5, .div-text-aPropos .a-propos-texte #text-6, .div-text-aPropos .a-propos-texte #text-7, .div-text-aPropos .a-propos-texte #text-8 {
+  width: 25em;
+}
+.div-text-aPropos .a-propos-texte .container-right-text-a-propos {
+  margin: 5em 0 0 5em;
+}
+.div-text-aPropos .a-propos-texte .container-right-text-a-propos p {
+  margin: 5em 0 0 0;
+}
+.div-text-aPropos .a-propos-texte .container-left-text-a-propos p {
+  margin: 5em 0 0 0;
+}
+.div-text-aPropos .a-propos-texte .div-fleches {
+  display: flex;
+  flex-direction: column;
+}
+.div-text-aPropos .a-propos-texte .div-fleches img {
+  margin: 8em 0 0 3em;
 }
 .div-text-aPropos .a-propos-div-image {
   display: flex;

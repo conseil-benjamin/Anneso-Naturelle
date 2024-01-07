@@ -96,9 +96,10 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/Profil/infos-persos" element={<Profil />} />
-              <Route path="/Profil/commandes" element={<Commandes />} />
-              <Route path="/Profil/adresses" element={<Adresses />} />
+              <Route path="/profil/infos-persos" element={<Profil />} />
+              <Route path="/profil/commandes" element={<Commandes />} />
+              <Route path="/profil/adresses" element={<Adresses />} />
+              <Route path="/profil/favoris" element={<Favoris />} />
               <Route
                 path="/Profil/adresses/ajoutAdresse"
                 element={<AjoutAdresse />}
@@ -111,7 +112,6 @@ function App() {
                 path="/Profil/commandes/:numOrder"
                 element={<DetailsCommande />}
               />
-              <Route path="/Profil/favoris" element={<Favoris />} />
             </Route>
             <Route path="Register" element={<Register />} />
             <Route path="Apropos" element={<Apropos />} />

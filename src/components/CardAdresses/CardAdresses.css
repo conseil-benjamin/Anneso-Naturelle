@@ -8,22 +8,23 @@
   border-radius: 15px;
 }
 
-.container-left,
-.container-right {
+.container-left-adresses,
+.container-right-adresses {
   display: flex;
   flex-direction: column;
+  margin: 0.8em;
 }
-.container-left #btn-modifer-adresse,
-.container-right #btn-modifer-adresse {
+.container-left-adresses #btn-modifer-adresse,
+.container-right-adresses #btn-modifer-adresse {
   padding: 0.5em;
   margin: 0.75em 0 0;
 }
-.container-left h4,
-.container-right h4 {
+.container-left-adresses h4,
+.container-right-adresses h4 {
   margin: 0.25em 0 0 0;
 }
-.container-left .div-ville-cp,
-.container-right .div-ville-cp {
+.container-left-adresses .div-ville-cp,
+.container-right-adresses .div-ville-cp {
   display: flex;
   flex-direction: row;
 }/*# sourceMappingURL=CardAdresses.css.map */

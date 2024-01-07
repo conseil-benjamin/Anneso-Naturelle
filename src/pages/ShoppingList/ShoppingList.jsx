@@ -14,17 +14,17 @@ import { Loader } from "../../utils/Loader";
 import Cookies from "js-cookie";
 
 function ShoppingList({ cart, updateCart }) {
-  // console.log(cart);
   const [activeCategory, setActiveCategory] = useState("");
   const [triageActive, setActiveTriage] = useState("");
   const [isAddElement, setAddElement] = useState(false);
   const [productList, setproductList] = useState([]);
-  const [btnClique, setBtnDetailsClique] = useState(false);
   const [toutClique, setToutClique] = useState(true);
   const [braceletsClique, setBraceletsClique] = useState(false);
   const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
   const [encensClique, setEncensClique] = useState(false);
   const [accesoiresClique, setAccesoiresClique] = useState(false);
+  const [minPriceForThisCategory, setminPriceForThisCategory] = useState(0);
+  const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(1);
 
   const navigate = useNavigate();
   const [productAdd, setProductAdd] = useState(false);
@@ -33,12 +33,13 @@ function ShoppingList({ cart, updateCart }) {
   const jwtToken = Cookies.get("auth_token");
   const [isDataLoading, setDataLoading] = useState(false);
 
-  /*
-  const [favorite, setFavorite] = useState(
-    nameTable.map(() => ({ isFavorite: false }))
-  );
-  console.log(favorite);
-  */
+  const setMinAndMaxPrice = (productList) => {
+    const minPrice = Math.min(...productList.map((product) => product.price));
+    const maxPrice = Math.max(...productList.map((product) => product.price));
+    setminPriceForThisCategory(minPrice);
+    setmaxPriceForThisCategory(maxPrice);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setDataLoading(true);
@@ -47,8 +48,11 @@ function ShoppingList({ cart, updateCart }) {
           "https://anneso-naturelle-api.onrender.com/api/v1/products"
         );
         const productList = await response.json();
+        setMinAndMaxPrice(productList);
         setproductList([]);
+        setActiveCategory("tout");
         setproductList(productList);
+        console.log(productList);
         setDataLoading(false);
       } catch (error) {
         console.error(error);
@@ -66,7 +70,9 @@ function ShoppingList({ cart, updateCart }) {
             "https://anneso-naturelle-api.onrender.com/api/v1/products/bracelets"
           );
           const productList = await response.json();
+          setMinAndMaxPrice(productList);
           setproductList([]);
+          setActiveCategory("bracelet");
           setproductList(productList);
           setAccesoiresClique(false);
           setBoucleOreilleClique(false);
@@ -90,7 +96,10 @@ function ShoppingList({ cart, updateCart }) {
             "https://anneso-naturelle-api.onrender.com/api/v1/products/accessoires"
           );
           const productList = await response.json();
+          setMinAndMaxPrice(productList);
           setproductList([]);
+          setMinAndMaxPrice(productList);
+          setActiveCategory("accessoire");
           setproductList(productList);
           setBraceletsClique(false);
           setBoucleOreilleClique(false);
@@ -114,8 +123,11 @@ function ShoppingList({ cart, updateCart }) {
             "https://anneso-naturelle-api.onrender.com/api/v1/products"
           );
           const productList = await response.json();
+          setMinAndMaxPrice(productList);
           setproductList([]);
+          setActiveCategory("tout");
           setproductList(productList);
+          setMinAndMaxPrice(productList);
           setBraceletsClique(false);
           setBoucleOreilleClique(false);
           setEncensClique(false);
@@ -138,8 +150,11 @@ function ShoppingList({ cart, updateCart }) {
             "https://anneso-naturelle-api.onrender.com/api/v1/products/encens"
           );
           const productList = await response.json();
+          setMinAndMaxPrice(productList);
           setproductList([]);
+          setActiveCategory("encen");
           setproductList(productList);
+          setMinAndMaxPrice(productList);
           setBraceletsClique(false);
           setBoucleOreilleClique(false);
           setAccesoiresClique(false);
@@ -162,7 +177,9 @@ function ShoppingList({ cart, updateCart }) {
             "https://anneso-naturelle-api.onrender.com/api/v1/products/boucles-oreilles"
           );
           const productList = await response.json();
+          setMinAndMaxPrice(productList);
           setproductList([]);
+          setActiveCategory("boucleOreille");
           setproductList(productList);
           setBraceletsClique(false);
           setAccesoiresClique(false);
@@ -179,7 +196,7 @@ function ShoppingList({ cart, updateCart }) {
 
   useEffect(() => {
     if (productAdd) {
-      navigate("/Panier");
+      navigate("/panier");
       setProductAdd(false);
     }
   }, [productAdd]);
@@ -194,7 +211,7 @@ function ShoppingList({ cart, updateCart }) {
     description,
     category
   ) => {
-    navigate("/Details/" + id, {
+    navigate("/details/" + id, {
       state: {
         id: id,
         cover: cover,
@@ -311,6 +328,10 @@ function ShoppingList({ cart, updateCart }) {
             toutClique={toutClique}
             triageActive={triageActive}
             setActiveTriage={setActiveTriage}
+            setproductList={setproductList}
+            activeCategory={activeCategory}
+            minPriceForThisCategory={minPriceForThisCategory}
+            maxPriceForThisCategory={maxPriceForThisCategory}
           ></Categories>
         </div>
         <ul className="lmj-plant-list">

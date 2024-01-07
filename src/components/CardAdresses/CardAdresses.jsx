@@ -35,7 +35,7 @@ function CardAdressses({
 
   return (
     <div className="card-adresse-main">
-      <div className="container-left">
+      <div className="container-left-adresses">
         <h4>{adresse}</h4>
         <br />
         <div className="div-ville-cp">
@@ -47,7 +47,7 @@ function CardAdressses({
         <br />
         <h4>{pays}</h4>
       </div>
-      <div className="container-right">
+      <div className="container-right-adresses">
         <button id="btn-modifer-adresse">
           <FontAwesomeIcon
             icon={faEdit}

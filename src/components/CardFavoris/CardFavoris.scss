@@ -1,4 +1,11 @@
-.div-commande {
+.div-favori {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 2px solid black;
+  margin: 1em 1em 2em 1em;
+  width: 28em;
+  border-radius: 11px;
   max-height: 190px;
   .container-left {
     img {
@@ -6,5 +13,8 @@
       height: 190px;
       height: 100%;
     }
+  }
+  .infos-produit-favoris-card {
+    width: 10em;
   }
 }

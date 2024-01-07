@@ -60,6 +60,6 @@ html {
   flex-direction: column;
   margin: 3em 0 3em 0;
 }
-.div-main-page-adresses .div-adresses #adbtn-add-adresse {
-  padding: 1em;
+.div-main-page-adresses .div-adresses #btn-add-adresse {
+  padding: 0.7em;
 }/*# sourceMappingURL=Adresses.css.map */

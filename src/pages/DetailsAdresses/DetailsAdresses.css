@@ -1,12 +1,30 @@
 .div-main-details-adresse {
   display: flex;
   flex-direction: row;
-  background-color: #fefae0;
+  background-color: #f2f0ec;
 }
 
-.infos-details-adresse {
+.div-infos-adresse {
   display: flex;
   flex-direction: column;
+}
+.div-infos-adresse .btn-save {
+  padding: 0.7em;
+  max-width: 20em;
+  display: flex;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.div-infos-adresse .infos-details-adresse {
+  display: flex;
+  flex-direction: row;
+}
+.div-infos-adresse .infos-details-adresse .container-adresse-left,
+.div-infos-adresse .infos-details-adresse .div-infos-perso {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 2em 0 0;
 }
 
 #form1 {

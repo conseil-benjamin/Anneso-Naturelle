@@ -4,7 +4,7 @@
   justify-content: space-between;
   border: 2px solid black;
   margin: 1em 1em 2em 1em;
-  width: 30em;
+  width: 35em;
   border-radius: 11px;
 }
 
@@ -12,7 +12,6 @@
 .container-right {
   display: flex;
   flex-direction: column;
-  margin: 0 2em 0 0;
 }
 .container-left h4,
 .container-right h4 {
@@ -21,4 +20,8 @@
 .container-left img,
 .container-right img {
   border-radius: 9px 0 0 9px;
+}
+
+.container-right {
+  margin: 0 0 0 3em;
 }/*# sourceMappingURL=CardCommande.css.map */

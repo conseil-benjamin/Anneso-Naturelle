@@ -22,20 +22,61 @@ function Categories({
   toutClique,
   triageActive,
   setActiveTriage,
+  setproductList,
+  activeCategory,
+  minPriceForThisCategory,
+  maxPriceForThisCategory,
 }) {
   const [categoriesClique, setCategoriesClique] = useState(false);
   const [prixClique, setPrixClique] = useState(false);
   const [trieClique, setTrieClique] = useState(false);
-  const [range, setRange] = useState([0, 100]); // Valeurs initiales du slider
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(100);
-  const [selectedOption, setSelectedOption] = useState("option1");
+  const [range, setRange] = useState([
+    minPriceForThisCategory,
+    maxPriceForThisCategory,
+  ]);
+  const [min, setMin] = useState(minPriceForThisCategory);
+  const [max, setMax] = useState(maxPriceForThisCategory);
+  const [changePriceClique, setChangePriceClique] = useState(false);
+  const [hasPriceChanged, setPriceChanged] = useState(false);
 
-  const handleSliderChange = (min, max, range) => {
-    setMin(min);
-    setMax(max);
+  const handleSliderChange = (minParam, maxParam, range) => {
+    setMin(minParam);
+    setMax(maxParam);
     setRange(range);
+    minParam !== min || maxParam !== max
+      ? setPriceChanged(true)
+      : setPriceChanged(false);
   };
+
+  useEffect(
+    () =>
+      async function () {
+        try {
+          console.log(min, max);
+          console.log(activeCategory);
+          const response = await fetch(
+            `http://localhost:5000/api/v1/products/${min}/${max}/${activeCategory}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (response.ok) {
+          } else {
+            console.error("Erreur lors de l'insertion des données.");
+          }
+          const productList = await response.json();
+          console.log(productList);
+          setproductList(productList);
+        } catch (error) {
+          console.error("Erreur de connexion au serveur:", error);
+        }
+        setChangePriceClique(false);
+      },
+    [changePriceClique]
+  );
 
   const handleDivClique = (filter) => {
     if (filter === "category" && !categoriesClique) {
@@ -72,7 +113,9 @@ function Categories({
       <div className="main-div-categories">
         <div style={{ margin: "0 0 1em 0" }}>
           <FontAwesomeIcon icon={faFilter} style={{ fontSize: "1.25em" }} />
-          <span style={{ margin: "0 0 0 0.5em", fontSize: "1.25em" }}>Filtrer</span>
+          <span style={{ margin: "0 0 0 0.5em", fontSize: "1.25em" }}>
+            Filtrer
+          </span>
         </div>
         <div className="categories-div">
           <div
@@ -239,15 +282,26 @@ function Categories({
               <div className="slider-div">
                 <Slider
                   range
-                  defaultValue={[0, 100]}
-                  min={0}
-                  max={100}
+                  defaultValue={[
+                    minPriceForThisCategory,
+                    maxPriceForThisCategory,
+                  ]}
+                  min={minPriceForThisCategory}
+                  max={maxPriceForThisCategory}
                   value={range}
                   onChange={(range) =>
                     handleSliderChange(range[0], range[1], range)
                   }
                   trackStyle={[trackStyle]}
                 />
+                {hasPriceChanged ? (
+                  <button
+                    onClick={() => setChangePriceClique(true)}
+                    id="btn-valider-filtre-prix"
+                  >
+                    Valider
+                  </button>
+                ) : null}
               </div>
             </>
           ) : null}

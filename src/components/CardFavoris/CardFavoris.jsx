@@ -4,6 +4,7 @@ import PropTypes from "prop-types"; // ES6
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
@@ -20,6 +21,11 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
 
       if (response.ok) {
         console.log("Données supprimé avec succès!");
+        Swal.fire({
+          text: "Produit supprimé",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
       } else {
         console.error("Erreur lors de la suppression des données.");
       }
@@ -66,14 +72,11 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   }, [imageClique]);
 
   return (
-    <div className="div-commande">
+    <div className="div-favori">
       <div className="container-left">
-        <img
-          src={coverArticle}
-          onClick={() => setImageClique(true)}
-        ></img>
+        <img src={coverArticle} onClick={() => setImageClique(true)}></img>
       </div>
-      <div>
+      <div className="infos-produit-favoris-card">
         <h4>{nomArticle}</h4>
         <h4>{prixArticle} €</h4>
       </div>

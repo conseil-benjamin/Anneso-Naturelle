@@ -8,18 +8,19 @@
   border-radius: 15px;
 }
 
-.container-left,
-.container-right {
+.container-left-adresses,
+.container-right-adresses {
   display: flex;
   flex-direction: column;
-  #btn-modifer-adresse{
+  margin: 0.8em;
+  #btn-modifer-adresse {
     padding: 0.5em;
-    margin: 0.75em 0 0; 
+    margin: 0.75em 0 0;
   }
-  h4{
+  h4 {
     margin: 0.25em 0 0 0;
   }
-  .div-ville-cp{
+  .div-ville-cp {
     display: flex;
     flex-direction: row;
   }

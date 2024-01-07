@@ -14,7 +14,7 @@ function NavBarProfil() {
   const Swal = require("sweetalert2");
 
   const isName = localStorage.getItem("name");
-  const [name, setName] = useState(isName ? isName : null);
+  const [name, setName] = useState("");
   const jwtToken = Cookies.get("auth_token");
 
   //isLogged ? navigate("/Profil/infos-persos") : console.log("dada");
@@ -35,12 +35,12 @@ function NavBarProfil() {
           );
           const commandes = await response.json();
           commandes
-            ? navigate("/Profil/commandes", {
+            ? navigate("/profil/commandes", {
                 state: {
                   commandes: commandes,
                 },
               })
-            : navigate("/Profil/commandes");
+            : navigate("/profil/commandes");
         } catch (error) {
           console.error(error);
         }
@@ -65,12 +65,12 @@ function NavBarProfil() {
           );
           const adresses = await response.json();
           adresses
-            ? navigate("/Profil/adresses/", {
+            ? navigate("/profil/adresses/", {
                 state: {
                   adresses: adresses,
                 },
               })
-            : navigate("/Profil/adresses/");
+            : navigate("/profil/adresses/");
         } catch (error) {
           console.error(error);
         }
@@ -83,7 +83,7 @@ function NavBarProfil() {
     if (infosPersoClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/users/", {
+          const response = await fetch("http://localhost:5000/api/v1/users", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -92,15 +92,14 @@ function NavBarProfil() {
           });
           const user = await response.json();
           console.log(user);
-          const userArray = [...user];
           if (user) {
-            navigate("/Profil/infos-persos", {
+            navigate("/profil/infos-persos", {
               state: {
-                nom: userArray.nom,
-                prenom: userArray.prenom,
-                adresseEmail: userArray.adresseEmail,
-                numeroTel: userArray.numeroTel,
-                civilite: userArray.civilite,
+                nom: user.nom,
+                prenom: user.prenom,
+                adresseEmail: user.adresseEmail,
+                numeroTel: user.numeroTel,
+                civilite: user.civilite,
               },
             });
           } else {
@@ -135,12 +134,12 @@ function NavBarProfil() {
           const favoris = await response.json();
           console.log(favoris);
           favoris
-            ? navigate("/Profil/favoris/", {
+            ? navigate("/profil/favoris/", {
                 state: {
                   favoris: favoris,
                 },
               })
-            : navigate("/Profil/favoris/");
+            : navigate("/profil/favoris/");
         } catch (error) {
           console.error(error);
         }
