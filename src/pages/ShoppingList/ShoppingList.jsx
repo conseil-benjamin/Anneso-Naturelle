@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PlantItem from "../../components/PlantItem/PlantItem";
+import PlantItem from "../../components/ProductItem/ProductItem";
 import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 import Categories from "../../components/Categories/Categories";
 import "./ShoppingList.css";

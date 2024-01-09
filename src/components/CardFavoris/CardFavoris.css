@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   border: 2px solid black;
-  margin: 1em 1em 2em 1em;
+  margin: 1em 1em 2em 0;
   width: 28em;
   border-radius: 11px;
   max-height: 190px;
@@ -15,4 +15,6 @@
 }
 .div-favori .infos-produit-favoris-card {
   width: 10em;
-}/*# sourceMappingURL=CardFavoris.css.map */
+}
+
+/*# sourceMappingURL=CardFavoris.css.map */

@@ -102,6 +102,10 @@ html {
   flex-direction: column;
   margin: 3em 0 0 3em;
 }
+.div-change-password button {
+  margin: 0.5em 0 0 0;
+  padding: 0.5em;
+}
 
 .div-change-password > input {
   margin: 1em 0 1.5em 0;
@@ -109,4 +113,6 @@ html {
 
 .div-change-password > h2 {
   margin: 1em 0 1em 0;
-}/*# sourceMappingURL=Profil.css.map */
+}
+
+/*# sourceMappingURL=Profil.css.map */

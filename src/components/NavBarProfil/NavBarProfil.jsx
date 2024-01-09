@@ -13,8 +13,8 @@ function NavBarProfil() {
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
 
-  const isName = localStorage.getItem("name");
-  const [name, setName] = useState("");
+  const userName = Cookies.get("name");
+  const [name, setName] = useState(userName);
   const jwtToken = Cookies.get("auth_token");
 
   //isLogged ? navigate("/Profil/infos-persos") : console.log("dada");

@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   border: 2px solid black;
-  margin: 1em 1em 2em 1em;
+  margin: 1em 1em 2em 0;
   width: 25em;
   border-radius: 15px;
 }
@@ -27,4 +27,6 @@
 .container-right-adresses .div-ville-cp {
   display: flex;
   flex-direction: row;
-}/*# sourceMappingURL=CardAdresses.css.map */
+}
+
+/*# sourceMappingURL=CardAdresses.css.map */

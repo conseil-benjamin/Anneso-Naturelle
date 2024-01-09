@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import CareScale from "../CareScale/CareScale";
-import "./PlantItem.css";
+import "./ProductItem.css";
 
-function PlantItem({
+function ProductItem({
   id,
   cover,
   name,
@@ -63,4 +62,4 @@ function PlantItem({
   );
 }
 
-export default PlantItem;
+export default ProductItem;

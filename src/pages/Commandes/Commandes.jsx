@@ -18,10 +18,12 @@ function Commandes() {
     <>
       <div className="div-main-profil">
         <NavBarProfil></NavBarProfil>
-        <div className="div-commandes">
-          <h1>Vos Commandes</h1>
+        <div>
+          <div>
+            <h1>Vos Commandes</h1>
+          </div>
           {commandes ? (
-            tableauObjet.map((commande) => (
+              tableauObjet.map((commande) => (
               <CardCommande
                 key={commande.idCommande}
                 idCommande={commande.idCommande}

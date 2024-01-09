@@ -5,14 +5,9 @@
   display: flex;
   flex-direction: row;
   background-color: $background-color;
-  .div-adresses {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: 3em 0 3em 0;
-    #btn-add-adresse {
-      padding: 0.7em;
-    }
-  }
+ .div-container-right{
+   button{
+     padding: 0.5em;
+   }
+ }
 }

@@ -53,13 +53,8 @@ html {
   flex-direction: row;
   background-color: #f2f0ec;
 }
-.div-main-page-adresses .div-adresses {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 3em 0 3em 0;
+.div-main-page-adresses .div-container-right button {
+  padding: 0.5em;
 }
-.div-main-page-adresses .div-adresses #btn-add-adresse {
-  padding: 0.7em;
-}/*# sourceMappingURL=Adresses.css.map */
+
+/*# sourceMappingURL=Adresses.css.map */

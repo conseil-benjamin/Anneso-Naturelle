@@ -17,7 +17,6 @@ function Profil() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  localStorage.setItem("name", nom + " " + prenom);
   useEffect(() => {
     setNumeroTelephone(numeroTel);
     setPrenom(prenom);
@@ -105,6 +104,7 @@ function Profil() {
             placeholder="Confirmer nouveau mot de passe"
             onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
+          <button>Confirmer changement mot de passe</button>
         </div>
       </div>
     </>

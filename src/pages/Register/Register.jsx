@@ -178,6 +178,8 @@ function Register() {
                     });
                     const data = await response.json();
                     setCookie(data.token);
+                    const userName = `${user.nom} ${user.prenom}`;
+                    Cookies.set("name", userName, { expires: 7 })
                 } else {
                     console.error("Erreur lors de la création du compte");
                 }

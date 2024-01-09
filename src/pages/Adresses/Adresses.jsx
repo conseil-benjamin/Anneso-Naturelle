@@ -23,10 +23,12 @@ function Adresses() {
     <>
       <div className="div-main-page-adresses">
         <NavBarProfil></NavBarProfil>
-        <div className="div-adresses">
-          <h1>Mes adresses</h1>
+        <div className={"div-container-right"}>
+          <div>
+            <h1>Mes adresses</h1>
+          </div>
           {adresses ? (
-            tableauObjet.map((adresse) => (
+              tableauObjet.map((adresse) => (
               <CardAdressses
                 adresseId={adresse.adresseId}
                 nomPersonne={adresse.nomPersonne}

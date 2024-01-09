@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   border: 2px solid black;
-  margin: 1em 1em 2em 1em;
+  margin: 1em 1em 2em 0;
   width: 35em;
   border-radius: 11px;
 }
@@ -24,4 +24,6 @@
 
 .container-right {
   margin: 0 0 0 3em;
-}/*# sourceMappingURL=CardCommande.css.map */
+}
+
+/*# sourceMappingURL=CardCommande.css.map */
