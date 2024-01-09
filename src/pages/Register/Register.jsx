@@ -173,14 +173,25 @@ function Register() {
                     Swal.fire({
                         text: "Compte créé avec succès !",
                         icon: "success",
-                        confirmButtonText: "Ok",
+                        timer: 2000,
+                        showConfirmButton: false
                     });
-                    setCookie(response.token);
+                    const data = await response.json();
+                    setCookie(data.token);
                 } else {
                     console.error("Erreur lors de la création du compte");
                 }
                 setDataLoading(false);
-                !isDataLoading && navigate("/profil/infos-persos");
+                !isDataLoading && navigate("/profil/infos-persos",
+                    {
+                        state: {
+                            nom: user.nom,
+                            prenom: user.prenom,
+                            adresseEmail: user.adresseEmail,
+                            numeroTel: user.numeroTel,
+                            civilite: user.civilite,
+                        }
+                    } );
             } catch (error) {
                 console.error("Erreur de connexion au serveur:", error);
             }

@@ -43,16 +43,15 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
             },
           });
           const user = await response.json();
-          const userObjet = user[0];
           if (user) {
             setProfilClique(false);
             navigate("/profil/infos-persos", {
               state: {
-                id: userObjet.id,
-                nom: userObjet.nom,
-                prenom: userObjet.prenom,
-                adresseEmail: userObjet.adresseEmail,
-                numeroTel: userObjet.numeroTel,
+                id: user.id,
+                nom: user.nom,
+                prenom: user.prenom,
+                adresseEmail: user.adresseEmail,
+                numeroTel: user.numeroTel,
               },
             });
           }
