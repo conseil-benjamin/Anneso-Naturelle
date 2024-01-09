@@ -35,11 +35,11 @@
 .body-element-panier .panier .div-code-promo {
   padding: 1em 0 0 0;
 }
+.body-element-panier .panier .div-code-promo :hover {
+  cursor: pointer;
+}
 .body-element-panier .panier .div-code-promo #span-code-promo {
   padding: 1em 1em 0 1em;
-}
-.body-element-panier .panier .div-code-promo #span-code-promo :hover {
-  cursor: pointer;
 }
 .body-element-panier .panier #title-panier {
   padding: 0 0 0 1em;
@@ -59,4 +59,6 @@
   .body-element-panier .panier-check-out {
     padding: 0;
   }
-}/*# sourceMappingURL=Panier.css.map */
+}
+
+/*# sourceMappingURL=Panier.css.map */

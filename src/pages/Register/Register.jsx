@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import Swal from "sweetalert2";
+import { Loader } from "../../utils/Loader";
 
 function Register() {
   const [inputType, setInputType] = useState("password");
@@ -19,50 +20,50 @@ function Register() {
   const [prenomValue, setPrenomValue] = useState("");
   const [numeroTelValue, setNumeroTelValue] = useState("");
   const [Civilite, setCivilite] = useState("Madame");
+  const [isDataLoading, setDataLoading] = useState(false);
+  const [nomLenght, setNomLength] = useState("1");
+  const [prenomLenght, setPrenomLenght] = useState("1");
 
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const navigate = useNavigate();
-
-  const isLogged = localStorage.getItem("id");
-
-  isLogged && navigate("/Profil/infos-perso");
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
   };
 
-  const handleBlurConfirmPassword = () => {
+  const confirmPasswordVerif = () => {
     return confPassword === password;
   };
 
-  const handleBlurNameLength = () => {
+  const nameLengthVerif = () => {
+      setNomLength(nomValue);
     return nomValue.length > 0;
   };
 
-  const handleBlurFirstNameLength = () => {
+  const firstNameLengthVerif = () => {
     return prenomValue.length > 0;
   };
 
-  const handleBlurEmail = () => {
+  const emailVerif = () => {
     return validator.isEmail(email);
   };
 
-  const handleBlurTel = () => {
+  const numeroTelVerif = () => {
     return validator.isMobilePhone(numeroTelValue);
   };
 
-  const handleBlurPassword = () => {
+  const passwordVerif = () => {
     return validator.isStrongPassword(password);
   };
 
   const checkFormValidity = () => {
     return (
-      handleBlurTel() &&
-      handleBlurEmail() &&
-      handleBlurFirstNameLength() &&
-      handleBlurNameLength() &&
-      handleBlurPassword() &&
-      handleBlurConfirmPassword()
+      numeroTelVerif() &&
+      emailVerif() &&
+      firstNameLengthVerif() &&
+      nameLengthVerif() &&
+      passwordVerif() &&
+      confirmPasswordVerif()
     );
   };
 
@@ -84,57 +85,61 @@ function Register() {
     }
   };
 
-  const getTokenAuthentification = async () => {
-    try {
-      const response = await fetch(
-        `https://anneso-naturelle-api.onrender.com/api/v1/auth/${email}/${password}`
-      );
-      const user = await response.json();
-      return !!user;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleClickRegister = async () => {
     if (checkFormValidity()) {
-      const newId = generateUniqueId();
-      const user = {
-        id: newId,
-        nom: nomValue,
-        prenom: prenomValue,
-        adresseEmail: email,
-        mdp: password,
-        numeroTel: numeroTelValue,
-        civilite: Civilite,
-      };
-      console.log(user);
-      try {
-        const response = await fetch(
-          "https://anneso-naturelle-api.onrender.com/api/v1/users/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-          }
-        );
+        if (!await isClientWithThisEmail()) {
+            const newId = generateUniqueId();
+            const user = {
+                id: newId,
+                nom: nomValue,
+                prenom: prenomValue,
+                adresseEmail: email,
+                mdp: password,
+                numeroTel: numeroTelValue,
+                civilite: Civilite,
+            };
+            console.log(user);
+            try {
+                setDataLoading(true)
+                const response = await fetch(
+                    "https://anneso-naturelle-api.onrender.com/api/v1/users/register",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(user),
+                    }
+                );
 
-        if (response.ok) {
-          console.log("Client créé avec succès !");
+                if (response.ok) {
+                    console.log("Client créé avec succès !");
+                    Swal.fire({
+                        text: "Compte créé avec succès !",
+                        icon: "success",
+                        confirmButtonText: "Ok",
+                    });
+                } else {
+                    console.error("Erreur lors de la création du compte");
+                }
+                setDataLoading(false);
+                !isDataLoading && navigate("/profil/infos-persos");
+            } catch (error) {
+                console.error("Erreur de connexion au serveur:", error);
+            }
         } else {
-          console.error("Erreur lors de la création du compte");
+            Swal.fire({
+                text: "Adresse email déjà associé à un compte. Connectez-vous, ou réinitialiser votre mot de passe.",
+                icon: "error",
+                confirmButtonText: "Ok",
+            });
         }
-      } catch (error) {
-        console.error("Erreur de connexion au serveur:", error);
-      }
-    } else {
-      Swal.fire({
-        text: "Compte non trouvé avec cette combinaison email/mot de passe",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
+    } else{
+        Swal.fire({
+            text: "Erreur dans le formulaire",
+            icon: "error",
+            confirmButtonText: "Ok",
+        });
     }
     //navigate("/profil/infos-persos");
   };
@@ -147,41 +152,45 @@ function Register() {
         className="input-login"
         placeholder="Nom"
         value={nomValue}
-        onBlur={handleBlurNameLength}
+        onBlur={nameLengthVerif}
         onChange={(e) => setNomValue(e.target.value)}
       ></input>
-      <label>Prénom</label>
+        {!nomLenght === 0 ? <p style={{color: "red"}}>Nom mal renseigné</p> : null}
+        <label>Prénom</label>
       <input
         className="input-login"
         placeholder="Prénom"
         value={prenomValue}
-        onBlur={handleBlurFirstNameLength}
+        onBlur={firstNameLengthVerif}
         onChange={(e) => setPrenomValue(e.target.value)}
       ></input>
+        {!firstNameLengthVerif() ? <p style={{color: "red"}}>Prénom non renseigné </p> : null}
       <label>Numéro de téléphone</label>
       <input
         className="input-login"
         placeholder="Numéro de téléphone"
         value={numeroTelValue}
-        onBlur={handleBlurTel}
+        onBlur={numeroTelVerif}
         onChange={(e) => setNumeroTelValue(e.target.value)}
       ></input>
-      <label>Adresse email</label>
+        {!numeroTelVerif() ? <p style={{color: "red"}}>Format numéro de téléphone incorrecte </p> : null}
+        <label>Adresse email</label>
       <input
         className="input-login"
         placeholder="Adresse Email"
         value={email}
-        onBlur={handleBlurEmail}
+        onBlur={emailVerif}
         onChange={(e) => setemail(e.target.value)}
       ></input>
-      <label>Mot de passe</label>
+        {!emailVerif() ? <p style={{color: "red"}}>Format email invalide</p> : null}
+        <label>Mot de passe</label>
       <div className="div-password">
         <input
           className="input-login"
           type={inputType}
           value={password}
           placeholder="Mot de passe"
-          onBlur={handleBlurPassword}
+          onBlur={passwordVerif}
           onChange={(e) => setpassword(e.target.value)}
         />
         <button onClick={togglePasswordVisibility}>
@@ -192,15 +201,19 @@ function Register() {
           )}
         </button>
       </div>
-      <label>Confirmation mot de passe</label>
-      <input
-        className="input-login"
-        type={inputType}
+        {!passwordVerif() ? <p style={{color: "red"}}>Mot de passe ne respecte pas les consignes   </p> : null}
+        <div className={"div-label-register"}>
+            <label>Confirmation mot de passe</label>
+        </div>
+        <input
+            className="input-login"
+            type={inputType}
         value={confPassword}
         placeholder="Confirmer mot de passe"
-        onBlur={handleBlurConfirmPassword}
+        onBlur={confirmPasswordVerif}
         onChange={(e) => setconfPassword(e.target.value)}
       />
+        {!confirmPasswordVerif() ? <p style={{color: "red"}}>Confirmation mot de passe différent du mot de passe</p> : null}
       <div className="radio-btn-genre-register">
         {Civilite === "Monsieur" ? (
           <>
@@ -226,16 +239,19 @@ function Register() {
           </>
         )}
       </div>
-      <p>
+      <span>
         Contrainte mot de passe : - 8 caractères - 1 Majuscules - 1 chiffre - 1
         caractère spéciale (,?;.:/! ...)
-      </p>
+      </span>
+        {isDataLoading ?
+        <Loader></Loader> :
       <button className="btn-login" onClick={() => handleClickRegister()}>
         Créer un compte
         <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn" />
       </button>
-      <div className="div-text-bold">
-        <p>Déjà un compte ?</p>
+        }
+      <div className="div-text-login">
+        <span>Déjà un compte ?</span>
         <a href="Login" className="bold-text">
           Connectez-vous
         </a>

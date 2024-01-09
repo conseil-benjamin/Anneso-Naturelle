@@ -8,8 +8,6 @@ function Profil() {
   const { nom, prenom, adresseEmail, numeroTel, civilite } =
     location.state || {};
 
-  console.log(nom + prenom + adresseEmail);
-
   const [NumeroTelephone, setNumeroTelephone] = useState("");
   const [Prenom, setPrenom] = useState("");
   const [Nom, setNom] = useState("");

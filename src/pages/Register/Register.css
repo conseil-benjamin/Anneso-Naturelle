@@ -6,8 +6,28 @@
   justify-content: center;
   background-color: #f2f0ec;
 }
+.body-element-register p {
+  padding: 0;
+  margin: 0 0 1em 0;
+}
+.body-element-register input {
+  margin: 0;
+}
+.body-element-register label {
+  text-align: start;
+}
 .body-element-register .btn-genre {
   padding: 0.7em;
   width: auto;
-  margin: 1em 1em 0 0;
-}/*# sourceMappingURL=Register.css.map */
+  margin: 1em 1em 2em 0;
+}
+.body-element-register .div-text-login {
+  margin: 0 0 2em 0;
+}
+.body-element-register .div-label-register {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+}
+
+/*# sourceMappingURL=Register.css.map */

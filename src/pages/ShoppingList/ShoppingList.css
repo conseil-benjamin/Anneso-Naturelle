@@ -100,6 +100,11 @@ html {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
 }
+.lmj-shopping-list .container-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .lmj-shopping-list .hr-collections {
   border-style: solid; /* Style de la ligne */
 }
@@ -112,16 +117,19 @@ html {
   flex-wrap: wrap;
   justify-content: center;
 }
-.lmj-plant-list .loader-div-shopping-list {
-  margin: auto;
-}
 .lmj-plant-list .button-add-to-basket-plus-heart {
   display: flex;
   align-items: center;
 }
 
+.loader-div-shopping-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #btn-ajouter {
-  background-color: #b23c00;
+  background-color: #197F64;
   margin: 0 0 0 0.7em;
   width: 72%;
   padding: 0.25em;
@@ -140,4 +148,6 @@ html {
   margin: 0 2em 0 0;
   padding: 0;
   width: 100%;
-}/*# sourceMappingURL=ShoppingList.css.map */
+}
+
+/*# sourceMappingURL=ShoppingList.css.map */

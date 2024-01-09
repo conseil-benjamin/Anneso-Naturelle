@@ -52,6 +52,11 @@
       }
     }
   }
+  .container-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .hr-collections {
     border-style: solid; /* Style de la ligne */
@@ -65,17 +70,19 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  .loader-div-shopping-list{
-    margin: auto;
-  }
   .button-add-to-basket-plus-heart{
     display: flex;
     align-items: center;
   }
 }
+.loader-div-shopping-list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 #btn-ajouter {
-  background-color: #b23c00;
+  background-color: #197F64;
   margin: 0 0 0 0.7em;
   width: 72%;
   padding: 0.25em;

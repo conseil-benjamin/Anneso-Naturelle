@@ -90,16 +90,16 @@ function NavBarProfil() {
               Authorization: `Bearer ${jwtToken}`,
             },
           });
+
           const user = await response.json();
-          console.log(user);
           if (user) {
             navigate("/profil/infos-persos", {
               state: {
                 nom: user.nom,
                 prenom: user.prenom,
                 adresseEmail: user.adresseEmail,
-                numeroTel: user.numeroTel,
                 civilite: user.civilite,
+                numeroTel: user.numeroTel
               },
             });
           } else {
@@ -113,9 +113,12 @@ function NavBarProfil() {
           console.error(error);
         }
       };
+
       fetchData();
     }
   }, [infosPersoClique]);
+
+
 
   useEffect(() => {
     if (favorisClique) {

@@ -7,9 +7,27 @@
   align-items: center;
   justify-content: center;
   background-color: $background-color;
+  p{
+    padding: 0;
+    margin: 0 0 1em 0;
+  }
+  input{
+    margin: 0;
+  }
+  label{
+    text-align: start;
+  }
   .btn-genre {
     padding: 0.7em;
     width: auto;
-    margin: 1em 1em 0 0;
+    margin: 1em 1em 2em 0;
+  }
+  .div-text-login{
+    margin: 0 0 2em 0;
+  }
+  .div-label-register{
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
   }
 }

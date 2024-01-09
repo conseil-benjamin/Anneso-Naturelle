@@ -36,11 +36,11 @@
     padding: 0 0 2em 0;
     .div-code-promo {
       padding: 1em 0 0 0;
+      :hover{
+        cursor: pointer;
+      }
       #span-code-promo {
         padding: 1em 1em 0 1em;
-        :hover {
-          cursor: pointer;
-        }
       }
     }
 
