@@ -6,15 +6,20 @@
   justify-content: center;
   background-color: #f2f0ec;
 }
+.body-element-register .div-input-register {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.4em 0;
+}
+.body-element-register .div-input-register #label-mdp {
+  margin: 0 0 0 3em;
+}
 .body-element-register p {
   padding: 0;
-  margin: 0 0 1em 0;
+  margin: 0 0 0.5em 0;
 }
 .body-element-register input {
   margin: 0;
-}
-.body-element-register label {
-  text-align: start;
 }
 .body-element-register .btn-genre {
   padding: 0.7em;

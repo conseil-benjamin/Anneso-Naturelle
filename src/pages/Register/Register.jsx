@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import Swal from "sweetalert2";
 import { Loader } from "../../utils/Loader";
+import isStrongPassword from "validator/es/lib/isStrongPassword";
+import Cookies from "js-cookie";
 
 function Register() {
   const [inputType, setInputType] = useState("password");
@@ -21,11 +23,18 @@ function Register() {
   const [numeroTelValue, setNumeroTelValue] = useState("");
   const [Civilite, setCivilite] = useState("Madame");
   const [isDataLoading, setDataLoading] = useState(false);
-  const [nomLenght, setNomLength] = useState("1");
-  const [prenomLenght, setPrenomLenght] = useState("1");
+  const [erreurInputName, setErreurInputName] = useState(null);
+  const [erreurInputFirstName, setErreurInputFirstName] = useState(null);
+  const [erreurInputEmail, setErreurInputEmail] = useState(null);
+  const [erreurInputTel, setErreurInputTel] = useState(null);
+  const [erreurInputPassword, setErreurInputPassword] = useState(null);
+  const [erreurInputPasswordConf, setErreurInputPasswordConf] = useState(null);
 
-  const [isBtnCliquer, setBtnCliquer] = useState(false);
   const navigate = useNavigate();
+
+    const setCookie = (token) => {
+        Cookies.set("auth_token", token, { expires: 7 });
+    };
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
@@ -35,8 +44,55 @@ function Register() {
     return confPassword === password;
   };
 
+  const handleOnblurName = () => {
+        if (nomValue.length === 0) {
+            setErreurInputName("Nom non renseigné");
+        } else {
+            setErreurInputName(null)
+        }
+  }
+
+  const handleOnblurFirstName = () => {
+        if (prenomValue.length === 0) {
+            setErreurInputFirstName("Prénom non renseigné");
+        } else {
+            setErreurInputFirstName(null)
+        }
+  }
+
+  const handleOnblurEmail = () => {
+        if (!validator.isEmail(email)) {
+            setErreurInputEmail("Format email invalide");
+        } else {
+            setErreurInputEmail(null)
+        }
+  }
+
+    const handleOnblurTel = () => {
+        if (!validator.isMobilePhone(numeroTelValue)) {
+            setErreurInputTel("Format numéro de téléphone incorrecte");
+        } else {
+            setErreurInputTel(null)
+        }
+    }
+
+    const handleOnblurPassword = () => {
+        if (!validator.isStrongPassword(password)) {
+            setErreurInputPassword("Mot de passe ne respecte pas les consignes");
+        } else {
+            setErreurInputPassword(null)
+        }
+    }
+
+    const handleOnblurConfPassword = () => {
+        if (confPassword !== password) {
+            setErreurInputPasswordConf("Diffère du mot de passe");
+        } else {
+            setErreurInputPasswordConf(null)
+        }
+    }
+
   const nameLengthVerif = () => {
-      setNomLength(nomValue);
     return nomValue.length > 0;
   };
 
@@ -76,7 +132,7 @@ function Register() {
   const isClientWithThisEmail = async () => {
     try {
       const response = await fetch(
-        "https://anneso-naturelle-api.onrender.com/api/v1/users/" + email
+        "http://localhost:5000/api/v1/users/" + email
       );
       const user = await response.json();
       return !!user;
@@ -87,7 +143,7 @@ function Register() {
 
   const handleClickRegister = async () => {
     if (checkFormValidity()) {
-        if (!await isClientWithThisEmail()) {
+        if (await isClientWithThisEmail()) {
             const newId = generateUniqueId();
             const user = {
                 id: newId,
@@ -102,7 +158,7 @@ function Register() {
             try {
                 setDataLoading(true)
                 const response = await fetch(
-                    "https://anneso-naturelle-api.onrender.com/api/v1/users/register",
+                    "http://localhost:5000/api/v1/auth/register",
                     {
                         method: "POST",
                         headers: {
@@ -119,6 +175,7 @@ function Register() {
                         icon: "success",
                         confirmButtonText: "Ok",
                     });
+                    setCookie(response.token);
                 } else {
                     console.error("Erreur lors de la création du compte");
                 }
@@ -136,10 +193,16 @@ function Register() {
         }
     } else{
         Swal.fire({
-            text: "Erreur dans le formulaire",
+            text: "Erreur dans le formulaire de création de compte  ",
             icon: "error",
             confirmButtonText: "Ok",
         });
+        !isStrongPassword(password) ? setErreurInputPassword("Mot de passe ne respecte pas les consignes") : setErreurInputPassword(null);
+        !confirmPasswordVerif() ? setErreurInputPasswordConf("Diffère du mot de passe") : setErreurInputPasswordConf(null);
+        !validator.isMobilePhone(numeroTelValue) ? setErreurInputTel("Format numéro de téléphone incorrecte") : setErreurInputTel(null);
+        !validator.isEmail(email) ? setErreurInputEmail("Format email invalide") : setErreurInputEmail(null);
+        !prenomValue.length > 0 ? setErreurInputFirstName("Prénom non renseigné") : setErreurInputFirstName(null);
+        !nomValue.length > 0 ? setErreurInputName("Nom non renseigné") : setErreurInputName(null);
     }
     //navigate("/profil/infos-persos");
   };
@@ -147,73 +210,87 @@ function Register() {
   return (
     <div className="body-element-register">
       <h1>Création de compte</h1>
-      <label>Nom</label>
-      <input
-        className="input-login"
-        placeholder="Nom"
-        value={nomValue}
-        onBlur={nameLengthVerif}
-        onChange={(e) => setNomValue(e.target.value)}
-      ></input>
-        {!nomLenght === 0 ? <p style={{color: "red"}}>Nom mal renseigné</p> : null}
+        <div className={"div-input-register"}>
+        <label>Nom</label>
+        <input
+            className="input-login"
+            placeholder="Nom"
+            value={nomValue}
+            onBlur={handleOnblurName}
+            onChange={(e) => setNomValue(e.target.value)}
+        ></input>
+            {erreurInputName && nomValue <= 0 && <p style={{color: "red"}}>{erreurInputName} </p>}
+        </div>
+        <div className={"div-input-register"}>
+
         <label>Prénom</label>
       <input
         className="input-login"
         placeholder="Prénom"
         value={prenomValue}
-        onBlur={firstNameLengthVerif}
+        onBlur={handleOnblurFirstName}
         onChange={(e) => setPrenomValue(e.target.value)}
       ></input>
-        {!firstNameLengthVerif() ? <p style={{color: "red"}}>Prénom non renseigné </p> : null}
-      <label>Numéro de téléphone</label>
+        {erreurInputFirstName && prenomValue <= 0 && <p style={{color: "red"}}>{erreurInputFirstName} </p>}
+        </div>
+<div className={"div-input-register"}>
+
+        <label>Numéro de téléphone</label>
       <input
         className="input-login"
         placeholder="Numéro de téléphone"
         value={numeroTelValue}
-        onBlur={numeroTelVerif}
+        onBlur={handleOnblurTel}
         onChange={(e) => setNumeroTelValue(e.target.value)}
       ></input>
-        {!numeroTelVerif() ? <p style={{color: "red"}}>Format numéro de téléphone incorrecte </p> : null}
+        {erreurInputTel && !numeroTelVerif(numeroTelValue) && <p style={{color: "red"}}>{erreurInputTel}</p>}
+</div>
+<div className={"div-input-register"}>
+
         <label>Adresse email</label>
       <input
         className="input-login"
         placeholder="Adresse Email"
         value={email}
-        onBlur={emailVerif}
+        onBlur={handleOnblurEmail}
         onChange={(e) => setemail(e.target.value)}
       ></input>
-        {!emailVerif() ? <p style={{color: "red"}}>Format email invalide</p> : null}
-        <label>Mot de passe</label>
-      <div className="div-password">
-        <input
-          className="input-login"
-          type={inputType}
-          value={password}
-          placeholder="Mot de passe"
-          onBlur={passwordVerif}
-          onChange={(e) => setpassword(e.target.value)}
-        />
-        <button onClick={togglePasswordVisibility}>
-          {inputType === "password" ? (
-            <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
-          ) : (
-            <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
-          )}
-        </button>
-      </div>
-        {!passwordVerif() ? <p style={{color: "red"}}>Mot de passe ne respecte pas les consignes   </p> : null}
-        <div className={"div-label-register"}>
-            <label>Confirmation mot de passe</label>
+        {erreurInputEmail && !emailVerif(email) && <p style={{color: "red"}}>{erreurInputEmail}</p>}
+</div>
+        <div className={"div-input-register"}>
+            <label id={"label-mdp"}>Mot de passe</label>
+            <div className="div-password">
+                <input
+                    className="input-login"
+                    type={inputType}
+                    value={password}
+                    placeholder="Mot de passe"
+                    onBlur={handleOnblurPassword}
+                    onChange={(e) => setpassword(e.target.value)}
+                />
+                <button onClick={togglePasswordVisibility}>
+                    {inputType === "password" ? (
+                        <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
+                    ) : (
+                        <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
+                    )}
+                </button>
+                {erreurInputPassword ? <p style={{color: "red"}}>{erreurInputPassword}</p> : null}
+            </div>
         </div>
-        <input
-            className="input-login"
-            type={inputType}
-        value={confPassword}
-        placeholder="Confirmer mot de passe"
-        onBlur={confirmPasswordVerif}
-        onChange={(e) => setconfPassword(e.target.value)}
-      />
-        {!confirmPasswordVerif() ? <p style={{color: "red"}}>Confirmation mot de passe différent du mot de passe</p> : null}
+
+        <div className={"div-input-register"}>
+            <label>Confirmation mot de passe</label>
+            <input
+                className="input-login"
+                type={inputType}
+                value={confPassword}
+                placeholder="Confirmer mot de passe"
+                onBlur={handleOnblurConfPassword}
+                onChange={(e) => setconfPassword(e.target.value)}
+            />
+            {erreurInputPasswordConf && !confirmPasswordVerif(confPassword) && <p style={{color: "red"}}>{erreurInputPasswordConf}</p>}
+        </div>
       <div className="radio-btn-genre-register">
         {Civilite === "Monsieur" ? (
           <>
