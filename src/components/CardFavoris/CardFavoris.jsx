@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import RedirectToProductDetails from "../RedirectToProductsDetails/RedirectToProductDetails";
 function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
@@ -34,47 +35,16 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
     }
   };
 
-  useEffect(() => {
-    if (imageClique) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            "http://localhost:5000/api/v1/products/" + idProduct
-          );
-          console.log(response);
-          const product = await response.json();
-          console.log(product);
-          if (product) {
-            navigate("/Details/" + idProduct, {
-              state: {
-                cover: product.cover,
-                name: product.nom,
-                water: product.water,
-                light: product.light,
-                price: product.price,
-                description: product.description,
-                category: product.category,
-              },
-            });
-          } else {
-            Swal.fire({
-              text: "Erreur lors de la récupération de vos données ",
-              icon: "error",
-              confirmButtonText: "Ok",
-            });
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-    }
-  }, [imageClique]);
-
   return (
     <div className="div-favori">
       <div className="container-left">
         <img src={coverArticle} onClick={() => setImageClique(true)}></img>
+        {imageClique && (
+            <RedirectToProductDetails
+                idProduct={idProduct}
+                imageClique={imageClique}
+            />
+        )}
       </div>
       <div className="infos-produit-favoris-card">
         <h4>{nomArticle}</h4>

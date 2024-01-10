@@ -32,14 +32,23 @@
   flex-direction: column;
   padding: 0 0 2em 0;
 }
-.body-element-panier .panier .div-code-promo {
-  padding: 1em 0 0 0;
+.body-element-panier .panier .div-main-code-promo {
+  display: flex;
+  align-items: center;
+  margin: 1em 0 0 0;
 }
-.body-element-panier .panier .div-code-promo :hover {
+.body-element-panier .panier .div-main-code-promo .div-code-promo-left {
+  margin: 1em 0 0 0;
+  max-width: 25em;
+}
+.body-element-panier .panier .div-main-code-promo .div-code-promo-left :hover {
   cursor: pointer;
 }
-.body-element-panier .panier .div-code-promo #span-code-promo {
+.body-element-panier .panier .div-main-code-promo .div-code-promo-left #span-code-promo {
   padding: 1em 1em 0 1em;
+}
+.body-element-panier .panier .div-main-code-promo .div-code-promo-right {
+  max-height: 1em;
 }
 .body-element-panier .panier #title-panier {
   padding: 0 0 0 1em;

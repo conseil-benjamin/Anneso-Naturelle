@@ -13,12 +13,12 @@ import Cookies from "js-cookie";
 
 function Login() {
   const [inputType, setInputType] = useState("password");
-  const [password, setpassword] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const [isDataLoading, setDataLoading] = useState(false);
+  const [userData, setUser] = useState({});
   const navigate = useNavigate();
-  const Swal = require("sweetalert2");
 
   const setCookie = (token) => {
     Cookies.set("auth_token", token, { expires: 7 });
@@ -30,7 +30,6 @@ function Login() {
 
   const handleKeyPress = (e) => {
     if (e.key === "enter") {
-      console.log(e.key);
       setBtnCliquer(true);
     }
   };
@@ -52,6 +51,7 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         setCookie(data.token);
+        return data;
       } else {
         console.error("Client non trouvé");
       }
@@ -61,26 +61,40 @@ function Login() {
   };
 
   useEffect(() => {
-    if (isBtnCliquer) {
-      try {
-        setDataLoading(true);
-        const token = getTokenAuthentification();
-        if (token) {
-          navigate("/Profil/infos-persos");
-        } else {
-          Swal.fire({
-            text: "Compte non trouvé avec cette combinaison email/mot de passe",
-            icon: "error",
-            confirmButtonText: "Ok",
-          });
-          setBtnCliquer(false);
+    const fetchData = async () => {
+      if (isBtnCliquer) {
+        try {
+          setDataLoading(true);
+          const data = await getTokenAuthentification();
+          if (data) {
+            const userData = data.user;
+            const userName = `${userData.nom} ${userData.prenom}`;
+            Cookies.set("name", userName, {expires: 7});
+            navigate("/profil/infos-persos", {
+              state: {
+                nom: userData.nom,
+                prenom: userData.prenom,
+                adresseEmail: userData.adresseEmail,
+                numeroTel: userData.numeroTel,
+                civilite: userData.civilite
+              },
+            });
+          } else {
+            Swal.fire({
+              text: "Compte non trouvé avec cette combinaison email/mot de passe",
+              icon: "error",
+              confirmButtonText: "Ok",
+            });
+            setBtnCliquer(false);
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setDataLoading(false);
         }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setDataLoading(false);
       }
-    }
+    };
+      fetchData();
   }, [isBtnCliquer]);
 
   return (
@@ -90,42 +104,51 @@ function Login() {
           <Loader />
         </div>
       ) : (
-        <>
-          <h1>Connexion</h1>
-          <input
-            className="input-login"
-            placeholder="Adresse Email"
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
-          ></input>
-          <div className="div-password">
+          <>
+            <h1>Connexion</h1>
             <input
-              className="input-login"
-              type={inputType}
-              value={password}
-              placeholder="Mot de passe"
-              onChange={(e) => setpassword(e.target.value)}
-              onKeyUp={(e) => handleKeyPress(e)}
-            />
-            <button onClick={togglePasswordVisibility} onke>
-              {inputType === "password" ? (
-                <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
-              ) : (
-                <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
-              )}
+                className="input-login"
+                placeholder="Adresse Email"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
+            ></input>
+            <div className="div-password">
+              <input
+                  className="input-login"
+                  type={inputType}
+                  value={password}
+                  placeholder="Mot de passe"
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyUp={(e) => handleKeyPress(e)}
+              />
+              <button onClick={togglePasswordVisibility} onke>
+                {inputType === "password" ? (
+                    <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
+                ) : (
+                    <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
+                )}
+              </button>
+            </div>
+
+            <button
+                className="btn-login"
+                onClick={() => setBtnCliquer(true)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    setBtnCliquer(true);
+                  }
+                }}
+            >
+              Se connecter
+              <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn"/>
             </button>
-          </div>
-          <button className="btn-login" onClick={() => setBtnCliquer(true)}>
-            Se connecter
-            <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn" />
-          </button>
-          <div className="div-text-bold">
-            <p>Première visite ?</p>
-            <a href="Register" className="bold-text">
-              Inscrivez-vous
-            </a>
-          </div>
-        </>
+            <div className="div-text-bold">
+              <p>Première visite ?</p>
+              <a href="Register" className="bold-text">
+                Inscrivez-vous
+              </a>
+            </div>
+          </>
       )}
     </div>
   );

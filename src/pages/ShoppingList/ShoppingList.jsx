@@ -282,7 +282,7 @@ function ShoppingList({ cart, updateCart }) {
     }
   }
 
-  function addToCart(cover, name, price) {
+  function addToCart(cover, name, price, idProduct) {
     setProductAdd(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     if (currentPlantSaved) {
@@ -292,11 +292,11 @@ function ShoppingList({ cart, updateCart }) {
       );
       updateCart([
         ...cartFilteredCurrentPlant,
-        { cover, name, price, amount: amountTotal + 1 },
+        { cover, name, price, idProduct, amount: amountTotal + 1 },
       ]);
       localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
     } else {
-      updateCart([...cart, { cover, name, price, amount: 1 }]);
+      updateCart([...cart, { cover, name, price, idProduct, amount: 1 }]);
       localStorage.setItem("nbElement", JSON.stringify(1));
       const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
       localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
@@ -365,7 +365,7 @@ function ShoppingList({ cart, updateCart }) {
                     />
                     <div className="button-add-to-basket-plus-heart">
                       <button
-                        onClick={() => addToCart(cover, name, price)}
+                        onClick={() => addToCart(cover, name, price, id)}
                         id="btn-ajouter"
                       >
                         Ajouter

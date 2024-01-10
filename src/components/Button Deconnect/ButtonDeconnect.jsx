@@ -8,6 +8,7 @@ function ButtonDeconnect() {
   const navigate = useNavigate();
   function deconnect() {
     Cookies.remove("auth_token");
+    Cookies.remove("name");
     navigate("/");
   }
 

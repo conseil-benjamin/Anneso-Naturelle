@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import "./CardPanier.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
+import Footer from "../Footer/Footer";
+import RedirectToProductDetails from "../RedirectToProductsDetails/RedirectToProductDetails";
 
 function CardPanier({
   name,
@@ -11,10 +15,12 @@ function CardPanier({
   cover,
   setTotalPanier,
   removeFromCart,
+                      idProduct,
 }) {
   const savedCart = localStorage.getItem("cart");
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   const [selectedValue, setSelectedValue] = useState("");
+  const [imageClique, setImageClique] = useState(false);
   localStorage.setItem("cart", JSON.stringify(cart));
 
   const total = cart.reduce(
@@ -36,13 +42,14 @@ function CardPanier({
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     const updatedCart = currentPlantSaved
       ? cart.filter((plant) => plant.name !== name)
-      : [...cart, { cover, name, price, amount: 0 }];
+      : [...cart, { cover, name, price, idProduct, amount: 0 }];
     updateCart([
       ...updatedCart,
       {
         cover,
         name,
         price,
+        idProduct,
         amount: selectedValueFromLocal,
       },
     ]);
@@ -52,8 +59,14 @@ function CardPanier({
   return (
     <>
       <div className="main-panier-page">
-        <img src={cover} height={125} width={125}></img>
+        <img src={cover} height={125} width={125} onClick={() => setImageClique(true)}></img>
         {"\u00A0"} {"\u00A0"}
+        {imageClique && (
+            <RedirectToProductDetails
+                idProduct={idProduct}
+                imageClique={imageClique}
+            />
+        )}
         <h4 className="name-element">{name}</h4>
         <h4>{price} €</h4>
         <select

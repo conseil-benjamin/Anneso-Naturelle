@@ -158,13 +158,13 @@ function NavBarProfil() {
         <button onClick={() => setInfosPersoClique(true)}>
           Mes Informations
         </button>
-        <hr />
-        <button onClick={() => setCommandesClique(true)}>Commandes</button>
-        <hr />
-        <button onClick={() => setFavorisClique(true)}>Favoris</button>
-        <hr />
-        <button onClick={() => setAdressesClique(true)}>Adresse</button>
-        <hr />
+        <hr/>
+        <button onClick={() => setAdressesClique(true)}>Mes adresses</button>
+        <hr/>
+        <button onClick={() => setCommandesClique(true)}>Mes commandes</button>
+        <hr/>
+        <button onClick={() => setFavorisClique(true)}>Mes favoris</button>
+        <hr/>
         <ButtonDeconnect></ButtonDeconnect>
       </div>
     </>

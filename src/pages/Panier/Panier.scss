@@ -34,15 +34,25 @@
     justify-content: center;
     flex-direction: column;
     padding: 0 0 2em 0;
-    .div-code-promo {
-      padding: 1em 0 0 0;
-      :hover{
-        cursor: pointer;
+    .div-main-code-promo{
+      display: flex;
+      align-items: center;
+      margin: 1em 0 0 0;
+      .div-code-promo-left {
+        margin: 1em 0 0 0;
+        max-width: 25em;
+        :hover{
+          cursor: pointer;
+        }
+        #span-code-promo {
+          padding: 1em 1em 0 1em;
+        }
       }
-      #span-code-promo {
-        padding: 1em 1em 0 1em;
+      .div-code-promo-right{
+        max-height: 1em;
       }
     }
+
 
     #title-panier {
       padding: 0 0 0 1em;

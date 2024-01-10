@@ -57,6 +57,7 @@ function Panier() {
                             {cart.map((cartElement, index) => (
                                 <CardPanier
                                     key={`${cartElement.name}-${index}`}
+                                    idProduct={cartElement.id}
                                     cover={cartElement.cover}
                                     name={cartElement.name}
                                     price={cartElement.price}
@@ -72,30 +73,35 @@ function Panier() {
                              Vider le panier
                              </button>
                              */}
-                            <div className="div-code-promo"                       onClick={() => setCodePromoClique(true)}
-                                 onClick={() => setCodePromoClique(true)}
-                            >
+                            <div className={"div-main-code-promo"}>
+                                <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
+                                     onClick={() => setCodePromoClique(true)}
+                                >
                 <span id="span-code-promo">
                   <FontAwesomeIcon
                       icon={faTag}
                   />
                     {"\u00A0"} Saisir un code promo
                 </span>
-                                {codePromoClique ? (
-                                    <>
-                                        <input
-                                            style={{width: "25%", padding: "0.5em"}}
-                                            onChange={(e) => setCodePromo(e.target.value)}
-                                        ></input>
-                                        <button
-                                            style={{padding: "0.5em"}}
-                                            onClick={() => setCodePromoAppliquer(true)}
-                                        >
-                                            Appliquer
-                                        </button>
-                                    </>
-                                ) : null}
+                                </div>
+                                <div className={"div-code-promo-right"}>
+                                    {codePromoClique ? (
+                                        <>
+                                            <input
+                                                style={{width: "25%", padding: "0.5em"}}
+                                                onChange={(e) => setCodePromo(e.target.value)}
+                                            ></input>
+                                            <button
+                                                style={{padding: "0.5em"}}
+                                                onClick={() => setCodePromoAppliquer(true)}
+                                            >
+                                                Appliquer
+                                            </button>
+                                        </>
+                                    ) : null}
+                                </div>
                             </div>
+
                         </div>
                         <div className="panier-check-out">
                             <h3>Résumé de la commande</h3>
