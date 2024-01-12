@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PlantItem from "../../components/ProductItem/ProductItem";
-import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
+import ProductItem from "../../components/ProductItem/ProductItem";
 import Categories from "../../components/Categories/Categories";
 import "./ShoppingList.css";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +17,7 @@ function ShoppingList({ cart, updateCart }) {
   const [triageActive, setActiveTriage] = useState("");
   const [isAddElement, setAddElement] = useState(false);
   const [productList, setproductList] = useState([]);
-  const [toutClique, setToutClique] = useState(true);
+  const [toutClique, setToutClique] = useState(false);
   const [braceletsClique, setBraceletsClique] = useState(false);
   const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
   const [encensClique, setEncensClique] = useState(false);
@@ -42,18 +41,13 @@ function ShoppingList({ cart, updateCart }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      setDataLoading(true);
       try {
         const response = await fetch(
-          "https://anneso-naturelle-api.onrender.com/api/v1/products"
+            "https://anneso-naturelle-api.onrender.com/api/v1/products"
         );
         const productList = await response.json();
-        setMinAndMaxPrice(productList);
         setproductList([]);
-        setActiveCategory("tout");
         setproductList(productList);
-        console.log(productList);
-        setDataLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -98,7 +92,6 @@ function ShoppingList({ cart, updateCart }) {
           const productList = await response.json();
           setMinAndMaxPrice(productList);
           setproductList([]);
-          setMinAndMaxPrice(productList);
           setActiveCategory("accessoire");
           setproductList(productList);
           setBraceletsClique(false);
@@ -125,14 +118,13 @@ function ShoppingList({ cart, updateCart }) {
           const productList = await response.json();
           setMinAndMaxPrice(productList);
           setproductList([]);
-          setActiveCategory("tout");
           setproductList(productList);
-          setMinAndMaxPrice(productList);
           setBraceletsClique(false);
           setBoucleOreilleClique(false);
           setEncensClique(false);
           setAccesoiresClique(false);
           setDataLoading(false);
+          setActiveCategory("tout");
         } catch (error) {
           console.error(error);
         }
@@ -201,30 +193,6 @@ function ShoppingList({ cart, updateCart }) {
     }
   }, [productAdd]);
 
-  const handleDetailsClique = (
-    id,
-    cover,
-    name,
-    water,
-    light,
-    price,
-    description,
-    category
-  ) => {
-    navigate("/details/" + id, {
-      state: {
-        id: id,
-        cover: cover,
-        name: name,
-        water: water,
-        light: light,
-        price: price,
-        description: description,
-        category: category,
-      },
-    });
-  };
-
   const handleClickFavoris = async (cover, price, name, id) => {
     /*
     setFavorite((prevEtats) => {
@@ -270,10 +238,14 @@ function ShoppingList({ cart, updateCart }) {
     const sortFunctions = {
       croissant: (a, b) => a.price - b.price,
       decroissant: (a, b) => b.price - a.price,
-      moinsArrosage: (a, b) => a.water - b.water,
-      plusArrosage: (a, b) => b.water - a.water,
-      moinsLumiere: (a, b) => a.light - b.light,
-      plusLumiere: (a, b) => b.light - a.light,
+      /**
+       *
+       *       moinsArrosage: (a, b) => a.water - b.water,
+       *       plusArrosage: (a, b) => b.water - a.water,
+       *       moinsLumiere: (a, b) => a.light - b.light,
+       *       plusLumiere: (a, b) => b.light - a.light,
+       */
+
       nom: (a, b) => (a.name > b.name ? 1 : -1),
     };
 
@@ -353,7 +325,7 @@ function ShoppingList({ cart, updateCart }) {
               }) =>
                 !activeCategory || activeCategory === category ? (
                   <div key={id} className="btn-plant">
-                    <PlantItem
+                    <ProductItem
                       id={id}
                       cover={cover}
                       name={name}

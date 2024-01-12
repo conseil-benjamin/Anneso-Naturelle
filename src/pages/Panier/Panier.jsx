@@ -68,11 +68,6 @@ function Panier() {
                                     removeFromCart={removeFromCart}
                                 />
                             ))}
-                            {/**
-                             <button id="btn-vider-panier" onClick={viderPanier}>
-                             Vider le panier
-                             </button>
-                             */}
                             <div className={"div-main-code-promo"}>
                                 <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
                                      onClick={() => setCodePromoClique(true)}

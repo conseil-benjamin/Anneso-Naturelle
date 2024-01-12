@@ -2,7 +2,7 @@ import "./Categories.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
-  faChevronUp,
+  faChevronRight,
   faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
@@ -125,13 +125,13 @@ function Categories({
             <span>Trier par</span>
             {!trieClique ? (
               <FontAwesomeIcon
-                icon={faChevronDown}
+                icon={faChevronRight}
                 onClick={() => setTrieClique(true)}
                 className="icon-categories"
               ></FontAwesomeIcon>
             ) : (
               <FontAwesomeIcon
-                icon={faChevronUp}
+                icon={faChevronDown}
                 onClick={() => setTrieClique(false)}
                 className="icon-categories"
               ></FontAwesomeIcon>
@@ -183,13 +183,13 @@ function Categories({
             <span>Catégorie</span>
             {!categoriesClique ? (
               <FontAwesomeIcon
-                icon={faChevronDown}
+                icon={faChevronRight}
                 onClick={() => setCategoriesClique(true)}
                 className="icon-categories"
               ></FontAwesomeIcon>
             ) : (
               <FontAwesomeIcon
-                icon={faChevronUp}
+                icon={faChevronDown}
                 onClick={() => setCategoriesClique(false)}
                 className="icon-categories"
               ></FontAwesomeIcon>
@@ -255,13 +255,13 @@ function Categories({
             <span>Prix</span>
             {!prixClique ? (
               <FontAwesomeIcon
-                icon={faChevronDown}
+                icon={faChevronRight}
                 onClick={() => setPrixClique(true)}
                 className="icon-categories"
               ></FontAwesomeIcon>
             ) : (
               <FontAwesomeIcon
-                icon={faChevronUp}
+                icon={faChevronDown}
                 onClick={() => setPrixClique(false)}
                 className="icon-categories"
               ></FontAwesomeIcon>

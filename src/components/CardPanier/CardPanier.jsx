@@ -59,42 +59,56 @@ function CardPanier({
   return (
     <>
       <div className="main-panier-page">
-        <img src={cover} height={125} width={125} onClick={() => setImageClique(true)}></img>
-        {"\u00A0"} {"\u00A0"}
-        {imageClique && (
-            <RedirectToProductDetails
-                idProduct={idProduct}
-                imageClique={imageClique}
-            />
-        )}
-        <h4 className="name-element">{name}</h4>
-        <h4>{price} €</h4>
-        <select
-          value={selectedValue}
-          onChange={(e) => setSelectedValue(e.target.value)}
-        >
-          <option value={amount}>{amount}</option>
-          <hr></hr>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-        </select>
-        <a href="#">
-          <FontAwesomeIcon
-            icon={faXmark}
-            onClick={() => removeFromCart(index)}
-            alt="icon supprimer"
-            className="custom-size"
-          ></FontAwesomeIcon>
-        </a>
+        <div className={"card-panier-mobile-container-up"}>
+          <div className={"card-panier-mobile-container-up-left"}>
+            <img src={cover} height={150} width={150} onClick={() => setImageClique(true)}></img>
+            {imageClique && (
+                <RedirectToProductDetails
+                    idProduct={idProduct}
+                    imageClique={imageClique}
+                />
+            )}
+            {"\u00A0"} {"\u00A0"}
+          </div>
+        </div>
+        <div className={"card-panier-div-name-and-price-mobile"}>
+          <h4 className="name-element">{name}</h4>
+          <h4>{price} €</h4>
+        </div>
+          <div className={"card-panier-mobile-container-up-right"}>
+            <div>
+              <select
+                  value={selectedValue}
+                  onChange={(e) => setSelectedValue(e.target.value)}
+              >
+                <option value={amount}>{amount}</option>
+                <hr></hr>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </select>
+            </div>
+
+            <div>
+              <a href="#">
+                <FontAwesomeIcon
+                    icon={faXmark}
+                    onClick={() => removeFromCart(index)}
+                    alt="icon supprimer"
+                    className="custom-size"
+                ></FontAwesomeIcon>
+              </a>
+            </div>
+
+          </div>
       </div>
-      <hr className="hr-custom" />
+      <hr className="hr-custom"/>
     </>
   );
 }

@@ -6,10 +6,20 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  position: relative;
+  @media (max-width: 1330px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  }
   .panier-check-out {
     position: sticky;
+    top: 0;
     padding: 0 0 0 5em;
+    @media (max-width: 1330px) {
+      padding: 0;
+      width: 100%;
+    }
   }
   .div-1-element-panier {
     display: flex;
@@ -38,9 +48,15 @@
       display: flex;
       align-items: center;
       margin: 1em 0 0 0;
+      @media (max-width: 930px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .div-code-promo-left {
         margin: 1em 0 0 0;
         max-width: 25em;
+        @media (max-width: 1330px) {
+        }
         :hover{
           cursor: pointer;
         }
@@ -50,6 +66,12 @@
       }
       .div-code-promo-right{
         max-height: 1em;
+        @media (max-width: 1330px) {
+          margin: 0 0 0 2em;
+        }
+        button{
+          margin: 0 0 0 0.25em;
+        }
       }
     }
 
@@ -65,13 +87,10 @@
     border-radius: 10px;
     padding: 0.5em;
   }
-}
-
-@media (max-width: 930px) {
-  .body-element-panier {
-    flex-direction: column;
-    .panier-check-out {
-      padding: 0;
+  .div-panier-vide{
+    h2{
+      min-width: 7em;
+      text-align: center;
     }
   }
 }
