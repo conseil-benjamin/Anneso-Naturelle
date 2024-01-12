@@ -340,7 +340,7 @@ function ShoppingList({ cart, updateCart }) {
                         onClick={() => addToCart(cover, name, price, id)}
                         id="btn-ajouter"
                       >
-                        Ajouter
+                        Ajouter au panier
                       </button>
                       {favorite ? (
                         <FontAwesomeIcon

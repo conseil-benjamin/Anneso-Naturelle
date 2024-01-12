@@ -13,6 +13,12 @@
   display: flex;
   flex-direction: row;
 }
+@media (max-width: 1330px) {
+  .div-text-aPropos .a-propos-texte {
+    flex-direction: column;
+    margin: 0;
+  }
+}
 .div-text-aPropos .a-propos-texte #text-1, .div-text-aPropos .a-propos-texte #text-2, .div-text-aPropos .a-propos-texte #text-3, .div-text-aPropos .a-propos-texte #text-4, .div-text-aPropos .a-propos-texte #text-5, .div-text-aPropos .a-propos-texte #text-6, .div-text-aPropos .a-propos-texte #text-7, .div-text-aPropos .a-propos-texte #text-8 {
   width: 25em;
 }
@@ -21,6 +27,11 @@
 }
 .div-text-aPropos .a-propos-texte .container-right-text-a-propos p {
   margin: 5em 0 0 0;
+}
+@media (max-width: 1330px) {
+  .div-text-aPropos .a-propos-texte .container-right-text-a-propos {
+    margin: 0;
+  }
 }
 .div-text-aPropos .a-propos-texte .container-left-text-a-propos p {
   margin: 5em 0 0 0;
@@ -38,8 +49,4 @@
   align-items: center;
 }
 
-@media (max-width: 1000px) {
-  .div-text-aPropos {
-    flex-direction: column;
-  }
-}/*# sourceMappingURL=Apropos.css.map */
+/*# sourceMappingURL=Apropos.css.map */

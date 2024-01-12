@@ -58,8 +58,8 @@
 @media (max-width: 1330px) {
   .main-panier-page .name-element {
     margin: 0;
-    min-width: 12em;
-    max-width: 12em;
+    min-width: 11em;
+    max-width: 11em;
     display: flex;
     align-items: start;
   }

@@ -83,7 +83,7 @@ function Panier() {
                                     {codePromoClique ? (
                                         <>
                                             <input
-                                                style={{width: "25%", padding: "0.5em"}}
+                                                style={{width: "40%", padding: "0.5em"}}
                                                 onChange={(e) => setCodePromo(e.target.value)}
                                             ></input>
                                             <button
@@ -103,7 +103,7 @@ function Panier() {
                             <hr/>
                             <h4>Sous-total : {total} €</h4>
                             <h4>
-                                Estimation de la livraison :{" "}
+                                Frais de livraison :{" "}
                                 {total >= 50 ? <span>Offerts*</span> : "5 €"}
                             </h4>
                             <hr/>

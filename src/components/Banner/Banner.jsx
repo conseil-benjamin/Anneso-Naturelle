@@ -74,8 +74,8 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
             <h2 className="banner-title">Anne'so Naturelle</h2>
             <div id={"icon-menu-mobile"}>
               {mobileMenuClique ?
-                  <FontAwesomeIcon icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)}/>:
-              <FontAwesomeIcon icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)}/>}
+                  <FontAwesomeIcon icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)} style={{cursor: "pointer"}}/>:
+              <FontAwesomeIcon icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)} style={{cursor: "pointer"}}/>}
               </div>
           </div>
           <div className="second-barre-banner">

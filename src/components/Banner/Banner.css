@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   z-index: 1;
   padding: 0 0 2em 0;
@@ -13,19 +14,15 @@
 .lmj-banner .banner-mobile {
   display: flex;
   align-items: center;
-}
-@media (max-width: 1330px) {
-  .lmj-banner .banner-mobile .banner-title {
-    margin-right: auto;
-  }
+  justify-content: space-between;
 }
 .lmj-banner .banner-mobile #icon-menu-mobile {
   display: none;
 }
 @media (max-width: 1330px) {
   .lmj-banner .banner-mobile #icon-menu-mobile {
+    margin-left: 90%;
     display: block;
-    margin-left: auto;
   }
 }
 .lmj-banner .second-barre-banner {

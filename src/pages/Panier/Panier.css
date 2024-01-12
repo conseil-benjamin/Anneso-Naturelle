@@ -24,6 +24,9 @@
     width: 100%;
   }
 }
+.body-element-panier .panier-check-out button {
+  width: 100%;
+}
 .body-element-panier .div-1-element-panier {
   display: flex;
   flex-direction: row;
