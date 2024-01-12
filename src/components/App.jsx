@@ -48,13 +48,12 @@ function App() {
             <a
               href="/collections"
               className="lmj-title"
-              style={{ color: "#27393b" }}
             >
               Collections
             </a>
           }
           creationPersonalise={
-            <a href="#" className="lmj-title" style={{ color: "#27393b" }}>
+            <a href="#" className="lmj-title">
               Creation Personalisé
             </a>
           }
@@ -62,7 +61,6 @@ function App() {
             <a
               href="/Apropos"
               className="lmj-title"
-              style={{ color: "#27393b" }}
             >
               A propos de moi
             </a>
@@ -71,7 +69,6 @@ function App() {
             <a
               href="/Contact"
               className="lmj-title"
-              style={{ color: "#27393b" }}
             >
               Contact
             </a>

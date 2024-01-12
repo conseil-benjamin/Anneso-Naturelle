@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
   faInstagram,
@@ -14,6 +15,7 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   const [profilClique, setProfilClique] = useState(false);
   const navigate = useNavigate();
   const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+  const [mobileMenuClique, setMobileMenuClique] = useState(false);
 
   const jwtToken = Cookies.get("auth_token");
 
@@ -66,60 +68,120 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   }, [profilClique]);
 
   return (
-    <>
-      <div className="lmj-banner">
-        <div>
-          <h2>Anne'so Naturelle</h2>
-        </div>
-        <div className="second-barre-banner">
-          <div className="icon-socials-banner">
-            <span>
-              <FontAwesomeIcon
-                className="iconSocial"
-                icon={faFacebook}
-                onClick={() => handleClickSocials("facebook")}
-              />
-            </span>
-            <span>
-              <FontAwesomeIcon
-                className="iconSocial"
-                icon={faInstagram}
-                onClick={() => handleClickSocials("instagram")}
-              />
-            </span>
-            <span>
-              <FontAwesomeIcon
-                className="iconSocial"
-                icon={faTiktok}
-                onClick={() => handleClickSocials("tiktok")}
-              />
-            </span>
+      <>
+        <div className="lmj-banner">
+          <div className="banner-mobile">
+            <h2 className="banner-title">Anne'so Naturelle</h2>
+            <div id={"icon-menu-mobile"}>
+              {mobileMenuClique ?
+                  <FontAwesomeIcon icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)}/>:
+              <FontAwesomeIcon icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)}/>}
+              </div>
           </div>
-          <a href="/" className="lmj-title">
-            Accueil
-          </a>
-          <Link to="/collections">{collection}</Link>
-          {creationPersonalise}
-          {aPropos}
-          {contact}
-          <div className="icon-header">
-            <a id="icon-user-a">
+          <div className="second-barre-banner">
+            <div className="icon-socials-banner">
+            <span>
               <FontAwesomeIcon
-                icon={faUserAlt}
-                onClick={() => setProfilClique(true)}
-                size="2x"
+                  className="iconSocial"
+                  icon={faFacebook}
+                  onClick={() => handleClickSocials("facebook")}
               />
+            </span>
+              <span>
+              <FontAwesomeIcon
+                  className="iconSocial"
+                  icon={faInstagram}
+                  onClick={() => handleClickSocials("instagram")}
+              />
+            </span>
+              <span>
+              <FontAwesomeIcon
+                  className="iconSocial"
+                  icon={faTiktok}
+                  onClick={() => handleClickSocials("tiktok")}
+              />
+            </span>
+            </div>
+            <a href="/" className="lmj-title">
+              Accueil
             </a>
-            {panier}
-            {nbArticles > 0 ? (
-              <a href="/panier">
-                <span className="span-nb-articles">{nbArticles}</span>
+            <Link to="/collections">{collection}</Link>
+            {creationPersonalise}
+            {aPropos}
+            {contact}
+            <div className="icon-header">
+              <a id="icon-user-a">
+                <FontAwesomeIcon
+                    icon={faUserAlt}
+                    onClick={() => setProfilClique(true)}
+                    size="2x"
+                />
               </a>
-            ) : null}
+              {panier}
+              {nbArticles > 0 ? (
+                  <a href="/panier">
+                    <span className="span-nb-articles">{nbArticles}</span>
+                  </a>
+              ) : null}
+            </div>
           </div>
         </div>
-      </div>
-    </>
+        <div className="mobile-banner" style={mobileMenuClique ? { transform: 'translateX(0%)'} : {}}>
+          {mobileMenuClique && (
+              <div id={"menu-mobile"}>
+                <div className="icon-socials-banner-mobile">
+                    <span>
+                        <FontAwesomeIcon
+                            className="iconSocial"
+                            icon={faFacebook}
+                            onClick={() => handleClickSocials("facebook")}
+                        />
+                    </span>
+                  <span>
+                        <FontAwesomeIcon
+                            className="iconSocial"
+                            icon={faInstagram}
+                            onClick={() => handleClickSocials("instagram")}
+                        />
+                    </span>
+                  <span>
+                        <FontAwesomeIcon
+                            className="iconSocial"
+                            icon={faTiktok}
+                            onClick={() => handleClickSocials("tiktok")}
+                        />
+                    </span>
+                </div>
+                <div className={"div-mobile-liens-page-banner"}>
+                  <a href="/" className="lmj-title" onClick={() => setMobileMenuClique(false
+                  )}>
+                    Accueil
+                  </a>
+                  <Link to="/collections" onClick={() => setMobileMenuClique(false)}>{collection}</Link>
+                  {creationPersonalise}
+                  {aPropos}
+                  {contact}
+                </div>
+
+                <div className="icon-header-mobile">
+                  <a id="icon-user-a">
+                    <FontAwesomeIcon
+                        icon={faUserAlt}
+                        onClick={() => setProfilClique(true)}
+                        size="2x"
+                    />
+                  </a>
+                  {panier}
+                  {nbArticles > 0 ? (
+                      <a href="/panier">
+                        <span className="span-nb-articles">{nbArticles}</span>
+                      </a>
+                  ) : null}
+                </div>
+              </div>
+          )}
+        </div>
+      </>
   );
 }
 

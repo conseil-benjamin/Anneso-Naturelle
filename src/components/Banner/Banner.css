@@ -10,12 +10,35 @@
 .lmj-banner h2 {
   margin: 1em 0 0.05em 0;
 }
+.lmj-banner .banner-mobile {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1330px) {
+  .lmj-banner .banner-mobile .banner-title {
+    margin-right: auto;
+  }
+}
+.lmj-banner .banner-mobile #icon-menu-mobile {
+  display: none;
+}
+@media (max-width: 1330px) {
+  .lmj-banner .banner-mobile #icon-menu-mobile {
+    display: block;
+    margin-left: auto;
+  }
+}
 .lmj-banner .second-barre-banner {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 1330px) {
+  .lmj-banner .second-barre-banner {
+    display: none;
+  }
 }
 .lmj-banner .second-barre-banner .icon-socials-banner {
   display: flex;
@@ -40,6 +63,45 @@
   right: -1%;
 }
 
+.mobile-banner {
+  display: none;
+  position: relative;
+  transform: translate(-100%);
+}
+@media (max-width: 1330px) {
+  .mobile-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bc6c25;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    transform: translate(-100%);
+    z-index: 1;
+    transition: all 0.5s;
+  }
+}
+.mobile-banner .div-mobile-liens-page-banner {
+  display: flex;
+  flex-direction: column;
+  margin: 2em 0 2em 0;
+  text-align: center;
+}
+.mobile-banner .div-mobile-liens-page-banner a {
+  margin: 0.5em;
+}
+.mobile-banner .icon-header-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-banner .icon-socials-banner-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .lmj-title {
   padding-left: 32px;
   font-size: 1.25rem;
@@ -51,4 +113,6 @@
 
 #icon-user-a:hover {
   cursor: pointer;
-}/*# sourceMappingURL=Banner.css.map */
+}
+
+/*# sourceMappingURL=Banner.css.map */

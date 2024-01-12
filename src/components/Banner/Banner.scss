@@ -11,12 +11,35 @@
   h2 {
     margin: 1em 0 0.05em 0;
   }
+  .banner-mobile {
+    display: flex;
+    align-items: center;
+
+    .banner-title {
+      @media (max-width: 1330px) {
+        margin-right: auto;
+      }
+    }
+
+    #icon-menu-mobile {
+      display: none;
+
+      @media (max-width: 1330px) {
+        display: block;
+        margin-left: auto; // Crée de l'espace à gauche de l'icône de menu
+      }
+    }
+  }
+
   .second-barre-banner {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    @media (max-width: 1330px) {
+      display: none;
+    }
     .icon-socials-banner {
       display: flex;
       align-items: center;
@@ -41,6 +64,43 @@
     }
   }
 }
+
+.mobile-banner{
+    display: none;
+    position: relative;
+    transform: translate(-100%);
+    @media (max-width: 1330px){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #bc6c25;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        transform: translate(-100%);
+        z-index: 1;
+        transition: all 0.5s;
+    }
+    .div-mobile-liens-page-banner{
+      display: flex;
+      flex-direction: column;
+      margin: 2em 0 2em 0;
+      text-align: center;
+      a{
+        margin: 0.5em;
+      }
+    }
+  .icon-header-mobile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-socials-banner-mobile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  }
 
 .lmj-title {
   padding-left: 32px;
