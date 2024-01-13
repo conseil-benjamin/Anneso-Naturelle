@@ -19,7 +19,6 @@
     #icon-menu-mobile {
       display: none;
       @media (max-width: 1330px) {
-        margin-left: 90%;
         display: block;
       }
     }
@@ -75,6 +74,12 @@
         z-index: 1;
         transition: all 0.5s;
     }
+  #menu-mobile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
     .div-mobile-liens-page-banner{
       display: flex;
       flex-direction: column;

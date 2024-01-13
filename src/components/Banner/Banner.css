@@ -21,7 +21,6 @@
 }
 @media (max-width: 1330px) {
   .lmj-banner .banner-mobile #icon-menu-mobile {
-    margin-left: 90%;
     display: block;
   }
 }
@@ -78,6 +77,12 @@
     z-index: 1;
     transition: all 0.5s;
   }
+}
+.mobile-banner #menu-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .mobile-banner .div-mobile-liens-page-banner {
   display: flex;

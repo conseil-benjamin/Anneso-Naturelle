@@ -53,21 +53,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.btn-sign-out {
-  margin: 2em;
-  background-color: #8a6e36;
-  color: #ffffff;
-  padding: 1.5em;
-  border-radius: 20px;
-  transition: all 0.5s;
-  background-color: #283618;
-  color: white;
-}
-
-.icon-signOut {
-  padding: 0 0 0 1em;
+  margin: 2em 0 0 0;
 }
 
 /*# sourceMappingURL=ButtonSignOut.css.map */

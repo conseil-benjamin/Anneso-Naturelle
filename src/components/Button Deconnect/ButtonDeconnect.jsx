@@ -14,11 +14,11 @@ function ButtonDeconnect() {
 
   return (
     <>
-      <div className="div-btn-signOut">
-        <button className="btn-sign-out" onClick={() => deconnect()}>
-          Se déconnecter
-          <FontAwesomeIcon className="icon-signOut" icon={faSignOutAlt} />
-        </button>
+      <div className="div-btn-signOut" onClick={() => deconnect()} style={{cursor: "pointer"}}>
+        <FontAwesomeIcon className="icon-signOut" icon={faSignOutAlt} />
+        <a className="btn-sign-out" style={{margin: "0 0 0 0.5em"}}>
+          Déconnexion
+        </a>
       </div>
     </>
   );

@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
-import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faBars, faXmark, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
   faInstagram,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import Cookies from "js-cookie";
+import ButtonDeconnect from "../Button Deconnect/ButtonDeconnect";
 
 function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   const [profilClique, setProfilClique] = useState(false);
@@ -18,6 +19,10 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
   const [mobileMenuClique, setMobileMenuClique] = useState(false);
 
   const jwtToken = Cookies.get("auth_token");
+
+  const Deconnexion = () => {
+    Cookies.remove("auth_token");
+  }
 
   const handleClickSocials = (redirection) => {
     redirection === "facebook"
@@ -76,7 +81,7 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
               {mobileMenuClique ?
                   <FontAwesomeIcon icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)} style={{cursor: "pointer"}}/>:
               <FontAwesomeIcon icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)} style={{cursor: "pointer"}}/>}
-              </div>
+            </div>
           </div>
           <div className="second-barre-banner">
             <div className="icon-socials-banner">
@@ -128,7 +133,7 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
         </div>
         <div className="mobile-banner" style={mobileMenuClique ? { transform: 'translateX(0%)'} : {}}>
           {mobileMenuClique && (
-              <div id={"menu-mobile"}>
+              <div id="menu-mobile">
                 <div className="icon-socials-banner-mobile">
                     <span>
                         <FontAwesomeIcon
@@ -178,6 +183,9 @@ function Banner({ collection, aPropos, contact, panier, creationPersonalise }) {
                       </a>
                   ) : null}
                 </div>
+                {jwtToken &&
+                    <ButtonDeconnect></ButtonDeconnect>
+                }
               </div>
           )}
         </div>
