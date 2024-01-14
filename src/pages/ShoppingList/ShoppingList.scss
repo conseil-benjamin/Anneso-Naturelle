@@ -1,6 +1,23 @@
 @import "../../styles/colors.scss";
 @import "../../styles/index.scss";
 
+
+#xmark-filtre-mobile{
+  margin: 0.2em 0 0 0;
+  position: relative;
+    top: 11%;
+    left: 95%;
+}
+.categories-div-mobile{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  button{
+    margin: 0.5em 0 2em 0;
+    padding: 0.5em;
+  }
+}
 .lmj-shopping-list {
   background-color: #f2f0ec;
   width: 100%;
@@ -31,6 +48,19 @@
       font-size: 1.05rem;
     }
   }
+  .div-button-filtre-mobile-vue{
+    display: none;
+    @media (max-width: 850px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 1em 0 0 0;
+      button{
+        width: 70%;
+      }
+    }
+  }
   .div-categories-plus-products-list {
     display: flex;
     flex-direction: row;
@@ -41,6 +71,9 @@
       padding: 2em 0 0 2em;
       max-width: 12em;
       position: sticky;
+      @media (max-width: 850px) {
+        display: none;
+      }
       a {
         margin: 0 0.75em 0 0.75em;
         font-size: 1.25rem;

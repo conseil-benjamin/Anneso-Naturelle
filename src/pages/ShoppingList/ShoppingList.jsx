@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeartCircleCheck,
   faSearch,
+  faFilter, faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/fontawesome-free-regular";
 import { Loader } from "../../utils/Loader";
@@ -24,6 +25,11 @@ function ShoppingList({ cart, updateCart }) {
   const [accesoiresClique, setAccesoiresClique] = useState(false);
   const [minPriceForThisCategory, setminPriceForThisCategory] = useState(0);
   const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(1);
+  const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
+  const [filtreStatus, setFiltreStatus] = useState(true);
+  const [cancelFiltre, setCancelFiltre] = useState(false);
+  const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
+      useState(false);
 
   const navigate = useNavigate();
   const [productAdd, setProductAdd] = useState(false);
@@ -232,12 +238,13 @@ function ShoppingList({ cart, updateCart }) {
     }
   };
 
-  if (triageActive) {
-    nameTable = [...productList]; // Créer une copie pour ne pas modifier productList directement
+  const trie = () => {
+    nameTable = [...productList];
 
     const sortFunctions = {
       croissant: (a, b) => a.price - b.price,
       decroissant: (a, b) => b.price - a.price,
+      nom: (a, b) => (a.name > b.name ? 1 : -1),
       /**
        *
        *       moinsArrosage: (a, b) => a.water - b.water,
@@ -245,13 +252,18 @@ function ShoppingList({ cart, updateCart }) {
        *       moinsLumiere: (a, b) => a.light - b.light,
        *       plusLumiere: (a, b) => b.light - a.light,
        */
-
-      nom: (a, b) => (a.name > b.name ? 1 : -1),
     };
 
     if (sortFunctions[triageActive]) {
       nameTable = [...nameTable].sort(sortFunctions[triageActive]);
     }
+  }
+
+  if (filtreMobileOpen && triageActive){
+    nameTable = [...productList];
+  }
+  else if(triageActive) {
+    trie();
   }
 
   function addToCart(cover, name, price, idProduct) {
@@ -276,99 +288,164 @@ function ShoppingList({ cart, updateCart }) {
     setAddElement(true);
   }
 
+  const cancelAndClosefiltreMobileOpen = () => {
+    console.log(triageActive + " " + " " + isBtnValiderfiltreMobileOpenClique);
+    if (isBtnValiderfiltreMobileOpenClique) {
+      setActiveTriage("");
+      trie(); // Appliquer le tri ici si le bouton de validation a été cliqué
+    } else {
+      setActiveTriage(""); // Ne pas appliquer le tri si le bouton de validation n'a pas été cliqué
+    }
+    setBtnValiderfiltreMobileOpenClique(false);
+    setfiltreMobileOpen(false);
+  };
+
+
+  const validerTrie = () => {
+    setBtnValiderfiltreMobileOpenClique(true);
+    console.log(triageActive + " " + " " + isBtnValiderfiltreMobileOpenClique);
+    (triageActive && isBtnValiderfiltreMobileOpenClique) && trie();
+    setfiltreMobileOpen(false);
+  }
+
+  const openfiltreMobileOpen = () => {
+    setfiltreMobileOpen(true);
+    setCancelFiltre(false);
+    setBtnValiderfiltreMobileOpenClique(false);
+    console.log(triageActive);
+  }
+
   return (
-    <div className="lmj-shopping-list">
-      <div className="div-recherche-produit">
-        <input></input>
-        <FontAwesomeIcon
-          icon={faSearch}
-          className="search-bar-class"
-        ></FontAwesomeIcon>
-      </div>
-      <div className="div-categories-plus-products-list">
-        <div className="categories-and-filtre-and-trie">
-          <Categories
-            braceletClique={braceletsClique}
-            boucleOreilleClique={boucleOreilleClique}
-            encensClique={encensClique}
-            accesoiresClique={accesoiresClique}
-            setBraceletsClique={setBraceletsClique}
-            setAccesoiresClique={setAccesoiresClique}
-            setBoucleOreilleClique={setBoucleOreilleClique}
-            setEncensClique={setEncensClique}
-            setToutClique={setToutClique}
-            toutClique={toutClique}
-            triageActive={triageActive}
-            setActiveTriage={setActiveTriage}
-            setproductList={setproductList}
-            activeCategory={activeCategory}
-            minPriceForThisCategory={minPriceForThisCategory}
-            maxPriceForThisCategory={maxPriceForThisCategory}
-          ></Categories>
-        </div>
-        <ul className="lmj-plant-list">
-          {isDataLoading ? (
-            <div className="loader-div-shopping-list">
-              <Loader />
+<>
+      {filtreMobileOpen ? (
+          <>
+            <div>
+              <FontAwesomeIcon icon={faXmark} size="2x" id={"xmark-filtre-mobile"} onClick={() => cancelAndClosefiltreMobileOpen()} style={{cursor: "pointer"}}/>
             </div>
-          ) : (
-            nameTable.map(
-              ({
-                id,
-                cover,
-                name,
-                water,
-                light,
-                price,
-                category,
-                description,
-              }) =>
-                !activeCategory || activeCategory === category ? (
-                  <div key={id} className="btn-plant">
-                    <ProductItem
-                      id={id}
-                      cover={cover}
-                      name={name}
-                      water={water}
-                      light={light}
-                      price={price}
-                      description={description}
-                      category={category}
-                    />
-                    <div className="button-add-to-basket-plus-heart">
-                      <button
-                        onClick={() => addToCart(cover, name, price, id)}
-                        id="btn-ajouter"
-                      >
-                        Ajouter au panier
-                      </button>
-                      {favorite ? (
-                        <FontAwesomeIcon
-                          icon={faHeartCircleCheck}
-                          className="icon-signIn"
-                          onClick={() =>
-                            handleClickFavoris(cover, price, name, id)
-                          }
-                          style={{ fontSize: "1.25em" }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faHeart}
-                          className="icon-signIn"
-                          onClick={() =>
-                            handleClickFavoris(cover, price, name, id)
-                          }
-                          style={{ fontSize: "1.25em" }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                ) : null
-            )
-          )}
-        </ul>
+          <div className={"categories-div-mobile"}>
+            <Categories
+                braceletClique={braceletsClique}
+                boucleOreilleClique={boucleOreilleClique}
+                encensClique={encensClique}
+                accesoiresClique={accesoiresClique}
+                setBraceletsClique={setBraceletsClique}
+                setAccesoiresClique={setAccesoiresClique}
+                setBoucleOreilleClique={setBoucleOreilleClique}
+                setEncensClique={setEncensClique}
+                setToutClique={setToutClique}
+                toutClique={toutClique}
+                triageActive={triageActive}
+                setActiveTriage={setActiveTriage}
+                setproductList={setproductList}
+                activeCategory={activeCategory}
+                minPriceForThisCategory={minPriceForThisCategory}
+                maxPriceForThisCategory={maxPriceForThisCategory}
+            ></Categories>
+            <button onClick={() => validerTrie()}>Valider</button>
+          </div>
+          </>
+            ) : (
+      <div className="lmj-shopping-list">
+        <div className="div-recherche-produit">
+          <input></input>
+          <FontAwesomeIcon
+              icon={faSearch}
+              className="search-bar-class"
+          ></FontAwesomeIcon>
+        </div>
+        <div className="div-button-filtre-mobile-vue" onClick={() => openfiltreMobileOpen()
+        }>
+        <button>
+          <FontAwesomeIcon icon={faFilter} style={{margin: "0 0.5em 0 0"}}></FontAwesomeIcon>
+          Filtrer
+        </button>
       </div>
-    </div>
+        <div className="div-categories-plus-products-list">
+          <div className="categories-and-filtre-and-trie">
+            <Categories
+                braceletClique={braceletsClique}
+                boucleOreilleClique={boucleOreilleClique}
+                encensClique={encensClique}
+                accesoiresClique={accesoiresClique}
+                setBraceletsClique={setBraceletsClique}
+                setAccesoiresClique={setAccesoiresClique}
+                setBoucleOreilleClique={setBoucleOreilleClique}
+                setEncensClique={setEncensClique}
+                setToutClique={setToutClique}
+                toutClique={toutClique}
+                triageActive={triageActive}
+                setActiveTriage={setActiveTriage}
+                setproductList={setproductList}
+                activeCategory={activeCategory}
+                minPriceForThisCategory={minPriceForThisCategory}
+                maxPriceForThisCategory={maxPriceForThisCategory}
+            ></Categories>
+          </div>
+          <ul className="lmj-plant-list">
+            {isDataLoading ? (
+                <div className="loader-div-shopping-list">
+                  <Loader/>
+                </div>
+            ) : (
+                nameTable.map(
+                    ({
+                       id,
+                       cover,
+                       name,
+                       water,
+                       light,
+                       price,
+                       category,
+                       description,
+                     }) =>
+                        !activeCategory || activeCategory === category ? (
+                            <div key={id} className="btn-plant">
+                              <ProductItem
+                                  id={id}
+                                  cover={cover}
+                                  name={name}
+                                  water={water}
+                                  light={light}
+                                  price={price}
+                                  description={description}
+                                  category={category}
+                              />
+                              <div className="button-add-to-basket-plus-heart">
+                                <button
+                                    onClick={() => addToCart(cover, name, price, id)}
+                                    id="btn-ajouter"
+                                >
+                                  Ajouter au panier
+                                </button>
+                                {favorite ? (
+                                    <FontAwesomeIcon
+                                        icon={faHeartCircleCheck}
+                                        className="icon-signIn"
+                                        onClick={() =>
+                                            handleClickFavoris(cover, price, name, id)
+                                        }
+                                        style={{fontSize: "1.25em"}}
+                                    />
+                                ) : (
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className="icon-signIn"
+                                        onClick={() =>
+                                            handleClickFavoris(cover, price, name, id)
+                                        }
+                                        style={{fontSize: "1.25em"}}
+                                    />
+                                )}
+                              </div>
+                            </div>
+                        ) : null
+                )
+            )}
+          </ul>
+        </div>
+      </div>
+        )}
+</>
   );
 }
 

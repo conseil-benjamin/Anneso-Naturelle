@@ -49,6 +49,24 @@ html {
   overflow-x: hidden;
 }
 
+#xmark-filtre-mobile {
+  margin: 0.2em 0 0 0;
+  position: relative;
+  top: 11%;
+  left: 95%;
+}
+
+.categories-div-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.categories-div-mobile button {
+  margin: 0.5em 0 2em 0;
+  padding: 0.5em;
+}
+
 .lmj-shopping-list {
   background-color: #f2f0ec;
   width: 100%;
@@ -80,6 +98,21 @@ html {
   padding: 0.5em;
   font-size: 1.05rem;
 }
+.lmj-shopping-list .div-button-filtre-mobile-vue {
+  display: none;
+}
+@media (max-width: 850px) {
+  .lmj-shopping-list .div-button-filtre-mobile-vue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1em 0 0 0;
+  }
+  .lmj-shopping-list .div-button-filtre-mobile-vue button {
+    width: 70%;
+  }
+}
 .lmj-shopping-list .div-categories-plus-products-list {
   display: flex;
   flex-direction: row;
@@ -91,6 +124,11 @@ html {
   padding: 2em 0 0 2em;
   max-width: 12em;
   position: sticky;
+}
+@media (max-width: 850px) {
+  .lmj-shopping-list .div-categories-plus-products-list .categories-and-filtre-and-trie {
+    display: none;
+  }
 }
 .lmj-shopping-list .div-categories-plus-products-list .categories-and-filtre-and-trie a {
   margin: 0 0.75em 0 0.75em;
