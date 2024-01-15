@@ -340,6 +340,7 @@ function ShoppingList({ cart, updateCart }) {
                 activeCategory={activeCategory}
                 minPriceForThisCategory={minPriceForThisCategory}
                 maxPriceForThisCategory={maxPriceForThisCategory}
+                productList={productList}
             ></Categories>
             <button onClick={() => validerTrie()}>Valider</button>
           </div>
@@ -379,6 +380,7 @@ function ShoppingList({ cart, updateCart }) {
                 activeCategory={activeCategory}
                 minPriceForThisCategory={minPriceForThisCategory}
                 maxPriceForThisCategory={maxPriceForThisCategory}
+                productList={productList}
             ></Categories>
           </div>
           <ul className="lmj-plant-list">
