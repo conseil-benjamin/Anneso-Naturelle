@@ -200,45 +200,6 @@ function ShoppingList({ cart, updateCart }) {
     }
   }, [productAdd]);
 
-  const handleClickFavoris = async (cover, price, name, id) => {
-    /*
-    setFavorite((prevEtats) => {
-      const nouveauxEtats = [...prevEtats];
-      nouveauxEtats[index] = { isFavorite: true };
-      return nouveauxEtats;
-    });
-    setFavorite(true);
-    */
-    const favori = {
-      idClient: jwtToken,
-      coverArticle: cover,
-      prixArticle: price,
-      idProduct: id,
-      nomArticle: name,
-    };
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/v1/favoris/insert",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwtToken}`,
-          },
-          body: JSON.stringify(favori),
-        }
-      );
-
-      if (response.ok) {
-        console.log("Données insérées avec succès!");
-      } else {
-        console.error("Erreur lors de l'insertion des données.");
-      }
-    } catch (error) {
-      console.error("Erreur de connexion au serveur:", error);
-    }
-  };
-
   const trie = () => {
     nameTable = [...productList];
 
@@ -265,28 +226,6 @@ function ShoppingList({ cart, updateCart }) {
   }
   else if(triageActive) {
     trie();
-  }
-
-  function addToCart(cover, name, price, idProduct) {
-    setProductAdd(true);
-    const currentPlantSaved = cart.find((plant) => plant.name === name);
-    if (currentPlantSaved) {
-      let amountTotal = currentPlantSaved.amount;
-      const cartFilteredCurrentPlant = cart.filter(
-        (plant) => plant.name !== name
-      );
-      updateCart([
-        ...cartFilteredCurrentPlant,
-        { cover, name, price, idProduct, amount: amountTotal + 1 },
-      ]);
-      localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
-    } else {
-      updateCart([...cart, { cover, name, price, idProduct, amount: 1 }]);
-      localStorage.setItem("nbElement", JSON.stringify(1));
-      const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
-      localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
-    }
-    setAddElement(true);
   }
 
   const cancelAndClosefiltreMobileOpen = () => {
@@ -337,12 +276,12 @@ function ShoppingList({ cart, updateCart }) {
                 toutClique={toutClique}
                 triageActive={triageActive}
                 setActiveTriage={setActiveTriage}
-                setproductList={setproductList}
                 activeCategory={activeCategory}
                 minPriceForThisCategory={minPriceForThisCategory}
                 maxPriceForThisCategory={maxPriceForThisCategory}
                 productList={productList}
                 setproductList={setproductList}
+                isDataLoading={isDataLoading}
             ></Categories>
             <button onClick={() => validerTrie()}>Valider</button>
           </div>
@@ -383,6 +322,7 @@ function ShoppingList({ cart, updateCart }) {
                 minPriceForThisCategory={minPriceForThisCategory}
                 maxPriceForThisCategory={maxPriceForThisCategory}
                 productList={productList}
+                isDataLoading={isDataLoading}
             ></Categories>
           </div>
           <ul className="lmj-plant-list">
@@ -391,8 +331,6 @@ function ShoppingList({ cart, updateCart }) {
                   <Loader/>
                 </div>
             ) : (
-                console.log(nameTable),
-                console.log(productList),
                 nameTable.map(
                     ({
                        id,
@@ -403,6 +341,7 @@ function ShoppingList({ cart, updateCart }) {
                        price,
                        category,
                        description,
+                        pierres,
                      }) =>
                         !activeCategory || activeCategory === category ? (
                             <div key={id} className="btn-plant">
@@ -415,34 +354,8 @@ function ShoppingList({ cart, updateCart }) {
                                   price={price}
                                   description={description}
                                   category={category}
+                                  pierres={pierres}
                               />
-                              <div className="button-add-to-basket-plus-heart">
-                                <button
-                                    onClick={() => addToCart(cover, name, price, id)}
-                                    id="btn-ajouter"
-                                >
-                                  Ajouter au panier
-                                </button>
-                                {favorite ? (
-                                    <FontAwesomeIcon
-                                        icon={faHeartCircleCheck}
-                                        className="icon-signIn"
-                                        onClick={() =>
-                                            handleClickFavoris(cover, price, name, id)
-                                        }
-                                        style={{fontSize: "1.25em"}}
-                                    />
-                                ) : (
-                                    <FontAwesomeIcon
-                                        icon={faHeart}
-                                        className="icon-signIn"
-                                        onClick={() =>
-                                            handleClickFavoris(cover, price, name, id)
-                                        }
-                                        style={{fontSize: "1.25em"}}
-                                    />
-                                )}
-                              </div>
                             </div>
                         ) : null
                 )

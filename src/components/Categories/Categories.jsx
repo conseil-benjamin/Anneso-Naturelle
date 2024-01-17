@@ -22,7 +22,7 @@ function Categories({
     setproductList,
     activeCategory,
     minPriceForThisCategory,
-    maxPriceForThisCategory, productList,
+    maxPriceForThisCategory, productList,isDataLoading
 }) {
     const [categoriesClique, setCategoriesClique] = useState(false);
     const [prixClique, setPrixClique] = useState(false);
@@ -40,8 +40,6 @@ function Categories({
     const [pierresBracelets, setPierresBracelets] = useState([]);
     const [pierresChoisies, setPierresChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
     const [colors, setColors] = useState([]);
-
-    console.log(activeCategory);
     const handleDeleteAllFilters = () => {
         setPierresChoisies([]);
         sessionStorage.removeItem('pierresChoisies');
@@ -55,7 +53,6 @@ function Categories({
         }
         if (pierresChoisies.length !== 0) {
             try {
-                console.log(pierresChoisies);
                 const response = await fetch("http://localhost:5000/api/v1/products/filtre-pierres", {
                     method: "POST",
                     headers: {
@@ -66,7 +63,6 @@ function Categories({
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     setproductList(data);
                 } else {
                     console.error("Produit non trouvés");
@@ -78,7 +74,9 @@ function Categories({
             try {
                 const response = await fetch("http://localhost:5000/api/v1/products/category", {
                     method: "POST",
-
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify(activeCategory),
                 });
                 if (response.ok) {
@@ -92,23 +90,35 @@ function Categories({
                 console.error("Erreur de connexion au serveur:", error);
             }
         }
+        console.log(pierresChoisies);
+        sessionStorage.setItem('pierresChoisies', JSON.stringify(pierresChoisies));
     };
 
     const handleChoixPierres = async (pierre) => {
-        const estDeselectionnee = pierresChoisies.includes(pierre);
+        setPierresChoisies(prevPierresChoisies => {
+            const estDeselectionnee = prevPierresChoisies.includes(pierre);
 
-        if (estDeselectionnee) {
-            const index = pierresChoisies.indexOf(pierre);
-            pierresChoisies.splice(index, 1);
-            //
-            setPierresChoisies([...pierresChoisies]);
-        } else {
-            setPierresChoisies([...pierresChoisies, pierre]);
-        }
-        sessionStorage.setItem('pierresChoisies', JSON.stringify(pierresChoisies));
-        console.log(pierresChoisies);
-        await getProductsByPierresFilter().then(r => console.log(r));
+            let nouvellesPierresChoisies;
+
+            if (estDeselectionnee) {
+                // Si la pierre est déjà choisie, la retire de la liste
+                nouvellesPierresChoisies = prevPierresChoisies.filter(p => p !== pierre);
+            } else {
+                // Ajoute la pierre à la liste
+                nouvellesPierresChoisies = [...prevPierresChoisies, pierre];
+            }
+
+            // Mise à jour du state
+            return nouvellesPierresChoisies;
+        });
     }
+
+
+    useEffect(() => {
+        // Appel à getProductsByPierresFilter après la mise à jour du state
+        getProductsByPierresFilter().then(r => console.log(r));
+    }, [pierresChoisies]);
+
 
     const handleSliderChange = (minParam, maxParam, range) => {
         setMin(minParam);
@@ -126,7 +136,6 @@ function Categories({
                 }
                 return acc;
             }, []);
-            console.log(pierresBracelet);
             return pierresBracelet.filter(
                 (pierre, index) => pierresBracelet.indexOf(pierre) === index
             );
@@ -143,11 +152,9 @@ function Categories({
         }
 
     useEffect(() => {
-        console.log(braceletClique);
         const fetchPierresBracelet = async () => {
             const bracelets = await functionPierresBracelet();
             setPierresBracelets(bracelets);
-            console.log(pierresBracelets);
         }
         fetchPierresBracelet().then(r => console.log(r));
     }, [braceletClique, boucleOreilleClique, encensClique, accesoiresClique, toutClique, productList]);
@@ -156,7 +163,6 @@ function Categories({
         const fetchColor = async () => {
             const colors = await functionColor();
             setColors(colors);
-            console.log(colors);
         }
         fetchColor().then(r => console.log(r));
     }, [braceletClique, boucleOreilleClique, encensClique, accesoiresClique, toutClique, productList]);
@@ -165,8 +171,6 @@ function Categories({
         () =>
             async function () {
                 try {
-                    console.log(min, max);
-                    console.log(activeCategory);
                     const response = await fetch(
                         `http://localhost:5000/api/v1/products/${min}/${max}/${activeCategory}`,
                         {
@@ -238,7 +242,6 @@ function Categories({
                     </span>
                     </div>
                     {pierresChoisies.length > 0 ? (
-                        console.log(pierresChoisies),
                             <span style={{fontSize: "0.8em", textDecoration: "underline", cursor: "pointer"}} onClick={() =>handleDeleteAllFilters()}>Tout effacer</span>
                         ) : null}
                 </div>
@@ -382,7 +385,7 @@ function Categories({
                         </>
                     ) : null}
                 </div>
-                {braceletClique ? (
+                {braceletClique && !isDataLoading ? (
                     <>
                         <div className="categories-div">
                             <div
@@ -406,10 +409,9 @@ function Categories({
                             </div>
                             <div className="div-body-filter-card">
                             {pierresClique ? (
-                                console.log(pierresBracelets),
                                     pierresBracelets.map((pierre, index) => (
                                         <div key={index}>
-                                            <input type="checkbox" id={`pierre-${index}`} value={pierre} checked={pierresChoisies.includes(pierre)} onClick={() => handleChoixPierres(pierre)}
+                                            <input type="checkbox" id={`pierre-${index}`} value={pierre} checked={pierresChoisies.includes(pierre)} onChange={() => handleChoixPierres(pierre)}
                                             />
                                             <label htmlFor={`pierre-${index}`}>{pierre}</label>
                                         </div>
@@ -439,7 +441,6 @@ function Categories({
                             </div>
                             <div className="div-body-filter-card">
                                 {colorClique ? (
-                                    console.log(colors),
                                         colors.map((color, index) => (
                                             <div key={index}>
                                                 <input type="checkbox" id={`color-${index}`} value={color} />

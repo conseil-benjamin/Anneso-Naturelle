@@ -14,6 +14,7 @@ function Details({ cart, updateCart }) {
   const [isAddElement, setAddElement] = useState(false);
   const [produit, setProduit] = useState([]);
   const tableauObjet = Object.values(produit);
+  const [selectedBraceletSize, setSelectedBraceletSize] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,22 +34,24 @@ function Details({ cart, updateCart }) {
     fetchData();
   }, [id]);
 
-  function addToCart(cover, name, price) {
+  function addToCart(cover, name, price, idProduct) {
     setProductAdd(true);
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     if (currentPlantSaved) {
       let amountTotal = currentPlantSaved.amount;
       const cartFilteredCurrentPlant = cart.filter(
-        (plant) => plant.name !== name
+          (plant) => plant.name !== name
       );
       updateCart([
         ...cartFilteredCurrentPlant,
-        { cover, name, price, amount: amountTotal + 1 },
+        { cover, name, price, idProduct, amount: amountTotal + 1 },
       ]);
       localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
     } else {
-      updateCart([...cart, { cover, name, price, amount: 1 }]);
+      updateCart([...cart, { cover, name, price, idProduct, amount: 1 }]);
       localStorage.setItem("nbElement", JSON.stringify(1));
+      const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+      localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
     }
     setAddElement(true);
   }
@@ -93,21 +96,56 @@ function Details({ cart, updateCart }) {
             </div>
             <div className="details-list">
               {tableauObjet.map((produit) => (
-                <div key={produit.id}>
-                  <h1>{produit.name}</h1>
-                  <p>Prix : {produit.price} €</p>
-                  <p className="description">{produit.description}</p>
-                  <p>Autres infos à venir ...</p>
-                  <button
-                    className="button-56"
-                    role="button"
-                    onClick={() =>
-                      addToCart(produit.cover, produit.name, produit.price)
-                    }
-                  >
-                    Ajouter au panier
-                  </button>
-                </div>
+                  <div key={produit.id}>
+                    <h1>{produit.name}</h1>
+                    <p>Prix : {produit.price} €</p>
+                    <p className="description">{produit.description}</p>
+                      {produit.category === "bracelet" ? (
+                          <>
+                            <div>
+                              <p>Pierres présentes sur le bracelet :</p>
+                              <ul>
+                                {tableauObjet.map((produit) => (
+                                    produit.pierres.map((pierre) => (
+                                        <li>{pierre}</li>
+                                    ))
+                                    // afficher les pierres présentes sur le bracelet
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <p>Taille tour de poignet</p>
+                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
+                                      onClick={() => setSelectedBraceletSize("17")}>17 cm
+                              </button>
+                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
+                                      onClick={() => setSelectedBraceletSize("18")}>18 cm
+                              </button>
+                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
+                                      onClick={() => setSelectedBraceletSize("19")}>19 cm
+                              </button>
+                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
+                                      onClick={() => setSelectedBraceletSize("20")}>20 cm
+                              </button>
+                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
+                                      onClick={() => setSelectedBraceletSize("21")}>21 cm
+                              </button>
+                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
+                                      onClick={() => setSelectedBraceletSize("22")}>22 cm
+                              </button>
+                            </div>
+                          </>
+                      ) : null}
+                    <p>Autres infos à venir ...</p>
+                    <button
+                        role="button"
+                        onClick={() =>
+                            addToCart(produit.cover, produit.name, produit.price, produit.id)
+                        }
+                    >
+                      Ajouter au panier
+                    </button>
+                  </div>
               ))}
             </div>
           </div>

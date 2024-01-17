@@ -18,13 +18,12 @@ function Panier() {
         updateCart(updatedCart);
         const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
         if (nbArticles > 0) {
-            localStorage.setItem("nbArticles", nbArticles - 1);
+            localStorage.setItem("nbArticles", JSON.stringify(nbArticles - 1));
         }
     };
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
-
         const newTotal = cart.reduce(
             (acc, plantType) => acc + plantType.amount * plantType.price,
             0
