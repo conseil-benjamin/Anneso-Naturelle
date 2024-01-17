@@ -29,9 +29,6 @@
     align-items: center;
     justify-content: center;
     margin: 0 0 0 10em;
-    :hover {
-      cursor: pointer;
-    }
     .search-bar-class {
       font-size: 1.5em;
       background-color: #282e32;
@@ -40,6 +37,9 @@
       margin: 0 5em 0 0;
       border: 1px solid black;
       color: #6e7a85;
+      :hover{
+        cursor: pointer;
+      }
     }
     input {
       width: 27%;

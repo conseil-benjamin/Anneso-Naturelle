@@ -12,6 +12,7 @@ import {
 import { faHeart } from "@fortawesome/fontawesome-free-regular";
 import { Loader } from "../../utils/Loader";
 import Cookies from "js-cookie";
+import login from "../Login/Login";
 
 function ShoppingList({ cart, updateCart }) {
   const [activeCategory, setActiveCategory] = useState("");
@@ -341,6 +342,7 @@ function ShoppingList({ cart, updateCart }) {
                 minPriceForThisCategory={minPriceForThisCategory}
                 maxPriceForThisCategory={maxPriceForThisCategory}
                 productList={productList}
+                setproductList={setproductList}
             ></Categories>
             <button onClick={() => validerTrie()}>Valider</button>
           </div>
@@ -348,7 +350,7 @@ function ShoppingList({ cart, updateCart }) {
             ) : (
       <div className="lmj-shopping-list">
         <div className="div-recherche-produit">
-          <input></input>
+          <input style={{cursor: "default"}}></input>
           <FontAwesomeIcon
               icon={faSearch}
               className="search-bar-class"
@@ -389,6 +391,8 @@ function ShoppingList({ cart, updateCart }) {
                   <Loader/>
                 </div>
             ) : (
+                console.log(nameTable),
+                console.log(productList),
                 nameTable.map(
                     ({
                        id,

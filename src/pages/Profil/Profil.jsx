@@ -16,6 +16,7 @@ function Profil() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [isInformationChanged, setIsInformationChanged] = useState(false);
 
   useEffect(() => {
     setNumeroTelephone(numeroTel);
@@ -81,7 +82,7 @@ function Profil() {
                 </>
               )}
             </div>
-            <button>Enregistrer modifications</button>
+            <button disabled={isInformationChanged}>Enregistrer modifications</button>
           </div>
         </div>
         <div className="div-change-password">

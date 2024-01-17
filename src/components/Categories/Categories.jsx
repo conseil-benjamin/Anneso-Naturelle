@@ -38,7 +38,78 @@ function Categories({
     const [changePriceClique, setChangePriceClique] = useState(false);
     const [hasPriceChanged, setPriceChanged] = useState(false);
     const [pierresBracelets, setPierresBracelets] = useState([]);
+    const [pierresChoisies, setPierresChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
     const [colors, setColors] = useState([]);
+
+    console.log(activeCategory);
+    const handleDeleteAllFilters = () => {
+        setPierresChoisies([]);
+        sessionStorage.removeItem('pierresChoisies');
+        setproductList(productList);
+    }
+
+    const getProductsByPierresFilter = async () => {
+        const infos = {
+            pierres: pierresChoisies,
+            category: activeCategory,
+        }
+        if (pierresChoisies.length !== 0) {
+            try {
+                console.log(pierresChoisies);
+                const response = await fetch("http://localhost:5000/api/v1/products/filtre-pierres", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(infos),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
+                    setproductList(data);
+                } else {
+                    console.error("Produit non trouvés");
+                }
+            } catch (error) {
+                console.error("Erreur de connexion au serveur:", error);
+            }
+        } else{
+            try {
+                const response = await fetch("http://localhost:5000/api/v1/products/category", {
+                    method: "POST",
+
+                    body: JSON.stringify(activeCategory),
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setproductList(data);
+                } else {
+                    console.error("Catégorie non trouvés");
+                }
+            }
+        catch (error) {
+                console.error("Erreur de connexion au serveur:", error);
+            }
+        }
+    };
+
+    const handleChoixPierres = async (pierre) => {
+        const estDeselectionnee = pierresChoisies.includes(pierre);
+
+        if (estDeselectionnee) {
+            const index = pierresChoisies.indexOf(pierre);
+            pierresChoisies.splice(index, 1);
+            //
+            setPierresChoisies([...pierresChoisies]);
+        } else {
+            setPierresChoisies([...pierresChoisies, pierre]);
+        }
+        sessionStorage.setItem('pierresChoisies', JSON.stringify(pierresChoisies));
+        console.log(pierresChoisies);
+        await getProductsByPierresFilter().then(r => console.log(r));
+    }
+
     const handleSliderChange = (minParam, maxParam, range) => {
         setMin(minParam);
         setMax(maxParam);
@@ -79,7 +150,7 @@ function Categories({
             console.log(pierresBracelets);
         }
         fetchPierresBracelet().then(r => console.log(r));
-    }, [braceletClique, boucleOreilleClique, encensClique, accesoiresClique, toutClique]);
+    }, [braceletClique, boucleOreilleClique, encensClique, accesoiresClique, toutClique, productList]);
 
     useEffect(() => {
         const fetchColor = async () => {
@@ -88,7 +159,7 @@ function Categories({
             console.log(colors);
         }
         fetchColor().then(r => console.log(r));
-    }, [braceletClique, boucleOreilleClique, encensClique, accesoiresClique, toutClique]);
+    }, [braceletClique, boucleOreilleClique, encensClique, accesoiresClique, toutClique, productList]);
 
     useEffect(
         () =>
@@ -110,7 +181,6 @@ function Categories({
                         console.error("Erreur lors de l'insertion des données.");
                     }
                     const productList = await response.json();
-                    console.log(productList);
                     setproductList(productList);
                 } catch (error) {
                     console.error("Erreur de connexion au serveur:", error);
@@ -160,11 +230,17 @@ function Categories({
     return (
         <>
             <div className="main-div-categories">
-                <div style={{margin: "0 0 1em 0"}}>
-                    <FontAwesomeIcon icon={faFilter} style={{fontSize: "1.25em"}}/>
-                    <span style={{margin: "0 0 0 0.5em", fontSize: "1.25em"}}>
-            Filtrer
-          </span>
+                <div style={{margin: "0 0 0.5em 0",display: "flex", justifyContent: "space-between"}}>
+                    <div>
+                        <FontAwesomeIcon icon={faFilter} style={{fontSize: "1.25em"}}/>
+                        <span style={{margin: "0 0 0 0.5em", fontSize: "1.25em"}}>
+                        Filtrer
+                    </span>
+                    </div>
+                    {pierresChoisies.length > 0 ? (
+                        console.log(pierresChoisies),
+                            <span style={{fontSize: "0.8em", textDecoration: "underline", cursor: "pointer"}} onClick={() =>handleDeleteAllFilters()}>Tout effacer</span>
+                        ) : null}
                 </div>
                 <div className="categories-div">
                     <div
@@ -333,7 +409,8 @@ function Categories({
                                 console.log(pierresBracelets),
                                     pierresBracelets.map((pierre, index) => (
                                         <div key={index}>
-                                            <input type="checkbox" id={`pierre-${index}`} value={pierre} />
+                                            <input type="checkbox" id={`pierre-${index}`} value={pierre} checked={pierresChoisies.includes(pierre)} onClick={() => handleChoixPierres(pierre)}
+                                            />
                                             <label htmlFor={`pierre-${index}`}>{pierre}</label>
                                         </div>
                                     ))
