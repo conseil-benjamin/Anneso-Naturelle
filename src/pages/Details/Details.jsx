@@ -109,7 +109,6 @@ function Details({ cart, updateCart }) {
                                     produit.pierres.map((pierre) => (
                                         <li>{pierre}</li>
                                     ))
-                                    // afficher les pierres présentes sur le bracelet
                                 ))}
                               </ul>
                             </div>

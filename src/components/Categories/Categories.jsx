@@ -1,6 +1,6 @@
 import "./Categories.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronDown, faChevronRight, faFilter,} from "@fortawesome/free-solid-svg-icons";
+import {faChevronDown, faChevronRight, faSliders} from "@fortawesome/free-solid-svg-icons";
 import {useEffect, useState} from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -236,7 +236,7 @@ function Categories({
             <div className="main-div-categories">
                 <div style={{margin: "0 0 0.5em 0",display: "flex", justifyContent: "space-between"}}>
                     <div>
-                        <FontAwesomeIcon icon={faFilter} style={{fontSize: "1.25em"}}/>
+                        <FontAwesomeIcon icon={faSliders} style={{fontSize: "1.25em"}}/>
                         <span style={{margin: "0 0 0 0.5em", fontSize: "1.25em"}}>
                         Filtrer
                     </span>
