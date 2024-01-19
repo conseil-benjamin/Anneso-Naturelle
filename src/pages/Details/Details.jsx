@@ -4,6 +4,7 @@ import "./Details.css";
 import { Loader } from "../../utils/Loader";
 import Categories from "../../components/Categories/Categories";
 import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
+import Select from "../../components/Select/Select.tsx";
 
 function Details({ cart, updateCart }) {
   const navigate = useNavigate();
@@ -112,30 +113,9 @@ function Details({ cart, updateCart }) {
                                 ))}
                               </ul>
                             </div>
-                            <div>
-                              <p>Taille tour de poignet</p>
-                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
-                                      onClick={() => setSelectedBraceletSize("17")}>17 cm
-                              </button>
-                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
-                                      onClick={() => setSelectedBraceletSize("18")}>18 cm
-                              </button>
-                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
-                                      onClick={() => setSelectedBraceletSize("19")}>19 cm
-                              </button>
-                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
-                                      onClick={() => setSelectedBraceletSize("20")}>20 cm
-                              </button>
-                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
-                                      onClick={() => setSelectedBraceletSize("21")}>21 cm
-                              </button>
-                              <button value={"17"} style={{margin: "0 0.5em 0 0"}}
-                                      onClick={() => setSelectedBraceletSize("22")}>22 cm
-                              </button>
-                            </div>
+                              <Select/>
                           </>
                       ) : null}
-                    <p>Autres infos à venir ...</p>
                     <button
                         role="button"
                         onClick={() =>
