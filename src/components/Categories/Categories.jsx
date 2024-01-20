@@ -234,7 +234,7 @@ function Categories({
     return (
         <>
             <div className="main-div-categories">
-                <div style={{margin: "0 0 0.5em 0",display: "flex", justifyContent: "space-between"}}>
+                <div className={"header-filter"}>
                     <div>
                         <FontAwesomeIcon icon={faSliders} style={{fontSize: "1.25em"}}/>
                         <span style={{margin: "0 0 0 0.5em", fontSize: "1.25em"}}>
@@ -410,7 +410,7 @@ function Categories({
                             <div className="div-body-filter-card">
                             {pierresClique ? (
                                     pierresBracelets.map((pierre, index) => (
-                                        <div key={index}>
+                                        <div key={index} className={"div-une-pierre"}>
                                             <input type="checkbox" id={`pierre-${index}`} value={pierre} checked={pierresChoisies.includes(pierre)} onChange={() => handleChoixPierres(pierre)}
                                             />
                                             <label htmlFor={`pierre-${index}`}>{pierre}</label>
@@ -439,10 +439,10 @@ function Categories({
                                     ></FontAwesomeIcon>
                                 )}
                             </div>
-                            <div className="div-body-filter-card">
+                                <div className="div-body-filter-card">
                                 {colorClique ? (
                                         colors.map((color, index) => (
-                                            <div key={index}>
+                                            <div key={index} className={"div-une-pierre"}>
                                                 <input type="checkbox" id={`color-${index}`} value={color} />
                                                 <label htmlFor={`color-${index}`}>{color}</label>
                                             </div>

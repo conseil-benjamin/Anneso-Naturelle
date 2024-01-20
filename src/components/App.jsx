@@ -128,7 +128,7 @@ function App() {
             />
             <Route
               path="collections"
-              element={<ShoppingList cart={cart} updateCart={updateCart} />}
+              element={<ShoppingList />}
             />
             <Route path="/*" element={<Erreur404 />} />
           </Routes>

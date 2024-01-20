@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: column;
   margin: 0 0 0 2em;
+  .header-filter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 0.25em 0.5em;
+  }
   .categories-div {
     display: flex;
     flex-direction: column;
@@ -20,7 +26,13 @@
       padding: 0.5em;
     }
     .div-body-filter-card{
-      margin: 1em;
+      .div-une-pierre{
+        margin: 0 0 0.5em 0.5em;
+        input{
+          width: 14px;
+          height: 14px;
+        }
+      }
     }
     .radio-trie-div{
       margin: 0 0 0.5em 0;

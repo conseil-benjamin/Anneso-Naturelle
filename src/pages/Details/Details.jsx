@@ -113,10 +113,13 @@ function Details({ cart, updateCart }) {
                                 ))}
                               </ul>
                             </div>
+                            <div  id={"div-select_size_product"}>
                               <Select/>
+                            </div>
                           </>
                       ) : null}
                     <button
+                        id={"button_add_to_cart"}
                         role="button"
                         onClick={() =>
                             addToCart(produit.cover, produit.name, produit.price, produit.id)

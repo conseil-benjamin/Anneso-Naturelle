@@ -80,9 +80,6 @@ html {
   justify-content: center;
   margin: 0 0 0 10em;
 }
-.lmj-shopping-list .div-recherche-produit :hover {
-  cursor: pointer;
-}
 .lmj-shopping-list .div-recherche-produit .search-bar-class {
   font-size: 1.5em;
   background-color: #282e32;
@@ -91,6 +88,9 @@ html {
   margin: 0 5em 0 0;
   border: 1px solid black;
   color: #6e7a85;
+}
+.lmj-shopping-list .div-recherche-produit .search-bar-class :hover {
+  cursor: pointer;
 }
 .lmj-shopping-list .div-recherche-produit input {
   width: 27%;
@@ -155,6 +155,9 @@ html {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.lmj-plant-list .div-product :hover {
+  zoom: 1.002;
 }
 .lmj-plant-list .button-add-to-basket-plus-heart {
   display: flex;

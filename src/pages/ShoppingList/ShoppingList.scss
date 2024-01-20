@@ -103,6 +103,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  .div-product{
+    :hover{
+      zoom: 1.002;
+    }
+  }
   .button-add-to-basket-plus-heart{
     display: flex;
     align-items: center;

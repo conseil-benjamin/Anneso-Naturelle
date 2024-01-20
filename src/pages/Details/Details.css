@@ -41,6 +41,14 @@
 .details-list .description {
   max-width: 35rem;
 }
+.details-list #button_add_to_cart {
+  margin: 0.25em 0 0 0;
+  width: 50%;
+}
+.details-list #div-select_size_product {
+  width: 50%;
+  margin: 5em 0 0 0;
+}
 
 .return {
   padding: 1em 0 0 2em;
@@ -48,59 +56,6 @@
 
 img {
   border-radius: 30px;
-}
-
-.button-56 {
-  align-items: center;
-  background-color: #283618;
-  border: 2px solid #111;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  height: 48px;
-  justify-content: center;
-  line-height: 24px;
-  max-width: 100%;
-  margin: 2em 0 0 0;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  -moz-user-select: none;
-       user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-56:after {
-  background-color: #111;
-  border-radius: 8px;
-  content: "";
-  display: block;
-  height: 48px;
-  left: 0;
-  width: 100%;
-  position: absolute;
-  top: -2px;
-  transform: translate(8px, 8px);
-  transition: transform 0.2s ease-out;
-  z-index: -1;
-}
-
-.button-56:hover:after {
-  transform: translate(0, 0);
-}
-
-.button-56:active {
-  background-color: #ffdeda;
-  outline: 0;
-}
-
-.button-56:hover {
-  outline: 0;
 }
 
 @media (max-width: 1000px) {
@@ -117,4 +72,6 @@ img {
   .bodyElementDetails .div-container-left-plus-right .details-list {
     padding: 0 0 2em 3em;
   }
-}/*# sourceMappingURL=Details.css.map */
+}
+
+/*# sourceMappingURL=Details.css.map */

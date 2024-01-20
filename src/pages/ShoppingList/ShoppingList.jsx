@@ -344,7 +344,7 @@ function ShoppingList({ cart, updateCart }) {
                         pierres,
                      }) =>
                         !activeCategory || activeCategory === category ? (
-                            <div key={id} className="btn-plant">
+                            <div key={id} className="div-product">
                               <ProductItem
                                   id={id}
                                   cover={cover}
