@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./CardFavoris.css";
+import "../../styles/colors.scss";
 import PropTypes from "prop-types"; // ES6
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,9 +24,17 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
       if (response.ok) {
         console.log("Données supprimé avec succès!");
         Swal.fire({
-          text: "Produit supprimé",
-          icon: "success",
-          confirmButtonText: "Ok",
+          text: "Produit supprimé des favoris avec succès !",
+          toast: true,
+          showConfirmButton: false,
+          background: "#22242a",
+          timer: 2000,
+          position: "top-start",
+          padding: "0.5em",
+          color: "#ffffff",
+          customClass: {
+            toast: 'toast-custom'
+          }
         });
       } else {
         console.error("Erreur lors de la suppression des données.");
@@ -55,7 +64,7 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
           icon={faXmark}
           className="fa-2x"
           onClick={() => handleDeleteFavorite()}
-          style={{ margin: "0.3em 0.3em 0 0" }}
+          style={{ margin: "0.3em 0.3em 0 0", cursor: "pointer" }}
         />
       </div>
     </div>

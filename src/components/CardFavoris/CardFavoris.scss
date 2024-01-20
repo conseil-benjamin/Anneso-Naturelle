@@ -1,3 +1,5 @@
+@import "../../styles/colors.scss";
+
 .div-favori {
   display: flex;
   flex-direction: row;
@@ -10,11 +12,17 @@
   .container-left {
     img {
       width: 190px;
-      height: 190px;
       height: 100%;
     }
   }
   .infos-produit-favoris-card {
     width: 10em;
   }
+}
+
+.toast-custom{
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  padding: 0.5em;
 }

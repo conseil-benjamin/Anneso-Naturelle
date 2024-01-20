@@ -3,12 +3,17 @@ import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import "./Favoris.css";
 import CardFavoris from "../../components/CardFavoris/CardFavoris";
 import PropTypes from "prop-types";
+import {useEffect} from "react";
 
 function Favoris() {
   const location = useLocation();
   const { favoris } = location.state || {};
 
   const tableauObjet = Object.values(favoris);
+
+  useEffect(() => {
+
+  }, [favoris]);
 
   return (
     <div className="body-page-favoris">

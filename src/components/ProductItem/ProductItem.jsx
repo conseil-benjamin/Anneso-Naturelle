@@ -72,11 +72,32 @@ function ProductItem({
       );
 
       if (response.ok) {
-        console.log("Données insérées avec succès!");
+        Swal.fire({
+          text: "Produit ajouté au favoris avec succès.",
+          toast: true,
+          showConfirmButton: false,
+          background: "#22242a",
+          timer: 2000,
+            padding: "0.5em",
+            color: "#ffffff",
+          position: "top-start",
+          customClass: {
+            content: 'toast-custom'
+          }
+        });
       } else {
         Swal.fire({
             text: "Veuillez vous connecter ou créer un compte pour mettre des produits en favoris.",
-            position: 'top-middle',
+            toast: true,
+            showConfirmButton: false,
+            background: "#22242a",
+            timer: 1500,
+            padding: "0.5em",
+            color: "#ffffff",
+            position: "top-start",
+            customClass: {
+              content: 'toast-custom'
+            }
         });
       }
     } catch (error) {

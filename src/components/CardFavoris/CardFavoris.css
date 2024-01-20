@@ -10,11 +10,17 @@
 }
 .div-favori .container-left img {
   width: 190px;
-  height: 190px;
   height: 100%;
 }
 .div-favori .infos-produit-favoris-card {
   width: 10em;
+}
+
+.toast-custom {
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  padding: 0.5em;
 }
 
 /*# sourceMappingURL=CardFavoris.css.map */

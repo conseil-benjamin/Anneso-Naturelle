@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Banner from "./Banner";
 import Footer from "./Footer/Footer";
 import ShoppingList from "../pages/ShoppingList/ShoppingList";
-import Details from "../pages/Details/Details";
+import DetailsProduct from "../pages/DetailsProduct/DetailsProduct";
 import Login from "../pages/Login/Login";
 import Profil from "../pages/Profil/Profil";
 import PrivateRoutes from "../utils/PrivateRoutes";
@@ -89,7 +89,7 @@ function App() {
             <Route exact path="/" element={<Home />} />{" "}
             <Route
               path="/Details/:id"
-              element={<Details cart={cart} updateCart={updateCart} />}
+              element={<DetailsProduct cart={cart} updateCart={updateCart} />}
             />
             <Route path="/login" element={<Login />} />
             <Route element={<PrivateRoutes />}>

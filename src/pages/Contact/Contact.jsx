@@ -14,7 +14,7 @@ function Contact() {
   return (
     <div className="body-page-contact">
       <div className="images">
-        <img src={cactus} alt="cactus" width={150} height={300}></img>
+        <img src={cactus} alt="cactus" width={150} height={300} id={"img_cactus_contact_page"}></img>
         <img src={dame} alt="image_dame" width={500} height={500}></img>
       </div>
       <div className="input-contact">
@@ -36,7 +36,7 @@ function Contact() {
           onChange={(e) => setMessage(e.target.value)}
           style={{fontSize: 20}}
         ></textarea>
-        <button className="btn-login">
+        <button id={"btn_contact"}>
           Me contacter
           <FontAwesomeIcon icon={faEnvelope} className="icon-signIn" />
         </button>

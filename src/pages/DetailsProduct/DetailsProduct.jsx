@@ -6,7 +6,7 @@ import Categories from "../../components/Categories/Categories";
 import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 import Select from "../../components/Select/Select.tsx";
 
-function Details({ cart, updateCart }) {
+function DetailsProduct({ cart, updateCart }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -137,4 +137,4 @@ function Details({ cart, updateCart }) {
   );
 }
 
-export default Details;
+export default DetailsProduct;
