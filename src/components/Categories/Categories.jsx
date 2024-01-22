@@ -77,7 +77,7 @@ function Categories({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(activeCategory),
+                    body: JSON.stringify({activeCategory: activeCategory}),
                 });
                 if (response.ok) {
                     const data = await response.json();

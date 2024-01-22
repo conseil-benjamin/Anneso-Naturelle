@@ -3,7 +3,7 @@ import "./ProductItem.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeartCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import {faHeart} from "@fortawesome/fontawesome-free-regular";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 
@@ -19,6 +19,7 @@ function ProductItem({
   const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
   const jwtToken = Cookies.get("auth_token");
+  const [favoriteAdd, setFavoriteAdd] = useState(false);
 
   const handleDetailsClique = (
     cover,
@@ -41,6 +42,34 @@ function ProductItem({
       },
     });
   };
+
+  useEffect(() => {
+    const getFavoriteStatus = async () => {
+      try {
+        const response = await fetch(
+            `http://localhost:5000/api/v1/favoris/get-status-favori`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
+              body: JSON.stringify({idProduct: id}),
+            }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data.length > 0) {
+            setFavorite(true);
+          }
+        }
+        setFavoriteAdd(false);
+      } catch (error) {
+        console.error("Erreur de connexion au serveur:", error);
+      }
+    };
+    getFavoriteStatus();
+  }, [favoriteAdd]);
 
   const handleClickFavoris = async (cover, price, name, id) => {
     /*
@@ -81,9 +110,10 @@ function ProductItem({
             padding: "0.5em",
             color: "#ffffff",
           position: "top-start",
-          customClass: {
-            content: 'toast-custom'
-          }
+            timerProgressBar: true,
+            customClass: {
+              timerProgressBar: "background-color: #ffffff !important",
+            }
         });
       } else {
         Swal.fire({
@@ -95,14 +125,12 @@ function ProductItem({
             padding: "0.5em",
             color: "#ffffff",
             position: "top-start",
-            customClass: {
-              content: 'toast-custom'
-            }
         });
       }
     } catch (error) {
       console.error("Erreur de connexion au serveur:", error);
     }
+    setFavoriteAdd(true);
   };
 
   return (

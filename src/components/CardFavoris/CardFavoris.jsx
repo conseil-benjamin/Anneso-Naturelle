@@ -7,17 +7,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import RedirectToProductDetails from "../RedirectToProductsDetails/RedirectToProductDetails";
+import Cookies from "js-cookie";
 function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
+  const jwtToken = Cookies.get("auth_token");
 
   const handleDeleteFavorite = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/v1/favoris/delete/" + idProduct,
+        "http://localhost:5000/api/v1/favoris/delete",
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+          body: JSON.stringify({
+            idProduct: idProduct,
+          }),
         }
       );
 
@@ -32,9 +41,6 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
           position: "top-start",
           padding: "0.5em",
           color: "#ffffff",
-          customClass: {
-            toast: 'toast-custom'
-          }
         });
       } else {
         console.error("Erreur lors de la suppression des données.");
