@@ -27,7 +27,7 @@ function Adresses() {
           <div>
             <h1>Mes adresses</h1>
           </div>
-          {adresses ? (
+          {adresses.length > 0 ? (
               tableauObjet.map((adresse) => (
               <CardAdressses
                 adresseId={adresse.adresseId}

@@ -5,6 +5,8 @@ import { Loader } from "../../utils/Loader";
 import Categories from "../../components/Categories/Categories";
 import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 import Select from "../../components/Select/Select.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
 
 function DetailsProduct({ cart, updateCart }) {
   const navigate = useNavigate();
@@ -126,6 +128,7 @@ function DetailsProduct({ cart, updateCart }) {
                         }
                     >
                       Ajouter au panier
+                      <FontAwesomeIcon icon={faCartPlus} style={{margin: "0 0 0 2em"}} size={"1x"}></FontAwesomeIcon>
                     </button>
                   </div>
               ))}

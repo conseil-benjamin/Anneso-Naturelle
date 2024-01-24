@@ -157,7 +157,7 @@ html {
   justify-content: center;
 }
 .lmj-plant-list .div-product :hover {
-  zoom: 1.002;
+  box-shadow: #22242a;
 }
 .lmj-plant-list .button-add-to-basket-plus-heart {
   display: flex;

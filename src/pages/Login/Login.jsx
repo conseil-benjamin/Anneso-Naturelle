@@ -121,13 +121,11 @@ function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyUp={(e) => handleKeyPress(e)}
               />
-              <button onClick={togglePasswordVisibility} onke>
-                {inputType === "password" ? (
-                    <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
-                ) : (
-                    <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
-                )}
-              </button>
+              {inputType === "password" ? (
+                  <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
+              ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
+              )}
             </div>
 
             <button

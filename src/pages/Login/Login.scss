@@ -1,4 +1,5 @@
 @import "../../styles/colors.scss";
+@import "../Register/Register";
 
 .body-element {
   height: 80vh;
@@ -7,6 +8,15 @@
   align-items: center;
   justify-content: center;
   background-color: $background-color;
+  .div-password{
+    position: relative;
+    .input-login{
+      margin: 0;
+    }
+    #icon-eye-see-password{
+      @include positioningEyeIcon();
+    }
+  }
 }
 
 .input-login {
@@ -18,11 +28,7 @@
 
 .btn-login {
   margin: 2em;
-  background-color: $pakistan-green;
-  color: #ffffff;
-  padding: 1.5em;
-  border-radius: 20px;
-  transition: all 0.5s;
+  width: 17%;
 }
 
 .icon-signIn {
@@ -32,14 +38,6 @@
 .btn-login:hover {
   background-color: #ded2b2;
   color: #000000;
-}
-
-.div-password {
-  margin: 0 0 0 3em;
-}
-
-.div-password > button {
-  margin: 0 0 0 1.5em;
 }
 
 .bold-text {

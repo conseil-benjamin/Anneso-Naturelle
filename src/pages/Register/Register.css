@@ -11,8 +11,15 @@
   flex-direction: column;
   margin: 0 0 0.4em 0;
 }
-.body-element-register .div-input-register #label-mdp {
-  margin: 0 0 0 3em;
+.body-element-register .div-input-register .div-password {
+  position: relative;
+}
+.body-element-register .div-input-register .div-password #icon-eye-see-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 .body-element-register p {
   padding: 0;

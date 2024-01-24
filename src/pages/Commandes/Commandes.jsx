@@ -22,7 +22,7 @@ function Commandes() {
           <div>
             <h1>Vos Commandes</h1>
           </div>
-          {commandes ? (
+          {commandes.length > 0 ? (
               tableauObjet.map((commande) => (
               <CardCommande
                 key={commande.idCommande}

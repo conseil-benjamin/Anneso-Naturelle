@@ -23,7 +23,8 @@ function Favoris() {
           <h1>Mes Favoris</h1>
         </div>
         <div className="container-right-favoris">
-          {favoris ? (
+          {favoris.length > 0 ? (
+              console.log(favoris),
             tableauObjet.map((favori) => (
               <CardFavoris
                 key={favori.clientId}
@@ -34,8 +35,8 @@ function Favoris() {
               ></CardFavoris>
             ))
           ) : (
-            <div>
-              <h1>Aucun favoris pour le moment</h1>
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+              <h2>Aucun favoris pour le moment</h2>
             </div>
           )}
         </div>

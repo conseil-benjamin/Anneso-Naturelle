@@ -19,7 +19,7 @@ function ProductItem({
   const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
   const jwtToken = Cookies.get("auth_token");
-  const [favoriteAdd, setFavoriteAdd] = useState(false);
+  const [favoriteAddOrRemove, setFavoriteAddOrRemove] = useState(false);
 
   const handleDetailsClique = (
     cover,
@@ -43,6 +43,8 @@ function ProductItem({
     });
   };
 
+
+
   useEffect(() => {
     const getFavoriteStatus = async () => {
       try {
@@ -63,23 +65,15 @@ function ProductItem({
             setFavorite(true);
           }
         }
-        setFavoriteAdd(false);
+        setFavoriteAddOrRemove(false);
       } catch (error) {
         console.error("Erreur de connexion au serveur:", error);
       }
     };
     getFavoriteStatus();
-  }, [favoriteAdd]);
+  }, [favoriteAddOrRemove]);
 
   const handleClickFavoris = async (cover, price, name, id) => {
-    /*
-    setFavorite((prevEtats) => {
-      const nouveauxEtats = [...prevEtats];
-      nouveauxEtats[index] = { isFavorite: true };
-      return nouveauxEtats;
-    });
-    setFavorite(true);
-    */
     const favori = {
       idClient: jwtToken,
       coverArticle: cover,
@@ -87,50 +81,85 @@ function ProductItem({
       idProduct: id,
       nomArticle: name,
     };
-    try {
-      const response = await fetch(
-          "http://localhost:5000/api/v1/favoris/insert",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${jwtToken}`,
-            },
-            body: JSON.stringify(favori),
-          }
-      );
 
-      if (response.ok) {
-        Swal.fire({
-          text: "Produit ajouté au favoris avec succès.",
-          toast: true,
-          showConfirmButton: false,
-          background: "#22242a",
-          timer: 2000,
+    if (favorite){
+      try {
+        const response = await fetch(
+            "http://localhost:5000/api/v1/favoris/delete",
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
+              body: JSON.stringify({
+                idProduct: id,
+              }),
+            }
+        );
+
+        if (response.ok) {
+          setFavorite(false);
+          Swal.fire({
+            text: "Produit supprimé des favoris avec succès !",
+            toast: true,
+            showConfirmButton: false,
+            background: "#22242a",
+            timer: 2000,
+            position: "top-start",
             padding: "0.5em",
             color: "#ffffff",
-          position: "top-start",
+          });
+        } else {
+          console.error("Erreur lors de la suppression des données.");
+        }
+      } catch (error) {
+        console.error("Erreur de connexion au serveur:", error);
+      }
+    } else{
+      try {
+        const response = await fetch(
+            "http://localhost:5000/api/v1/favoris/insert",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
+              body: JSON.stringify(favori),
+            }
+        );
+
+        if (response.ok) {
+          Swal.fire({
+            text: "Produit ajouté au favoris avec succès.",
+            toast: true,
+            showConfirmButton: false,
+            background: "#22242a",
+            timer: 2000,
+            padding: "0.5em",
+            color: "#ffffff",
+            position: "top-start",
             timerProgressBar: true,
             customClass: {
               timerProgressBar: "background-color: #ffffff !important",
             }
-        });
-      } else {
-        Swal.fire({
+          });
+        } else {
+          Swal.fire({
             text: "Veuillez vous connecter ou créer un compte pour mettre des produits en favoris.",
-            toast: true,
-            showConfirmButton: false,
+            showConfirmButton: true,
             background: "#22242a",
-            timer: 1500,
+            timer: 2500,
             padding: "0.5em",
             color: "#ffffff",
-            position: "top-start",
-        });
+          });
+        }
+      } catch (error) {
+        console.error("Erreur de connexion au serveur:", error);
       }
-    } catch (error) {
-      console.error("Erreur de connexion au serveur:", error);
     }
-    setFavoriteAdd(true);
+    setFavoriteAddOrRemove(true);
   };
 
   return (

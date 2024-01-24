@@ -135,7 +135,7 @@ function Register() {
         "http://localhost:5000/api/v1/users/" + email
       );
       const user = await response.json();
-      return !!user;
+      return user.length <= 0;
     } catch (error) {
       console.error(error);
     }
@@ -143,7 +143,7 @@ function Register() {
 
   const handleClickRegister = async () => {
     if (checkFormValidity()) {
-        if (await isClientWithThisEmail()) {
+        if (!await isClientWithThisEmail()) {
             const newId = generateUniqueId();
             const user = {
                 id: newId,
@@ -227,7 +227,6 @@ function Register() {
         <label>Nom</label>
         <input
             className="input-login"
-            placeholder="Nom"
             value={nomValue}
             onBlur={handleOnblurName}
             onChange={(e) => setNomValue(e.target.value)}
@@ -239,7 +238,6 @@ function Register() {
         <label>Prénom</label>
       <input
         className="input-login"
-        placeholder="Prénom"
         value={prenomValue}
         onBlur={handleOnblurFirstName}
         onChange={(e) => setPrenomValue(e.target.value)}
@@ -251,7 +249,6 @@ function Register() {
         <label>Numéro de téléphone</label>
       <input
         className="input-login"
-        placeholder="Numéro de téléphone"
         value={numeroTelValue}
         onBlur={handleOnblurTel}
         onChange={(e) => setNumeroTelValue(e.target.value)}
@@ -263,7 +260,6 @@ function Register() {
         <label>Adresse email</label>
       <input
         className="input-login"
-        placeholder="Adresse Email"
         value={email}
         onBlur={handleOnblurEmail}
         onChange={(e) => setemail(e.target.value)}
@@ -277,19 +273,16 @@ function Register() {
                     className="input-login"
                     type={inputType}
                     value={password}
-                    placeholder="Mot de passe"
                     onBlur={handleOnblurPassword}
                     onChange={(e) => setpassword(e.target.value)}
                 />
-                <button onClick={togglePasswordVisibility}>
-                    {inputType === "password" ? (
-                        <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
-                    ) : (
-                        <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>
-                    )}
-                </button>
-                {erreurInputPassword ? <p style={{color: "red"}}>{erreurInputPassword}</p> : null}
+                {inputType === "password" ? (
+                    <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                ) : (
+                    <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                )}
             </div>
+            {erreurInputPassword ? <p style={{color: "red"}}>{erreurInputPassword}</p> : null}
         </div>
 
         <div className={"div-input-register"}>
@@ -298,7 +291,6 @@ function Register() {
                 className="input-login"
                 type={inputType}
                 value={confPassword}
-                placeholder="Confirmer mot de passe"
                 onBlur={handleOnblurConfPassword}
                 onChange={(e) => setconfPassword(e.target.value)}
             />
