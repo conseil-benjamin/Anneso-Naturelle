@@ -4,23 +4,11 @@ import CardPanier from "../../components/CardPanier/CardPanier";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faTag} from "@fortawesome/free-solid-svg-icons";
 
-function Panier() {
-    const savedCart = localStorage.getItem("cart");
-    const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
+function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
     const [codePromoClique, setCodePromoClique] = useState(false);
     const [codePromo, setCodePromo] = useState("");
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
-
-    const removeFromCart = (index) => {
-        const updatedCart = [...cart];
-        updatedCart.splice(index, 1);
-        updateCart(updatedCart);
-        const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
-        if (nbArticles > 0) {
-            localStorage.setItem("nbArticles", JSON.stringify(nbArticles - 1));
-        }
-    };
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -40,11 +28,6 @@ function Panier() {
      }, [codePromoAppliquer]);
      */
 
-    const viderPanier = () => {
-        localStorage.setItem("nbElement", JSON.stringify(0));
-        updateCart([]);
-    };
-
     return (
         <>
             <div className="body-element-panier">
@@ -56,7 +39,7 @@ function Panier() {
                             {cart.map((cartElement, index) => (
                                 <CardPanier
                                     key={`${cartElement.name}-${index}`}
-                                    idProduct={cartElement.id}
+                                    idProduct={cartElement.idProduct}
                                     cover={cartElement.cover}
                                     name={cartElement.name}
                                     price={cartElement.price}
@@ -64,7 +47,8 @@ function Panier() {
                                     index={index}
                                     totalPanier={total}
                                     setTotalPanier={setTotal}
-                                    removeFromCart={removeFromCart}
+                                    cart={cart}
+                                    updateCart={updateCart}
                                 />
                             ))}
                             <div className={"div-main-code-promo"}>

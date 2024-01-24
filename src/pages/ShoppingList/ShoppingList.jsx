@@ -5,14 +5,10 @@ import "./ShoppingList.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeartCircleCheck,
   faSearch,
   faFilter, faXmark
 } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/fontawesome-free-regular";
 import { Loader } from "../../utils/Loader";
-import Cookies from "js-cookie";
-import login from "../Login/Login";
 
 function ShoppingList({ cart, updateCart }) {
   const [activeCategory, setActiveCategory] = useState("");
@@ -27,7 +23,6 @@ function ShoppingList({ cart, updateCart }) {
   const [minPriceForThisCategory, setminPriceForThisCategory] = useState(0);
   const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(1);
   const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
-  const [filtreStatus, setFiltreStatus] = useState(true);
   const [cancelFiltre, setCancelFiltre] = useState(false);
   const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
       useState(false);
@@ -35,8 +30,6 @@ function ShoppingList({ cart, updateCart }) {
   const navigate = useNavigate();
   const [productAdd, setProductAdd] = useState(false);
   let nameTable = productList;
-  const [favorite, setFavorite] = useState(false);
-  const jwtToken = Cookies.get("auth_token");
   const [isDataLoading, setDataLoading] = useState(false);
 
   const setMinAndMaxPrice = (productList) => {
@@ -59,7 +52,9 @@ function ShoppingList({ cart, updateCart }) {
         console.error(error);
       }
     };
-    fetchData();
+    fetchData().then(() => {
+      setMinAndMaxPrice(productList);
+    });
   }, []);
 
   useEffect(() => {

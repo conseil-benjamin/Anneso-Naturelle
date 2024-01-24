@@ -14,14 +14,23 @@ function CardPanier({
   index,
   cover,
   setTotalPanier,
-  removeFromCart,
                       idProduct,
+    cart, updateCart,
 }) {
-  const savedCart = localStorage.getItem("cart");
-  const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   const [selectedValue, setSelectedValue] = useState("");
   const [imageClique, setImageClique] = useState(false);
   localStorage.setItem("cart", JSON.stringify(cart));
+
+  const removeFromCart = (index) => {
+    const updatedCart = [...cart];
+    updatedCart.splice(index, 1);
+    updateCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+    if (nbArticles > 0) {
+      localStorage.setItem("nbArticles", JSON.stringify(nbArticles - 1));
+    }
+  };
 
   const total = cart.reduce(
     (acc, plantType) => acc + plantType.amount * plantType.price,
@@ -63,6 +72,7 @@ function CardPanier({
           <div className={"card-panier-mobile-container-up-left"}>
             <img src={cover} height={150} width={150} onClick={() => setImageClique(true)}></img>
             {imageClique && (
+                console.log(idProduct, imageClique),
                 <RedirectToProductDetails
                     idProduct={idProduct}
                     imageClique={imageClique}

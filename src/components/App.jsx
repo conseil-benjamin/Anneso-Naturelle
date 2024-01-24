@@ -27,10 +27,12 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const savedCart = localStorage.getItem("cart");
+  console.log(savedCart);
+  // déclaration de cart et updateCart ici
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
     updateCart(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   return (

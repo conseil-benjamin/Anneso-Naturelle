@@ -39,11 +39,11 @@ function DetailsProduct({ cart, updateCart }) {
 
   function addToCart(cover, name, price, idProduct) {
     setProductAdd(true);
-    const currentPlantSaved = cart.find((plant) => plant.name === name);
-    if (currentPlantSaved) {
-      let amountTotal = currentPlantSaved.amount;
+    const currentProductSaved = cart.find((product) => product.name === name);
+    if (currentProductSaved) {
+      let amountTotal = currentProductSaved.amount;
       const cartFilteredCurrentPlant = cart.filter(
-          (plant) => plant.name !== name
+          (product) => product.name !== name
       );
       updateCart([
         ...cartFilteredCurrentPlant,
@@ -58,6 +58,10 @@ function DetailsProduct({ cart, updateCart }) {
     }
     setAddElement(true);
   }
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   useEffect(() => {
     if (productAdd) {
