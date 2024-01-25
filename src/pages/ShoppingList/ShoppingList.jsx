@@ -20,8 +20,12 @@ function ShoppingList({ cart, updateCart }) {
   const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
   const [encensClique, setEncensClique] = useState(false);
   const [accesoiresClique, setAccesoiresClique] = useState(false);
+  /**
+   * * Ceci pose problème car la barre ne s'actualise pas avec le prix minimum de la catégorie mais reste fixé avec ses
+   * * valeurs par défaut.
+   */
   const [minPriceForThisCategory, setminPriceForThisCategory] = useState(0);
-  const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(1);
+  const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(0);
   const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
   const [cancelFiltre, setCancelFiltre] = useState(false);
   const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
@@ -35,6 +39,7 @@ function ShoppingList({ cart, updateCart }) {
   const setMinAndMaxPrice = (productList) => {
     const minPrice = Math.min(...productList.map((product) => product.price));
     const maxPrice = Math.max(...productList.map((product) => product.price));
+    console.log(minPrice, maxPrice);
     setminPriceForThisCategory(minPrice);
     setmaxPriceForThisCategory(maxPrice);
   };
@@ -56,6 +61,13 @@ function ShoppingList({ cart, updateCart }) {
       setMinAndMaxPrice(productList);
     });
   }, []);
+
+  useEffect(() => {
+    const minPrice = Math.min(...productList.map((product) => product.price));
+    const maxPrice = Math.max(...productList.map((product) => product.price));
+    setminPriceForThisCategory(minPrice);
+    setmaxPriceForThisCategory(maxPrice);
+  }, [minPriceForThisCategory, maxPriceForThisCategory]);
 
   useEffect(() => {
     if (braceletsClique) {
@@ -224,7 +236,6 @@ function ShoppingList({ cart, updateCart }) {
   }
 
   const cancelAndClosefiltreMobileOpen = () => {
-    console.log(triageActive + " " + " " + isBtnValiderfiltreMobileOpenClique);
     if (isBtnValiderfiltreMobileOpenClique) {
       setActiveTriage("");
       trie(); // Appliquer le tri ici si le bouton de validation a été cliqué
@@ -238,7 +249,6 @@ function ShoppingList({ cart, updateCart }) {
 
   const validerTrie = () => {
     setBtnValiderfiltreMobileOpenClique(true);
-    console.log(triageActive + " " + " " + isBtnValiderfiltreMobileOpenClique);
     (triageActive && isBtnValiderfiltreMobileOpenClique) && trie();
     setfiltreMobileOpen(false);
   }
@@ -283,18 +293,23 @@ function ShoppingList({ cart, updateCart }) {
           </>
             ) : (
       <div className="lmj-shopping-list">
-        <div className="div-recherche-produit">
-          <input style={{cursor: "default"}}></input>
-          <FontAwesomeIcon
-              icon={faSearch}
-              className="search-bar-class"
-          ></FontAwesomeIcon>
-        </div>
+        {/**
+         * Je ne sais pas si je garde la search bar
+          <div className="div-recherche-produit">
+            <input style={{cursor: "default"}}></input>
+            <FontAwesomeIcon
+                icon={faSearch}
+                className="search-bar-class"
+            ></FontAwesomeIcon>
+          </div>
+              */
+        }
+
         <div className="div-button-filtre-mobile-vue" onClick={() => openfiltreMobileOpen()
         }>
-        <button>
-          <FontAwesomeIcon icon={faFilter} style={{margin: "0 0.5em 0 0"}}></FontAwesomeIcon>
-          Filtrer
+          <button>
+            <FontAwesomeIcon icon={faFilter} style={{margin: "0 0.5em 0 0"}}></FontAwesomeIcon>
+            Filtrer
         </button>
       </div>
         <div className="div-categories-plus-products-list">

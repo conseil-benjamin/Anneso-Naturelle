@@ -3,12 +3,40 @@ import "./Panier.css";
 import CardPanier from "../../components/CardPanier/CardPanier";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock, faTag} from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 
 function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
     const [codePromoClique, setCodePromoClique] = useState(false);
     const [codePromo, setCodePromo] = useState("");
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
+    const jwtToken = Cookies.get("auth_token");
+
+    const getBasketClientFromDatabase = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/v1/panier/", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${jwtToken}`
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                /**
+                 * TODO # Faire un map sur data pour récupérer contenu commande et le concaténé avec le panier existant en localstorage.
+                 */
+                console.log(data);
+                return data;
+            } else {
+                console.error("Panier non trouvé");
+            }
+        } catch (error) {
+            console.error("Erreur de connexion au serveur:", error);
+        }
+    }
+
+    getBasketClientFromDatabase();
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));

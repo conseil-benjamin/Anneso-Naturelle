@@ -24,16 +24,22 @@ import HomePage from "../pages/HomePage/HomePage";
 import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 
 function App() {
+
+  /**
+   * TODO : Quand je suis connecté ne pas sauvegarder la cart dans le local storage mais dans la base de données
+   */
+  const jwtToken = Cookies.get("auth_token");
   const savedCart = localStorage.getItem("cart");
-  console.log(savedCart);
-  // déclaration de cart et updateCart ici
-  const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
-  useEffect(() => {
-    updateCart(cart);
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  const [cartLocalStorage, updateCartLocalStorage] = useState(savedCart ? JSON.parse(savedCart) : []);
+
+    const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
+    useEffect(() => {
+      updateCart(cart);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart]);
 
   return (
     <Router>

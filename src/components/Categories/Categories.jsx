@@ -40,6 +40,7 @@ function Categories({
     const [pierresBracelets, setPierresBracelets] = useState([]);
     const [pierresChoisies, setPierresChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
     const [colors, setColors] = useState([]);
+
     const handleDeleteAllFilters = () => {
         setPierresChoisies([]);
         sessionStorage.removeItem('pierresChoisies');

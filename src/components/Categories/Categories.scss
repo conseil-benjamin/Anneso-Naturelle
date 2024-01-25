@@ -54,6 +54,8 @@
   }
   .slider-div{
     margin: 1em;
+    display: flex;
+    flex-direction: column;
     #btn-valider-filtre-prix{
       margin: 1em 0 0 0;
     }
