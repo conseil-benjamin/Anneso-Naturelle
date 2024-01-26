@@ -182,11 +182,11 @@ function Categories({
                         }
                     );
                     if (response.ok) {
+                        const productList = await response.json();
+                        setproductList(productList);
                     } else {
                         console.error("Erreur lors de l'insertion des données.");
                     }
-                    const productList = await response.json();
-                    setproductList(productList);
                 } catch (error) {
                     console.error("Erreur de connexion au serveur:", error);
                 }

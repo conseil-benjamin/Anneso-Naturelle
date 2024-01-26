@@ -10,33 +10,52 @@ function Panier({cart, updateCart}) {
     const [codePromoClique, setCodePromoClique] = useState(false);
     const [codePromo, setCodePromo] = useState("");
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
+    const [panierBDD, setPanierBDD] = useState([]);
+    const [panierUpdated, setPanierUpdated] = useState([]);
     const jwtToken = Cookies.get("auth_token");
 
-    const getBasketClientFromDatabase = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/v1/panier/", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${jwtToken}`
-                },
-            });
-            if (response.ok) {
-                const data = await response.json();
-                /**
-                 * TODO # Faire un map sur data pour récupérer contenu commande et le concaténé avec le panier existant en localstorage.
-                 */
-                console.log(data);
-                return data;
-            } else {
-                console.error("Panier non trouvé");
+    useEffect(() => {
+        const getBasketClientFromDatabase = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/api/v1/panier/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${jwtToken}`
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
+                    /**
+                     * TODO # Faire un map sur data pour récupérer contenu commande et le concaténé avec le panier existant en localstorage.
+                     */
+                    /**
+                     * TODO # Si j'ai un panier en localStorage et que je me connecte je vide le panier en localStorage
+                     */
+                    setPanierBDD(data.contenuPanier);
+                } else {
+                    console.error("Panier non trouvé");
+                }
+            } catch (error) {
+                console.error("Erreur de connexion au serveur:", error);
             }
-        } catch (error) {
-            console.error("Erreur de connexion au serveur:", error);
         }
-    }
+        getBasketClientFromDatabase().then(r => console.log(r));
+    }, [], jwtToken);
 
-    getBasketClientFromDatabase();
+    useEffect(() => {
+        if (panierBDD.length > 0) {
+            console.log("panierBDD", panierBDD);
+            panierBDD.map((panierBDDElement) => {
+                const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
+
+                setPanierUpdated(panierLocalStorage.concat(panierBDDElement.cover));
+            });
+            updateCart(...[panierUpdated]);
+            console.log(panierUpdated);
+        }
+    }, [panierBDD]);
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
