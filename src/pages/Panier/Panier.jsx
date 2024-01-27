@@ -42,20 +42,20 @@ function Panier({cart, updateCart}) {
             }
         }
         getBasketClientFromDatabase().then(r => console.log(r));
-    }, [], jwtToken);
+    }, [cart === [] && jwtToken]);
 
     useEffect(() => {
         if (panierBDD.length > 0) {
-            console.log("panierBDD", panierBDD);
-            panierBDD.map((panierBDDElement) => {
-                const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
-
-                setPanierUpdated(panierLocalStorage.concat(panierBDDElement.cover));
-            });
-            updateCart(...[panierUpdated]);
-            console.log(panierUpdated);
+            const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
+            setPanierUpdated(panierLocalStorage.concat(panierBDD));
         }
     }, [panierBDD]);
+
+    useEffect(() => {
+        console.log("panierUpdated", panierUpdated);
+        updateCart(panierUpdated);
+        localStorage.setItem("cart", JSON.stringify(panierUpdated));
+    }, [panierUpdated]);
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));

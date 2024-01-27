@@ -8,7 +8,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import RedirectToProductDetails from "../RedirectToProductsDetails/RedirectToProductDetails";
 import Cookies from "js-cookie";
-function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
+import favoris from "../../pages/Favoris/Favoris";
+function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct, setFavoris }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
@@ -31,6 +32,9 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct }) {
       );
 
       if (response.ok) {
+          const favoris = await response.json();
+          console.log(favoris);
+          setFavoris(favoris);
         console.log("Données supprimé avec succès!");
         Swal.fire({
           text: "Produit supprimé des favoris avec succès !",

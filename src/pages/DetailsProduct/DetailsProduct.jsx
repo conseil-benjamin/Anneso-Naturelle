@@ -7,6 +7,7 @@ import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 import Select from "../../components/Select/Select.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 
 function DetailsProduct({ cart, updateCart }) {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function DetailsProduct({ cart, updateCart }) {
   const [produit, setProduit] = useState([]);
   const tableauObjet = Object.values(produit);
   const [selectedBraceletSize, setSelectedBraceletSize] = useState("");
+  const jwtToken = Cookies.get("auth_token");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,25 +40,60 @@ function DetailsProduct({ cart, updateCart }) {
   }, [id]);
 
   function addToCart(cover, name, price, idProduct) {
-    setProductAdd(true);
-    const currentProductSaved = cart.find((product) => product.name === name);
-    if (currentProductSaved) {
-      let amountTotal = currentProductSaved.amount;
-      const cartFilteredCurrentPlant = cart.filter(
-          (product) => product.name !== name
-      );
-      updateCart([
-        ...cartFilteredCurrentPlant,
-        { cover, name, price, idProduct, amount: amountTotal + 1 },
-      ]);
-      localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
+    if (jwtToken){
+      const panierInfos ={
+        cover: cover,
+        name: name,
+        price: price,
+        idProduct: idProduct,
+        amount: 1,
+      }
+      const insertInBasket = async () => {
+        setDataLoading(true);
+        try {
+          const response = await fetch(
+              `http://localhost:5000/api/v1/panier/insert`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`
+              },
+              body: JSON.stringify({panierInfos}),
+          },
+          );
+          if (response.ok){
+            const panier = await response.json();
+            console.log(panier);
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setProductAdd(true);
+          setDataLoading(false);
+        }
+      };
+      insertInBasket();
     } else {
-      updateCart([...cart, { cover, name, price, idProduct, amount: 1 }]);
-      localStorage.setItem("nbElement", JSON.stringify(1));
-      const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
-      localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
+      setProductAdd(true);
+      const currentProductSaved = cart.find((product) => product.name === name);
+      if (currentProductSaved) {
+        let amountTotal = currentProductSaved.amount;
+        const cartFilteredCurrentPlant = cart.filter(
+            (product) => product.name !== name
+        );
+        updateCart([
+          ...cartFilteredCurrentPlant,
+          { cover, name, price, idProduct, amount: amountTotal + 1 },
+        ]);
+        localStorage.setItem("nbElement", JSON.stringify(amountTotal + 1));
+      } else {
+        updateCart([...cart, { cover, name, price, idProduct, amount: 1 }]);
+        localStorage.setItem("nbElement", JSON.stringify(1));
+        const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+        localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
+      }
+      setAddElement(true);
     }
-    setAddElement(true);
   }
 
   useEffect(() => {

@@ -44,7 +44,7 @@
   border-radius: 20px;
   transition: all 0.5s;
   margin: 2em 0 2em 0;
-  background-color: #b23c00;
+  background-color: #DED2B2;
 }
 
 .btn-footer-contact:hover {
@@ -59,4 +59,6 @@
 
 .titre-footer {
   font-family: "Playfair Display", serif;
-}/*# sourceMappingURL=Footer.css.map */
+}
+
+/*# sourceMappingURL=Footer.css.map */

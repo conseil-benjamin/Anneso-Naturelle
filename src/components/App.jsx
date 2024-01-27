@@ -25,6 +25,8 @@ import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
+import CartContex from "../utils/CartContex";
+import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
 
 function App() {
 
@@ -33,10 +35,10 @@ function App() {
    */
   const jwtToken = Cookies.get("auth_token");
   const savedCart = localStorage.getItem("cart");
-  const [cartLocalStorage, updateCartLocalStorage] = useState(savedCart ? JSON.parse(savedCart) : []);
 
     const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
     useEffect(() => {
+      console.log("cart", cart);
       updateCart(cart);
       localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
