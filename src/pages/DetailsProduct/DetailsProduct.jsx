@@ -72,7 +72,7 @@ function DetailsProduct({ cart, updateCart }) {
           setDataLoading(false);
         }
       };
-      insertInBasket();
+      insertInBasket().then(r => console.log(r));
     } else {
       setProductAdd(true);
       const currentProductSaved = cart.find((product) => product.name === name);

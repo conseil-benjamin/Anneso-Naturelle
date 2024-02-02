@@ -15,6 +15,9 @@ function Panier({cart, updateCart}) {
     const jwtToken = Cookies.get("auth_token");
 
     useEffect(() => {
+        if (!jwtToken){
+            return;
+        }
         const getBasketClientFromDatabase = async () => {
             try {
                 const response = await fetch("http://localhost:5000/api/v1/panier/", {
@@ -42,7 +45,7 @@ function Panier({cart, updateCart}) {
             }
         }
         getBasketClientFromDatabase().then(r => console.log(r));
-    }, [cart === [] && jwtToken]);
+    }, [cart]);
 
     useEffect(() => {
         if (panierBDD.length > 0) {

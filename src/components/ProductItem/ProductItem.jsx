@@ -46,6 +46,9 @@ function ProductItem({
 
 
   useEffect(() => {
+    if (!jwtToken){
+      return;
+    }
     const getFavoriteStatus = async () => {
       try {
         const response = await fetch(
@@ -70,8 +73,8 @@ function ProductItem({
         console.error("Erreur de connexion au serveur:", error);
       }
     };
-    getFavoriteStatus();
-  }, [favoriteAddOrRemove]);
+    getFavoriteStatus().then((r) => r);
+  }, [favoriteAddOrRemove, jwtToken]);
 
   const handleClickFavoris = async (cover, price, name, id) => {
     const favori = {
@@ -113,6 +116,7 @@ function ProductItem({
         } else {
           console.error("Erreur lors de la suppression des données.");
         }
+        setFavoriteAddOrRemove(true);
       } catch (error) {
         console.error("Erreur de connexion au serveur:", error);
       }
@@ -145,6 +149,7 @@ function ProductItem({
               timerProgressBar: "background-color: #ffffff !important",
             }
           });
+          setFavoriteAddOrRemove(true);
         } else {
           Swal.fire({
             text: "Veuillez vous connecter ou créer un compte pour mettre des produits en favoris.",
@@ -159,7 +164,6 @@ function ProductItem({
         console.error("Erreur de connexion au serveur:", error);
       }
     }
-    setFavoriteAddOrRemove(true);
   };
 
   return (
