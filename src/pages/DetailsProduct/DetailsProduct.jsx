@@ -36,12 +36,12 @@ function DetailsProduct({ cart, updateCart }) {
         setDataLoading(false);
       }
     };
-    fetchData();
+    fetchData().then((r) => console.log(r), (e) => console.error(e));
   }, [id]);
 
   function addToCart(cover, name, price, idProduct) {
     if (jwtToken){
-      const panierInfos ={
+      const panierInfos = {
         cover: cover,
         name: name,
         price: price,
@@ -74,7 +74,7 @@ function DetailsProduct({ cart, updateCart }) {
       };
       insertInBasket().then(r => console.log(r));
     } else {
-      setProductAdd(true);
+      console.log("no jwt token");
       const currentProductSaved = cart.find((product) => product.name === name);
       if (currentProductSaved) {
         let amountTotal = currentProductSaved.amount;
@@ -93,6 +93,7 @@ function DetailsProduct({ cart, updateCart }) {
         localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
       }
       setAddElement(true);
+      setProductAdd(true);
     }
   }
 

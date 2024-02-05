@@ -36,6 +36,7 @@ function Panier({cart, updateCart}) {
                     /**
                      * TODO # Si j'ai un panier en localStorage et que je me connecte je vide le panier en localStorage
                      */
+                    setPanierBDD([]);
                     setPanierBDD(data.contenuPanier);
                 } else {
                     console.error("Panier non trouvé");
@@ -45,7 +46,7 @@ function Panier({cart, updateCart}) {
             }
         }
         getBasketClientFromDatabase().then(r => console.log(r));
-    }, [cart]);
+    }, []);
 
     useEffect(() => {
         if (panierBDD.length > 0) {

@@ -73,26 +73,60 @@ function CardPanier({
      * TODO Faire la même chose qu'en dessous mais pour la BDD
      */
 
-    selectedValue &&
+    if (jwtToken && selectedValue !== ""){
+      const panierInfos = {
+        idProduct: idProduct,
+        amount: selectedValue,
+      }
+      const patchAmountOfThisProductInDatabase = async () => {
+        //setDataLoading(true);
+        try {
+          const response = await fetch(
+              `http://localhost:5000/api/v1/panier/update`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${jwtToken}`
+                },
+                body: JSON.stringify({panierInfos}),
+              },
+          );
+          if (response.ok){
+            const panier = await response.json();
+            console.log(panier);
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          //setProductAdd(true);
+          //setDataLoading(false);
+        }
+      };
+      patchAmountOfThisProductInDatabase().then(r => console.log(r));
+    }
+      else{
+      selectedValue &&
       localStorage.setItem("nbElement", JSON.stringify(selectedValue));
-    const selectedValueFromLocal = JSON.parse(
-      localStorage.getItem("nbElement")
-    );
-    const currentPlantSaved = cart.find((plant) => plant.name === name);
-    const updatedCart = currentPlantSaved
-      ? cart.filter((plant) => plant.name !== name)
-      : [...cart, { cover, name, price, idProduct, amount: 0 }];
-    updateCart([
-      ...updatedCart,
-      {
-        cover,
-        name,
-        price,
-        idProduct,
-        amount: selectedValueFromLocal,
-      },
-    ]);
-    setTotalPanier(total);
+      const selectedValueFromLocal = JSON.parse(
+          localStorage.getItem("nbElement")
+      );
+      const currentPlantSaved = cart.find((plant) => plant.name === name);
+      const updatedCart = currentPlantSaved
+          ? cart.filter((plant) => plant.name !== name)
+          : [...cart, { cover, name, price, idProduct, amount: 0 }];
+      updateCart([
+        ...updatedCart,
+        {
+          cover,
+          name,
+          price,
+          idProduct,
+          amount: selectedValueFromLocal,
+        },
+      ]);
+      setTotalPanier(total);
+    }
+
   }, [selectedValue]);
 
   return (

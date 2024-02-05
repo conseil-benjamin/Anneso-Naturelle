@@ -33,15 +33,12 @@ function App() {
   /**
    * TODO : Quand je suis connecté ne pas sauvegarder la cart dans le local storage mais dans la base de données
    */
-  const jwtToken = Cookies.get("auth_token");
   const savedCart = localStorage.getItem("cart");
-
-    const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
-    useEffect(() => {
-      console.log("cart", cart);
-      updateCart(cart);
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
+  const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart(cart);
+  }, [cart]);
 
   return (
     <Router>
