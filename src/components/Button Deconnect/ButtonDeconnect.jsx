@@ -11,6 +11,11 @@ function ButtonDeconnect() {
   function deconnect() {
     Cookies.remove("auth_token");
     Cookies.remove("name");
+    localStorage.setItem("nbArticles", 0);
+    localStorage.setItem("bastekConcated", false);
+    localStorage.setItem("total", 0);
+    localStorage.setItem("nbElement", 0);
+    localStorage.removeItem("cart");
     navigate("/");
   }
 

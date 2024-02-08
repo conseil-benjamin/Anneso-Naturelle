@@ -30,14 +30,14 @@ import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
 
 function App() {
 
-  /**
-   * TODO : Quand je suis connecté ne pas sauvegarder la cart dans le local storage mais dans la base de données
-   */
+  const jwtToken = Cookies.get("auth_token");
   const savedCart = localStorage.getItem("cart");
   const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
-    updateCart(cart);
+    if (!jwtToken){
+      updateCart(cart);
+    }
   }, [cart]);
 
   return (

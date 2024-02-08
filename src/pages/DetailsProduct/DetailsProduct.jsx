@@ -63,7 +63,15 @@ function DetailsProduct({ cart, updateCart }) {
           );
           if (response.ok){
             const panier = await response.json();
-            console.log(panier);
+            console.log(panier.newAmount);
+            console.log(panier.contenuPanier);
+            updateCart(panier.contenuPanier);
+            console.log("cart" + cart);
+            const newAmount = panier.newAmount;
+            console.log(newAmount);
+            localStorage.setItem("nbElement", JSON.stringify(newAmount));
+            const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
+            localStorage.setItem("nbArticles", JSON.stringify(nbArticles + 1));
           }
         } catch (error) {
           console.error(error);
@@ -75,7 +83,7 @@ function DetailsProduct({ cart, updateCart }) {
       insertInBasket().then(r => console.log(r));
     } else {
       console.log("no jwt token");
-      const currentProductSaved = cart.find((product) => product.name === name);
+      const currentProductSaved = cart.find((product) => product.idProduct === idProduct);
       if (currentProductSaved) {
         let amountTotal = currentProductSaved.amount;
         const cartFilteredCurrentPlant = cart.filter(
@@ -98,7 +106,9 @@ function DetailsProduct({ cart, updateCart }) {
   }
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (!jwtToken){
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   useEffect(() => {

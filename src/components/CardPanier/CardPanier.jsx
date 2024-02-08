@@ -78,6 +78,7 @@ function CardPanier({
         idProduct: idProduct,
         amount: selectedValue,
       }
+      localStorage.setItem("nbElement", JSON.stringify(selectedValue));
       const patchAmountOfThisProductInDatabase = async () => {
         //setDataLoading(true);
         try {
@@ -110,9 +111,9 @@ function CardPanier({
       const selectedValueFromLocal = JSON.parse(
           localStorage.getItem("nbElement")
       );
-      const currentPlantSaved = cart.find((plant) => plant.name === name);
-      const updatedCart = currentPlantSaved
-          ? cart.filter((plant) => plant.name !== name)
+      const currentProductSaved = cart.find((product) => product.name === name);
+      const updatedCart = currentProductSaved
+          ? cart.filter((product) => product.name !== name)
           : [...cart, { cover, name, price, idProduct, amount: 0 }];
       updateCart([
         ...updatedCart,

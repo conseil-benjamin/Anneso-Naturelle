@@ -12,6 +12,7 @@ function Panier({cart, updateCart}) {
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
     const [panierBDD, setPanierBDD] = useState([]);
     const [panierUpdated, setPanierUpdated] = useState([]);
+    const [bastekConcated, setBasketConcated] = useState(false);
     const jwtToken = Cookies.get("auth_token");
 
     useEffect(() => {
@@ -38,6 +39,7 @@ function Panier({cart, updateCart}) {
                      */
                     setPanierBDD([]);
                     setPanierBDD(data.contenuPanier);
+                    console.log("panierBDD", panierBDD);
                 } else {
                     console.error("Panier non trouvé");
                 }
@@ -49,16 +51,48 @@ function Panier({cart, updateCart}) {
     }, []);
 
     useEffect(() => {
-        if (panierBDD.length > 0) {
+        localStorage.setItem("bastekConcated", JSON.stringify(false));
+        if (panierBDD.length > 0 && jwtToken) {
             const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
+            if (JSON.parse(localStorage.getItem("basketConcated")) === true){
+                return;
+            }
             setPanierUpdated(panierLocalStorage.concat(panierBDD));
+            localStorage.setItem("bastekConcated", JSON.stringify(true));
         }
     }, [panierBDD]);
 
     useEffect(() => {
-        console.log("panierUpdated", panierUpdated);
-        updateCart(panierUpdated);
-        localStorage.setItem("cart", JSON.stringify(panierUpdated));
+        if (panierUpdated && jwtToken){
+            console.log("panierUpdated : ", panierUpdated);
+            updateCart(panierUpdated);
+            localStorage.setItem("cart", JSON.stringify(panierUpdated));
+            /**
+             * TODO : Insert les produits du localStorage dans la bdd
+             */
+            const insertLocaleStorageProductInsideDatabase = async () => {
+                try {
+                    const response = await fetch("http://localhost:5000/api/v1//", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${jwtToken}`
+                        },
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        setPanierBDD(data.contenuPanier);
+                        console.log("panierBDD", panierBDD);
+                    } else {
+                        console.error("Panier non trouvé");
+                    }
+                } catch (error) {
+                    console.error("Erreur de connexion au serveur:", error);
+                }
+            }
+            insertLocaleStorageProductInsideDatabase().then(r => console.log(r));
+        }
     }, [panierUpdated]);
 
     useEffect(() => {
@@ -104,7 +138,6 @@ function Panier({cart, updateCart}) {
                             ))}
                             <div className={"div-main-code-promo"}>
                                 <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
-                                     onClick={() => setCodePromoClique(true)}
                                 >
                 <span id="span-code-promo">
                   <FontAwesomeIcon
