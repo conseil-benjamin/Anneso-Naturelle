@@ -16,6 +16,9 @@ function Panier({cart, updateCart}) {
     const jwtToken = Cookies.get("auth_token");
 
     useEffect(() => {
+        if (!jwtToken) {
+            return;
+        }
         const getBasketClientFromDatabase = async () => {
             try {
                 const response = await fetch("http://localhost:5000/api/v1/panier/", {
@@ -34,7 +37,6 @@ function Panier({cart, updateCart}) {
                     /**
                      * TODO # Si j'ai un panier en localStorage et que je me connecte je vide le panier en localStorage
                      */
-                    setPanierBDD([]);
                     setPanierBDD(data.contenuPanier);
                     console.log("panierBDD", panierBDD);
                 } else {
@@ -48,33 +50,33 @@ function Panier({cart, updateCart}) {
     }, []);
 
     useEffect(() => {
+        console.log("panierBDD", panierBDD);
         localStorage.setItem("bastekConcated", JSON.stringify(false));
         if (panierBDD.length > 0 && jwtToken) {
             const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
-            if (JSON.parse(localStorage.getItem("basketConcated")) === true){
+            if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
                 return;
             }
+            console.log("panierAvantUpdated", cart);
             setPanierUpdated(panierLocalStorage.concat(panierBDD));
-            localStorage.setItem("bastekConcated", JSON.stringify(true));
+            console.log("panierUpdated", panierUpdated);
         }
     }, [panierBDD]);
 
     useEffect(() => {
-        if (panierUpdated && jwtToken){
+        if (panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false) {
             console.log("panierUpdated : ", panierUpdated);
             updateCart(panierUpdated);
             localStorage.setItem("cart", JSON.stringify(panierUpdated));
-            /**
-             * TODO : Insert les produits du localStorage dans la bdd
-             */
             const insertLocaleStorageProductInsideDatabase = async () => {
                 try {
-                    const response = await fetch("http://localhost:5000/api/v1//", {
+                    const response = await fetch("http://localhost:5000/api/v1/panier/insert-many-products/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${jwtToken}`
                         },
+                        body: JSON.stringify({panierUpdated})
                     });
                     if (response.ok) {
                         const data = await response.json();
@@ -84,6 +86,7 @@ function Panier({cart, updateCart}) {
                     } else {
                         console.error("Panier non trouvé");
                     }
+                    localStorage.setItem("bastekConcated", JSON.stringify(true));
                 } catch (error) {
                     console.error("Erreur de connexion au serveur:", error);
                 }
@@ -95,7 +98,7 @@ function Panier({cart, updateCart}) {
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
         const newTotal = cart.reduce(
-            (acc, plantType) => acc + plantType.amount * plantType.price,
+            (acc, product) => acc + product.amount * product.price,
             0
         );
         setTotal(newTotal);

@@ -18,7 +18,6 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
     const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
     const cart = JSON.parse(localStorage.getItem("cart"));
     const [mobileMenuClique, setMobileMenuClique] = useState(false);
-
     const jwtToken = Cookies.get("auth_token");
 
     useEffect(() => {
