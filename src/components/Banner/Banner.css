@@ -88,7 +88,6 @@
   display: flex;
   flex-direction: column;
   margin: 2em 0 2em 0;
-  text-align: center;
 }
 .mobile-banner .div-mobile-liens-page-banner a {
   margin: 0.5em;

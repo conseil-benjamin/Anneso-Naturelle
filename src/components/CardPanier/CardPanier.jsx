@@ -19,6 +19,7 @@ function CardPanier({
     const [imageClique, setImageClique] = useState(false);
     localStorage.setItem("cart", JSON.stringify(cart));
     const jwtToken = Cookies.get("auth_token");
+    const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
 
     const removeFromCart = (index) => {
         if (jwtToken) {
@@ -36,6 +37,7 @@ function CardPanier({
                         const data = await response.json();
                         console.log(data);
                         updateCart(data.contenuPanier);
+                        localStorage.setItem("nbArticles", JSON.stringify(nbArticles - 1));
                     } else {
                         console.error("Panier non trouvé");
                     }
@@ -50,7 +52,6 @@ function CardPanier({
             updatedCart.splice(index, 1);
             updateCart(updatedCart);
             localStorage.setItem("cart", JSON.stringify(updatedCart));
-            const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
             if (nbArticles > 0) {
                 localStorage.setItem("nbArticles", JSON.stringify(nbArticles - 1));
             }
@@ -106,28 +107,20 @@ function CardPanier({
             };
             patchAmountOfThisProductInDatabase().then(r => console.log(r));
         } else {
-            selectedValue &&
-            localStorage.setItem("nbElement", JSON.stringify(selectedValue));
-            const selectedValueFromLocal = JSON.parse(
-                localStorage.getItem("nbElement")
-            );
-            const currentProductSaved = cart.find((product) => product.name === name);
-            const updatedCart = currentProductSaved
-                ? cart.filter((product) => product.name !== name)
-                : [...cart, {cover, name, price, idProduct, amount: 0}];
-            updateCart([
-                ...updatedCart,
-                {
-                    cover,
-                    name,
-                    price,
-                    idProduct,
-                    amount: selectedValueFromLocal,
-                },
-            ]);
+            if (selectedValue !== "") {
+                const updatedCart = [...cart];
+                const productIndex = updatedCart.findIndex((product) => product.name === name);
+                if (productIndex !== -1) {
+                    updatedCart[productIndex] = {
+                        ...updatedCart[productIndex],
+                        amount: selectedValue,
+                    };
+                    updateCart(updatedCart);
+                    setTotalPanier(total);
+                }
+            }
             setTotalPanier(total);
         }
-
     }, [selectedValue]);
 
     return (
@@ -154,7 +147,7 @@ function CardPanier({
                     <div>
                         <select
                             value={selectedValue}
-                            onChange={(e) => setSelectedValue(e.target.value)}
+                            onChange={(e) => setSelectedValue(parseInt(e.target.value))}
                         >
                             <option value={amount}>{amount}</option>
                             <hr></hr>

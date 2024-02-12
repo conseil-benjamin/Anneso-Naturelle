@@ -82,9 +82,11 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
         <>
             <div className="lmj-banner">
                 <div className="banner-mobile">
-                    <h2 className="banner-title">Anne'so Naturelle</h2>
+                    <div>
+                        <h2 className="banner-title">Anne'so Naturelle</h2>
+                    </div>
                     <div id={"icon-menu-mobile"}>
-                        {mobileMenuClique ?
+                    {mobileMenuClique ?
                             <FontAwesomeIcon icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)}
                                              style={{cursor: "pointer"}}/> :
                             <FontAwesomeIcon icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)}
@@ -170,7 +172,7 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
                             )}>
                                 Accueil
                             </a>
-                            <Link to="/collections" onClick={() => setMobileMenuClique(false)}>{collection}</Link>
+                            {collection}
                             {creationPersonalise}
                             {aPropos}
                             {contact}

@@ -12,7 +12,6 @@ function Panier({cart, updateCart}) {
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
     const [panierBDD, setPanierBDD] = useState([]);
     const [panierUpdated, setPanierUpdated] = useState([]);
-    const [bastekConcated, setBasketConcated] = useState(false);
     const jwtToken = Cookies.get("auth_token");
 
     useEffect(() => {
@@ -51,13 +50,12 @@ function Panier({cart, updateCart}) {
 
     useEffect(() => {
         console.log("panierBDD", panierBDD);
-        localStorage.setItem("bastekConcated", JSON.stringify(false));
         if (panierBDD.length > 0 && jwtToken) {
             const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
             if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
                 return;
             }
-            console.log("panierAvantUpdated", cart);
+            console.log("panierAvantUpdated", panierUpdated);
             setPanierUpdated(panierLocalStorage.concat(panierBDD));
             console.log("panierUpdated", panierUpdated);
         }
@@ -69,6 +67,7 @@ function Panier({cart, updateCart}) {
             updateCart(panierUpdated);
             localStorage.setItem("cart", JSON.stringify(panierUpdated));
             const insertLocaleStorageProductInsideDatabase = async () => {
+                localStorage.setItem("bastekConcated", JSON.stringify(true));
                 try {
                     const response = await fetch("http://localhost:5000/api/v1/panier/insert-many-products/", {
                         method: "POST",
@@ -81,12 +80,11 @@ function Panier({cart, updateCart}) {
                     if (response.ok) {
                         const data = await response.json();
                         console.log(data);
-                        setPanierBDD(data.contenuPanier);
-                        console.log("panierBDD", panierBDD);
+                        updateCart(data.contenuPanier);
+                        console.log("panierBDD", cart);
                     } else {
                         console.error("Panier non trouvé");
                     }
-                    localStorage.setItem("bastekConcated", JSON.stringify(true));
                 } catch (error) {
                     console.error("Erreur de connexion au serveur:", error);
                 }

@@ -64,6 +64,7 @@
   .div-categories-plus-products-list {
     display: flex;
     flex-direction: row;
+    margin: 0 0 2em 0;
     .categories-and-filtre-and-trie {
       display: flex;
       flex-direction: column;
@@ -114,9 +115,7 @@
   }
 }
 .loader-div-shopping-list{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: auto;
 }
 
 #btn-ajouter {

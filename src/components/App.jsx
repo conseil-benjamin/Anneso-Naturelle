@@ -66,7 +66,7 @@ function App() {
           }
           aPropos={
             <a
-              href="/Apropos"
+              href="/apropos"
               className="lmj-title"
             >
               A propos de moi
@@ -74,14 +74,14 @@ function App() {
           }
           contact={
             <a
-              href="/Contact"
+              href="/contact"
               className="lmj-title"
             >
               Contact
             </a>
           }
           panier={
-            <a href="/Panier">
+            <a href="/panier">
               <FontAwesomeIcon
                 icon={faShoppingCart}
                 alt="Panier"

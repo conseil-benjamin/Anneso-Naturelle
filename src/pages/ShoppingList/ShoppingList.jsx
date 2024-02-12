@@ -337,42 +337,31 @@ function ShoppingList({cart, updateCart}) {
                                 isDataLoading={isDataLoading}
                             ></Categories>
                         </div>
-                        <ul className="lmj-plant-list">
-                            {isDataLoading ? (
-                                <div className="loader-div-shopping-list">
-                                    <Loader/>
-                                </div>
-                            ) : (
-                                nameTable.map(
-                                    ({
-                                         id,
-                                         cover,
-                                         name,
-                                         water,
-                                         light,
-                                         price,
-                                         category,
-                                         description,
-                                         pierres,
-                                     }) =>
-                                        !activeCategory || activeCategory === category ? (
-                                            <div key={id} className="div-product">
-                                                <ProductItem
-                                                    id={id}
-                                                    cover={cover}
-                                                    name={name}
-                                                    water={water}
-                                                    light={light}
-                                                    price={price}
-                                                    description={description}
-                                                    category={category}
-                                                    pierres={pierres}
-                                                />
-                                            </div>
-                                        ) : null
-                                )
-                            )}
-                        </ul>
+                        {isDataLoading ? (
+                            <div className="loader-div-shopping-list">
+                                <Loader/>
+                            </div>
+                        ) : (
+                            <ul className="lmj-plant-list">
+                                {nameTable.map(({ id, cover, name, water, light, price, category, description, pierres }) => (
+                                    !activeCategory || activeCategory === category ? (
+                                        <div key={id} className="div-product">
+                                            <ProductItem
+                                                id={id}
+                                                cover={cover}
+                                                name={name}
+                                                water={water}
+                                                light={light}
+                                                price={price}
+                                                description={description}
+                                                category={category}
+                                                pierres={pierres}
+                                            />
+                                        </div>
+                                    ) : null
+                                ))}
+                            </ul>
+                        )}
                     </div>
                 </div>
             )}

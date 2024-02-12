@@ -18,7 +18,7 @@ function Contact() {
         <img src={dame} alt="image_dame" width={500} height={500}></img>
       </div>
       <div className="input-contact">
-        <h1>Me contacter</h1>
+        <h2>Me contacter</h2>
 
         <input
           placeholder="Nom Prénom"

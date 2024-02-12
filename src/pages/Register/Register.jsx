@@ -78,8 +78,13 @@ function Register() {
 
     const handleOnblurPassword = () => {
         if (!validator.isStrongPassword(password)) {
-            setErreurInputPassword("Mot de passe ne respecte pas les consignes");
-        } else {
+            setErreurInputPassword(
+                <>
+                    1 majuscules,minuscules,chiffre,<br/>
+                    1 caractère spéciale, <br/>
+                    8 caractères
+                </>
+            );        } else {
             setErreurInputPassword(null)
         }
     }
@@ -210,7 +215,11 @@ function Register() {
             icon: "error",
             confirmButtonText: "Ok",
         });
-        !isStrongPassword(password) ? setErreurInputPassword("Mot de passe ne respecte pas les consignes") : setErreurInputPassword(null);
+        !isStrongPassword(password) ? setErreurInputPassword( <>
+            1 majuscules,minuscules,chiffre,<br/>
+            1 caractère spéciale, <br/>
+            8 caractères
+        </>) : setErreurInputPassword(null);
         !confirmPasswordVerif() ? setErreurInputPasswordConf("Diffère du mot de passe") : setErreurInputPasswordConf(null);
         !validator.isMobilePhone(numeroTelValue) ? setErreurInputTel("Format numéro de téléphone incorrecte") : setErreurInputTel(null);
         !validator.isEmail(email) ? setErreurInputEmail("Format email invalide") : setErreurInputEmail(null);
@@ -321,10 +330,6 @@ function Register() {
           </>
         )}
       </div>
-      <span>
-        Contrainte mot de passe : - 8 caractères - 1 Majuscules - 1 chiffre - 1
-        caractère spéciale (,?;.:/! ...)
-      </span>
         {isDataLoading ?
         <Loader></Loader> :
       <button className="btn-login" onClick={() => handleClickRegister()}>

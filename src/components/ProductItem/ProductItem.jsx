@@ -20,7 +20,23 @@ function ProductItem({
     const navigate = useNavigate();
     const jwtToken = Cookies.get("auth_token");
     const [favoriteAddOrRemove, setFavoriteAddOrRemove] = useState(false);
-
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        padding: "0.5em",
+        color: "#000",
+        background: "#fff",
+        didOpen: (toast) => {
+            toast.onmouseover = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+        customClass: {
+            timerProgressBar: "background-color: #ffffff !important",
+        }
+    });
     const handleDetailsClique = (
         cover,
         name,
@@ -101,15 +117,9 @@ function ProductItem({
 
                 if (response.ok) {
                     setFavorite(false);
-                    Swal.fire({
-                        text: "Produit supprimé des favoris avec succès !",
-                        toast: true,
-                        showConfirmButton: false,
-                        background: "#22242a",
-                        timer: 2000,
-                        position: "top-start",
-                        padding: "0.5em",
-                        color: "#ffffff",
+                    Toast.fire({
+                        icon: "success",
+                        text: "Produit supprimé des favoris avec succès."
                     });
                 } else {
                     console.error("Erreur lors de la suppression des données.");
@@ -133,19 +143,9 @@ function ProductItem({
                 );
 
                 if (response.ok) {
-                    Swal.fire({
-                        text: "Produit ajouté au favoris avec succès.",
-                        toast: true,
-                        showConfirmButton: false,
-                        background: "#22242a",
-                        timer: 2000,
-                        padding: "0.5em",
-                        color: "#ffffff",
-                        position: "top-start",
-                        timerProgressBar: true,
-                        customClass: {
-                            timerProgressBar: "background-color: #ffffff !important",
-                        }
+                    Toast.fire({
+                        icon: "success",
+                        text: "Produit ajouté au favoris avec succès."
                     });
                     setFavoriteAddOrRemove(true);
                 } else {
@@ -181,7 +181,7 @@ function ProductItem({
                 }
             />
             <div className={"infos-product-cart-plus-heart"}
-                 style={{display: "flex", alignItems: "center", justifyContent: "space-evenly"}}>
+                 style={{display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
                 <div className="product-item-infos">
                     <div className="container-left-infos-product">{name}</div>
                     <div>

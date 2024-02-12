@@ -20,7 +20,7 @@ button {
   border-radius: 5px;
   background-color: #22242A;
   color: #ffffff;
-  padding: 0.5em;
+  padding: 1em;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   transition: 0.425s ease-in-out;
 }
@@ -116,6 +116,7 @@ html {
 .lmj-shopping-list .div-categories-plus-products-list {
   display: flex;
   flex-direction: row;
+  margin: 0 0 2em 0;
 }
 .lmj-shopping-list .div-categories-plus-products-list .categories-and-filtre-and-trie {
   display: flex;
@@ -165,9 +166,7 @@ html {
 }
 
 .loader-div-shopping-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: auto;
 }
 
 #btn-ajouter {

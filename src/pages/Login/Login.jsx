@@ -29,7 +29,7 @@ function Login() {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "enter") {
+    if (e.key === "Enter") {
       setBtnCliquer(true);
     }
   };
