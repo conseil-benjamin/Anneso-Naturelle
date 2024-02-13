@@ -1,1 +1,1 @@
-{"version":3,"sources":["MentionsLegales.scss","../../styles/colors.scss","MentionsLegales.css"],"names":[],"mappings":"AAEA;EACE,yBCGiB;EDFjB,cAAA;AEDF;AFEE;EACE,SAAA;AEAJ;AFEE;EACE,kBAAA;AEAJ","file":"MentionsLegales.css"}
+{"version":3,"sourceRoot":"","sources":["MentionsLegales.scss","../../styles/colors.scss"],"names":[],"mappings":"AAEA;EACE,kBCGiB;EDFjB;;AACA;EACE;;AAEF;EACE","file":"MentionsLegales.css"}

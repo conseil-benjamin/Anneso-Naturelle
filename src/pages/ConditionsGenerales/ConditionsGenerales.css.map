@@ -1,1 +1,1 @@
-{"version":3,"sources":["ConditionsGenerales.scss","../../styles/colors.scss","ConditionsGenerales.css"],"names":[],"mappings":"AAEA;EACE,yBCGiB;EDFjB,cAAA;AEDF;AFEE;;EAEE,SAAA;AEAJ;AFEE;EACE,kBAAA;AEAJ","file":"ConditionsGenerales.css"}
+{"version":3,"sourceRoot":"","sources":["ConditionsGenerales.scss","../../styles/colors.scss"],"names":[],"mappings":"AAEA;EACE,kBCGiB;EDFjB;;AACA;AAAA;EAEE;;AAEF;EACE","file":"ConditionsGenerales.css"}

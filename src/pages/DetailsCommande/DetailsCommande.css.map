@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["DetailsCommande.scss","../../styles/colors.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;EACA;;;AAGF;EACE,kBCJiB;EDKjB;EACA;;AACA;EACE;EACA;;AACA;EACE;EACA;EACA;EACA;EACA;;AACA;EACE","file":"DetailsCommande.css"}
+{"version":3,"sourceRoot":"","sources":["DetailsCommande.scss","../../styles/colors.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;EACA;;AACA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAIJ;EACE,kBCfiB;EDgBjB;EACA;;AACA;EACE;EACA;EACA;;AACA;EACE;EACA;EACA;EACA;EACA;;AACA;EACE","file":"DetailsCommande.css"}
