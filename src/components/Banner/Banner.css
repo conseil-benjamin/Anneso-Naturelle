@@ -16,12 +16,26 @@
   align-items: center;
   justify-content: space-between;
 }
+@media (max-width: 900px) {
+  .lmj-banner .banner-mobile #banner-title {
+    position: relative;
+    right: 30vw;
+  }
+}
+@media (max-width: 500px) {
+  .lmj-banner .banner-mobile #banner-title {
+    width: 2em;
+  }
+}
 .lmj-banner .banner-mobile #icon-menu-mobile {
   display: none;
 }
-@media (max-width: 1330px) {
+@media (max-width: 900px) {
   .lmj-banner .banner-mobile #icon-menu-mobile {
     display: block;
+    position: relative;
+    top: 1vh;
+    left: 30vw;
   }
 }
 .lmj-banner .second-barre-banner {
@@ -31,7 +45,7 @@
   align-items: center;
   justify-content: center;
 }
-@media (max-width: 1330px) {
+@media (max-width: 900px) {
   .lmj-banner .second-barre-banner {
     display: none;
   }
@@ -44,6 +58,11 @@
 }
 .lmj-banner .second-barre-banner .icon-socials-banner .iconSocial:hover {
   cursor: pointer;
+}
+@media (max-width: 1330px) {
+  .lmj-banner .second-barre-banner .icon-socials-banner {
+    display: none;
+  }
 }
 .lmj-banner .second-barre-banner .icon-header {
   padding: 0 0 0 5em;

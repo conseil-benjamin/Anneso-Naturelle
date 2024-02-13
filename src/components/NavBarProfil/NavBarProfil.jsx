@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import "./NavBarProfil.css";
 import ButtonDeconnect from "../../components/Button Deconnect/ButtonDeconnect";
 import Cookies from "js-cookie";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronDown, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 function NavBarProfil() {
   const [infosPersoClique, setInfosPersoClique] = useState(false);
@@ -154,7 +156,10 @@ function NavBarProfil() {
   return (
     <>
       <div className="navbar">
-        <h3>Bonjour {name}</h3>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+          <h3>Bonjour {name}</h3>
+          <FontAwesomeIcon id={"icon-dropdown-navbar-mobile"} icon={faChevronRight}></FontAwesomeIcon>
+        </div>
         <button onClick={() => setInfosPersoClique(true)}>
           Mes Informations
         </button>

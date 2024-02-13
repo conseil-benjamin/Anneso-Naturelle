@@ -26,10 +26,6 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
         }
     }, [cart]);
 
-    const Deconnexion = () => {
-        Cookies.remove("auth_token");
-    }
-
     const handleClickSocials = (redirection) => {
         redirection === "facebook"
             ? window.open(
@@ -82,16 +78,12 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
         <>
             <div className="lmj-banner">
                 <div className="banner-mobile">
-                    <div>
-                        <h2 className="banner-title">Anne'so Naturelle</h2>
-                    </div>
-                    <div id={"icon-menu-mobile"}>
-                    {mobileMenuClique ?
-                            <FontAwesomeIcon icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)}
+                        <h2 id="banner-title">Anne'so Naturelle</h2>
+                        {mobileMenuClique ?
+                            <FontAwesomeIcon id={"icon-menu-mobile"} icon={faXmark} size="2x" onClick={() => setMobileMenuClique(false)}
                                              style={{cursor: "pointer"}}/> :
-                            <FontAwesomeIcon icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)}
+                            <FontAwesomeIcon id={"icon-menu-mobile"} icon={faBars} size="2x" onClick={() => setMobileMenuClique(true)}
                                              style={{cursor: "pointer"}}/>}
-                    </div>
                 </div>
                 <div className="second-barre-banner">
                     <div className="icon-socials-banner">

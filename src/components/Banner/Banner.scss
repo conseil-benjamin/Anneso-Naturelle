@@ -16,10 +16,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    #banner-title{
+      @media (max-width: 900px) {
+        position: relative;
+        right: 30vw;
+      }
+      @media (max-width: 500px){
+          width: 2em;
+      }
+    }
     #icon-menu-mobile {
       display: none;
-      @media (max-width: 1330px) {
+      @media (max-width: 900px) {
         display: block;
+        position: relative;
+        top: 1vh;
+        left: 30vw;
       }
     }
   }
@@ -30,7 +42,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    @media (max-width: 1330px) {
+    @media (max-width: 900px) {
       display: none;
     }
     .icon-socials-banner {
@@ -40,6 +52,9 @@
       padding: 0 5em 1em 0;
       .iconSocial:hover {
         cursor: pointer;
+      }
+      @media (max-width: 1330px) {
+         display: none;
       }
     }
     .icon-header {
