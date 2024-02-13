@@ -18,7 +18,7 @@ function Commandes() {
         <>
             <div className="div-main-profil">
                 <NavBarProfil></NavBarProfil>
-                <div>
+                <div className={"div-commandes"}>
                     <div>
                         <h2>Vos Commandes</h2>
                     </div>

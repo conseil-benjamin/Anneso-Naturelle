@@ -1,5 +1,35 @@
 @import "../../styles/colors.scss";
 
+
+#vertical-hr {
+  border: 0; /* Supprime la bordure par défaut de la balise hr */
+  border-left: 1px solid $color-border; /* Ajoute une bordure à gauche pour créer une ligne verticale */
+  height: 12em; /* Réglez la hauteur selon vos besoins */
+  margin: 10px; /* Réinitialise la marge par défaut de la balise hr */
+}
+
+.div-prix-details-commande{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  p{
+    margin: 0.25em;
+  }
+}
+
+.div-buttons-actions-details-commande{
+  display: flex;
+  align-items: center;
+  margin: 0 0 2em 0;
+  button{
+    margin: 0 1em 0 0;
+    #icon-buttons-actions-details-commande{
+        margin: 0 0.5em 0 0;
+    }
+  }
+}
+
 .div-commandes {
   display: flex;
   flex-direction: column;
@@ -14,7 +44,7 @@
     border-radius: 5px;
     padding: 1em;
     margin: 0 0 0.75em 0;
-    width: 100%;
+    width: 95%;
   }
 }
 
@@ -22,18 +52,32 @@
   background-color: $background-color;
   display: flex;
   flex-direction: row;
+  @media (max-width: 1300px){
+    flex-direction: column;
+  }
   .div-secondaire-details-commande{
     display: flex;
     flex-direction: row;
-    margin: 0 0 2em 0;
+    margin: 0 0 1em 0;
+    border: 1.5px solid $color-border;
     .div-recap-commande-1{
       display: flex;
       flex-direction: column;
-      border: 1.5px solid $color-border;
       border-radius: 5px;
       padding: 10px;
+      .div-status-commande{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 0 0.5em 0;
+        p{
+          border-radius: 5px;
+          padding: 0.25em;
+          margin: 0;
+        }
+      }
       p{
-        margin: 0.5em 3em 0.5em 0.5em;
+        margin: 0 3em 0.5em 0;
       }
     }
   }

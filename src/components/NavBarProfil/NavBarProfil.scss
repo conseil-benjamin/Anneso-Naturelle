@@ -10,6 +10,9 @@
   background-color: $secondary-color;
   color: #ffff;
   border-radius: 0 10px 10px 0;
+  @media (max-width: 1300px){
+    margin: 0;
+  }
 }
 
 .navbar > button {

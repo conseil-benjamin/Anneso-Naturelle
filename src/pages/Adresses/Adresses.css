@@ -54,8 +54,22 @@ html {
   flex-direction: row;
   background-color: #f2f0ec;
 }
+@media (max-width: 1300px) {
+  .div-main-page-adresses {
+    flex-direction: column;
+  }
+}
 .div-main-page-adresses .div-container-right button {
   padding: 0.5em;
+}
+@media (max-width: 1300px) {
+  .div-main-page-adresses .div-container-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 2em 0;
+  }
 }
 
 /*# sourceMappingURL=Adresses.css.map */

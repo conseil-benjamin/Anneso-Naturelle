@@ -1,3 +1,33 @@
+@charset "UTF-8";
+#vertical-hr {
+  border: 0; /* Supprime la bordure par défaut de la balise hr */
+  border-left: 1px solid #909091; /* Ajoute une bordure à gauche pour créer une ligne verticale */
+  height: 12em; /* Réglez la hauteur selon vos besoins */
+  margin: 10px; /* Réinitialise la marge par défaut de la balise hr */
+}
+
+.div-prix-details-commande {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.div-prix-details-commande p {
+  margin: 0.25em;
+}
+
+.div-buttons-actions-details-commande {
+  display: flex;
+  align-items: center;
+  margin: 0 0 2em 0;
+}
+.div-buttons-actions-details-commande button {
+  margin: 0 1em 0 0;
+}
+.div-buttons-actions-details-commande button #icon-buttons-actions-details-commande {
+  margin: 0 0.5em 0 0;
+}
+
 .div-commandes {
   display: flex;
   flex-direction: column;
@@ -13,7 +43,7 @@
   border-radius: 5px;
   padding: 1em;
   margin: 0 0 0.75em 0;
-  width: 100%;
+  width: 95%;
 }
 
 .div-principal-detailsCommande {
@@ -21,20 +51,36 @@
   display: flex;
   flex-direction: row;
 }
+@media (max-width: 1300px) {
+  .div-principal-detailsCommande {
+    flex-direction: column;
+  }
+}
 .div-principal-detailsCommande .div-secondaire-details-commande {
   display: flex;
   flex-direction: row;
-  margin: 0 0 2em 0;
+  margin: 0 0 1em 0;
+  border: 1.5px solid #909091;
 }
 .div-principal-detailsCommande .div-secondaire-details-commande .div-recap-commande-1 {
   display: flex;
   flex-direction: column;
-  border: 1.5px solid #909091;
   border-radius: 5px;
   padding: 10px;
 }
+.div-principal-detailsCommande .div-secondaire-details-commande .div-recap-commande-1 .div-status-commande {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 0.5em 0;
+}
+.div-principal-detailsCommande .div-secondaire-details-commande .div-recap-commande-1 .div-status-commande p {
+  border-radius: 5px;
+  padding: 0.25em;
+  margin: 0;
+}
 .div-principal-detailsCommande .div-secondaire-details-commande .div-recap-commande-1 p {
-  margin: 0.5em 3em 0.5em 0.5em;
+  margin: 0 3em 0.5em 0;
 }
 
 /*# sourceMappingURL=DetailsCommande.css.map */

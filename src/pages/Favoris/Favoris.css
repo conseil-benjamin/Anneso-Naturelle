@@ -3,11 +3,22 @@
   flex-direction: row;
   background-color: #f2f0ec;
 }
+@media (max-width: 1300px) {
+  .body-page-favoris {
+    flex-direction: column;
+  }
+}
 
 .container-right-favoris {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+@media (max-width: 1300px) {
+  .container-right-favoris {
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=Favoris.css.map */

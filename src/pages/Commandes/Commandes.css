@@ -1,12 +1,11 @@
-.div-commandes {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 3em 0 3em 0;
-}
-
 .div-une-commande {
   margin: 2em;
   padding: 2em;
-  margin: 2px solid black;
-}/*# sourceMappingURL=Commandes.css.map */
+  border: 2px solid black;
+}
+
+.div-commandes {
+  margin: 0 0 2em 0;
+}
+
+/*# sourceMappingURL=Commandes.css.map */
