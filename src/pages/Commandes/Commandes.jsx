@@ -30,6 +30,7 @@ function Commandes() {
                                 date={commande.date}
                                 prixTotal={commande.prixTotal}
                                 contenuCommande={commande.contenuCommande}
+                                status={commande.status}
                             ></CardCommande>
                         ))
                     ) : (

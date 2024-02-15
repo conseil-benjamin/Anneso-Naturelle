@@ -10,6 +10,18 @@
   border-radius: 11px;
 }
 
+.div-status-commande{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 0.5em 0;
+  p{
+    border-radius: 5px;
+    padding: 0.25em;
+    margin: 0;
+  }
+}
+
 .container-left,
 .container-right {
   display: flex;
@@ -19,6 +31,8 @@
   }
   img {
     border-radius: 9px 0 0 9px;
+    height: 100%;
+    object-fit: cover;
   }
 }
 .container-right {

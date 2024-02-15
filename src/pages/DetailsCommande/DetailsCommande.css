@@ -12,6 +12,10 @@
   justify-content: space-between;
   flex-direction: row;
 }
+.div-prix-details-commande #prix-total-details-commande {
+  border-bottom: 2px solid red;
+  padding: 0 0 0.1em 0;
+}
 .div-prix-details-commande p {
   margin: 0.25em;
 }

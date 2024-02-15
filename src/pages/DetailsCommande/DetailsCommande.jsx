@@ -5,26 +5,37 @@ import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import Cookies from "js-cookie";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTruck, faTruckFast} from "@fortawesome/free-solid-svg-icons";
+import {Loader} from "../../utils/Loader";
 
 function DetailsCommande() {
   const location = useLocation();
   const { contenuCommande } = location.state || {};
-  const { numOrder } = useParams();
+  const { idCommande } = useParams();
   const [commande, setCommande] = useState([]);
   const [adresseId, setAdresseId] = useState("");
   const [adresse, setAdresse] = useState([]);
   const jwtToken = Cookies.get("auth_token");
+  const [dataLoading, setDataLoading] = useState(false);
 
   useEffect(() => {
     const fetchCommande = async () => {
+        setDataLoading(true);
       try {
         const response = await fetch(
-          "http://localhost:5000/api/v1/commandes/" + numOrder,
+          "http://localhost:5000/api/v1/commandes/" + idCommande,
+            {
+                method: "GET",
+                headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+                },
+            }
         );
         const commande = await response.json();
         console.log(commande);
         setCommande(commande);
         setAdresseId(commande.idAdresse);
+        setDataLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -56,20 +67,26 @@ function DetailsCommande() {
         <>
             <div className="div-principal-detailsCommande">
                 <NavBarProfil></NavBarProfil>
-                <div style={{margin: "2em 2em 3em 2em"}}>
+                {dataLoading ? (
+                    <div className="loader-div-shopping-list">
+                        <Loader/>
+                    </div>
+                ) : <div style={{margin: "2em 2em 3em 2em"}}>
                     <h2>DÉTAIL DE VOTRE COMMANDE</h2>
                     <div className={"div-secondaire-details-commande"}>
                         <div className={"div-recap-commande-1"}>
                             <h3>Commande N°{commande.idCommande}</h3>
                             <p><b>Date :</b> {commande.date}</p>
-                            {commande.status === "annule" ? (
+                            {console.log(commande.status)}
+                            {commande.status === "annulé" ? (
                                 <div className={"div-status-commande"}>
                                     <p><b>Statut : </b></p>
                                     <p style={{backgroundColor: "#FCE8E8", color: "#FF052D"}}>Annule</p>
                                 </div>
                             ) : commande.status === "en cours de livraison" ? (
                                 <div className={"div-status-commande"}>
-                                    <p><b>Statut : </b>En cours de livraison</p>
+                                    <p><b>Statut : </b></p>
+                                    <p style={{backgroundColor: "#ECF3F8", color: "#1A425B"}}>En cours de livraison</p>
                                 </div>
                             ) : commande.status === "livre" ? (
                                     <div className={"div-status-commande"}>
@@ -85,8 +102,8 @@ function DetailsCommande() {
                         </div>
                         <hr id={"vertical-hr"}/>
                         <div className={"div-recap-commande-1"}>
-                        {
-                                commande.typeLivraison === "domicile" ? (
+                            {
+                                commande.typeLivraison === "A Domicile" ? (
                                     <h3>Votre adresse de livraison</h3>
                                 ) : (
                                     <h3>Votre point Relais</h3>
@@ -100,28 +117,29 @@ function DetailsCommande() {
                         </div>
                     </div>
                     <div className={"div-buttons-actions-details-commande"}>
-                    {commande.status === "En attente de livraison" ? (
-                        <button>
-                            Annuler ma commande
-                            <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>
-                      </button>
-                    ) : commande.status !== "annule" ? (
-                        <>
-                            <button onClick={() => window.open(
-                                "https://www.instagram.com/anneso2273/?igshid=OGQ5ZDc2ODk2ZA%3D%3D",
-                                "_blank"
-                            )}>
-                                <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon>
-                                Suivre mon colis
-                            </button>
+                        {commande.status === "En attente de livraison" ? (
                             <button>
-                                <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon>
-                                Retourner un produit
+                                Annuler ma commande
+                                <FontAwesomeIcon id={"icon-buttons-actions-details-commande"}
+                                                 icon={faTruckFast}></FontAwesomeIcon>
                             </button>
-                        </>
-                    ) : (
-                        <></>
-                    )}
+                        ) : commande.status !== "annule" ? (
+                            <>
+                                <button onClick={() => window.open(
+                                    "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay,
+                                    "_blank"
+                                )}>
+                                    <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon>
+                                    Suivre mon colis
+                                </button>
+                                <button>
+                                    <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon>
+                                    Retourner un produit
+                                </button>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                     <div className="div-commandes">
                         {commande ? (
@@ -151,9 +169,9 @@ function DetailsCommande() {
                     </div>
                     <div className={"div-prix-details-commande"}>
                         <p><b>Total commande TTC :</b></p>
-                        <p>{commande.prixTotal} €</p>
+                        <p id={"prix-total-details-commande"}>{commande.prixTotal} €</p>
                     </div>
-                </div>
+                </div>}
             </div>
         </>
     );

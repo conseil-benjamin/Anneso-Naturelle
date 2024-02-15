@@ -343,7 +343,7 @@ function ShoppingList({cart, updateCart}) {
                             </div>
                         ) : (
                             <ul className="lmj-plant-list">
-                                {nameTable.map(({ id, cover, name, water, light, price, category, description, pierres }) => (
+                                {nameTable.map(({id, cover, name, water, light, price, category, description, pierres }) => (
                                     !activeCategory || activeCategory === category ? (
                                         <div key={id} className="div-product">
                                             <ProductItem

@@ -18,6 +18,7 @@ function Login() {
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const [isDataLoading, setDataLoading] = useState(false);
   const [userData, setUser] = useState({});
+  const [mdpOublie, setMdpOublie] = useState(false);
   const navigate = useNavigate();
 
   const setCookie = (token) => {
@@ -97,6 +98,54 @@ function Login() {
       fetchData();
   }, [isBtnCliquer]);
 
+  useEffect(() => {
+    if (mdpOublie) {
+      handleForgotPassword();
+    }
+    setMdpOublie(false);
+  }, [mdpOublie]);
+
+  const handleForgotPassword = async () => {
+    const { value: email } = await Swal.fire({
+      text: "Récupération du mot de passe de votre compte",
+      input: "email",
+      inputPlaceholder: "Entrer l'adresse email associé à votre compte",
+      showCancelButton: true,
+      confirmButtonText: "Envoyer",
+      cancelButtonText: "Annuler",
+    });
+
+    if (email) {
+      try{
+        const response = await fetch("http://localhost:5000/api/v1/auth/forgot-password", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({email: email}),
+        });
+
+        if (response.ok) {
+          Swal.fire({
+            title: "Email envoyé",
+            text: "Un email de réinitialisation de mot de passe a été envoyé à l'adresse email indiquée",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+        } else {
+          Swal.fire({
+            title: "Erreur",
+            text: "Une erreur s'est produite lors de l'envoi de l'email",
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <div className="body-element">
       {isDataLoading ? (
@@ -122,9 +171,11 @@ function Login() {
                   onKeyUp={(e) => handleKeyPress(e)}
               />
               {inputType === "password" ? (
-                  <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"}
+                                   onClick={togglePasswordVisibility}></FontAwesomeIcon>
               ) : (
-                  <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"}
+                                   onClick={togglePasswordVisibility}></FontAwesomeIcon>
               )}
             </div>
 
@@ -140,9 +191,12 @@ function Login() {
               Se connecter
               <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn"/>
             </button>
+            <div>
+              <p onClick={() => setMdpOublie(true)}><b>Mot de passe oublié ?</b></p>
+            </div>
             <div className="div-text-bold">
               <p>Première visite ?</p>
-              <a href="Register" className="bold-text">
+              <a href="/auth/register" className="bold-text">
                 Inscrivez-vous
               </a>
             </div>

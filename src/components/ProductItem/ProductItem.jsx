@@ -6,6 +6,7 @@ import {faHeart} from "@fortawesome/fontawesome-free-regular";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import Toast from "../Toast/toast";
 
 function ProductItem({
                          id,
@@ -20,23 +21,7 @@ function ProductItem({
     const navigate = useNavigate();
     const jwtToken = Cookies.get("auth_token");
     const [favoriteAddOrRemove, setFavoriteAddOrRemove] = useState(false);
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        padding: "0.5em",
-        color: "#000",
-        background: "#fff",
-        didOpen: (toast) => {
-            toast.onmouseover = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        },
-        customClass: {
-            timerProgressBar: "background-color: #ffffff !important",
-        }
-    });
+    const [toast, setToast] = useState({icon: '', text: ''});
     const handleDetailsClique = (
         cover,
         name,
@@ -117,10 +102,7 @@ function ProductItem({
 
                 if (response.ok) {
                     setFavorite(false);
-                    Toast.fire({
-                        icon: "success",
-                        text: "Produit supprimé des favoris avec succès."
-                    });
+                    setToast({icon: "success", text: "Produit retiré des favoris avec succès."})
                 } else {
                     console.error("Erreur lors de la suppression des données.");
                 }
@@ -143,10 +125,7 @@ function ProductItem({
                 );
 
                 if (response.ok) {
-                    Toast.fire({
-                        icon: "success",
-                        text: "Produit ajouté au favoris avec succès."
-                    });
+                    setToast({icon: "success", text: "Produit ajouté aux favoris avec succès."})
                     setFavoriteAddOrRemove(true);
                 } else {
                     Swal.fire({
@@ -165,6 +144,8 @@ function ProductItem({
     };
 
     return (
+        <>
+        {toast.title && <Toast icon={toast.icon} title={toast.text}></Toast>}
         <div className="lmj-plant-item">
             <img
                 className="lmj-plant-item-cover"
@@ -211,6 +192,7 @@ function ProductItem({
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

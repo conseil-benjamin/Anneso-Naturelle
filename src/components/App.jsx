@@ -27,6 +27,7 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import CartContex from "../utils/CartContex";
 import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
+import ResetPassword from "../pages/ForgetPassword/ResetPassword";
 
 function App() {
 
@@ -98,7 +99,7 @@ function App() {
               path="/Details/:id"
               element={<DetailsProduct cart={cart} updateCart={updateCart} />}
             />
-            <Route path="/login" element={<Login />} />
+            <Route path="/auth/login" element={<Login />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/profil/infos-persos" element={<Profil />} />
               <Route path="/profil/commandes" element={<Commandes />} />
@@ -113,13 +114,14 @@ function App() {
                 element={<DetailsAdresses />}
               />
               <Route
-                path="/Profil/commandes/:numOrder"
+                path="/Profil/commandes/:idCommande"
                 element={<DetailsCommande />}
               />
             </Route>
-            <Route path="Register" element={<Register />} />
-            <Route path="Apropos" element={<Apropos />} />
-            <Route path="Contact" element={<Contact />} />
+            <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/auth/register" element={<Register />} />
+            <Route path="apropos" element={<Apropos />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="mentions-legales" element={<MentionsLegales />} />
             <Route
               path="conditions-utilisations"

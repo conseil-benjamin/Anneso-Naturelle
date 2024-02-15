@@ -339,7 +339,7 @@ function Register() {
         }
       <div className="div-text-login">
         <span>Déjà un compte ?</span>
-        <a href="Login" className="bold-text">
+        <a href="/auth/login" className="bold-text">
           Connectez-vous
         </a>
       </div>

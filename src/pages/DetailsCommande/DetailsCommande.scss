@@ -1,6 +1,5 @@
 @import "../../styles/colors.scss";
 
-
 #vertical-hr {
   border: 0; /* Supprime la bordure par défaut de la balise hr */
   border-left: 1px solid $color-border; /* Ajoute une bordure à gauche pour créer une ligne verticale */
@@ -13,6 +12,10 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  #prix-total-details-commande{
+    border-bottom: 2px solid red;
+    padding: 0 0 0.1em 0;
+  }
   p{
     margin: 0.25em;
   }

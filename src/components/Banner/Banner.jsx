@@ -70,7 +70,7 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
             };
             fetchData();
         } else if (profilClique) {
-            navigate("Login");
+            navigate("/auth/login");
         }
     }, [profilClique]);
 
