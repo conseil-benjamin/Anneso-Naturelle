@@ -117,6 +117,7 @@ function Login() {
 
     if (email) {
       try{
+        setDataLoading(true);
         const response = await fetch("http://localhost:5000/api/v1/auth/forgot-password", {
           method: "POST",
           headers: {
@@ -142,6 +143,9 @@ function Login() {
         }
       } catch (error) {
         console.error(error);
+      }
+      finally {
+        setDataLoading(false);
       }
     }
   };
@@ -192,7 +196,7 @@ function Login() {
               <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn"/>
             </button>
             <div>
-              <p onClick={() => setMdpOublie(true)}><b>Mot de passe oublié ?</b></p>
+              {isDataLoading ? <Loader/> : <p onClick={() => setMdpOublie(true)}><b>Mot de passe oublié ?</b></p>}
             </div>
             <div className="div-text-bold">
               <p>Première visite ?</p>

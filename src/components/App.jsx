@@ -27,7 +27,7 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import CartContex from "../utils/CartContex";
 import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
-import ResetPassword from "../pages/ForgetPassword/ResetPassword";
+import ResetPassword from "../pages/ResetPassword/ResetPassword";
 
 function App() {
 

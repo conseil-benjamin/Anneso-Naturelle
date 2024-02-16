@@ -10,6 +10,7 @@ function ResetPassword(){
     const [nouveauMotDePasse, setNouveauMotDePasse] = useState("");
     const [confirmationNouveauMotDePasse, setConfirmationNouveauMotDePasse] = useState("");
     const [inputType, setInputType] = useState("password");
+    const [isDataLoading, setDataLoading] = useState(false);
 
     const togglePasswordVisibility = () => {
         setInputType(inputType === "password" ? "text" : "password");
@@ -18,6 +19,7 @@ function ResetPassword(){
     useEffect(() => {
         const tokenIsValid = async () => {
             try {
+                setDataLoading(true);
                 const response = await fetch(
                     `http://localhost:5000/api/v1/auth/tokenIsValid/${token}`, {
                         method: "GET",
@@ -30,15 +32,23 @@ function ResetPassword(){
                     const token = await response.json();
                     setTokenIsValid(true);
                 } else{
+                    console.log(response)
                     setTokenIsValid(false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
+                        timer: 5000,
                         text: 'Le lien de réinitialisation de mot de passe est invalide ou a expiré. Veuillez refaire une demande de réinitialisation de mot de passe.',
                     })
+                    setTimeout(() => {
+                        window.location.href = "/auth/login";
+                    }, 150000000)
                 }
             } catch (error) {
                 console.error(error)
+            }
+            finally {
+                setDataLoading(false);
             }
         }
         tokenIsValid().then();

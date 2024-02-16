@@ -8,6 +8,7 @@ import { components } from "react-select";
 import validator from "validator";
 import Swal from "sweetalert2";
 import Toast from "../../components/Toast/toast";
+import { Loader } from "../../utils/Loader";
 
 function Contact() {
   const [email, setEmail] = useState("");
@@ -16,6 +17,7 @@ function Contact() {
   const [objetMessage, setObjetMessage] = useState("");
   const [btnContactCliquer, setBtnContactCliquer] = useState(false);
   const [formulaireValide, setFormulaireValide] = useState(false);
+  const [isDataLoading, setDataLoading] = useState(false);
 
   const emailVerif = () => {
     return validator.isEmail(email);
@@ -38,6 +40,7 @@ function Contact() {
       }
       console.log(emailInfos)
       try {
+        setDataLoading(true)
         const response = await fetch(
             `http://localhost:5000/api/v1/mail/client-to-seller`, {
               method: "POST",
@@ -48,12 +51,25 @@ function Contact() {
             },
         );
         if (response.ok){
-          const response = await response.json();
-          console.log(response)
+          Swal.fire({
+            title: "Email envoyé",
+            text: "Votre email à été correctement envoyé au vendeur. Vous recevrez une réponse dans les plus brefs délais. Merci de votre confiance.",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
         }
+      else {
+        Swal.fire({
+          title: "Erreur",
+          text: "Une erreur s'est produite lors de l'envoi de l'email",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
       } catch (error) {
         console.error(error);
       } finally {
+        setDataLoading(false)
       }
     };
     sendEmail().then(r => console.log(r));
@@ -90,12 +106,12 @@ function Contact() {
             placeholder="Message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            style={{fontSize: 20}}
+            style={{fontSize: 20, margin: "0 0 10px 0"}}
         ></textarea>
-        <button id={"btn_contact"} onClick={() => verificationFormulaire()}>
+        {isDataLoading ? <Loader></Loader> : <button id={"btn_contact"} onClick={() => verificationFormulaire()}>
           Me contacter
           <FontAwesomeIcon icon={faEnvelope} className="icon-signIn"/>
-        </button>
+        </button>}
       </div>
     </div>
       </>
