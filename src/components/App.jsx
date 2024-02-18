@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {useState, useEffect} from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Banner from "./Banner";
 import Footer from "./Footer/Footer";
 import ShoppingList from "../pages/ShoppingList/ShoppingList";
@@ -22,8 +22,8 @@ import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 import Favoris from "../pages/Favoris/Favoris";
 import HomePage from "../pages/HomePage/HomePage";
 import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import CartContex from "../utils/CartContex";
 import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
@@ -31,129 +31,127 @@ import ResetPassword from "../pages/ResetPassword/ResetPassword";
 
 function App() {
 
-  const jwtToken = Cookies.get("auth_token");
-  const savedCart = localStorage.getItem("cart");
-  const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    if (!jwtToken){
-      updateCart(cart);
-    }
-  }, [cart]);
+    const jwtToken = Cookies.get("auth_token");
+    const savedCart = localStorage.getItem("cart");
+    const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCart(cart);
+    }, [cart]);
 
-  return (
-    <Router>
-      <div>
-        <Banner
-          logo={
-            <img
-              src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1703114666/logo1.png"
-              alt="logo"
-              className="lmj-logo"
-            />
-          }
-          collection={
-            <a
-              href="/collections"
-              className="lmj-title"
-            >
-              Collections
-            </a>
-          }
-          creationPersonalise={
-            <a href="#" className="lmj-title">
-              Creation Personalisé
-            </a>
-          }
-          aPropos={
-            <a
-              href="/apropos"
-              className="lmj-title"
-            >
-              A propos de moi
-            </a>
-          }
-          contact={
-            <a
-              href="/contact"
-              className="lmj-title"
-            >
-              Contact
-            </a>
-          }
-          panier={
-            <a href="/panier">
-              <FontAwesomeIcon
-                icon={faShoppingCart}
-                alt="Panier"
-                id="icone_panier"
-                size="2x"
-              />
-            </a>
-          }
-        />
-        <div className="lmj-layout-inner">
-          <Routes>
-            <Route exact path="/" element={<Home />} />{" "}
-            <Route
-              path="/Details/:id"
-              element={<DetailsProduct cart={cart} updateCart={updateCart} />}
-            />
-            <Route path="/auth/login" element={<Login />} />
-            <Route element={<PrivateRoutes />}>
-              <Route path="/profil/infos-persos" element={<Profil />} />
-              <Route path="/profil/commandes" element={<Commandes />} />
-              <Route path="/profil/adresses" element={<Adresses />} />
-              <Route path="/profil/favoris" element={<Favoris />} />
-              <Route
-                path="/Profil/adresses/ajoutAdresse"
-                element={<AjoutAdresse />}
-              />
-              <Route
-                path="/Profil/adresses/:numAdresse"
-                element={<DetailsAdresses />}
-              />
-              <Route
-                path="/Profil/commandes/:idCommande"
-                element={<DetailsCommande />}
-              />
-            </Route>
-            <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="apropos" element={<Apropos />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="mentions-legales" element={<MentionsLegales />} />
-            <Route
-              path="conditions-utilisations"
-              element={<ConditionsUtilisations />}
-            />
-            <Route
-              path="conditions-generales"
-              element={<ConditionsGenerales />}
-            />
-            <Route
-              path="panier"
-              element={<Panier cart={cart} updateCart={updateCart} />}
-            />
-            <Route
-              path="collections"
-              element={<ShoppingList />}
-            />
-            <Route path="/*" element={<Erreur404 />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <div>
+                <Banner
+                    logo={
+                        <img
+                            src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1703114666/logo1.png"
+                            alt="logo"
+                            className="lmj-logo"
+                        />
+                    }
+                    collection={
+                        <a
+                            href="/collections"
+                            className="lmj-title"
+                        >
+                            Collections
+                        </a>
+                    }
+                    creationPersonalise={
+                        <a href="#" className="lmj-title">
+                            Creation Personalisé
+                        </a>
+                    }
+                    aPropos={
+                        <a
+                            href="/apropos"
+                            className="lmj-title"
+                        >
+                            A propos de moi
+                        </a>
+                    }
+                    contact={
+                        <a
+                            href="/contact"
+                            className="lmj-title"
+                        >
+                            Contact
+                        </a>
+                    }
+                    panier={
+                        <a href="/panier">
+                            <FontAwesomeIcon
+                                icon={faShoppingCart}
+                                alt="Panier"
+                                id="icone_panier"
+                                size="2x"
+                            />
+                        </a>
+                    }
+                />
+                <div className="lmj-layout-inner">
+                    <Routes>
+                        <Route exact path="/" element={<Home/>}/>{" "}
+                        <Route
+                            path="/Details/:id"
+                            element={<DetailsProduct cart={cart} updateCart={updateCart}/>}
+                        />
+                        <Route path="/auth/login" element={<Login/>}/>
+                        <Route element={<PrivateRoutes/>}>
+                            <Route path="/profil/infos-persos" element={<Profil/>}/>
+                            <Route path="/profil/commandes" element={<Commandes/>}/>
+                            <Route path="/profil/adresses" element={<Adresses/>}/>
+                            <Route path="/profil/favoris" element={<Favoris/>}/>
+                            <Route
+                                path="/Profil/adresses/ajoutAdresse"
+                                element={<AjoutAdresse/>}
+                            />
+                            <Route
+                                path="/Profil/adresses/:numAdresse"
+                                element={<DetailsAdresses/>}
+                            />
+                            <Route
+                                path="/Profil/commandes/:idCommande"
+                                element={<DetailsCommande/>}
+                            />
+                        </Route>
+                        <Route path="/auth/reset-password/:token" element={<ResetPassword/>}/>
+                        <Route path="/auth/register" element={<Register/>}/>
+                        <Route path="apropos" element={<Apropos/>}/>
+                        <Route path="contact" element={<Contact/>}/>
+                        <Route path="mentions-legales" element={<MentionsLegales/>}/>
+                        <Route
+                            path="conditions-utilisations"
+                            element={<ConditionsUtilisations/>}
+                        />
+                        <Route
+                            path="conditions-generales"
+                            element={<ConditionsGenerales/>}
+                        />
+                        <Route
+                            path="panier"
+                            element={<Panier cart={cart} updateCart={updateCart}/>}
+                        />
+                        <Route
+                            path="collections"
+                            element={<ShoppingList/>}
+                        />
+                        <Route path="/*" element={<Erreur404/>}/>
+                    </Routes>
+                </div>
+                <Footer/>
+            </div>
+        </Router>
+    );
 }
 
 function Home() {
-  return (
-    <>
-      <HomePage></HomePage>
-    </>
-  );
+    return (
+        <>
+            <HomePage></HomePage>
+        </>
+    );
 }
 
 export default App;

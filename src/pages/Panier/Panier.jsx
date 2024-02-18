@@ -29,7 +29,7 @@ function Panier({cart, updateCart}) {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
+                    console.log("Panier du client " + data);
                     /**
                      * TODO # Faire un map sur data pour récupérer contenu commande et le concaténé avec le panier existant en localstorage.
                      */
@@ -38,6 +38,7 @@ function Panier({cart, updateCart}) {
                      */
                     setPanierBDD(data.contenuPanier);
                     console.log("panierBDD", panierBDD);
+                    localStorage.setItem("nbArticles", JSON.stringify(data.contenuPanier.length));
                 } else {
                     console.error("Panier non trouvé");
                 }
@@ -56,13 +57,26 @@ function Panier({cart, updateCart}) {
                 return;
             }
             console.log("panierAvantUpdated", panierUpdated);
-            setPanierUpdated(panierLocalStorage.concat(panierBDD));
+            const newPanierUpdated = [...panierLocalStorage, ...panierBDD].filter((item, index, self) =>
+                    index === self.findIndex((t) => (
+                        t.idProduct === item.idProduct && t.name === item.name
+                    ))
+            )
+            setPanierUpdated(newPanierUpdated);
             console.log("panierUpdated", panierUpdated);
         }
     }, [panierBDD]);
 
     useEffect(() => {
-        if (panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false) {
+        updateCart(panierUpdated);
+    }, [panierUpdated]);
+
+    useEffect(() => {
+        /**
+         * TODO : faire en sorte de ne pas mettre à jour la bdd à chaque refresh de la page mais seulement quand le panier est modifié
+         */
+        console.log(panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false);
+        if (panierUpdated && jwtToken) {
             console.log("panierUpdated : ", panierUpdated);
             updateCart(panierUpdated);
             localStorage.setItem("cart", JSON.stringify(panierUpdated));
@@ -78,10 +92,7 @@ function Panier({cart, updateCart}) {
                         body: JSON.stringify({panierUpdated})
                     });
                     if (response.ok) {
-                        const data = await response.json();
-                        console.log(data);
-                        updateCart(data.contenuPanier);
-                        console.log("panierBDD", cart);
+                        console.log("Panier inséré dans la base de données");
                     } else {
                         console.error("Panier non trouvé");
                     }
@@ -100,7 +111,7 @@ function Panier({cart, updateCart}) {
             0
         );
         setTotal(newTotal);
-    }, [cart === [] && jwtToken]);
+    }, [cart]);
 
     /**
      *   useEffect(() => {
