@@ -18,9 +18,10 @@ function Toast({icon, text}){
             timerProgressBar: "background-color: #ffffff !important",
         }
     });
-    return Toast.fire({
+    Toast.fire({
         text: text,
         icon: icon,
     });
+    return null;
 }
 export default Toast;

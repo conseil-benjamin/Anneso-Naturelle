@@ -7,12 +7,9 @@ function ToastAddToBasket({cart}) {
         timerProgressBar: true,
         showConfirmButton: false,
         color: "#000",
-        allowOutsideClick: false,
+        allowOutsideClick: true,
         showCloseButton: true,
         background: "#fff",
-        onOpen: (toast) => {
-            toast.querySelector(".swal2-close").classList.add("custom_close_button");
-        },
         customClass: {
             timerProgressBar: "background-color: #ffffff !important"
         }
