@@ -8,6 +8,13 @@
   display: flex;
   flex-direction: column;
 }
+.formulaire-en-colonne input {
+  margin: 0 0 0.5em 0;
+}
+.formulaire-en-colonne p {
+  padding: 0;
+  margin: 0 0 1em 0;
+}
 
 #form1 {
   margin: 2em 0 2em;

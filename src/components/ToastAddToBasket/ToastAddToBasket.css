@@ -1,0 +1,10 @@
+.custom_close_button {
+  grid-column: 3/3;
+  grid-row: 1/99;
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0;
+  font-size: 2em;
+}
+
+/*# sourceMappingURL=ToastAddToBasket.css.map */

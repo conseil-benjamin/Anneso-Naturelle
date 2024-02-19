@@ -172,7 +172,6 @@ function Register() {
                         body: JSON.stringify(user),
                     }
                 );
-
                 if (response.ok) {
                     console.log("Client créé avec succès !");
                     Swal.fire({

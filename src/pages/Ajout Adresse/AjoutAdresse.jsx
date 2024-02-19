@@ -9,170 +9,257 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
+import isStrongPassword from "validator/es/lib/isStrongPassword";
+import {Loader} from "../../utils/Loader";
 
 function AjoutAdresse() {
   const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
-  const [societe, setSociete] = useState("");
   const [telephone, setTelephone] = useState("");
   const [codePostal, setCodePostal] = useState("");
   const [ville, setVille] = useState("");
-  const [adresse, setAdresse] = useState("");
+  const [adresseForm, setAdresse] = useState("");
   const [complementAdresse, setComplementAdresse] = useState("");
   const [pays, setPays] = useState("");
+  const [erreurInputAdresse, setErreurInputAdresse] = useState(null);
+  const [erreurInputNom, setErreurInputName] = useState(null);
+  const [erreurInputPrenom, setErreurInputPrenom] = useState(null);
+  const [erreurInputTelephone, setErreurInputTelephone] = useState(null);
+  const [erreurInputCodePostal, setErreurInputCodePostal] = useState(null);
+  const [erreurInputVille, setErreurInputVille] = useState(null);
+  const [erreurInputPays, setErreurInputPays] = useState(null);
+  const [isDataLoading, setDataLoading] = useState(false);
 
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const navigate = useNavigate();
 
-  const isLogged = localStorage.getItem("id");
 
-  /*
   useEffect(() => {
-    if (isBtnCliquer) {
-      const fetchData = async () => {
+    const handleClickCreateAdresse = async () => {
+      console.log(checkFormValidity() && isBtnCliquer)
+      if (checkFormValidity() && isBtnCliquer) {
+        const adresse = {
+          nomPersonne: nom,
+          prenomPersonne: prenom,
+          adresse: adresseForm,
+          codePostal: codePostal,
+          ville: ville,
+          complementAdresse: complementAdresse,
+          pays: pays,
+          numTel: telephone
+        };
         try {
-          const response = await fetch("http://localhost:5000/api/v1/users");
-          const users = await response.json();
-          const clientFound = users.find(
-            ({ adresseEmail, mdp }) =>
-              emailValue === adresseEmail && passwordValue === mdp
+          setDataLoading(true)
+          const response = await fetch(
+              "http://localhost:5000/api/v1/adresses/insert",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${Cookies.get("auth_token")}`,
+                },
+                body: JSON.stringify(adresse),
+              }
           );
-          if (clientFound) {
-            navigate("/Profil", {
-              state: {
-                id: clientFound.id,
-                nom: clientFound.nom,
-                prenom: clientFound.prenom,
-                adresses: clientFound.adresses,
-                adresseEmail: clientFound.adresseEmail,
-                mdp: clientFound.mdp,
-                numeroTel: clientFound.numeroTel,
-              },
+
+          if (response.ok) {
+            console.log("Adresse créé avec succès !");
+            Swal.fire({
+              text: "Adresse créé avec succès !",
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: true
             });
-            localStorage.setItem("id", JSON.stringify(clientFound.id));
+            const data = await response.json();
           } else {
-            alert("Compte non trouvé");
-            setBtnCliquer(false);
-          }
+            Swal.fire({
+              text: "Adresse non créée !",
+              icon: "error",
+              timer: 2000,
+              showConfirmButton: true
+            });          }
         } catch (error) {
-          console.error(error);
+          console.error("Erreur de connexion au serveur:", error);
         }
-      };
-      fetchData();
+        finally {
+          setDataLoading(false);
+        }
+      } else {
+        Swal.fire({
+          text: "Erreur dans le formulaire de création de compte  ",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        !validator.isMobilePhone(telephone) ? setErreurInputTelephone("Format numéro de téléphone incorrecte") : setErreurInputTelephone(null);
+        !prenom.length > 0 ? setErreurInputPrenom("Prénom non renseigné") : setErreurInputPrenom(null);
+        !nom.length > 0 ? setErreurInputName("Nom non renseigné") : setErreurInputName(null);
+      }
     }
-  }, [isBtnCliquer]);
-*/
-  /*
-  const handleBlur = () => {
-    if (confPasswordValue !== passwordValue) {
-      alert("Confirmation mot de passe non correcte");
-    }
+    handleClickCreateAdresse();
+  }, [isBtnCliquer])
+
+  const checkFormValidity = () => {
+    return (
+        numeroTelVerif() &&
+        firstNameLengthVerif() &&
+        nameLengthVerif() &&
+        villeVerif() &&
+        codePostalVerif() &&
+        paysVerif() &&
+        adresseVerif()
+    );
   };
 
   const handleBlurNameLength = () => {
-    if (nomValue.length === 0) {
-      alert("Renseignez un nom s'il vous plaît");
+    if (nom.length === 0) {
+      setErreurInputName("Renseignez un nom s'il vous plaît");
     }
   };
 
   const handleBlurFirstNameLength = () => {
-    if (prenomValue.length === 0) {
-      alert("Renseignez un prénom s'il vous plaît");
+    if (prenom.length === 0) {
+        setErreurInputPrenom("Renseignez un prénom s'il vous plaît");
     }
   };
 
-  const handleBlurEmail = () => {
-    const isValidEmail = validator.isEmail(emailValue);
-    if (!isValidEmail) {
-      alert("Email non correcte");
+  const handleBlurPays = () => {
+    if (pays.length === 0) {
+      setErreurInputPays("Pays non valide");
     }
   };
 
   const handleBlurTel = () => {
-    const isNumeroTel = validator.isMobilePhone(numeroTelValue);
+    const isNumeroTel = validator.isMobilePhone(telephone);
     if (!isNumeroTel) {
-      alert("Numéro de téléphone non correcte");
+      setErreurInputTelephone("Numéro de téléphone incorrect");
     }
   };
 
-  const handleBlurPassword = () => {
-    const isStrongPassword = validator.isStrongPassword(passwordValue);
-    if (!isStrongPassword) {
-      alert("Mot de passe ne respecte pas les contraintes");
+  const handleBlurVille = () => {
+    if (ville.length === 0) {
+      setErreurInputVille("Ville non valide");
     }
   };
 
-  useEffect(() => {}, []);
-*/
+  const handleBlurCodePostal = () => {
+    if (codePostal.length < 5) {
+      setErreurInputCodePostal("Code postal non valide");
+    }
+  };
+
+  const handleBlurAdresse = () => {
+    if (adresseForm.length === 0) {
+      setErreurInputAdresse("Adresse non valide");
+    }
+  };
+
+  const nameLengthVerif = () => {
+    return nom.length > 0;
+  };
+
+  const firstNameLengthVerif = () => {
+    return prenom.length > 0;
+  };
+
+  const villeVerif = () => {
+    return ville.length > 0;
+  };
+
+  const codePostalVerif = () => {
+        return codePostal.length === 5;
+  };
+
+  const numeroTelVerif = () => {
+    return validator.isMobilePhone(telephone);
+  };
+
+  const paysVerif = () => {
+      return pays.length > 0;
+  };
+
+const adresseVerif = () => {
+    return adresseForm.length > 0;
+  };
+
+
   return (
     <div className="body-page-addAdresse">
       <NavBarProfil></NavBarProfil>
       <div className="formulaire-ajout-adresse">
         <div className="formulaire-en-colonne" id="form1">
           <h1>Ajout d'une adresse</h1>
+            <input
+                className="input-login"
+                value={adresseForm}
+                placeholder="Adresse"
+                onBlur={handleBlurAdresse}
+                onChange={(e) => setAdresse(e.target.value)}
+            />
+            {erreurInputAdresse && !adresseVerif() && <p style={{color: "red", margin: "0"}}>{erreurInputAdresse}</p>}
           <input
-            className="input-login"
-            value={adresse}
-            placeholder="Adresse"
-            //onBlur={handleBlurPassword}
-            onChange={(e) => setAdresse(e.target.value)}
+              className="input-login"
+              value={codePostal}
+              placeholder="Code Postal"
+              onBlur={handleBlurCodePostal}
+              onChange={(e) => setCodePostal(e.target.value)}
           />
+          {erreurInputCodePostal && !codePostalVerif() && <p style={{color: "red"}}>{erreurInputCodePostal}</p>}
           <input
-            className="input-login"
-            value={codePostal}
-            placeholder="Code Postal"
-            //onBlur={handleBlurPassword}
-            onChange={(e) => setCodePostal(e.target.value)}
+              className="input-login"
+              value={ville}
+              placeholder="Ville"
+              onBlur={handleBlurVille}
+              onChange={(e) => setVille(e.target.value)}
           />
+          {erreurInputVille && !villeVerif() && <p style={{color: "red"}}>{erreurInputVille}</p>}
           <input
-            className="input-login"
-            value={ville}
-            placeholder="Ville"
-            //onBlur={handleBlurPassword}
-            onChange={(e) => setVille(e.target.value)}
+              className="input-login"
+              value={complementAdresse}
+              placeholder="Complément d'adresse"
+              onChange={(e) => setComplementAdresse(e.target.value)}
           />
-          <input
-            className="input-login"
-            value={complementAdresse}
-            placeholder="Complément d'adresse"
-            //onBlur={handleBlurPassword}
-            onChange={(e) => setComplementAdresse(e.target.value)}
-          />
-          <input
-            className="input-login"
-            value={pays}
-            placeholder="Pays"
-            //onBlur={handleBlurPassword}
-            onChange={(e) => setPays(e.target.value)}
-          />
+            <input
+                className="input-login"
+                value={pays}
+                placeholder="Pays"
+                onBlur={handleBlurPays}
+                onChange={(e) => setPays(e.target.value)}
+            />
+            {erreurInputPays && !paysVerif() && <p style={{color: "red"}}>{erreurInputPays}</p>}
         </div>
         <div className="formulaire-en-colonne">
           <input
             className="input-login"
             placeholder="Nom"
             value={nom}
-            //onBlur={handleBlurNameLength}
+            onBlur={handleBlurNameLength}
             onChange={(e) => setNom(e.target.value)}
           ></input>
+          {erreurInputNom && !nameLengthVerif() && <p style={{color: "red"}}>{erreurInputNom}</p>}
           <input
             className="input-login"
             placeholder="Prénom"
             value={prenom}
+            onBlur={handleBlurFirstNameLength}
             //onBlur={handleBlurFirstNameLength}
             onChange={(e) => setPrenom(e.target.value)}
           ></input>
+          {erreurInputPrenom && !firstNameLengthVerif() && <p style={{color: "red"}}>{erreurInputPrenom}</p>}
           <input
             className="input-login"
             placeholder="Téléphone"
             value={telephone}
-            //onBlur={handleBlurEmail}
+            onBlur={handleBlurTel}
             onChange={(e) => setTelephone(e.target.value)}
           ></input>
+          {erreurInputTelephone && !numeroTelVerif() && <p style={{color: "red"}}>{erreurInputTelephone}</p>}
         </div>
-        <button className="btn-login" onClick={() => setBtnCliquer(true)}>
+        {isDataLoading ? <Loader></Loader> : <button className="btn-login" onClick={() => setBtnCliquer(true)}>
           Ajouter l'adresse
-          <FontAwesomeIcon className="icon-signIn" />
-        </button>
+          <FontAwesomeIcon className="icon-signIn"/>
+        </button>}
       </div>
     </div>
   );
