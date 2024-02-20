@@ -7,6 +7,7 @@ import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
 import Toast from "../Toast/toast";
+import Swal from "sweetalert2";
 
 function CardAdressses({
   adresseId,
@@ -41,35 +42,49 @@ function CardAdressses({
   };
 
   useEffect(() => {
-     if (!btnDelete){
-       return;
-     }
-    const handleDeleteAdress = async () => {
-      //setDataLoading(true);
-      console.log(adresseId)
-      try{
-        const response = await fetch("http://localhost:5000/api/v1/adresses/delete", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("auth_token")}`,
-          },
-          body: JSON.stringify({idAdresse: adresseId})
-        });
-        if (response.ok){
-          const adresses = await response.json();
-          console.log("Adresse supprimée");
-          setToast({icon: 'success', text: 'Adresse supprimée avec succès.'});
-          setAdresses(adresses);
-        }
-      } catch (error) {
-        console.log(error);
+    if (!btnDelete){
+      return;
+    }
+    Swal.fire({
+      title: "Êtes-vous sûr?",
+      text: "Veuillez confirmer votre choix.",
+      icon: "warning",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui, supprimer",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const handleDeleteAdress = async () => {
+          //setDataLoading(true);
+          try{
+            const response = await fetch("http://localhost:5000/api/v1/adresses/delete", {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${Cookies.get("auth_token")}`,
+              },
+              body: JSON.stringify({idAdresse: adresseId})
+            });
+            if (response.ok){
+              const adresses = await response.json();
+              console.log("Adresse supprimée");
+              setAdresses(adresses);
+              setToast({icon: "success", text: "Adresse supprimé avec succès."});
+            }
+          } catch (error) {
+            console.log(error);
+          }
+          finally {
+            setBtnDelete(false);
+            //setDataLoading(false);
+          }
+        };
+        handleDeleteAdress();
       }
-      finally {
-        //setDataLoading(false);
-      }
-    };
-    handleDeleteAdress();
+      setBtnDelete(false);
+    });
   }, [btnDelete, adresseId]);
 
 
@@ -91,11 +106,13 @@ function CardAdressses({
       </div>
       <div className="container-right-adresses">
         <FontAwesomeIcon
+            style={{cursor: "pointer"}}
             icon={faXmark}
             onClick={() => setBtnDelete(true)}
             className="fa-2x"
         />
           <FontAwesomeIcon
+              style={{cursor: "pointer"}}
               icon={faEdit}
               onClick={() => handleClickEditAdresse()}
               className="fa-2x" // Ou "fa-2x", "fa-3x", etc.
