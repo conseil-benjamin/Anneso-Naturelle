@@ -1,17 +1,11 @@
 import "./AjoutAdresse.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faEyeSlash,
-  faSignInAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import isStrongPassword from "validator/es/lib/isStrongPassword";
 import {Loader} from "../../utils/Loader";
 
 function AjoutAdresse() {
@@ -31,14 +25,14 @@ function AjoutAdresse() {
   const [erreurInputVille, setErreurInputVille] = useState(null);
   const [erreurInputPays, setErreurInputPays] = useState(null);
   const [isDataLoading, setDataLoading] = useState(false);
-
   const [isBtnCliquer, setBtnCliquer] = useState(false);
   const navigate = useNavigate();
 
-
   useEffect(() => {
+    if (!isBtnCliquer){
+        return;
+    }
     const handleClickCreateAdresse = async () => {
-      console.log(checkFormValidity() && isBtnCliquer)
       if (checkFormValidity() && isBtnCliquer) {
         const adresse = {
           nomPersonne: nom,
@@ -63,23 +57,25 @@ function AjoutAdresse() {
                 body: JSON.stringify(adresse),
               }
           );
-
           if (response.ok) {
             console.log("Adresse créé avec succès !");
             Swal.fire({
               text: "Adresse créé avec succès !",
               icon: "success",
-              timer: 2000,
               showConfirmButton: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                navigate("/profil/adresses")
+              }
             });
-            const data = await response.json();
           } else {
             Swal.fire({
               text: "Adresse non créée !",
               icon: "error",
               timer: 2000,
               showConfirmButton: true
-            });          }
+            });
+          }
         } catch (error) {
           console.error("Erreur de connexion au serveur:", error);
         }
@@ -95,6 +91,10 @@ function AjoutAdresse() {
         !validator.isMobilePhone(telephone) ? setErreurInputTelephone("Format numéro de téléphone incorrecte") : setErreurInputTelephone(null);
         !prenom.length > 0 ? setErreurInputPrenom("Prénom non renseigné") : setErreurInputPrenom(null);
         !nom.length > 0 ? setErreurInputName("Nom non renseigné") : setErreurInputName(null);
+        !ville.length > 0 ? setErreurInputVille("Ville non renseignée") : setErreurInputVille(null);
+        !codePostal.length === 5 ? setErreurInputCodePostal("Code postal non valide") : setErreurInputCodePostal(null);
+        !pays.length > 0 ? setErreurInputPays("Pays non renseigné") : setErreurInputPays(null);
+        !adresseForm.length > 0 && validator.isInt(codePostal) ? setErreurInputAdresse("Adresse non renseignée") : setErreurInputAdresse(null);
       }
     }
     handleClickCreateAdresse();
@@ -168,7 +168,7 @@ function AjoutAdresse() {
   };
 
   const codePostalVerif = () => {
-        return codePostal.length === 5;
+        return codePostal.length === 5 && validator.isInt(codePostal);
   };
 
   const numeroTelVerif = () => {
@@ -256,7 +256,7 @@ const adresseVerif = () => {
           ></input>
           {erreurInputTelephone && !numeroTelVerif() && <p style={{color: "red"}}>{erreurInputTelephone}</p>}
         </div>
-        {isDataLoading ? <Loader></Loader> : <button className="btn-login" onClick={() => setBtnCliquer(true)}>
+        {isDataLoading ? <Loader></Loader> : <button onClick={() => setBtnCliquer(true)}>
           Ajouter l'adresse
           <FontAwesomeIcon className="icon-signIn"/>
         </button>}

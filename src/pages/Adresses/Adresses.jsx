@@ -3,15 +3,43 @@ import {useLocation, useNavigate} from "react-router-dom";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import "./Adresses.css";
 import CardAdressses from "../../components/CardAdresses/CardAdresses";
+import Cookies from "js-cookie";
+import {Loader} from "../../utils/Loader";
 
 function Adresses() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const {adresses} = location.state || {};
+    const [isDataLoading, setDataLoading] = useState(false);
+    const [adresses, setAdresses] = useState([]);
     console.log(adresses);
 
     const tableauObjet = Object.values(adresses);
     const [btnAddAdresseClique, setbtnAddAdresseClique] = useState(false);
+
+    useEffect(() => {
+        const fetchAllAdresses = async () => {
+            setDataLoading(true);
+            try{
+                const response = await fetch("http://localhost:5000/api/v1/adresses", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${Cookies.get("auth_token")}`,
+                    },
+                });
+                if (response.ok){
+                    const data = await response.json();
+                    console.log(data);
+                    setAdresses(data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            finally {
+                setDataLoading(false);
+            }
+        };
+        fetchAllAdresses();
+    }, []);
 
     useEffect(() => {
         if (btnAddAdresseClique) {
@@ -27,10 +55,10 @@ function Adresses() {
                     <div>
                         <h2>Mes adresses</h2>
                     </div>
-                    {adresses.length > 0 ? (
+                    {isDataLoading ? <Loader></Loader>: adresses.length > 0 ? (
                         tableauObjet.map((adresse) => (
                             <CardAdressses
-                                adresseId={adresse.adresseId}
+                                adresseId={adresse._id}
                                 nomPersonne={adresse.nomPersonne}
                                 prenomPersonne={adresse.prenomPersonne}
                                 adresse={adresse.adresse}
@@ -39,6 +67,7 @@ function Adresses() {
                                 ville={adresse.ville}
                                 complementAdresse={adresse.complementAdresse}
                                 numTel={adresse.numTel}
+                                setAdresses={setAdresses}
                             ></CardAdressses>
                         ))
                     ) : (

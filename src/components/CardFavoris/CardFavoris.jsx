@@ -5,10 +5,8 @@ import PropTypes from "prop-types"; // ES6
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
 import RedirectToProductDetails from "../RedirectToProductsDetails/RedirectToProductDetails";
 import Cookies from "js-cookie";
-import favoris from "../../pages/Favoris/Favoris";
 function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct, setFavoris }) {
   const [imageClique, setImageClique] = useState(false);
   const navigate = useNavigate();
@@ -30,7 +28,6 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct, setFavo
           }),
         }
       );
-
       if (response.ok) {
           const favoris = await response.json();
           console.log(favoris);

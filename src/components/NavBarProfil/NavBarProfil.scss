@@ -10,6 +10,13 @@
   background-color: $secondary-color;
   color: #ffff;
   border-radius: 0 10px 10px 0;
+  button{
+    display: flex;
+    flex-direction: column;
+  }
+  #icon-navbar{
+    margin: 0 1em 0 0;
+  }
   @media (max-width: 1300px){
     margin: 0;
   }

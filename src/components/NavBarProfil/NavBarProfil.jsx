@@ -5,7 +5,7 @@ import "./NavBarProfil.css";
 import ButtonDeconnect from "../../components/Button Deconnect/ButtonDeconnect";
 import Cookies from "js-cookie";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronDown, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {faChevronDown, faChevronRight, faLocationDot, faCircleInfo, faHeart, faBasketShopping} from "@fortawesome/free-solid-svg-icons";
 
 function NavBarProfil() {
   const [infosPersoClique, setInfosPersoClique] = useState(false);
@@ -67,12 +67,7 @@ function NavBarProfil() {
           );
           const adresses = await response.json();
           adresses
-            ? navigate("/profil/adresses/", {
-                state: {
-                  adresses: adresses,
-                },
-              })
-            : navigate("/profil/adresses/");
+            && navigate("/profil/adresses/");
         } catch (error) {
           console.error(error);
         }
@@ -161,14 +156,21 @@ function NavBarProfil() {
           <FontAwesomeIcon id={"icon-dropdown-navbar-mobile"} icon={faChevronRight}></FontAwesomeIcon>
         </div>
         <button onClick={() => setInfosPersoClique(true)}>
+          <FontAwesomeIcon id={"icon-navbar"} icon={faCircleInfo}></FontAwesomeIcon>
           Mes Informations
         </button>
         <hr/>
-        <button onClick={() => setAdressesClique(true)}>Mes adresses</button>
+        <button onClick={() => setAdressesClique(true)}>
+          <FontAwesomeIcon id={"icon-navbar"} icon={faLocationDot}></FontAwesomeIcon>
+          Mes adresses</button>
         <hr/>
-        <button onClick={() => setCommandesClique(true)}>Mes commandes</button>
+        <button onClick={() => setCommandesClique(true)}>
+          <FontAwesomeIcon id={"icon-navbar"} icon={faBasketShopping}></FontAwesomeIcon>
+          Mes commandes</button>
         <hr/>
-        <button onClick={() => setFavorisClique(true)}>Mes favoris</button>
+        <button onClick={() => setFavorisClique(true)}>
+          <FontAwesomeIcon id={"icon-navbar"} icon={faHeart}></FontAwesomeIcon>
+          Mes favoris</button>
         <hr/>
         <ButtonDeconnect></ButtonDeconnect>
       </div>

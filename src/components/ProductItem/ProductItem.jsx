@@ -145,7 +145,6 @@ function ProductItem({
 
     return (
         <>
-            {console.log("toast", toast)}
         {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
         <div className="lmj-plant-item">
             <img

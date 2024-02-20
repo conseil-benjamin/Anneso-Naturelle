@@ -60,6 +60,13 @@ html {
   color: white;
   border-radius: 0 10px 10px 0;
 }
+.navbar button {
+  display: flex;
+  flex-direction: column;
+}
+.navbar #icon-navbar {
+  margin: 0 1em 0 0;
+}
 @media (max-width: 1300px) {
   .navbar {
     margin: 0;
