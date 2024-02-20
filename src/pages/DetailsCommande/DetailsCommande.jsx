@@ -13,7 +13,7 @@ function DetailsCommande() {
   const { idCommande } = useParams();
   const [commande, setCommande] = useState([]);
   const [adresseId, setAdresseId] = useState("");
-  const [adresse, setAdresse] = useState([]);
+  const [adresse, setAdresse] = useState({});
   const jwtToken = Cookies.get("auth_token");
   const [dataLoading, setDataLoading] = useState(false);
 
@@ -34,34 +34,37 @@ function DetailsCommande() {
         const commande = await response.json();
         console.log(commande);
         setCommande(commande);
-        setAdresseId(commande.idAdresse);
+        setAdresseId(commande.adresseLivraison);
         setDataLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
-    const fetchAdresse = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/v1/adresses/" + adresseId, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${jwtToken}`
-                },
-            }
-        );
-        const adresse = await response.json();
-        console.log(adresse);
-        setAdresse(adresse);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-      fetchCommande().then(() => {
-          fetchAdresse();
-      });
+    fetchCommande();
   }, []);
+
+    useEffect(() => {
+        const fetchAdresse = async () => {
+            console.log(adresseId);
+            try {
+                const response = await fetch(
+                    "http://localhost:5000/api/v1/adresses/" + adresseId, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${jwtToken}`
+                        },
+                    }
+                );
+                const adresse = await response.json();
+                console.log(adresse);
+                setAdresse(adresse);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchAdresse();
+    }, [adresseId]);
 
     return (
         <>
@@ -108,12 +111,8 @@ function DetailsCommande() {
                                 ) : (
                                     <h3>Votre point Relais</h3>
                                 )}
-                            {adresse.map((attribut) => {
-                                return (<>
-                                    <p>{attribut.adresse}</p>
-                                    <p>{attribut.codePostal}</p>
-                                </>);
-                            })}
+                                    <p>{adresse.adresse}</p>
+                                    <p>{adresse.codePostal}</p>
                         </div>
                     </div>
                     <div className={"div-buttons-actions-details-commande"}>
@@ -129,11 +128,11 @@ function DetailsCommande() {
                                     "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay,
                                     "_blank"
                                 )}>
-                                    <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon>
+                                    <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>
                                     Suivre mon colis
                                 </button>
                                 <button>
-                                    <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon>
+                                    <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>
                                     Retourner un produit
                                 </button>
                             </>
