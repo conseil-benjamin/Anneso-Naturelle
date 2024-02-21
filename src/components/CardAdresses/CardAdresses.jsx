@@ -19,11 +19,12 @@ function CardAdressses({
   nomPersonne,
   prenomPersonne,
   numTel,
-    setAdresses,
+    setAdresses,adresses
 }) {
   const navigate = useNavigate();
   const [btnDelete, setBtnDelete] = useState(false);
   const [toast, setToast] = useState({icon: '', text: ''});
+  const [adressChange, setAdressChange] = useState(false);
 
   const handleClickEditAdresse = () => {
     navigate(`/Profil/adresses/${adresseId}`, {
@@ -53,6 +54,7 @@ function CardAdressses({
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
+      cancelButtonText: "Annuler",
       confirmButtonText: "Oui, supprimer",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -71,6 +73,7 @@ function CardAdressses({
               const adresses = await response.json();
               console.log("Adresse supprimée");
               setAdresses(adresses);
+              setAdressChange(true);
               setToast({icon: "success", text: "Adresse supprimé avec succès."});
             }
           } catch (error) {

@@ -68,6 +68,7 @@ function Adresses() {
                                 complementAdresse={adresse.complementAdresse}
                                 numTel={adresse.numTel}
                                 setAdresses={setAdresses}
+                                adresses={adresses}
                             ></CardAdressses>
                         ))
                     ) : (

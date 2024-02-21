@@ -49,6 +49,50 @@ html {
   overflow-x: hidden;
 }
 
+.body-element-register {
+  padding: 2em 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f0ec;
+}
+.body-element-register .div-input-register {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.4em 0;
+}
+.body-element-register .div-input-register .div-password {
+  position: relative;
+}
+.body-element-register .div-input-register .div-password #icon-eye-see-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.body-element-register p {
+  padding: 0;
+  margin: 0 0 0.5em 0;
+}
+.body-element-register input {
+  margin: 0;
+}
+.body-element-register .btn-genre {
+  padding: 0.7em;
+  width: auto;
+  margin: 1em 1em 2em 0;
+}
+.body-element-register .div-text-login {
+  margin: 0 0 2em 0;
+}
+.body-element-register .div-label-register {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+}
+
 .div-infos-client {
   display: flex;
   align-items: center;
@@ -108,9 +152,26 @@ html {
   flex-direction: column;
   margin: 3em 0 0 3em;
 }
+.div-change-password .div-password {
+  position: relative;
+  margin: 1.2em 0 1.2em 0;
+}
+.div-change-password .div-password .input-login {
+  margin: 0;
+}
+.div-change-password .div-password #icon-eye-see-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 .div-change-password button {
   margin: 0.5em 0 0 0;
   padding: 0.5em;
+}
+.div-change-password input {
+  margin: 0.8em 0 1.2em 0;
 }
 @media (max-width: 1300px) {
   .div-change-password {
@@ -118,14 +179,6 @@ html {
     align-items: center;
     margin: 2em 0 3em 0;
   }
-}
-
-.div-change-password > input {
-  margin: 1em 0 1.5em 0;
-}
-
-.div-change-password > h2 {
-  margin: 1em 0 1em 0;
 }
 
 /*# sourceMappingURL=Profil.css.map */

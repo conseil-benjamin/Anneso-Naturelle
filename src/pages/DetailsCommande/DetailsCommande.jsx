@@ -112,7 +112,11 @@ function DetailsCommande() {
                                     <h3>Votre point Relais</h3>
                                 )}
                                     <p>{adresse.adresse}</p>
-                                    <p>{adresse.codePostal}</p>
+                                    <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                        <p style={{margin: "0 0.5em 0.5em 0"}}>{adresse.codePostal}</p>
+                                        <p style={{margin: "0 0.5em 0.5em 0"}}>{adresse.ville}</p>
+                                    </div>
+                                    <p>{adresse.pays}</p>
                         </div>
                     </div>
                     <div className={"div-buttons-actions-details-commande"}>

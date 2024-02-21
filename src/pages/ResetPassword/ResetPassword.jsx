@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import validator from "validator";
+import "./ResetPassword.css";
 
 function ResetPassword() {
     const {token} = useParams();
@@ -119,14 +120,11 @@ function ResetPassword() {
     return <>
         {tokenIsValid ?
             <>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "2em"
-                }}>
+                <div className={"div-main-reset-password"}>
                     <h2>Réinitialisation de votre mot de passe</h2>
+                    <div>
+
+                    </div>
                     <div className="div-password">
                         <input
                             className="input-login"

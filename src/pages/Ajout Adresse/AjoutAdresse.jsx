@@ -88,7 +88,7 @@ function AjoutAdresse() {
           icon: "error",
           confirmButtonText: "Ok",
         });
-        !validator.isMobilePhone(telephone) ? setErreurInputTelephone("Format numéro de téléphone incorrecte") : setErreurInputTelephone(null);
+        !validator.isMobilePhone(telephone) && telephone.length < 10 ? setErreurInputTelephone("Format numéro de téléphone incorrecte") : setErreurInputTelephone(null);
         !prenom.length > 0 ? setErreurInputPrenom("Prénom non renseigné") : setErreurInputPrenom(null);
         !nom.length > 0 ? setErreurInputName("Nom non renseigné") : setErreurInputName(null);
         !ville.length > 0 ? setErreurInputVille("Ville non renseignée") : setErreurInputVille(null);
@@ -131,7 +131,7 @@ function AjoutAdresse() {
   };
 
   const handleBlurTel = () => {
-    const isNumeroTel = validator.isMobilePhone(telephone);
+    const isNumeroTel = validator.isMobilePhone(telephone) && telephone.length === 10;
     if (!isNumeroTel) {
       setErreurInputTelephone("Numéro de téléphone incorrect");
     }
@@ -172,7 +172,7 @@ function AjoutAdresse() {
   };
 
   const numeroTelVerif = () => {
-    return validator.isMobilePhone(telephone);
+    return validator.isMobilePhone(telephone) && telephone.length === 10;
   };
 
   const paysVerif = () => {
