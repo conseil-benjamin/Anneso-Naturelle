@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import "./Panier.css";
 import CardPanier from "../../components/CardPanier/CardPanier";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faLock, faTag} from "@fortawesome/free-solid-svg-icons";
+import {faLock, faTag, faXmark} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+import Toast from "../../components/Toast/toast";
 
 function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
@@ -13,6 +15,10 @@ function Panier({cart, updateCart}) {
     const [panierBDD, setPanierBDD] = useState([]);
     const [panierUpdated, setPanierUpdated] = useState([]);
     const jwtToken = Cookies.get("auth_token");
+    const [codePromoCorrecte, setCodePromoCorrecte] = useState(false);
+    const [toast, setToast] = useState({icon: '', text: ''});
+    const codePromoLocalStorage = localStorage.getItem("codePromoActif");
+    const [reduc, setReduc] = useState(codePromoLocalStorage ? JSON.parse(codePromoLocalStorage) : []);
 
     useEffect(() => {
         if (!jwtToken) {
@@ -106,24 +112,80 @@ function Panier({cart, updateCart}) {
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
-        const newTotal = cart.reduce(
+        let newTotal = cart.reduce(
             (acc, product) => acc + product.amount * product.price,
             0
         );
+        const reduc = JSON.parse(localStorage.getItem("codePromoActif"));
+        if (reduc){
+            newTotal = newTotal - reduc.reduction * newTotal;
+        }
+        console.log(newTotal)
         setTotal(newTotal);
-    }, [cart]);
+    }, [cart, codePromoLocalStorage]);
 
-    /**
-     *   useEffect(() => {
-     codePromoAppliquer && codePromo !== "salut"
-     ? alert("Mauvais code !")
-     : alert("Bon code !");
-     setCodePromoAppliquer(false);
+      useEffect(() => {
+        if (!codePromoAppliquer){
+            return;
+        }
+          const handleClickCodePromo = async () => {
+              try {
+                  const response = await fetch(`http://localhost:5000/api/v1/codePromo/${codePromo}`, {
+                      method: "GET",
+                          headers: {
+                      "Content-Type": "application/json",
+                  },
+                  },
+              );
+                  if (response.ok){
+                      const reduction = await response.json();
+                      console.log(reduction)
+                      localStorage.setItem("codePromoActif", JSON.stringify(reduction));
+                      setCodePromoCorrecte(true);
+                  } else{
+                      Swal.fire({
+                          text: "Code promo non valide ou bien expiré.",
+                          icon: "error"
+                      })
+                  }
+              } catch (error) {
+                  console.log(error);
+              }
+              finally {
+                  setCodePromoAppliquer(false);
+              }
+          }
+        handleClickCodePromo();
      }, [codePromoAppliquer]);
-     */
+
+    useEffect(() => {
+        if (!codePromoCorrecte){
+            return;
+        }
+        setToast({
+            icon: 'success',
+            text: 'Code promo appliqué'
+        })
+    }, [codePromoCorrecte]);
+
+    const removeCodePromo = () =>{
+        localStorage.removeItem("codePromoActif");
+        setReduc([]);
+        setCodePromoCorrecte(false);
+    }
+
+    useEffect(() => {
+        const codePromoLocalStorage = localStorage.getItem("codePromoActif");
+        if (codePromoLocalStorage) {
+            setReduc(JSON.parse(codePromoLocalStorage));
+        } else {
+            setReduc([]);
+        }
+    }, [codePromoLocalStorage]);
 
     return (
         <>
+            {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
             <div className="body-element-panier">
                 {cart.length > 0 ? (
                     <>
@@ -172,16 +234,25 @@ function Panier({cart, updateCart}) {
                                     ) : null}
                                 </div>
                             </div>
-
+                            { codePromoLocalStorage ?
+                                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                    <p style={{backgroundColor: "#DCF5D3", color: "#287834", margin: "1em", padding: "0.3em"}}>Code promo
+                                        appliqué : {reduc.reductionValeurEntier} % de remise</p>
+                                    <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}} onClick={() => removeCodePromo()}></FontAwesomeIcon>
+                                </div> : null
+                            }
                         </div>
                         <div className="panier-check-out">
                             <h3>Résumé de la commande</h3>
                             <hr/>
-                            <h4>Sous-total : {total} €</h4>
-                            <h4>
+                            <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
+                                <p>Sous-total : {total} €</p>
+                                {codePromoLocalStorage ? <p>au lieu de <del>{total / (1 - reduc.reduction)}</del> €</p> : null}
+                            </div>
+                            <p>
                                 Frais de livraison :{" "}
                                 {total >= 50 ? <span>Offerts*</span> : "5 €"}
-                            </h4>
+                            </p>
                             <hr/>
                             <h2>Total : {total >= 50 ? total : total + 5} €</h2>
                             <button>Passer commande</button>
