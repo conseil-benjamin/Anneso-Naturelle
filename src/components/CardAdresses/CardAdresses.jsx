@@ -73,14 +73,22 @@ function CardAdressses({
               const adresses = await response.json();
               console.log("Adresse supprimée");
               setAdresses(adresses);
-              setAdressChange(true);
-              setToast({icon: "success", text: "Adresse supprimé avec succès."});
-            }
+              Swal.fire({
+                text: "Produit supprimé des favoris avec succès !",
+                toast: true,
+                showConfirmButton: false,
+                background: "#fff",
+                timer: 2000,
+                position: "top-end",
+                padding: "0.5em",
+                color: "#000",
+              });            }
           } catch (error) {
             console.log(error);
+            setToast({icon: "error", text: "Une erreur s'est produite lors de la suppression de l'adresse."});
           }
           finally {
-            setBtnDelete(false);
+            //setBtnDelete(false);
             //setDataLoading(false);
           }
         };
@@ -89,6 +97,7 @@ function CardAdressses({
       setBtnDelete(false);
     });
   }, [btnDelete, adresseId]);
+
 
 
   return (

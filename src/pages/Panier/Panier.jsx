@@ -36,12 +36,6 @@ function Panier({cart, updateCart}) {
                 if (response.ok) {
                     const data = await response.json();
                     console.log("Panier du client " + data);
-                    /**
-                     * TODO # Faire un map sur data pour récupérer contenu commande et le concaténé avec le panier existant en localstorage.
-                     */
-                    /**
-                     * TODO # Si j'ai un panier en localStorage et que je me connecte je vide le panier en localStorage
-                     */
                     setPanierBDD(data.contenuPanier);
                     console.log("panierBDD", panierBDD);
                     localStorage.setItem("nbArticles", JSON.stringify(data.contenuPanier.length));
@@ -78,9 +72,6 @@ function Panier({cart, updateCart}) {
     }, [panierUpdated]);
 
     useEffect(() => {
-        /**
-         * TODO : faire en sorte de ne pas mettre à jour la bdd à chaque refresh de la page mais seulement quand le panier est modifié
-         */
         console.log(panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false);
         if (panierUpdated && jwtToken) {
             console.log("panierUpdated : ", panierUpdated);

@@ -69,11 +69,6 @@ function CardPanier({
     }, [total]);
 
     useEffect(() => {
-
-        /**
-         * TODO Faire la même chose qu'en dessous mais pour la BDD
-         */
-
         if (jwtToken && selectedValue !== "") {
             const panierInfos = {
                 idProduct: idProduct,

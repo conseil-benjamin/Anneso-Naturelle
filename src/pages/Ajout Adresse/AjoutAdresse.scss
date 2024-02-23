@@ -1,4 +1,5 @@
 @import "../../styles/colors.scss";
+@import "../Register/Register";
 
 .body-page-addAdresse {
   display: flex;
@@ -12,12 +13,19 @@
 .formulaire-en-colonne {
   display: flex;
   flex-direction: column;
-  input{
-    margin: 0 0 0.5em 0;
+  .div-error-message-register{
+    display: flex;
+    flex-direction: row;
+    font-size: 0.9em;
+    margin: 0.5em 0 0 0;
+    align-items: center;
+    #icon-infos-error{
+      margin: 0 0.5em 0 0;
+      color: red;
+    }
   }
-  p{
-    padding: 0;
-    margin: 0 0 1em 0;
+  input{
+    margin: 0 0 0.40em 0;
   }
 }
 

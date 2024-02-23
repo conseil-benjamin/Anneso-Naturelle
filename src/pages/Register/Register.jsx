@@ -4,6 +4,7 @@ import {
   faEye,
   faEyeSlash,
   faSignInAlt,
+    faCircleInfo
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -110,7 +111,7 @@ function Register() {
   };
 
   const numeroTelVerif = () => {
-    return validator.isMobilePhone(numeroTelValue);
+    return validator.isMobilePhone(numeroTelValue) && numeroTelValue.length === 10;
   };
 
   const passwordVerif = () => {
@@ -134,12 +135,23 @@ function Register() {
     return uniqueId;
   };
 
+    /**
+     * TODO : A finir pour afficher une popup au cas ou l'email serait déjà utilisé.
+     * @returns {Promise<boolean>}
+     */
   const isClientWithThisEmail = async () => {
     try {
       const response = await fetch(
         "http://localhost:5000/api/v1/users/" + email
       );
       const user = await response.json();
+      if (!user.ok){
+          Swal.fire({
+              text: "Adresse email déjà associé à un compte. Connectez-vous, ou réinitialiser votre mot de passe.",
+              icon: "error",
+              confirmButtonText: "Ok",
+          });
+      }
       return user.length <= 0;
     } catch (error) {
       console.error(error);
@@ -238,8 +250,14 @@ function Register() {
             value={nomValue}
             onBlur={handleOnblurName}
             onChange={(e) => setNomValue(e.target.value)}
+            style={erreurInputName ? {borderColor: "red"} : {borderColor: "black"}}
         ></input>
-            {erreurInputName && nomValue <= 0 && <p style={{color: "red"}}>{erreurInputName} </p>}
+            {erreurInputName && nomValue <= 0 &&
+                <div className={"div-error-message-register"}>
+                    <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                    <p style={{color: "red"}}>{erreurInputName} </p>
+                </div>
+            }
         </div>
         <div className={"div-input-register"}>
 
@@ -249,10 +267,16 @@ function Register() {
         value={prenomValue}
         onBlur={handleOnblurFirstName}
         onChange={(e) => setPrenomValue(e.target.value)}
+        style={erreurInputFirstName ? {borderColor: "red"} : {borderColor: "black"}}
       ></input>
-        {erreurInputFirstName && prenomValue <= 0 && <p style={{color: "red"}}>{erreurInputFirstName} </p>}
+        {erreurInputFirstName && prenomValue <= 0 &&
+            <div className={"div-error-message-register"}>
+                <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputFirstName} </p>
+            </div>
+        }
         </div>
-<div className={"div-input-register"}>
+        <div className={"div-input-register"}>
 
         <label>Numéro de téléphone</label>
       <input
@@ -260,10 +284,16 @@ function Register() {
         value={numeroTelValue}
         onBlur={handleOnblurTel}
         onChange={(e) => setNumeroTelValue(e.target.value)}
+        style={erreurInputTel ? {borderColor: "red"} : {borderColor: "black"}}
       ></input>
-        {erreurInputTel && !numeroTelVerif(numeroTelValue) && <p style={{color: "red"}}>{erreurInputTel}</p>}
+        {erreurInputTel && !numeroTelVerif(numeroTelValue) &&
+            <div className={"div-error-message-register"}>
+                <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputTel}</p>
+            </div>
+        }
 </div>
-<div className={"div-input-register"}>
+        <div className={"div-input-register"}>
 
         <label>Adresse email</label>
       <input
@@ -271,8 +301,13 @@ function Register() {
         value={email}
         onBlur={handleOnblurEmail}
         onChange={(e) => setemail(e.target.value)}
+        style={erreurInputEmail ? {borderColor: "red"} : {borderColor: "black"}}
       ></input>
-        {erreurInputEmail && !emailVerif(email) && <p style={{color: "red"}}>{erreurInputEmail}</p>}
+        {erreurInputEmail && !emailVerif(email) &&
+            <div className={"div-error-message-register"}>
+                <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputEmail}</p>
+            </div>}
 </div>
         <div className={"div-input-register"}>
             <label id={"label-mdp"}>Mot de passe</label>
@@ -283,6 +318,7 @@ function Register() {
                     value={password}
                     onBlur={handleOnblurPassword}
                     onChange={(e) => setpassword(e.target.value)}
+                    style={erreurInputPassword ? {borderColor: "red"} : {borderColor: "black"}}
                 />
                 {inputType === "password" ? (
                     <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
@@ -290,7 +326,12 @@ function Register() {
                     <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
                 )}
             </div>
-            {erreurInputPassword ? <p style={{color: "red"}}>{erreurInputPassword}</p> : null}
+            {erreurInputPassword ?
+                <div className={"div-error-message-register"}>
+                    <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                    <p style={{color: "red"}}>{erreurInputPassword}</p>
+                </div>
+                : null}
         </div>
 
         <div className={"div-input-register"}>
@@ -301,10 +342,16 @@ function Register() {
                 value={confPassword}
                 onBlur={handleOnblurConfPassword}
                 onChange={(e) => setconfPassword(e.target.value)}
+                style={erreurInputPasswordConf ? {borderColor: "red"} : {borderColor: "black"}}
             />
-            {erreurInputPasswordConf && !confirmPasswordVerif(confPassword) && <p style={{color: "red"}}>{erreurInputPasswordConf}</p>}
+            {erreurInputPasswordConf && !confirmPasswordVerif(confPassword) &&
+                <div className={"div-error-message-register"}>
+                    <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                    <p style={{color: "red"}}>{erreurInputPasswordConf}</p>
+                </div>
+            }
         </div>
-      <div className="radio-btn-genre-register">
+        <div className="radio-btn-genre-register">
         {Civilite === "Monsieur" ? (
           <>
             <button

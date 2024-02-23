@@ -1,5 +1,8 @@
 import "./AjoutAdresse.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleInfo
+} from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
@@ -197,7 +200,12 @@ const adresseVerif = () => {
                 onBlur={handleBlurAdresse}
                 onChange={(e) => setAdresse(e.target.value)}
             />
-            {erreurInputAdresse && !adresseVerif() && <p style={{color: "red", margin: "0"}}>{erreurInputAdresse}</p>}
+            {erreurInputAdresse && !adresseVerif() &&
+                <div className={"div-error-message-register"}>
+                  <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                  <p style={{color: "red", margin: "0"}}>{erreurInputAdresse}</p>
+                </div>
+            }
           <input
               className="input-login"
               value={codePostal}
@@ -205,7 +213,12 @@ const adresseVerif = () => {
               onBlur={handleBlurCodePostal}
               onChange={(e) => setCodePostal(e.target.value)}
           />
-          {erreurInputCodePostal && !codePostalVerif() && <p style={{color: "red"}}>{erreurInputCodePostal}</p>}
+          {erreurInputCodePostal && !codePostalVerif() &&
+              <div className={"div-error-message-register"}>
+                <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputCodePostal}</p>
+              </div>
+          }
           <input
               className="input-login"
               value={ville}
@@ -213,7 +226,12 @@ const adresseVerif = () => {
               onBlur={handleBlurVille}
               onChange={(e) => setVille(e.target.value)}
           />
-          {erreurInputVille && !villeVerif() && <p style={{color: "red"}}>{erreurInputVille}</p>}
+          {erreurInputVille && !villeVerif() &&
+              <div className={"div-error-message-register"}>
+                <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputVille}</p>
+              </div>
+          }
           <input
               className="input-login"
               value={complementAdresse}
@@ -227,7 +245,12 @@ const adresseVerif = () => {
                 onBlur={handleBlurPays}
                 onChange={(e) => setPays(e.target.value)}
             />
-            {erreurInputPays && !paysVerif() && <p style={{color: "red"}}>{erreurInputPays}</p>}
+            {erreurInputPays && !paysVerif() &&
+                <div className={"div-error-message-register"}>
+                  <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                  <p style={{color: "red"}}>{erreurInputPays}</p>
+                </div>
+            }
         </div>
         <div className="formulaire-en-colonne">
           <input
@@ -237,24 +260,38 @@ const adresseVerif = () => {
             onBlur={handleBlurNameLength}
             onChange={(e) => setNom(e.target.value)}
           ></input>
-          {erreurInputNom && !nameLengthVerif() && <p style={{color: "red"}}>{erreurInputNom}</p>}
+          {erreurInputNom && !nameLengthVerif() &&
+              <div className={"div-error-message-register"}>
+                <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputNom}</p>
+              </div>}
           <input
-            className="input-login"
-            placeholder="Prénom"
+              className="input-login"
+              placeholder="Prénom"
             value={prenom}
             onBlur={handleBlurFirstNameLength}
             //onBlur={handleBlurFirstNameLength}
             onChange={(e) => setPrenom(e.target.value)}
           ></input>
-          {erreurInputPrenom && !firstNameLengthVerif() && <p style={{color: "red"}}>{erreurInputPrenom}</p>}
+          {erreurInputPrenom && !firstNameLengthVerif() &&
+              <div className={"div-error-message-register"}>
+                <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputPrenom}</p>
+              </div>
+          }
           <input
-            className="input-login"
+              className="input-login"
             placeholder="Téléphone"
             value={telephone}
             onBlur={handleBlurTel}
             onChange={(e) => setTelephone(e.target.value)}
           ></input>
-          {erreurInputTelephone && !numeroTelVerif() && <p style={{color: "red"}}>{erreurInputTelephone}</p>}
+          {erreurInputTelephone && !numeroTelVerif() &&
+              <div className={"div-error-message-register"}>
+                <FontAwesomeIcon icon={faCircleInfo}></FontAwesomeIcon>
+                <p style={{color: "red"}}>{erreurInputTelephone}</p>
+              </div>
+          }
         </div>
         {isDataLoading ? <Loader></Loader> : <button onClick={() => setBtnCliquer(true)}>
           Ajouter l'adresse

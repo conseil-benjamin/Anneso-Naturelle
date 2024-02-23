@@ -110,13 +110,6 @@ function ResetPassword() {
         resetPassword().then();
     }
 
-    /**
-     * TODO : Faire une recherche sur un user pour vérifier que le token est encore valide
-     * Si oui, afficher un formulaire pour changer le mot de passe
-     * Si non, afficher un message d'erreur
-     * TODO : Faire une requête pour changer le mot de passe en récupérant l'id du client à qui appartient le token
-     */
-
     return <>
         {tokenIsValid ?
             <>
