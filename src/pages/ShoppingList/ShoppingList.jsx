@@ -49,7 +49,7 @@ function ShoppingList({cart, updateCart}) {
             setDataLoading(true);
             try {
                 const response = await fetch(
-                    process.env.APP_URL + "/products"
+                    `${process.env.REACT_APP_API_URL}products`
                 );
                 const productList = await response.json();
                 setproductList([]);
@@ -77,7 +77,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL + "products/bracelets"
+                        `${process.env.REACT_APP_API_URL}products/bracelets`
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -103,7 +103,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL + "/products/accessoires"
+                        `${process.env.REACT_APP_API_URL}products/accessoires`
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -129,7 +129,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL+ "/products"
+                        `${process.env.REACT_APP_API_URL}products`
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -155,7 +155,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL + "/products/encens"
+                        `${process.env.REACT_APP_API_URL}products/encens`
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -182,7 +182,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL + "/products/boucles-oreilles"
+                        `${process.env.REACT_APP_API_URL}products/boucles-oreilles`
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);

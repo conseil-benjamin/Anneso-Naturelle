@@ -54,7 +54,7 @@ function Categories({
         }
         if (pierresChoisies.length !== 0) {
             try {
-                const response = await fetch(process.env.APP_URL + "/products/filtre-pierres", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}products/filtre-pierres`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function Categories({
             }
         } else{
             try {
-                const response = await fetch(process.env.APP_URL + "/products/category", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}products/category`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -173,7 +173,7 @@ function Categories({
             async function () {
                 try {
                     const response = await fetch(
-                        process.env.APP_URL + `/products/${min}/${max}/${activeCategory}`,
+                        `${process.env.REACT_APP_API_URL}products/${min}/${max}/${activeCategory}`,
                         {
                             method: "GET",
                             headers: {

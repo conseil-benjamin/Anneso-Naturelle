@@ -9,7 +9,7 @@ function RedirectToProductDetails({ idProduct, imageClique }) {
         const fetchData = async () => {
             try {
                 const response = await fetch(
-                    process.env.APP_URL + "/products/" + idProduct
+                        `${process.env.REACT_APP_API_URL}products/${idProduct}`
                 );
                 const product = await response.json();
                 if (product) {

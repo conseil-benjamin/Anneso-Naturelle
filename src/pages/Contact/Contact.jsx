@@ -41,8 +41,8 @@ function Contact() {
       console.log(emailInfos)
       try {
         setDataLoading(true)
-        const response = await fetch(
-            process.env.APP_URL + `/mail/client-to-seller`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}mail/client-to-seller`,
+            {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

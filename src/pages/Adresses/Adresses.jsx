@@ -19,7 +19,7 @@ function Adresses() {
         const fetchAllAdresses = async () => {
             setDataLoading(true);
             try{
-                const response = await fetch(process.env.APP_URL + "/adresses", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}adresses`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

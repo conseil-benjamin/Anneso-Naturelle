@@ -26,7 +26,7 @@ function Panier({cart, updateCart}) {
         }
         const getBasketClientFromDatabase = async () => {
             try {
-                const response = await fetch(process.env.APP_URL + "/panier/", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}panier`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function Panier({cart, updateCart}) {
             const insertLocaleStorageProductInsideDatabase = async () => {
                 localStorage.setItem("bastekConcated", JSON.stringify(true));
                 try {
-                    const response = await fetch(process.env.APP_URL + "/panier/insert-many-products", {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}panier/insert-many-products`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -121,7 +121,7 @@ function Panier({cart, updateCart}) {
         }
           const handleClickCodePromo = async () => {
               try {
-                  const response = await fetch(process.env.APP_URL + `/codePromo/${codePromo}`, {
+                  const response = await fetch(`${process.env.REACT_APP_API_URL}codePromo/${codePromo}`, {
                       method: "GET",
                           headers: {
                       "Content-Type": "application/json",
