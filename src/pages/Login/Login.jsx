@@ -41,7 +41,7 @@ function Login() {
       password: password,
     };
     try {
-      const response = await fetch(process.env.APP_URL + "/auth/login", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ function Login() {
     if (email) {
       try{
         setDataLoading(true);
-        const response = await fetch(process.env.APP_URL + "/auth/forgot-password", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}auth/forgot-password`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

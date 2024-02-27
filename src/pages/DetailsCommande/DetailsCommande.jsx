@@ -22,7 +22,7 @@ function DetailsCommande() {
         setDataLoading(true);
       try {
         const response = await fetch(
-            process.env.APP_URL + "/commandes/" + idCommande,
+            `${process.env.REACT_APP_API_URL}commandes/${idCommande}`,
             {
                 method: "GET",
                 headers: {
@@ -48,7 +48,7 @@ function DetailsCommande() {
             console.log(adresseId);
             try {
                 const response = await fetch(
-                    process.env.APP_URL + "/adresses/" + adresseId, {
+                    `${process.env.REACT_APP_API_URL}adresses/${adresseId}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",

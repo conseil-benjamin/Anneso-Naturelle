@@ -58,7 +58,7 @@ function DetailsAdresses() {
         };
         const handleClickUpdateAdress = async () => {
           const response = await fetch(
-              process.env.APP_URL + '/adresse/update', {
+              `${process.env.REACT_APP_API_URL}adresses/update`, {
                 method: 'PATCH',
                 headers: {
                   'Content-Type': 'application/json',

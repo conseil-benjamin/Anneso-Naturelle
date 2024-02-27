@@ -45,7 +45,7 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
         if (jwtToken && profilClique) {
             const fetchData = async () => {
                 try {
-                    const response = await fetch(process.env.APP_URL + "/users/", {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}users`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",

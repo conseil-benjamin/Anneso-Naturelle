@@ -142,7 +142,7 @@ function Register() {
   const isClientWithThisEmail = async () => {
     try {
       const response = await fetch(
-          process.env.APP_URL + "/users/" + email
+          `${process.env.REACT_APP_API_URL}users/${email}`
       );
       const user = await response.json();
       if (!user.ok){
@@ -175,7 +175,7 @@ function Register() {
             try {
                 setDataLoading(true)
                 const response = await fetch(
-                    process.env.APP_URL + "/auth/register",
+                    `${process.env.REACT_APP_API_URL}auth/register`,
                     {
                         method: "POST",
                         headers: {

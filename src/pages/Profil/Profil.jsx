@@ -62,7 +62,7 @@ function Profil() {
       const handleGetActualUserPassword = async () => {
         try {
           const actualPassword = await fetch(
-              process.env.APP_URL + `/users/get-password-clear/${password}`,
+              `${process.env.REACT_APP_API_URL}users/get-password-clear/${password}`,
               {
                 method: "GET",
                 headers: {
@@ -109,7 +109,7 @@ function Profil() {
         const handleResetPassword = async () => {
           try {
             const response = await fetch(
-                process.env.APP_URL + "/users/reset-password",
+                `${process.env.REACT_APP_API_URL}users/reset-password`,
                 {
                   method: "POST",
                   headers: {
@@ -171,7 +171,7 @@ function Profil() {
       const handlePersonnalInformationChange = async () => {
         try {
           const response = await fetch(
-              process.env.APP_URL + "/users/patch-user-informations",
+              `${process.env.REACT_APP_API_URL}users/patch-user-informations`,
               {
                 method: "PATCH",
                 headers: {
@@ -220,7 +220,7 @@ function Profil() {
       const fetchData = async () => {
         setDataLoading(true);
         try {
-          const response = await fetch(process.env.APP_URL + "/users", {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}users`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",

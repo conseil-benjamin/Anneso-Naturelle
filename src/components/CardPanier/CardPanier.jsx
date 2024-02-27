@@ -25,7 +25,7 @@ function CardPanier({
         if (jwtToken) {
             const getBasketClientFromDatabase = async () => {
                 try {
-                    const response = await fetch(process.env.APP_URL + "/panier/delete", {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}panier/delete`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function CardPanier({
                 //setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL+ `/panier/update`, {
+                        `${process.env.REACT_APP_API_URL}panier/update`, {
                             method: "PATCH",
                             headers: {
                                 "Content-Type": "application/json",

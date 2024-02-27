@@ -16,7 +16,7 @@ function CardFavoris({ coverArticle, prixArticle, nomArticle, idProduct, setFavo
   const handleDeleteFavorite = async () => {
     try {
       const response = await fetch(
-          process.env.APP_URL + "/favoris/delete",
+          `${process.env.REACT_APP_API_URL}favoris/delete`,
         {
           method: "DELETE",
           headers: {

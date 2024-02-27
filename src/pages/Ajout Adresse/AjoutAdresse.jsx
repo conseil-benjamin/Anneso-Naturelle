@@ -50,7 +50,7 @@ function AjoutAdresse() {
         try {
           setDataLoading(true)
           const response = await fetch(
-              process.env.APP_URL + "/adresses/insert",
+              `${process.env.REACT_APP_API_URL}adresses/insert`,
               {
                 method: "POST",
                 headers: {

@@ -27,7 +27,7 @@ function DetailsProduct({cart, updateCart}) {
             setDataLoading(true);
             try {
                 const response = await fetch(
-                    process.env.APP_URL + `/products/${id}`
+                    `${process.env.REACT_APP_API_URL}products/${id}`
                 );
                 const product = await response.json();
                 setProduit(product);
@@ -53,7 +53,7 @@ function DetailsProduct({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        process.env.APP_URL + `/panier/insert`, {
+                        `${process.env.REACT_APP_API_URL}panier/insert`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",

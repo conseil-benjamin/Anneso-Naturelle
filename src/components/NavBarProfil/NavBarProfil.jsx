@@ -26,7 +26,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-              process.env.APP_URL + "/commandes",
+              `${process.env.REACT_APP_API_URL}commandes`,
             {
               method: "GET",
               headers: {
@@ -56,7 +56,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-              process.env.APP_URL + "/adresses",
+              `${process.env.REACT_APP_API_URL}adresses`,
             {
               method: "GET",
               headers: {
@@ -80,7 +80,7 @@ function NavBarProfil() {
     if (infosPersoClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch(process.env.APP_URL + "/users", {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}users`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -122,7 +122,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-              process.env.APP_URL + "/favoris",
+              `${process.env.REACT_APP_API_URL}favoris`,
             {
               method: "GET",
               headers: {
