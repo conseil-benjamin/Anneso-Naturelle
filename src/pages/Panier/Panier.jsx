@@ -6,6 +6,7 @@ import {faLock, faTag, faXmark} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import Toast from "../../components/Toast/toast";
+import {Loader} from "../../utils/Loader";
 
 function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
@@ -19,12 +20,14 @@ function Panier({cart, updateCart}) {
     const [toast, setToast] = useState({icon: '', text: ''});
     const codePromoLocalStorage = localStorage.getItem("codePromoActif");
     const [reduc, setReduc] = useState(codePromoLocalStorage ? JSON.parse(codePromoLocalStorage) : []);
+    const [isDataLoading, setDataLoading] = useState(false);
 
     useEffect(() => {
         if (!jwtToken) {
             return;
         }
         const getBasketClientFromDatabase = async () => {
+            setDataLoading(true);
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}panier`, {
                     method: "GET",
@@ -65,6 +68,7 @@ function Panier({cart, updateCart}) {
             setPanierUpdated(newPanierUpdated);
             console.log("panierUpdated", panierUpdated);
         }
+        setDataLoading(false);
     }, [panierBDD]);
 
     useEffect(() => {
@@ -115,39 +119,39 @@ function Panier({cart, updateCart}) {
         setTotal(newTotal);
     }, [cart, codePromoLocalStorage]);
 
-      useEffect(() => {
+    useEffect(() => {
         if (!codePromoAppliquer){
             return;
         }
-          const handleClickCodePromo = async () => {
-              try {
-                  const response = await fetch(`${process.env.REACT_APP_API_URL}codePromo/${codePromo}`, {
-                      method: "GET",
-                          headers: {
-                      "Content-Type": "application/json",
-                  },
-                  },
-              );
-                  if (response.ok){
-                      const reduction = await response.json();
-                      console.log(reduction)
-                      localStorage.setItem("codePromoActif", JSON.stringify(reduction));
-                      setCodePromoCorrecte(true);
-                  } else{
-                      Swal.fire({
-                          text: "Code promo non valide ou bien expiré.",
-                          icon: "error"
-                      })
-                  }
-              } catch (error) {
-                  console.log(error);
-              }
-              finally {
-                  setCodePromoAppliquer(false);
-              }
-          }
+        const handleClickCodePromo = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}codePromo/${codePromo}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    },
+                );
+                if (response.ok){
+                    const reduction = await response.json();
+                    console.log(reduction)
+                    localStorage.setItem("codePromoActif", JSON.stringify(reduction));
+                    setCodePromoCorrecte(true);
+                } else{
+                    Swal.fire({
+                        text: "Code promo non valide ou bien expiré.",
+                        icon: "error"
+                    })
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            finally {
+                setCodePromoAppliquer(false);
+            }
+        }
         handleClickCodePromo();
-     }, [codePromoAppliquer]);
+    }, [codePromoAppliquer]);
 
     useEffect(() => {
         if (!codePromoCorrecte){
@@ -179,86 +183,87 @@ function Panier({cart, updateCart}) {
             {/* TODO: Toast s'affiche même quand on supprime le code promo*/}
             {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
             <div className="body-element-panier">
-                {cart.length > 0 ? (
-                    <>
-                        <div className="panier">
-                            <h3 id="title-panier">Mon panier</h3>
-                            <hr className="hr-custom"/>
-                            {cart.map((cartElement, index) => (
-                                <CardPanier
-                                    key={`${cartElement.name}-${index}`}
-                                    idProduct={cartElement.idProduct}
-                                    cover={cartElement.cover}
-                                    name={cartElement.name}
-                                    price={cartElement.price}
-                                    amount={cartElement.amount}
-                                    index={index}
-                                    totalPanier={total}
-                                    setTotalPanier={setTotal}
-                                    cart={cart}
-                                    updateCart={updateCart}
-                                />
-                            ))}
-                            <div className={"div-main-code-promo"}>
-                                <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
-                                >
+                {isDataLoading ? <Loader></Loader> :
+                    cart.length > 0 ? (
+                        <>
+                            <div className="panier">
+                                <h3 id="title-panier">Mon panier</h3>
+                                <hr className="hr-custom"/>
+                                {cart.map((cartElement, index) => (
+                                    <CardPanier
+                                        key={`${cartElement.name}-${index}`}
+                                        idProduct={cartElement.idProduct}
+                                        cover={cartElement.cover}
+                                        name={cartElement.name}
+                                        price={cartElement.price}
+                                        amount={cartElement.amount}
+                                        index={index}
+                                        totalPanier={total}
+                                        setTotalPanier={setTotal}
+                                        cart={cart}
+                                        updateCart={updateCart}
+                                    />
+                                ))}
+                                <div className={"div-main-code-promo"}>
+                                    <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
+                                    >
                 <span id="span-code-promo">
                   <FontAwesomeIcon
                       icon={faTag}
                   />
                     {"\u00A0"} Saisir un code promo
                 </span>
+                                    </div>
+                                    <div className={"div-code-promo-right"}>
+                                        {codePromoClique ? (
+                                            <>
+                                                <input
+                                                    style={{width: "40%", padding: "0.5em"}}
+                                                    onChange={(e) => setCodePromo(e.target.value)}
+                                                ></input>
+                                                <button
+                                                    style={{padding: "0.5em"}}
+                                                    onClick={() => setCodePromoAppliquer(true)}
+                                                >
+                                                    Appliquer
+                                                </button>
+                                            </>
+                                        ) : null}
+                                    </div>
                                 </div>
-                                <div className={"div-code-promo-right"}>
-                                    {codePromoClique ? (
-                                        <>
-                                            <input
-                                                style={{width: "40%", padding: "0.5em"}}
-                                                onChange={(e) => setCodePromo(e.target.value)}
-                                            ></input>
-                                            <button
-                                                style={{padding: "0.5em"}}
-                                                onClick={() => setCodePromoAppliquer(true)}
-                                            >
-                                                Appliquer
-                                            </button>
-                                        </>
-                                    ) : null}
+                                { codePromoLocalStorage ?
+                                    <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                        <p style={{backgroundColor: "#DCF5D3", color: "#287834", margin: "1em", padding: "0.3em"}}>Code promo
+                                            appliqué : {reduc.reductionValeurEntier} % de remise</p>
+                                        <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}} onClick={() => removeCodePromo()}></FontAwesomeIcon>
+                                    </div> : null
+                                }
+                            </div>
+                            <div className="panier-check-out">
+                                <h3>Résumé de la commande</h3>
+                                <hr/>
+                                <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
+                                    <p>Sous-total : {total} €</p>
+                                    {codePromoLocalStorage ? <p>au lieu de <del>{total / (1 - reduc.reduction)}</del> €</p> : null}
                                 </div>
+                                <p>
+                                    Frais de livraison :{" "}
+                                    {total >= 50 ? <span>Offerts*</span> : "5 €"}
+                                </p>
+                                <hr/>
+                                <h2>Total : {total >= 50 ? total : total + 5} €</h2>
+                                <button>Passer commande</button>
+                                <p>
+                                    <FontAwesomeIcon icon={faLock}/>
+                                    {"\u00A0"} Paiement sécurisé
+                                </p>
                             </div>
-                            { codePromoLocalStorage ?
-                                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                                    <p style={{backgroundColor: "#DCF5D3", color: "#287834", margin: "1em", padding: "0.3em"}}>Code promo
-                                        appliqué : {reduc.reductionValeurEntier} % de remise</p>
-                                    <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}} onClick={() => removeCodePromo()}></FontAwesomeIcon>
-                                </div> : null
-                            }
+                        </>
+                    ) : (
+                        <div className="div-panier-vide">
+                            <h2>Votre panier est vide</h2>
                         </div>
-                        <div className="panier-check-out">
-                            <h3>Résumé de la commande</h3>
-                            <hr/>
-                            <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
-                                <p>Sous-total : {total} €</p>
-                                {codePromoLocalStorage ? <p>au lieu de <del>{total / (1 - reduc.reduction)}</del> €</p> : null}
-                            </div>
-                            <p>
-                                Frais de livraison :{" "}
-                                {total >= 50 ? <span>Offerts*</span> : "5 €"}
-                            </p>
-                            <hr/>
-                            <h2>Total : {total >= 50 ? total : total + 5} €</h2>
-                            <button>Passer commande</button>
-                            <p>
-                                <FontAwesomeIcon icon={faLock}/>
-                                {"\u00A0"} Paiement sécurisé
-                            </p>
-                        </div>
-                    </>
-                ) : (
-                    <div className="div-panier-vide">
-                        <h2>Votre panier est vide</h2>
-                    </div>
-                )}
+                    )}
             </div>
         </>
     );
