@@ -19,7 +19,7 @@ function Adresses() {
         const fetchAllAdresses = async () => {
             setDataLoading(true);
             try{
-                const response = await fetch("http://localhost:5000/api/v1/adresses", {
+                const response = await fetch(process.env.APP_URL + "/adresses", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

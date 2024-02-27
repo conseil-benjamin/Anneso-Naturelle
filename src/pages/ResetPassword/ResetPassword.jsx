@@ -23,7 +23,7 @@ function ResetPassword() {
             try {
                 setDataLoading(true);
                 const response = await fetch(
-                    `http://localhost:5000/api/v1/auth/tokenIsValid/${token}`, {
+                    process.env.APP_URL + `/auth/tokenIsValid/${token}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function ResetPassword() {
             try {
                 setDataLoading(true);
                 const response = await fetch(
-                    `http://localhost:5000/api/v1/auth/reset-password/${token}`, {
+                    process.env.APP_URL + `/auth/reset-password/${token}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

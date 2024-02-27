@@ -49,7 +49,7 @@ function ShoppingList({cart, updateCart}) {
             setDataLoading(true);
             try {
                 const response = await fetch(
-                    "https://anneso-naturelle-api.onrender.com/api/v1/products"
+                    process.env.APP_URL + "/products"
                 );
                 const productList = await response.json();
                 setproductList([]);
@@ -77,7 +77,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        "https://anneso-naturelle-api.onrender.com/api/v1/products/bracelets"
+                        process.env.APP_URL + "products/bracelets"
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -103,7 +103,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        "https://anneso-naturelle-api.onrender.com/api/v1/products/accessoires"
+                        process.env.APP_URL + "/products/accessoires"
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -129,7 +129,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        "https://anneso-naturelle-api.onrender.com/api/v1/products"
+                        process.env.APP_URL+ "/products"
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -155,7 +155,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        "https://anneso-naturelle-api.onrender.com/api/v1/products/encens"
+                        process.env.APP_URL + "/products/encens"
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
@@ -182,7 +182,7 @@ function ShoppingList({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        "https://anneso-naturelle-api.onrender.com/api/v1/products/boucles-oreilles"
+                        process.env.APP_URL + "/products/boucles-oreilles"
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);

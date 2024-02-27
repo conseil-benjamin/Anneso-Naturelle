@@ -3,6 +3,8 @@ import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import "./DetailsAdresses.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 function DetailsAdresses() {
   const location = useLocation();
@@ -26,7 +28,8 @@ function DetailsAdresses() {
   const [Adresse, setAdresse] = useState("");
   const [ComplementAdresse, setComplementAdresse] = useState("");
   const [Pays, setPays] = useState("");
-
+  const [hasChanged, setHasChanged] = useState(false);
+  const [btnUpdateAdresseClique, setBtnUpdateAdresseClique] = useState(false);
   useEffect(() => {
     setNom(nomPersonne);
     setPrenom(prenomPersonne);
@@ -37,6 +40,53 @@ function DetailsAdresses() {
     setComplementAdresse(complementAdresse);
     setPays(pays);
   }, []);
+
+  useEffect(() => {
+      if(!btnUpdateAdresseClique){
+        return;
+      }
+      try{
+        const adresse = {
+          adresse: Adresse,
+          codePostal: CodePostal,
+          ville: Ville,
+          complementAdresse: ComplementAdresse,
+          pays: Pays,
+          nomPersonne: Nom,
+          prenomPersonne: Prenom,
+          numTel: Telephone,
+        };
+        const handleClickUpdateAdress = async () => {
+          const response = await fetch(
+              process.env.APP_URL + '/adresse/update', {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${Cookies.get("auth_token")}`,
+                },
+              body: JSON.stringify(adresse)
+              }
+          );
+          if (response.ok){
+            Swal.fire({
+              toast: true,
+              text: "Adresse mise à jour avec succès.",
+              icon: "success"
+            })
+            setBtnUpdateAdresseClique(false);
+            setHasChanged(false);
+          } else{
+            Swal.fire({
+              toast: true,
+              text: "Erreur lors de la mise à jour de l'adresse.",
+              icon: "error"
+            })
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  }, [btnUpdateAdresseClique]);
 
   return (
     <div className="div-main-details-adresse">
@@ -113,7 +163,7 @@ function DetailsAdresses() {
             ></input>
           </div>
         </div>
-        <button className="btn-save">
+        <button className="btn-save" disabled={!hasChanged} onClick={() => setBtnUpdateAdresseClique()}>
           Enregistrer Changement
           <FontAwesomeIcon className="icon-signIn" />
         </button>

@@ -28,7 +28,7 @@ function ToastAddToBasket({cart}) {
             </div>
             <hr/>
         `).join('')}
-<button onclick="window.location.href = 'http://localhost:3000/panier'">Voir le panier</button>    `,
+<button onclick="window.location.href = '/panier'">Voir le panier</button>`,
     });
     return null;
 }

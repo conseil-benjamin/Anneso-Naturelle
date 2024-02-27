@@ -9,7 +9,7 @@ function RedirectToProductDetails({ idProduct, imageClique }) {
         const fetchData = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/v1/products/" + idProduct
+                    process.env.APP_URL + "/products/" + idProduct
                 );
                 const product = await response.json();
                 if (product) {

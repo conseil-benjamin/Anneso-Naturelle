@@ -14,11 +14,12 @@ import ButtonDeconnect from "../Button Deconnect/ButtonDeconnect";
 
 function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
     const [profilClique, setProfilClique] = useState(false);
-    const navigate = useNavigate();
     const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
     const cart = JSON.parse(localStorage.getItem("cart"));
     const [mobileMenuClique, setMobileMenuClique] = useState(false);
     const jwtToken = Cookies.get("auth_token");
+    const name = Cookies.get("name");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (cart && !jwtToken) {
@@ -44,7 +45,7 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
         if (jwtToken && profilClique) {
             const fetchData = async () => {
                 try {
-                    const response = await fetch("http://localhost:5000/api/v1/users/", {
+                    const response = await fetch(process.env.APP_URL + "/users/", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
@@ -118,20 +119,29 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
                     {creationPersonalise}
                     {aPropos}
                     {contact}
-                    <div className="icon-header">
+                    {/* TODO : Remettre tous les styles en scss */}
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", cursor: "pointer", margin: "0 0 0 5em"}} onClick={() => setProfilClique(true)}>
                         <a id="icon-user-a">
                             <FontAwesomeIcon
                                 icon={faUserAlt}
-                                onClick={() => setProfilClique(true)}
                                 size="2x"
                             />
                         </a>
-                        {panier}
-                        {nbArticles > 0 ? (
-                            <a href="/panier">
-                                <span className="span-nb-articles">{nbArticles}</span>
-                            </a>
-                        ) : null}
+                        {name ? <p style={{fontSize: "0.8em", padding: "0em", margin: "0.2em 0 0 0", textAlign: "center"}}>{name}</p> : <p style={{fontSize: "0.8em", padding: "0em", margin: "0.2em 0 0 0", alignItems: "center"}}>Me connecter</p>}
+                    </div>
+
+                    <div style={{display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center", cursor: "pointer"}} onClick={() => navigate('/panier')}>
+                        <div className="icon-header">
+                            <div style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
+                                {panier}
+                                {nbArticles > 0 ? (
+                                    <a href="/panier">
+                                        <span className="span-nb-articles">{nbArticles}</span>
+                                    </a>
+                                ) : null}
+                            </div>
+                        </div>
+                        <p style={{fontSize: "0.8em", padding: "0em", margin: "0.2em 0 0 3em", alignItems: "center"}}>Panier</p>
                     </div>
                 </div>
             </div>

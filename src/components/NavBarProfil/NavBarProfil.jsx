@@ -26,7 +26,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/commandes/",
+              process.env.APP_URL + "/commandes",
             {
               method: "GET",
               headers: {
@@ -56,7 +56,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/adresses/",
+              process.env.APP_URL + "/adresses",
             {
               method: "GET",
               headers: {
@@ -80,7 +80,7 @@ function NavBarProfil() {
     if (infosPersoClique) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/v1/users", {
+          const response = await fetch(process.env.APP_URL + "/users", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -122,7 +122,7 @@ function NavBarProfil() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/v1/favoris/",
+              process.env.APP_URL + "/favoris",
             {
               method: "GET",
               headers: {

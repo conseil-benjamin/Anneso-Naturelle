@@ -42,7 +42,7 @@ function Contact() {
       try {
         setDataLoading(true)
         const response = await fetch(
-            `http://localhost:5000/api/v1/mail/client-to-seller`, {
+            process.env.APP_URL + `/mail/client-to-seller`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

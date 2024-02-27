@@ -50,7 +50,7 @@ function AjoutAdresse() {
         try {
           setDataLoading(true)
           const response = await fetch(
-              "http://localhost:5000/api/v1/adresses/insert",
+              process.env.APP_URL + "/adresses/insert",
               {
                 method: "POST",
                 headers: {

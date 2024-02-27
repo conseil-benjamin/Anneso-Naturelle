@@ -142,7 +142,7 @@ function Register() {
   const isClientWithThisEmail = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/v1/users/" + email
+          process.env.APP_URL + "/users/" + email
       );
       const user = await response.json();
       if (!user.ok){
@@ -175,7 +175,7 @@ function Register() {
             try {
                 setDataLoading(true)
                 const response = await fetch(
-                    "http://localhost:5000/api/v1/auth/register",
+                    process.env.APP_URL + "/auth/register",
                     {
                         method: "POST",
                         headers: {
@@ -194,7 +194,7 @@ function Register() {
                     });
                     const data = await response.json();
                     setCookie(data.token);
-                    const userName = `${user.nom} ${user.prenom}`;
+                    const userName = `${user.prenom}`;
                     Cookies.set("name", userName, { expires: 7 })
                 } else {
                     console.error("Erreur lors de la création du compte");

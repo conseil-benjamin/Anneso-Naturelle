@@ -26,7 +26,7 @@ function Panier({cart, updateCart}) {
         }
         const getBasketClientFromDatabase = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/v1/panier/", {
+                const response = await fetch(process.env.APP_URL + "/panier/", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function Panier({cart, updateCart}) {
             const insertLocaleStorageProductInsideDatabase = async () => {
                 localStorage.setItem("bastekConcated", JSON.stringify(true));
                 try {
-                    const response = await fetch("http://localhost:5000/api/v1/panier/insert-many-products/", {
+                    const response = await fetch(process.env.APP_URL + "/panier/insert-many-products", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -121,7 +121,7 @@ function Panier({cart, updateCart}) {
         }
           const handleClickCodePromo = async () => {
               try {
-                  const response = await fetch(`http://localhost:5000/api/v1/codePromo/${codePromo}`, {
+                  const response = await fetch(process.env.APP_URL + `/codePromo/${codePromo}`, {
                       method: "GET",
                           headers: {
                       "Content-Type": "application/json",
@@ -176,6 +176,7 @@ function Panier({cart, updateCart}) {
 
     return (
         <>
+            {/* TODO: Toast s'affiche même quand on supprime le code promo*/}
             {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
             <div className="body-element-panier">
                 {cart.length > 0 ? (

@@ -28,6 +28,8 @@ import Cookies from "js-cookie";
 import CartContex from "../utils/CartContex";
 import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
 
@@ -141,6 +143,8 @@ function App() {
                     </Routes>
                 </div>
                 <Footer/>
+                <SpeedInsights />
+                <Analytics/>
             </div>
         </Router>
     );

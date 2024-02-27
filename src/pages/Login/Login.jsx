@@ -41,7 +41,7 @@ function Login() {
       password: password,
     };
     try {
-      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+      const response = await fetch(process.env.APP_URL + "/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ function Login() {
           const data = await getTokenAuthentification();
           if (data) {
             const userData = data.user;
-            const userName = `${userData.nom} ${userData.prenom}`;
+            const userName = `${userData.prenom}`;
             Cookies.set("name", userName, {expires: 7});
             navigate("/profil/infos-persos", {
               state: {
@@ -118,7 +118,7 @@ function Login() {
     if (email) {
       try{
         setDataLoading(true);
-        const response = await fetch("http://localhost:5000/api/v1/auth/forgot-password", {
+        const response = await fetch(process.env.APP_URL + "/auth/forgot-password", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -51,7 +51,7 @@ function ProductItem({
         const getFavoriteStatus = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/v1/favoris/get-status-favori`,
+                    process.env.APP_URL + `/favoris/get-status-favori`,
                     {
                         method: "POST",
                         headers: {
@@ -87,7 +87,7 @@ function ProductItem({
         if (favorite) {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/v1/favoris/delete",
+                    process.env.APP_URL + "/favoris/delete",
                     {
                         method: "DELETE",
                         headers: {
@@ -113,7 +113,7 @@ function ProductItem({
         } else {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/v1/favoris/insert",
+                    process.env.APP_URL + "/favoris/insert",
                     {
                         method: "POST",
                         headers: {

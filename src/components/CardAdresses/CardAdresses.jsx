@@ -61,7 +61,7 @@ function CardAdressses({
         const handleDeleteAdress = async () => {
           //setDataLoading(true);
           try{
-            const response = await fetch("http://localhost:5000/api/v1/adresses/delete", {
+            const response = await fetch(process.env.APP_URL + "/adresses/delete", {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",

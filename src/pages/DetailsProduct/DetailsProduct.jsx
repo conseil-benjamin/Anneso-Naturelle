@@ -27,7 +27,7 @@ function DetailsProduct({cart, updateCart}) {
             setDataLoading(true);
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/v1/products/${id}`
+                    process.env.APP_URL + `/products/${id}`
                 );
                 const product = await response.json();
                 setProduit(product);
@@ -53,7 +53,7 @@ function DetailsProduct({cart, updateCart}) {
                 setDataLoading(true);
                 try {
                     const response = await fetch(
-                        `http://localhost:5000/api/v1/panier/insert`, {
+                        process.env.APP_URL + `/panier/insert`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
