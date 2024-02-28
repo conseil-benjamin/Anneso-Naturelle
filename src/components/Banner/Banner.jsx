@@ -46,6 +46,7 @@ function Banner() {
     };
 
     useEffect(() => {
+        console.log("profilClique", profilClique);
         if (jwtToken && profilClique) {
             const fetchData = async () => {
                 try {
@@ -58,7 +59,6 @@ function Banner() {
                     });
                     const user = await response.json();
                     if (user) {
-                        setProfilClique(false);
                         navigate("/profil/infos-persos", {
                             state: {
                                 id: user.id,
@@ -71,11 +71,14 @@ function Banner() {
                     }
                 } catch (error) {
                     console.error("Erreur de connexion au serveur:", error);
+                } finally {
+                    setProfilClique(false);
                 }
             };
             fetchData();
         } else if (profilClique) {
             navigate("/auth/login");
+            setProfilClique(false);
         }
     }, [profilClique]);
 
@@ -130,23 +133,19 @@ function Banner() {
                         Contact
                     </p>
                     {/* TODO : Remettre tous les styles en scss */}
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center", cursor: "pointer", margin: "0 0 0 5em"}} onClick={() => setProfilClique(true)}>
+                    <div className={"div-icon-login-navbar"} onClick={() => setProfilClique(true)}>
                         <a id="icon-user-a">
                             <FontAwesomeIcon
                                 icon={faUserAlt}
                                 size="2x"
                             />
                         </a>
-                        {name ? <p style={{fontSize: "0.8em", padding: "0em", margin: "0.2em 0 0 0", textAlign: "center"}}>{name}</p> : <p style={{fontSize: "0.8em", padding: "0em", margin: "0.2em 0 0 0", alignItems: "center"}}>Me connecter</p>}
+                        {name ? <p className={"name-under-login-icon-navbar"}>{name}</p> : <p className={"name-under-login-icon-navbar"}>Me connecter</p>}
                     </div>
 
                     <div style={{display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center", cursor: "pointer"}} onClick={() => navigate('/panier')}>
                         <div className="icon-header">
-                            <div style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
+                            <div className={"div-icon-basket-navbar"}>
                                 <FontAwesomeIcon
                                     icon={faShoppingCart}
                                     alt="Panier"
@@ -160,7 +159,7 @@ function Banner() {
                                 ) : null}
                             </div>
                         </div>
-                        <p style={{fontSize: "0.8em", padding: "0em", margin: "0.2em 0 0 3em", alignItems: "center"}}>Panier</p>
+                        <p className={"name-under-basket-icon-navbar"}>Panier</p>
                     </div>
                 </div>
             </div>
@@ -196,7 +195,7 @@ function Banner() {
                                 Collections
                             </p>
                             <p className={"lmj-title"} onClick={() => clickNavBarItem("creations-personalisees")}>
-                                créations personnalisées
+                                Créations Personnalisées
                             </p>
                             <p className={"lmj-title"} onClick={() => clickNavBarItem("apropos")}>
                                 A propos
@@ -205,26 +204,41 @@ function Banner() {
                                 Contact
                             </p>
                         </div>
-                        <div className="icon-header-mobile">
-                            <a id="icon-user-a">
-                                <FontAwesomeIcon
-                                    icon={faUserAlt}
-                                    onClick={() => setProfilClique(true)}
-                                    size="2x"
-                                />
-                            </a>
-                            {nbArticles > 0 ? (
-                                <a onClick={() => clickNavBarItem("panier")}>
+                        <div style={{display: "flex", flexDirection: "row"}}>
+                            <div className={"div-icon-login-navbar"} style={{margin: "0"}} onClick={() => setProfilClique(true)}>
+                                <a id="icon-user-a">
                                     <FontAwesomeIcon
-                                        icon={faShoppingCart}
-                                        alt="Panier"
-                                        id="icone_panier"
+                                        icon={faUserAlt}
                                         size="2x"
                                     />
-                                    <span className="span-nb-articles">{nbArticles}</span>
                                 </a>
-                            ) : null}
-                        </div>
+                                {name ? <p className={"name-under-login-icon-navbar"}>{name}</p> : <p className={"name-under-login-icon-navbar"}>Me connecter</p>}
+                            </div>
+
+                            <div style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                cursor: "pointer"
+                            }} onClick={() => navigate('/panier')}>
+                                <div className="icon-header">
+                                    <div className={"div-icon-basket-navbar"}>
+                                        <FontAwesomeIcon
+                                            icon={faShoppingCart}
+                                            alt="Panier"
+                                            id="icone_panier"
+                                            size="2x"
+                                        />
+                                        {nbArticles > 0 ? (
+                                            <a>
+                                            </a>
+                                        ) : null}
+                                    </div>
+                                </div>
+                                <p className={"name-under-basket-icon-navbar"}>Panier</p>
+                            </div>
+                    </div>
                         {jwtToken &&
                             <ButtonDeconnect></ButtonDeconnect>
                         }
