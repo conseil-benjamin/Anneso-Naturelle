@@ -2,7 +2,7 @@ import "./Banner.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUserAlt} from "@fortawesome/free-solid-svg-icons";
+import {faShoppingCart, faUserAlt} from "@fortawesome/free-solid-svg-icons";
 import {faBars, faXmark, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
@@ -12,7 +12,7 @@ import {
 import Cookies from "js-cookie";
 import ButtonDeconnect from "../Button Deconnect/ButtonDeconnect";
 
-function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
+function Banner() {
     const [profilClique, setProfilClique] = useState(false);
     const nbArticles = JSON.parse(localStorage.getItem("nbArticles"));
     const cart = JSON.parse(localStorage.getItem("cart"));
@@ -26,6 +26,10 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
             localStorage.setItem("nbArticles", JSON.stringify(cart.length));
         }
     }, [cart]);
+
+    const clickNavBarItem = (direction) => {
+        navigate("/" + direction);
+    }
 
     const handleClickSocials = (redirection) => {
         redirection === "facebook"
@@ -112,15 +116,25 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
               />
             </span>
                     </div>
-                    <a href="/" className="lmj-title">
-                        Accueil
-                    </a>
-                    <Link to="/collections">{collection}</Link>
-                    {creationPersonalise}
-                    {aPropos}
-                    {contact}
+                    <p className={"lmj-title"} onClick={() => clickNavBarItem("")}>Accueil</p>
+                    <p className={"lmj-title"} onClick={() => clickNavBarItem("collections")}>
+                        Collections
+                    </p>
+                    <p className={"lmj-title"} onClick={() => clickNavBarItem("creations-personalisees")}>
+                        Créations Personnalisées
+                    </p>
+                    <p className={"lmj-title"} onClick={() => clickNavBarItem("apropos")}>
+                        A propos
+                    </p>
+                    <p className={"lmj-title"} onClick={() => clickNavBarItem("contact")}>
+                        Contact
+                    </p>
                     {/* TODO : Remettre tous les styles en scss */}
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", cursor: "pointer", margin: "0 0 0 5em"}} onClick={() => setProfilClique(true)}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center", cursor: "pointer", margin: "0 0 0 5em"}} onClick={() => setProfilClique(true)}>
                         <a id="icon-user-a">
                             <FontAwesomeIcon
                                 icon={faUserAlt}
@@ -133,9 +147,14 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
                     <div style={{display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center", cursor: "pointer"}} onClick={() => navigate('/panier')}>
                         <div className="icon-header">
                             <div style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                                {panier}
+                                <FontAwesomeIcon
+                                    icon={faShoppingCart}
+                                    alt="Panier"
+                                    id="icone_panier"
+                                    size="2x"
+                                />
                                 {nbArticles > 0 ? (
-                                    <a href="/panier">
+                                    <a>
                                         <span className="span-nb-articles">{nbArticles}</span>
                                     </a>
                                 ) : null}
@@ -172,16 +191,20 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
                     </span>
                         </div>
                         <div className={"div-mobile-liens-page-banner"}>
-                            <a href="/" className="lmj-title" onClick={() => setMobileMenuClique(false
-                            )}>
-                                Accueil
-                            </a>
-                            {collection}
-                            {creationPersonalise}
-                            {aPropos}
-                            {contact}
+                            <p className={"lmj-title"} onClick={() => {clickNavBarItem(""); setMobileMenuClique(false)}}>Accueil</p>
+                            <p className={"lmj-title"} onClick={() => clickNavBarItem("collections")}>
+                                Collections
+                            </p>
+                            <p className={"lmj-title"} onClick={() => clickNavBarItem("creations-personalisees")}>
+                                créations personnalisées
+                            </p>
+                            <p className={"lmj-title"} onClick={() => clickNavBarItem("apropos")}>
+                                A propos
+                            </p>
+                            <p className={"lmj-title"} onClick={() => clickNavBarItem("contact")}>
+                                Contact
+                            </p>
                         </div>
-
                         <div className="icon-header-mobile">
                             <a id="icon-user-a">
                                 <FontAwesomeIcon
@@ -190,9 +213,14 @@ function Banner({collection, aPropos, contact, panier, creationPersonalise}) {
                                     size="2x"
                                 />
                             </a>
-                            {panier}
                             {nbArticles > 0 ? (
-                                <a href="/panier">
+                                <a onClick={() => clickNavBarItem("panier")}>
+                                    <FontAwesomeIcon
+                                        icon={faShoppingCart}
+                                        alt="Panier"
+                                        id="icone_panier"
+                                        size="2x"
+                                    />
                                     <span className="span-nb-articles">{nbArticles}</span>
                                 </a>
                             ) : null}

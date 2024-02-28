@@ -20,14 +20,14 @@ function Panier({cart, updateCart}) {
     const [toast, setToast] = useState({icon: '', text: ''});
     const codePromoLocalStorage = localStorage.getItem("codePromoActif");
     const [reduc, setReduc] = useState(codePromoLocalStorage ? JSON.parse(codePromoLocalStorage) : []);
-    const [isDataLoading, setDataLoading] = useState(false);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     useEffect(() => {
         if (!jwtToken) {
             return;
         }
         const getBasketClientFromDatabase = async () => {
-            setDataLoading(true);
+            setIsDataLoaded(true);
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}panier`, {
                     method: "GET",
@@ -39,50 +39,58 @@ function Panier({cart, updateCart}) {
                 if (response.ok) {
                     const data = await response.json();
                     console.log("Panier du client " + data);
-                    setPanierBDD(data.contenuPanier);
-                    console.log("panierBDD", panierBDD);
+                    const panierBDD = data.contenuPanier;
                     localStorage.setItem("nbArticles", JSON.stringify(data.contenuPanier.length));
+
+                    const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
+                    console.log(JSON.parse(localStorage.getItem("basketConcated")) === true);
+                    if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
+                        setIsDataLoaded(false);
+                        return;
+                    }
+                    const newPanierUpdated = mergeAndRemoveDuplicates(panierLocalStorage, panierBDD);
+                    return new Promise(resolve => {
+                        setPanierUpdated(prevState => {
+                            const updatedState = [...prevState, ...newPanierUpdated];
+                            resolve(updatedState);
+                            return updatedState;
+                        });
+                    });
                 } else {
                     console.error("Panier non trouvé");
                 }
             } catch (error) {
                 console.error("Erreur de connexion au serveur:", error);
+            } finally {
+                setIsDataLoaded(false);
             }
         }
         getBasketClientFromDatabase().then(r => console.log(r));
     }, []);
 
-    useEffect(() => {
-        console.log("panierBDD", panierBDD);
-        if (panierBDD.length > 0 && jwtToken) {
-            const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
-            if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
-                return;
+    function mergeAndRemoveDuplicates(arr1, arr2) {
+        console.log("ddzadzaadadada");
+        const merged = [...arr1, ...arr2];
+        const result = [];
+        const map = new Map();
+
+        for (const item of merged) {
+            if(!map.has(item.idProduct)){
+                map.set(item.idProduct, true);
+                result.push(item);
             }
-            console.log("panierAvantUpdated", panierUpdated);
-            const newPanierUpdated = [...panierLocalStorage, ...panierBDD].filter((item, index, self) =>
-                    index === self.findIndex((t) => (
-                        t.idProduct === item.idProduct && t.name === item.name
-                    ))
-            )
-            setPanierUpdated(newPanierUpdated);
-            console.log("panierUpdated", panierUpdated);
         }
-        setDataLoading(false);
-    }, [panierBDD]);
+        return result;
+    }
 
-    useEffect(() => {
-        updateCart(panierUpdated);
-    }, [panierUpdated]);
-
+    /**
+     * ! Si basketConcated est à false aucun produit ne va s'afficher dans le panier
+     */
     useEffect(() => {
         console.log(panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false);
-        if (panierUpdated && jwtToken) {
-            console.log("panierUpdated : ", panierUpdated);
-            updateCart(panierUpdated);
-            localStorage.setItem("cart", JSON.stringify(panierUpdated));
+        if (panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false){
             const insertLocaleStorageProductInsideDatabase = async () => {
-                localStorage.setItem("bastekConcated", JSON.stringify(true));
+                localStorage.setItem("basketConcated", JSON.stringify(true));
                 try {
                     const response = await fetch(`${process.env.REACT_APP_API_URL}panier/insert-many-products`, {
                         method: "POST",
@@ -183,87 +191,89 @@ function Panier({cart, updateCart}) {
             {/* TODO: Toast s'affiche même quand on supprime le code promo*/}
             {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
             <div className="body-element-panier">
-                {isDataLoading ? <Loader></Loader> :
-                    cart.length > 0 ? (
-                        <>
-                            <div className="panier">
-                                <h3 id="title-panier">Mon panier</h3>
-                                <hr className="hr-custom"/>
-                                {cart.map((cartElement, index) => (
-                                    <CardPanier
-                                        key={`${cartElement.name}-${index}`}
-                                        idProduct={cartElement.idProduct}
-                                        cover={cartElement.cover}
-                                        name={cartElement.name}
-                                        price={cartElement.price}
-                                        amount={cartElement.amount}
-                                        index={index}
-                                        totalPanier={total}
-                                        setTotalPanier={setTotal}
-                                        cart={cart}
-                                        updateCart={updateCart}
-                                    />
-                                ))}
-                                <div className={"div-main-code-promo"}>
-                                    <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
-                                    >
+                {isDataLoaded ? (
+                    <Loader></Loader>
+                ) :
+                cart.length > 0 ? (
+                    <>
+                        <div className="panier">
+                            <h3 id="title-panier">Mon panier</h3>
+                            <hr className="hr-custom"/>
+                            {cart.map((cartElement, index) => (
+                                <CardPanier
+                                    key={`${cartElement.name}-${index}`}
+                                    idProduct={cartElement.idProduct}
+                                    cover={cartElement.cover}
+                                    name={cartElement.name}
+                                    price={cartElement.price}
+                                    amount={cartElement.amount}
+                                    index={index}
+                                    totalPanier={total}
+                                    setTotalPanier={setTotal}
+                                    cart={cart}
+                                    updateCart={updateCart}
+                                />
+                            ))}
+                            <div className={"div-main-code-promo"}>
+                                <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
+                                >
                 <span id="span-code-promo">
                   <FontAwesomeIcon
                       icon={faTag}
                   />
                     {"\u00A0"} Saisir un code promo
                 </span>
-                                    </div>
-                                    <div className={"div-code-promo-right"}>
-                                        {codePromoClique ? (
-                                            <>
-                                                <input
-                                                    style={{width: "40%", padding: "0.5em"}}
-                                                    onChange={(e) => setCodePromo(e.target.value)}
-                                                ></input>
-                                                <button
-                                                    style={{padding: "0.5em"}}
-                                                    onClick={() => setCodePromoAppliquer(true)}
-                                                >
-                                                    Appliquer
-                                                </button>
-                                            </>
-                                        ) : null}
-                                    </div>
                                 </div>
-                                { codePromoLocalStorage ?
-                                    <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                                        <p style={{backgroundColor: "#DCF5D3", color: "#287834", margin: "1em", padding: "0.3em"}}>Code promo
-                                            appliqué : {reduc.reductionValeurEntier} % de remise</p>
-                                        <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}} onClick={() => removeCodePromo()}></FontAwesomeIcon>
-                                    </div> : null
-                                }
-                            </div>
-                            <div className="panier-check-out">
-                                <h3>Résumé de la commande</h3>
-                                <hr/>
-                                <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
-                                    <p>Sous-total : {total} €</p>
-                                    {codePromoLocalStorage ? <p>au lieu de <del>{total / (1 - reduc.reduction)}</del> €</p> : null}
+                                <div className={"div-code-promo-right"}>
+                                    {codePromoClique ? (
+                                        <>
+                                            <input
+                                                style={{width: "40%", padding: "0.5em"}}
+                                                onChange={(e) => setCodePromo(e.target.value)}
+                                            ></input>
+                                            <button
+                                                style={{padding: "0.5em"}}
+                                                onClick={() => setCodePromoAppliquer(true)}
+                                            >
+                                                Appliquer
+                                            </button>
+                                        </>
+                                    ) : null}
                                 </div>
-                                <p>
-                                    Frais de livraison :{" "}
-                                    {total >= 50 ? <span>Offerts*</span> : "5 €"}
-                                </p>
-                                <hr/>
-                                <h2>Total : {total >= 50 ? total : total + 5} €</h2>
-                                <button>Passer commande</button>
-                                <p>
-                                    <FontAwesomeIcon icon={faLock}/>
-                                    {"\u00A0"} Paiement sécurisé
-                                </p>
                             </div>
-                        </>
-                    ) : (
-                        <div className="div-panier-vide">
-                            <h2>Votre panier est vide</h2>
+                            { codePromoLocalStorage ?
+                                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                    <p style={{backgroundColor: "#DCF5D3", color: "#287834", margin: "1em", padding: "0.3em"}}>Code promo
+                                        appliqué : {reduc.reductionValeurEntier} % de remise</p>
+                                    <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}} onClick={() => removeCodePromo()}></FontAwesomeIcon>
+                                </div> : null
+                            }
                         </div>
-                    )}
+                        <div className="panier-check-out">
+                            <h3>Résumé de la commande</h3>
+                            <hr/>
+                            <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
+                                <p>Sous-total : {total} €</p>
+                                {codePromoLocalStorage ? <p>au lieu de <del>{total / (1 - reduc.reduction)}</del> €</p> : null}
+                            </div>
+                            <p>
+                                Frais de livraison :{" "}
+                                {total >= 50 ? <span>Offerts*</span> : "5 €"}
+                            </p>
+                            <hr/>
+                            <h2>Total : {total >= 50 ? total : total + 5} €</h2>
+                            <button>Passer commande</button>
+                            <p>
+                                <FontAwesomeIcon icon={faLock}/>
+                                {"\u00A0"} Paiement sécurisé
+                            </p>
+                        </div>
+                    </>
+                ) : (
+                    <div className="div-panier-vide">
+                        <h2>Votre panier est vide</h2>
+                    </div>
+                )}
             </div>
         </>
     );
