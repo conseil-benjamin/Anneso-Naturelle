@@ -6,6 +6,7 @@ import {faLock, faTag, faXmark} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import Toast from "../../components/Toast/toast";
+import {Loader} from "../../utils/Loader";
 
 function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
@@ -19,12 +20,14 @@ function Panier({cart, updateCart}) {
     const [toast, setToast] = useState({icon: '', text: ''});
     const codePromoLocalStorage = localStorage.getItem("codePromoActif");
     const [reduc, setReduc] = useState(codePromoLocalStorage ? JSON.parse(codePromoLocalStorage) : []);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     useEffect(() => {
         if (!jwtToken) {
             return;
         }
         const getBasketClientFromDatabase = async () => {
+            setIsDataLoaded(true);
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}panier`, {
                     method: "GET",
@@ -36,49 +39,58 @@ function Panier({cart, updateCart}) {
                 if (response.ok) {
                     const data = await response.json();
                     console.log("Panier du client " + data);
-                    setPanierBDD(data.contenuPanier);
-                    console.log("panierBDD", panierBDD);
+                    const panierBDD = data.contenuPanier;
                     localStorage.setItem("nbArticles", JSON.stringify(data.contenuPanier.length));
+
+                    const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
+                    console.log(JSON.parse(localStorage.getItem("basketConcated")) === true);
+                    if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
+                        setIsDataLoaded(false);
+                        return;
+                    }
+                    const newPanierUpdated = mergeAndRemoveDuplicates(panierLocalStorage, panierBDD);
+                    return new Promise(resolve => {
+                        setPanierUpdated(prevState => {
+                            const updatedState = [...prevState, ...newPanierUpdated];
+                            resolve(updatedState);
+                            return updatedState;
+                        });
+                    });
                 } else {
                     console.error("Panier non trouvé");
                 }
             } catch (error) {
                 console.error("Erreur de connexion au serveur:", error);
+            } finally {
+                setIsDataLoaded(false);
             }
         }
         getBasketClientFromDatabase().then(r => console.log(r));
     }, []);
 
-    useEffect(() => {
-        console.log("panierBDD", panierBDD);
-        if (panierBDD.length > 0 && jwtToken) {
-            const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
-            if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
-                return;
+    function mergeAndRemoveDuplicates(arr1, arr2) {
+        console.log("ddzadzaadadada");
+        const merged = [...arr1, ...arr2];
+        const result = [];
+        const map = new Map();
+
+        for (const item of merged) {
+            if(!map.has(item.idProduct)){
+                map.set(item.idProduct, true);
+                result.push(item);
             }
-            console.log("panierAvantUpdated", panierUpdated);
-            const newPanierUpdated = [...panierLocalStorage, ...panierBDD].filter((item, index, self) =>
-                    index === self.findIndex((t) => (
-                        t.idProduct === item.idProduct && t.name === item.name
-                    ))
-            )
-            setPanierUpdated(newPanierUpdated);
-            console.log("panierUpdated", panierUpdated);
         }
-    }, [panierBDD]);
+        return result;
+    }
 
-    useEffect(() => {
-        updateCart(panierUpdated);
-    }, [panierUpdated]);
-
+    /**
+     * ! Si basketConcated est à false aucun produit ne va s'afficher dans le panier
+     */
     useEffect(() => {
         console.log(panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false);
-        if (panierUpdated && jwtToken) {
-            console.log("panierUpdated : ", panierUpdated);
-            updateCart(panierUpdated);
-            localStorage.setItem("cart", JSON.stringify(panierUpdated));
+        if (panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false){
             const insertLocaleStorageProductInsideDatabase = async () => {
-                localStorage.setItem("bastekConcated", JSON.stringify(true));
+                localStorage.setItem("basketConcated", JSON.stringify(true));
                 try {
                     const response = await fetch(`${process.env.REACT_APP_API_URL}panier/insert-many-products`, {
                         method: "POST",
@@ -115,39 +127,39 @@ function Panier({cart, updateCart}) {
         setTotal(newTotal);
     }, [cart, codePromoLocalStorage]);
 
-      useEffect(() => {
+    useEffect(() => {
         if (!codePromoAppliquer){
             return;
         }
-          const handleClickCodePromo = async () => {
-              try {
-                  const response = await fetch(`${process.env.REACT_APP_API_URL}codePromo/${codePromo}`, {
-                      method: "GET",
-                          headers: {
-                      "Content-Type": "application/json",
-                  },
-                  },
-              );
-                  if (response.ok){
-                      const reduction = await response.json();
-                      console.log(reduction)
-                      localStorage.setItem("codePromoActif", JSON.stringify(reduction));
-                      setCodePromoCorrecte(true);
-                  } else{
-                      Swal.fire({
-                          text: "Code promo non valide ou bien expiré.",
-                          icon: "error"
-                      })
-                  }
-              } catch (error) {
-                  console.log(error);
-              }
-              finally {
-                  setCodePromoAppliquer(false);
-              }
-          }
+        const handleClickCodePromo = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}codePromo/${codePromo}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    },
+                );
+                if (response.ok){
+                    const reduction = await response.json();
+                    console.log(reduction)
+                    localStorage.setItem("codePromoActif", JSON.stringify(reduction));
+                    setCodePromoCorrecte(true);
+                } else{
+                    Swal.fire({
+                        text: "Code promo non valide ou bien expiré.",
+                        icon: "error"
+                    })
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            finally {
+                setCodePromoAppliquer(false);
+            }
+        }
         handleClickCodePromo();
-     }, [codePromoAppliquer]);
+    }, [codePromoAppliquer]);
 
     useEffect(() => {
         if (!codePromoCorrecte){
@@ -179,7 +191,10 @@ function Panier({cart, updateCart}) {
             {/* TODO: Toast s'affiche même quand on supprime le code promo*/}
             {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
             <div className="body-element-panier">
-                {cart.length > 0 ? (
+                {isDataLoaded ? (
+                    <Loader></Loader>
+                ) :
+                cart.length > 0 ? (
                     <>
                         <div className="panier">
                             <h3 id="title-panier">Mon panier</h3>

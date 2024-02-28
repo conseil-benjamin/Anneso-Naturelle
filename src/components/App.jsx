@@ -44,54 +44,7 @@ function App() {
     return (
         <Router>
             <div>
-                <Banner
-                    logo={
-                        <img
-                            src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1703114666/logo1.png"
-                            alt="logo"
-                            className="lmj-logo"
-                        />
-                    }
-                    collection={
-                        <a
-                            href="/collections"
-                            className="lmj-title"
-                        >
-                            Collections
-                        </a>
-                    }
-                    creationPersonalise={
-                        <a href="#" className="lmj-title">
-                            Creation Personalisé
-                        </a>
-                    }
-                    aPropos={
-                        <a
-                            href="/apropos"
-                            className="lmj-title"
-                        >
-                            A propos de moi
-                        </a>
-                    }
-                    contact={
-                        <a
-                            href="/contact"
-                            className="lmj-title"
-                        >
-                            Contact
-                        </a>
-                    }
-                    panier={
-                        <a href="/panier">
-                            <FontAwesomeIcon
-                                icon={faShoppingCart}
-                                alt="Panier"
-                                id="icone_panier"
-                                size="2x"
-                            />
-                        </a>
-                    }
-                />
+                <Banner/>
                 <div className="lmj-layout-inner">
                     <Routes>
                         <Route exact path="/" element={<Home/>}/>{" "}

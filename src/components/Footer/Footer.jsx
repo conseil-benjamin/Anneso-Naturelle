@@ -42,13 +42,13 @@ function Footer() {
           </button>
           <p id="titre-footer">© 2024 - Anne-Shopie</p>
           <div className="div-lien-juridique">
-            <a href="/mentions-legales" style={{ color: "#B23C00" }}>
+            <a href="/mentions-legales" style={{ color: "#fff" }}>
               Mentions Légales -{" "}
             </a>
-            <a href="/conditions-utilisations" style={{ color: "#B23C00" }}>
+            <a href="/conditions-utilisations" style={{ color: "#fff" }}>
               Conditions d'Utilisation -
             </a>
-            <a href="/conditions-generales" style={{ color: "#B23C00" }}>
+            <a href="/conditions-generales" style={{ color: "#fff" }}>
               Conditions Générales
             </a>
           </div>
