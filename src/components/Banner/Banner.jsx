@@ -46,7 +46,6 @@ function Banner() {
     };
 
     useEffect(() => {
-        console.log("profilClique", profilClique);
         if (jwtToken && profilClique) {
             const fetchData = async () => {
                 try {
