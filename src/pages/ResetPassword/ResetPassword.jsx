@@ -90,10 +90,11 @@ function ResetPassword() {
                         icon: 'success',
                         title: 'Mot de passe réinitialisé',
                         text: 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.',
+                    }).then((result) => {
+                        if (result.isConfirmed || result.isDismissed) {
+                            window.location.href = "/auth/login";
+                        }
                     })
-                    setTimeout(() => {
-                        window.location.href = "/auth/login";
-                    }, 4000)
                 } else {
                     Swal.fire({
                         icon: 'error',

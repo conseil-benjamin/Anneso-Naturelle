@@ -135,13 +135,10 @@ function DetailsAdresses() {
         }
     };
 
-  // TODO : Afficher les erreurs dans le formulaire
   useEffect(() => {
     setValueInput();
   }, []);
 
-  // TODO : Faire une vérification du formulaire avant d'enregistrer les changements
-  // TODO : Mettre un setHasChanged pour activer le bouton d'enregistrement
   useEffect(() => {
       if(!btnUpdateAdresseClique){
         return;

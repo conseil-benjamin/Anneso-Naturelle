@@ -1,0 +1,11 @@
+fix: corrige un bug dans la fonctionnalité A : Utilisez fix: lorsque vous apportez un correctif à un bug.
+
+feat: ajoute une nouvelle fonctionnalité A : Utilisez feat: lorsque vous ajoutez une nouvelle fonctionnalité.
+
+docs: met à jour la documentation de la fonctionnalité A : Utilisez docs: lorsque vous mettez à jour la documentation.
+
+style: corrige le formatage de A : Utilisez style: lorsque vous apportez des modifications qui n'affectent pas le sens du code (espaces blancs, formatage, etc.).
+
+refactor: réorganise le code de la fonctionnalité A : Utilisez refactor: lorsque vous réorganisez le code sans modifier son comportement.
+
+test: ajoute des tests pour la fonctionnalité A : Utilisez test: lorsque vous ajoutez des tests.
