@@ -49,6 +49,33 @@ html {
   overflow-x: hidden;
 }
 
+.div-input-register {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.4em 0;
+}
+.div-input-register .div-error-message-register {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.9em;
+  margin: 0.5em 0 0 0;
+  align-items: center;
+}
+.div-input-register .div-error-message-register #icon-infos-error {
+  margin: 0 0.5em 0 0;
+  color: red;
+}
+.div-input-register .div-password {
+  position: relative;
+}
+.div-input-register .div-password #icon-eye-see-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .body-element-register {
   padding: 2em 0 0 0;
   display: flex;
@@ -56,31 +83,6 @@ html {
   align-items: center;
   justify-content: center;
   background-color: #f2f0ec;
-}
-.body-element-register .div-input-register {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 0.4em 0;
-}
-.body-element-register .div-input-register .div-error-message-register {
-  display: flex;
-  flex-direction: row;
-  font-size: 0.9em;
-  margin: 0.5em 0 0 0;
-}
-.body-element-register .div-input-register .div-error-message-register #icon-infos-error {
-  margin: 0 0.5em 0 0;
-  color: red;
-}
-.body-element-register .div-input-register .div-password {
-  position: relative;
-}
-.body-element-register .div-input-register .div-password #icon-eye-see-password {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
 }
 .body-element-register p {
   padding: 0;

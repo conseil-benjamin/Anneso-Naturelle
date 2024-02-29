@@ -8,6 +8,29 @@
     cursor: pointer;
 }
 
+.div-input-register{
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.40em 0;
+  .div-error-message-register{
+    display: flex;
+    flex-direction: row;
+    font-size: 0.9em;
+    margin: 0.5em 0 0 0;
+    align-items: center;
+    #icon-infos-error{
+      margin: 0 0.5em 0 0;
+      color: red;
+    }
+  }
+  .div-password{
+    position: relative;
+    #icon-eye-see-password{
+      @include positioningEyeIcon();
+    }
+  }
+}
+
 .body-element-register {
   padding: 2em 0 0 0;
   display: flex;
@@ -15,27 +38,6 @@
   align-items: center;
   justify-content: center;
   background-color: $background-color;
-  .div-input-register{
-    display: flex;
-    flex-direction: column;
-    margin: 0 0 0.40em 0;
-    .div-error-message-register{
-      display: flex;
-      flex-direction: row;
-      font-size: 0.9em;
-      margin: 0.5em 0 0 0;
-      #icon-infos-error{
-        margin: 0 0.5em 0 0;
-        color: red;
-      }
-    }
-    .div-password{
-      position: relative;
-      #icon-eye-see-password{
-        @include positioningEyeIcon();
-      }
-    }
-  }
   p{
     padding: 0;
     margin: 0 0 0.5em 0;
