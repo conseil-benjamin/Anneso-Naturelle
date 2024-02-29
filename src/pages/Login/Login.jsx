@@ -161,8 +161,8 @@ function Login() {
           <>
             <div className={"div-login-left"}>
               <div className={"div-connexion"}>
-                <h2>Bon retour,</h2>
-                <label>Email</label>
+                <h2 style={{textAlign: "center"}}>Content de vous revoir</h2>
+                <label style={{margin: "1em 0 0 0"}}>Email</label>
                 <input
                     className="input-login"
                     placeholder="Adresse Email"
@@ -221,7 +221,7 @@ function Login() {
             </div>
             <div className={"div-login-right"}>
               <img
-                  src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709154463/Page%20Login/login.jpg"}></img>
+                  src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709209172/Page%20Login/sebastien.png"}></img>
             </div>
           </>
       )}

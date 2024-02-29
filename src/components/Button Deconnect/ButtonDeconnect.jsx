@@ -10,14 +10,13 @@ function ButtonDeconnect() {
 
     function deconnect() {
         localStorage.setItem("cart", JSON.stringify([]));
+        console.log(JSON.parse(localStorage.getItem("cart")));
         Cookies.remove("auth_token");
         Cookies.remove("name");
         localStorage.setItem("nbArticles", 0);
         localStorage.setItem("basketConcated", false);
         localStorage.setItem("total", 0);
         localStorage.setItem("nbElement", 0);
-
-        // Use a timeout to ensure that the state is updated before navigating
         setTimeout(() => {
             navigate("/");
         }, 0);

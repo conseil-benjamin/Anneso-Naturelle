@@ -383,7 +383,6 @@ function Register() {
         }
       <div className="div-text-login">
         <span>Déjà un compte ?</span>
-          {/*TODO : Mettre un navigate au lieu d'un href */}
         <span className="bold-text" onClick={() => navigate("/auth/login")} style={{cursor: "pointer"}}>
           Connectez-vous
         </span>

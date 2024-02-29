@@ -172,7 +172,7 @@ function DetailsCommande() {
                     </div>
                     <div className={"div-prix-details-commande"}>
                         <p><b>Total commande TTC :</b></p>
-                        <p id={"prix-total-details-commande"}>{commande.prixTotal} €</p>
+                        <p id={"prix-total-details-commande"}>{commande.prixTotal + commande.fraisLivraison} €</p>
                     </div>
                 </div>}
             </div>

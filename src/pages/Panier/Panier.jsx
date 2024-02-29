@@ -13,7 +13,6 @@ function Panier({cart, updateCart}) {
     const [codePromoClique, setCodePromoClique] = useState(false);
     const [codePromo, setCodePromo] = useState("");
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
-    const [panierBDD, setPanierBDD] = useState([]);
     const [panierUpdated, setPanierUpdated] = useState([]);
     const jwtToken = Cookies.get("auth_token");
     const [codePromoCorrecte, setCodePromoCorrecte] = useState(false);
@@ -21,6 +20,7 @@ function Panier({cart, updateCart}) {
     const codePromoLocalStorage = localStorage.getItem("codePromoActif");
     const [reduc, setReduc] = useState(codePromoLocalStorage ? JSON.parse(codePromoLocalStorage) : []);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     useEffect(() => {
         if (!jwtToken) {
@@ -40,18 +40,13 @@ function Panier({cart, updateCart}) {
                     const data = await response.json();
                     console.log("Panier du client " + data);
                     const panierBDD = data.contenuPanier;
-                    localStorage.setItem("nbArticles", JSON.stringify(data.contenuPanier.length));
+                    console.log("dzqqqqqqqqqqqqqqqqqqqqqq" + JSON.stringify(panierBDD));
 
                     const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
                     console.log(JSON.parse(localStorage.getItem("basketConcated")) === true);
-                    if (JSON.parse(localStorage.getItem("basketConcated")) === true) {
-                        setIsDataLoaded(false);
-                        return;
-                    }
-                    const newPanierUpdated = mergeAndRemoveDuplicates(panierLocalStorage, panierBDD);
                     return new Promise(resolve => {
                         setPanierUpdated(prevState => {
-                            const updatedState = [...prevState, ...newPanierUpdated];
+                            const updatedState = panierLocalStorage;
                             resolve(updatedState);
                             return updatedState;
                         });
@@ -63,55 +58,47 @@ function Panier({cart, updateCart}) {
                 console.error("Erreur de connexion au serveur:", error);
             } finally {
                 setIsDataLoaded(false);
+                setIsDataFetched(true);
             }
         }
         getBasketClientFromDatabase().then(r => console.log(r));
     }, []);
 
-    function mergeAndRemoveDuplicates(arr1, arr2) {
-        console.log("ddzadzaadadada");
-        const merged = [...arr1, ...arr2];
-        const result = [];
-        const map = new Map();
-
-        for (const item of merged) {
-            if(!map.has(item.idProduct)){
-                map.set(item.idProduct, true);
-                result.push(item);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * ! Si basketConcated est à false aucun produit ne va s'afficher dans le panier
-     */
     useEffect(() => {
-        console.log(panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false);
-        if (panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false){
-            const insertLocaleStorageProductInsideDatabase = async () => {
-                localStorage.setItem("basketConcated", JSON.stringify(true));
-                try {
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}panier/insert-many-products`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${jwtToken}`
-                        },
-                        body: JSON.stringify({panierUpdated})
-                    });
-                    if (response.ok) {
-                        console.log("Panier inséré dans la base de données");
-                    } else {
-                        console.error("Panier non trouvé");
+        if (isDataFetched) {
+            console.log(panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false);
+            console.log(panierUpdated);
+            if (panierUpdated && jwtToken && JSON.parse(localStorage.getItem("basketConcated")) === false) {
+                const insertLocaleStorageProductInsideDatabase = async () => {
+                    localStorage.setItem("basketConcated", JSON.stringify(true));
+                    try {
+                        const response = await fetch(`${process.env.REACT_APP_API_URL}panier/insert-many-products`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${jwtToken}`
+                            },
+                            body: JSON.stringify({ panierUpdated })
+                        });
+                        if (response.ok) {
+                            console.log("Panier inséré dans la base de données");
+                            const data = await response.json();
+                            updateCart(data.contenuPanier);
+                            localStorage.setItem("nbArticles", JSON.stringify(data.contenuPanier.length));
+                        } else {
+                            console.error("Panier non trouvé");
+                        }
+                    } catch (error) {
+                        console.error("Erreur de connexion au serveur:", error);
                     }
-                } catch (error) {
-                    console.error("Erreur de connexion au serveur:", error);
+                    finally {
+                        setIsDataFetched(false);
+                    }
                 }
+                insertLocaleStorageProductInsideDatabase().then(r => console.log(r));
             }
-            insertLocaleStorageProductInsideDatabase().then(r => console.log(r));
         }
-    }, [panierUpdated]);
+    }, [panierUpdated, isDataFetched]);
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -175,6 +162,7 @@ function Panier({cart, updateCart}) {
         localStorage.removeItem("codePromoActif");
         setReduc([]);
         setCodePromoCorrecte(false);
+        setToast({icon: '', text: ''});
     }
 
     useEffect(() => {
