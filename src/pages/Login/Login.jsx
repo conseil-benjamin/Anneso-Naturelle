@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Loader } from "../../utils/Loader";
 import Cookies from "js-cookie";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 
 function Login() {
   const [inputType, setInputType] = useState("password");
@@ -158,51 +159,69 @@ function Login() {
         </div>
       ) : (
           <>
-            <h1>Connexion</h1>
-            <input
-                className="input-login"
-                placeholder="Adresse Email"
-                value={email}
-                onChange={(e) => setemail(e.target.value)}
-            ></input>
-            <div className="div-password">
-              <input
-                  className="input-login"
-                  type={inputType}
-                  value={password}
-                  placeholder="Mot de passe"
-                  onChange={(e) => setPassword(e.target.value)}
-                  onKeyUp={(e) => handleKeyPress(e)}
-              />
-              {inputType === "password" ? (
-                  <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"}
-                                   onClick={togglePasswordVisibility}></FontAwesomeIcon>
-              ) : (
-                  <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"}
-                                   onClick={togglePasswordVisibility}></FontAwesomeIcon>
-              )}
+            <div className={"div-login-left"}>
+              <div className={"div-connexion"}>
+                <h2 style={{textAlign: "center"}}>Content de vous revoir</h2>
+                <label style={{margin: "1em 0 0 0"}}>Email</label>
+                <input
+                    className="input-login"
+                    placeholder="Adresse Email"
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
+                ></input>
+                <label>Mot de passe</label>
+                <div className="div-password">
+                  <input
+                      className="input-login"
+                      type={inputType}
+                      value={password}
+                      placeholder="Mot de passe"
+                      onChange={(e) => setPassword(e.target.value)}
+                      onKeyUp={(e) => handleKeyPress(e)}
+                  />
+                  {inputType === "password" ? (
+                      <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"}
+                                       onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                  ) : (
+                      <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"}
+                                       onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                  )}
+                </div>
+                <div style={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
+                  {isDataLoading ? <Loader/> : <p onClick={() => setMdpOublie(true)} style={{fontSize: "0.89em"}}>Mot de passe oublié ?</p>}
+                </div>
+                <button
+                    className="btn-login"
+                    onClick={() => setBtnCliquer(true)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        setBtnCliquer(true);
+                      }
+                    }}
+                >
+                  Se connecter
+                  <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn"/>
+                </button>
+              </div>
+              <div style={{display: "flex", flexDirection: "row", alignItems: "center", margin: "0.5em 0 0 0"}}>
+                <hr style={{flexGrow: 1, width: '8.5em', height: "1px"}}/>
+                <span style={{margin: '0 10px'}}>Ou</span>
+                <hr style={{flexGrow: 1, width: '8.5em', height: "1px"}}/>
+              </div>
+              <button className={"btn-google-login"}>
+                <img src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709155978/Page%20Login/google.jpg"} alt={"icone google"}/>
+                Connexion avec Google
+              </button>
+              <div className="div-text-bold">
+                <p>Première visite ?</p>
+                <p className="bold-text" onClick={() => navigate("/auth/register")} style={{cursor: "pointer"}}>
+                  Inscrivez-vous
+                </p>
+              </div>
             </div>
-
-            <button
-                className="btn-login"
-                onClick={() => setBtnCliquer(true)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    setBtnCliquer(true);
-                  }
-                }}
-            >
-              Se connecter
-              <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn"/>
-            </button>
-            <div>
-              {isDataLoading ? <Loader/> : <p onClick={() => setMdpOublie(true)}><b>Mot de passe oublié ?</b></p>}
-            </div>
-            <div className="div-text-bold">
-              <p>Première visite ?</p>
-              <a href="/auth/register" className="bold-text">
-                Inscrivez-vous
-              </a>
+            <div className={"div-login-right"}>
+              <img
+                  src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709209172/Page%20Login/sebastien.png"}></img>
             </div>
           </>
       )}

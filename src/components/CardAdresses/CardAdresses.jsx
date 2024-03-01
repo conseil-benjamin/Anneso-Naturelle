@@ -74,7 +74,7 @@ function CardAdressses({
               console.log("Adresse supprimée");
               setAdresses(adresses);
               Swal.fire({
-                text: "Produit supprimé des favoris avec succès !",
+                text: "Adresse supprimé avec succès.",
                 toast: true,
                 showConfirmButton: false,
                 background: "#fff",

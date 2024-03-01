@@ -65,12 +65,14 @@ html {
 }
 .body-page-contact .input-contact > input {
   padding: 0.8em;
+  border: 2px solid #909091;
   width: 30em;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 0 0 2em 0;
 }
 .body-page-contact textarea {
-  border-radius: 10px;
+  border: 2px solid #909091;
+  border-radius: 5px;
   height: 25vh;
   padding: 0.5em;
   font-family: "Helvetica Neue";

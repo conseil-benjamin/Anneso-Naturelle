@@ -70,7 +70,7 @@ function Register() {
   }
 
     const handleOnblurTel = () => {
-        if (!validator.isMobilePhone(numeroTelValue)) {
+        if (!validator.isMobilePhone(numeroTelValue) && numeroTelValue.length !== 10) {
             setErreurInputTel("Format numéro de téléphone incorrecte");
         } else {
             setErreurInputTel(null)
@@ -135,9 +135,10 @@ function Register() {
     return uniqueId;
   };
 
+
     /**
-     * TODO : A finir pour afficher une popup au cas ou l'email serait déjà utilisé.
-     * @returns {Promise<boolean>}
+     * * Check if a client with this email already exists
+     * @returns {Promise<boolean>} - True if a client with this email already exists, false otherwise
      */
   const isClientWithThisEmail = async () => {
     try {
@@ -145,14 +146,7 @@ function Register() {
           `${process.env.REACT_APP_API_URL}users/${email}`
       );
       const user = await response.json();
-      if (!user.ok){
-          Swal.fire({
-              text: "Adresse email déjà associé à un compte. Connectez-vous, ou réinitialiser votre mot de passe.",
-              icon: "error",
-              confirmButtonText: "Ok",
-          });
-      }
-      return user.length <= 0;
+      return user.length > 0;
     } catch (error) {
       console.error(error);
     }
@@ -160,7 +154,8 @@ function Register() {
 
   const handleClickRegister = async () => {
     if (checkFormValidity()) {
-        if (!await isClientWithThisEmail()) {
+        const emailNoneAlreadyUse = await isClientWithThisEmail();
+        if (emailNoneAlreadyUse) {
             const newId = generateUniqueId();
             const user = {
                 id: newId,
@@ -218,6 +213,10 @@ function Register() {
                 text: "Adresse email déjà associé à un compte. Connectez-vous, ou réinitialiser votre mot de passe.",
                 icon: "error",
                 confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/auth/login");
+                }
             });
         }
     } else{
@@ -237,7 +236,6 @@ function Register() {
         !prenomValue.length > 0 ? setErreurInputFirstName("Prénom non renseigné") : setErreurInputFirstName(null);
         !nomValue.length > 0 ? setErreurInputName("Nom non renseigné") : setErreurInputName(null);
     }
-    //navigate("/profil/infos-persos");
   };
 
   return (
@@ -250,7 +248,7 @@ function Register() {
             value={nomValue}
             onBlur={handleOnblurName}
             onChange={(e) => setNomValue(e.target.value)}
-            style={erreurInputName ? {borderColor: "red"} : {borderColor: "black"}}
+            style={erreurInputName ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
         ></input>
             {erreurInputName && nomValue <= 0 &&
                 <div className={"div-error-message-register"}>
@@ -267,7 +265,7 @@ function Register() {
         value={prenomValue}
         onBlur={handleOnblurFirstName}
         onChange={(e) => setPrenomValue(e.target.value)}
-        style={erreurInputFirstName ? {borderColor: "red"} : {borderColor: "black"}}
+        style={erreurInputFirstName ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
       ></input>
         {erreurInputFirstName && prenomValue <= 0 &&
             <div className={"div-error-message-register"}>
@@ -284,7 +282,7 @@ function Register() {
         value={numeroTelValue}
         onBlur={handleOnblurTel}
         onChange={(e) => setNumeroTelValue(e.target.value)}
-        style={erreurInputTel ? {borderColor: "red"} : {borderColor: "black"}}
+        style={erreurInputTel ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
       ></input>
         {erreurInputTel && !numeroTelVerif(numeroTelValue) &&
             <div className={"div-error-message-register"}>
@@ -301,7 +299,7 @@ function Register() {
         value={email}
         onBlur={handleOnblurEmail}
         onChange={(e) => setemail(e.target.value)}
-        style={erreurInputEmail ? {borderColor: "red"} : {borderColor: "black"}}
+        style={erreurInputEmail ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
       ></input>
         {erreurInputEmail && !emailVerif(email) &&
             <div className={"div-error-message-register"}>
@@ -318,7 +316,7 @@ function Register() {
                     value={password}
                     onBlur={handleOnblurPassword}
                     onChange={(e) => setpassword(e.target.value)}
-                    style={erreurInputPassword ? {borderColor: "red"} : {borderColor: "black"}}
+                    style={erreurInputPassword ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
                 />
                 {inputType === "password" ? (
                     <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
@@ -342,7 +340,7 @@ function Register() {
                 value={confPassword}
                 onBlur={handleOnblurConfPassword}
                 onChange={(e) => setconfPassword(e.target.value)}
-                style={erreurInputPasswordConf ? {borderColor: "red"} : {borderColor: "black"}}
+                style={erreurInputPasswordConf ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
             />
             {erreurInputPasswordConf && !confirmPasswordVerif(confPassword) &&
                 <div className={"div-error-message-register"}>
@@ -379,15 +377,15 @@ function Register() {
         {isDataLoading ?
         <Loader></Loader> :
       <button className="btn-login" onClick={() => handleClickRegister()}>
-        Créer un compte
+        Créer mon compte
         <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn" />
       </button>
         }
       <div className="div-text-login">
         <span>Déjà un compte ?</span>
-        <a href="/auth/login" className="bold-text">
+        <span className="bold-text" onClick={() => navigate("/auth/login")} style={{cursor: "pointer"}}>
           Connectez-vous
-        </a>
+        </span>
       </div>
     </div>
   );

@@ -46,7 +46,6 @@ function Banner() {
     };
 
     useEffect(() => {
-        console.log("profilClique", profilClique);
         if (jwtToken && profilClique) {
             const fetchData = async () => {
                 try {
@@ -132,7 +131,6 @@ function Banner() {
                     <p className={"lmj-title"} onClick={() => clickNavBarItem("contact")}>
                         Contact
                     </p>
-                    {/* TODO : Remettre tous les styles en scss */}
                     <div className={"div-icon-login-navbar"} onClick={() => setProfilClique(true)}>
                         <a id="icon-user-a">
                             <FontAwesomeIcon

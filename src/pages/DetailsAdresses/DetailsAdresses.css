@@ -1,3 +1,59 @@
+.div-input-register {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.4em 0;
+}
+.div-input-register .div-error-message-register {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.9em;
+  margin: 0.5em 0 0 0;
+  align-items: center;
+}
+.div-input-register .div-error-message-register #icon-infos-error {
+  margin: 0 0.5em 0 0;
+  color: red;
+}
+.div-input-register .div-password {
+  position: relative;
+}
+.div-input-register .div-password #icon-eye-see-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.body-element-register {
+  padding: 2em 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f0ec;
+}
+.body-element-register p {
+  padding: 0;
+  margin: 0 0 0.5em 0;
+}
+.body-element-register input {
+  margin: 0;
+}
+.body-element-register .btn-genre {
+  padding: 0.7em;
+  width: auto;
+  margin: 1em 1em 2em 0;
+}
+.body-element-register .div-text-login {
+  margin: 0 0 2em 0;
+}
+.body-element-register .div-label-register {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+}
+
 .div-main-details-adresse {
   display: flex;
   flex-direction: row;
