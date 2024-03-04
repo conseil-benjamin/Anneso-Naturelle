@@ -42,6 +42,24 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    .div-liens-pc{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      margin: 0;
+      .lmj-title::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 4px;
+        background-color: #4C6945;
+        transition: width 0.3s ease-in-out;
+      }
+      .lmj-title:hover::after {
+        width: 100%;
+      }
+    }
     @media (max-width: 900px) {
       display: none;
     }

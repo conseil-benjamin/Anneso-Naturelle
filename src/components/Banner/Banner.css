@@ -45,6 +45,24 @@
   align-items: center;
   justify-content: center;
 }
+.lmj-banner .second-barre-banner .div-liens-pc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 0;
+}
+.lmj-banner .second-barre-banner .div-liens-pc .lmj-title::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 4px;
+  background-color: #4C6945;
+  transition: width 0.3s ease-in-out;
+}
+.lmj-banner .second-barre-banner .div-liens-pc .lmj-title:hover::after {
+  width: 100%;
+}
 @media (max-width: 900px) {
   .lmj-banner .second-barre-banner {
     display: none;

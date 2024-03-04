@@ -118,19 +118,21 @@ function Banner() {
               />
             </span>
                     </div>
-                    <p className={"lmj-title"} onClick={() => clickNavBarItem("")}>Accueil</p>
-                    <p className={"lmj-title"} onClick={() => clickNavBarItem("collections")}>
-                        Collections
-                    </p>
-                    <p className={"lmj-title"} onClick={() => clickNavBarItem("creations-personalisees")}>
-                        Créations Personnalisées
-                    </p>
-                    <p className={"lmj-title"} onClick={() => clickNavBarItem("apropos")}>
-                        A propos
-                    </p>
-                    <p className={"lmj-title"} onClick={() => clickNavBarItem("contact")}>
-                        Contact
-                    </p>
+                    <div className={"div-liens-pc"}>
+                        <p className={"lmj-title"} onClick={() => clickNavBarItem("")}>Accueil</p>
+                        <p className={"lmj-title"} onClick={() => clickNavBarItem("collections")}>
+                            Collections
+                        </p>
+                        <p className={"lmj-title"} onClick={() => clickNavBarItem("creations-personalisees")}>
+                            Créations Personnalisées
+                        </p>
+                        <p className={"lmj-title"} onClick={() => clickNavBarItem("apropos")}>
+                            A propos
+                        </p>
+                        <p className={"lmj-title"} onClick={() => clickNavBarItem("contact")}>
+                            Contact
+                        </p>
+                    </div>
                     <div className={"div-icon-login-navbar"} onClick={() => setProfilClique(true)}>
                         <a id="icon-user-a">
                             <FontAwesomeIcon
@@ -138,10 +140,17 @@ function Banner() {
                                 size="2x"
                             />
                         </a>
-                        {name ? <p className={"name-under-login-icon-navbar"}>{name}</p> : <p className={"name-under-login-icon-navbar"}>Me connecter</p>}
+                        {name ? <p className={"name-under-login-icon-navbar"}>{name}</p> :
+                            <p className={"name-under-login-icon-navbar"}>Me connecter</p>}
                     </div>
 
-                    <div style={{display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center", cursor: "pointer"}} onClick={() => navigate('/panier')}>
+                    <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        cursor: "pointer"
+                    }} onClick={() => navigate('/panier')}>
                         <div className="icon-header">
                             <div className={"div-icon-basket-navbar"}>
                                 <FontAwesomeIcon
