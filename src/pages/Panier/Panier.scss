@@ -23,6 +23,11 @@
     button{
       width: 100%;
     }
+    .div-summary-command{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
   .div-1-element-panier {
     display: flex;

@@ -317,40 +317,42 @@ function Profil() {
           </div>
         </div>
         <div className="div-change-password">
-          <h2>Modifier mon mot de passe</h2>
-          <div className={"div-password"}>
+          <div style={{display: "flex", flexDirection: "column"}}>
+            <h2>Modifier mon mot de passe</h2>
+            <div className={"div-password"}>
+              <input
+                  className="input-login"
+                  value={password}
+                  type={inputType}
+                  placeholder="Mot de passe actuel"
+                  onChange={(e) => setPassword(e.target.value)}
+              />
+              {inputType === "password" ? (
+                  <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"}
+                                   onClick={togglePasswordVisibility}></FontAwesomeIcon>
+              ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"}
+                                   onClick={togglePasswordVisibility}></FontAwesomeIcon>
+              )}
+            </div>
             <input
                 className="input-login"
-                value={password}
+                value={newPassword}
                 type={inputType}
-                placeholder="Mot de passe actuel"
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Nouveau mot de passe"
+                onChange={(e) => setNewPassword(e.target.value)}
             />
-            {inputType === "password" ? (
-                <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"}
-                                 onClick={togglePasswordVisibility}></FontAwesomeIcon>
-            ) : (
-                <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"}
-                                 onClick={togglePasswordVisibility}></FontAwesomeIcon>
-            )}
+            <input
+                className="input-login"
+                value={confirmNewPassword}
+                type={inputType}
+                placeholder="Confirmer nouveau mot de passe"
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
+            />
+            {isDataLoading ? <Loader></Loader> :
+                <button onClick={() => setBtnResetPassword(true)}>Confirmer changement mot de passe</button>
+            }
           </div>
-          <input
-            className="input-login"
-            value={newPassword}
-            type={inputType}
-            placeholder="Nouveau mot de passe"
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <input
-            className="input-login"
-            value={confirmNewPassword}
-            type={inputType}
-            placeholder="Confirmer nouveau mot de passe"
-            onChange={(e) => setConfirmNewPassword(e.target.value)}
-          />
-          {isDataLoading ? <Loader></Loader> :
-              <button onClick={() => setBtnResetPassword(true)}>Confirmer changement mot de passe</button>
-          }
         </div>
       </div>
     </>

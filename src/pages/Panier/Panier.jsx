@@ -10,6 +10,7 @@ import {Loader} from "../../utils/Loader";
 
 function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
+    let [totalWithReduction, setotalWithReduction] = useState(0);
     const [codePromoClique, setCodePromoClique] = useState(false);
     const [codePromo, setCodePromo] = useState("");
     const [codePromoAppliquer, setCodePromoAppliquer] = useState(false);
@@ -40,8 +41,6 @@ function Panier({cart, updateCart}) {
                     const data = await response.json();
                     console.log("Panier du client " + data);
                     const panierBDD = data.contenuPanier;
-                    console.log("dzqqqqqqqqqqqqqqqqqqqqqq" + JSON.stringify(panierBDD));
-
                     const panierLocalStorage = JSON.parse(localStorage.getItem("cart"));
                     console.log(JSON.parse(localStorage.getItem("basketConcated")) === true);
                     return new Promise(resolve => {
@@ -108,9 +107,8 @@ function Panier({cart, updateCart}) {
         );
         const reduc = JSON.parse(localStorage.getItem("codePromoActif"));
         if (reduc){
-            newTotal = newTotal - reduc.reduction * newTotal;
+            setotalWithReduction(newTotal - reduc.reduction * newTotal);
         }
-        console.log(newTotal)
         setTotal(newTotal);
     }, [cart, codePromoLocalStorage]);
 
@@ -173,6 +171,11 @@ function Panier({cart, updateCart}) {
             setReduc([]);
         }
     }, [codePromoLocalStorage]);
+
+    useEffect(() => {
+        const newTotal = (total >= 50 && reduc.reduction ? total * (1 - reduc.reduction) : total < 50 && reduc.reduction ? total * (1 - reduc.reduction) + 5 : total < 50 ? total + 5 : total);
+        setotalWithReduction(newTotal);
+    }, [total, reduc]);
 
     return (
         <>
@@ -240,16 +243,24 @@ function Panier({cart, updateCart}) {
                         <div className="panier-check-out">
                             <h3>Résumé de la commande</h3>
                             <hr/>
-                            <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
-                                <p>Sous-total : {total} €</p>
-                                {codePromoLocalStorage ? <p>au lieu de <del>{total / (1 - reduc.reduction)}</del> €</p> : null}
+                            <div className={"div-summary-command"}>
+                                <p>Sous-total</p>
+                                <p>{total} €</p>
                             </div>
-                            <p>
-                                Frais de livraison :{" "}
-                                {total >= 50 ? <span>Offerts*</span> : "5 €"}
-                            </p>
+                            <div className={"div-summary-command"}>
+                                {codePromoLocalStorage ? <p>Promotion</p> : null}
+                                {codePromoLocalStorage ? <p style={{color: "#008000"}}>-{(total * reduc.reduction).toFixed(2)} €</p> : null}
+                            </div>
+                            <div className={"div-summary-command"}>
+                                <p>Frais de livraison
+                                </p>
+                                <p>{total >= 50 ? <span>Offerts*</span> : "5 €"}</p>
+                            </div>
                             <hr/>
-                            <h2>Total : {total >= 50 ? total : total + 5} €</h2>
+                            <div className={"div-summary-command"}>
+                                <h3>Total</h3>
+                                <h3>{totalWithReduction.toFixed(2)} €</h3>
+                            </div>
                             <button>Passer commande</button>
                             <p>
                                 <FontAwesomeIcon icon={faLock}/>
