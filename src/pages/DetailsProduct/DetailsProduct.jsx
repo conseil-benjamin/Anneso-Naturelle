@@ -2,8 +2,6 @@ import React, {useState, useEffect} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import "./Details.css";
 import {Loader} from "../../utils/Loader";
-import Categories from "../../components/Categories/Categories";
-import FiltreTrie from "../../components/FiltreTrie/FiltreTrie";
 import Select from "../../components/Select/Select.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +19,10 @@ function DetailsProduct({cart, updateCart}) {
     const tableauObjet = Object.values(produit);
     const [selectedBraceletSize, setSelectedBraceletSize] = useState("");
     const jwtToken = Cookies.get("auth_token");
+
+    const handleGoBack = () => {
+        navigate(-1); // revenir une page en arrière
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -120,7 +122,7 @@ function DetailsProduct({cart, updateCart}) {
             ) : (
                 <>
                     <div className="return-to-collection">
-                        <Link to="/collections">
+                        <Link to="#" onClick={handleGoBack}>
                             <img
                                 src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322943/Icon_retour_arriere.png"
                                 alt="Description de l'image"

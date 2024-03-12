@@ -20,6 +20,7 @@ function Banner() {
     const jwtToken = Cookies.get("auth_token");
     const name = Cookies.get("name");
     const navigate = useNavigate();
+    const isAdmin = Cookies.get("role");
 
     useEffect(() => {
         if (cart && !jwtToken) {
@@ -133,7 +134,7 @@ function Banner() {
                             Contact
                         </p>
                     </div>
-                    <div className={"div-icon-login-navbar"} onClick={() => setProfilClique(true)}>
+                    <div className={"div-icon-login-navbar"} onClick={() => {isAdmin ? navigate("/admin") : setProfilClique(true)}}>
                         <a id="icon-user-a">
                             <FontAwesomeIcon
                                 icon={faUserAlt}
@@ -212,7 +213,7 @@ function Banner() {
                             </p>
                         </div>
                         <div style={{display: "flex", flexDirection: "row"}}>
-                            <div className={"div-icon-login-navbar"} style={{margin: "0"}} onClick={() => setProfilClique(true)}>
+                            <div className={"div-icon-login-navbar"} style={{margin: "0"}} onClick={() => {isAdmin ? navigate("/admin") : setProfilClique(true)}}>
                                 <a id="icon-user-a">
                                     <FontAwesomeIcon
                                         icon={faUserAlt}

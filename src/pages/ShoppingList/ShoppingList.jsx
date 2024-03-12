@@ -6,26 +6,24 @@ import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faSearch,
-    faFilter, faXmark
+    faFilter, faXmark, faSliders
 } from "@fortawesome/free-solid-svg-icons";
 import {Loader} from "../../utils/Loader";
+import async from "async";
 
 function ShoppingList({cart, updateCart}) {
     const [activeCategory, setActiveCategory] = useState("");
     const [triageActive, setActiveTriage] = useState("");
-    const [isAddElement, setAddElement] = useState(false);
     const [productList, setproductList] = useState([]);
     const [toutClique, setToutClique] = useState(false);
     const [braceletsClique, setBraceletsClique] = useState(false);
     const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
     const [encensClique, setEncensClique] = useState(false);
     const [accesoiresClique, setAccesoiresClique] = useState(false);
-    /**
-     * * Ceci pose problème car la barre ne s'actualise pas avec le prix minimum de la catégorie mais reste fixé avec ses
-     * * valeurs par défaut.
-     */
-    const [minPriceForThisCategory, setminPriceForThisCategory] = useState(0);
-    const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(0);
+    const [minPriceForThisCategory, setminPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
+    const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
+    const [minPrice, setminPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
+    const [maxPrice, setmaxPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
     const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
     const [cancelFiltre, setCancelFiltre] = useState(false);
     const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
@@ -33,8 +31,10 @@ function ShoppingList({cart, updateCart}) {
 
     const navigate = useNavigate();
     const [productAdd, setProductAdd] = useState(false);
+    console.log(productList);
     let nameTable = productList;
     const [isDataLoading, setDataLoading] = useState(false);
+    const [filtreCategorieMobile, setFiltreCategorieMobile] = useState("");
 
     const setMinAndMaxPrice = (productList) => {
         const minPrice = Math.min(...productList.map((product) => product.price));
@@ -42,26 +42,53 @@ function ShoppingList({cart, updateCart}) {
         console.log(minPrice, maxPrice);
         setminPriceForThisCategory(minPrice);
         setmaxPriceForThisCategory(maxPrice);
+        setminPrice(minPrice);
+        setmaxPrice(maxPrice);
     };
 
     useEffect(() => {
-        const fetchData = async () => {
-            setDataLoading(true);
-            try {
-                const response = await fetch(
-                    `${process.env.REACT_APP_API_URL}products`
-                );
-                const productList = await response.json();
-                setproductList([]);
-                setproductList(productList);
-                setDataLoading(false);
-            } catch (error) {
-                console.error(error);
+        // faire la même chose pour les pierres par exemple
+        if (sessionStorage.getItem('categorieFiltre') && sessionStorage.getItem('filtrePrix')) {
+            const getProductsByPrixPlusCategory = async () => {
+                try {
+                    const response = await fetch(
+                        `${process.env.REACT_APP_API_URL}products/${JSON.parse(sessionStorage.getItem('filtrePrix'))[0]}/${JSON.parse(sessionStorage.getItem('filtrePrix'))[1]}/${JSON.parse(sessionStorage.getItem('categorieFiltre'))}`,
+                        {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    if (response.ok) {
+                        const productList = await response.json();
+                        setproductList(productList);
+                    } else {
+                        console.error("Erreur lors de l'insertion des données.");
+                    }
+                } catch (error) {
+                    console.error("Erreur de connexion au serveur:", error);
+                }
             }
-        };
-        fetchData().then(() => {
-            setMinAndMaxPrice(productList);
-        });
+            getProductsByPrixPlusCategory();
+        } else{
+            const fetchData = async () => {
+                setDataLoading(true);
+                try {
+                    const response = await fetch(
+                        `${process.env.REACT_APP_API_URL}products`
+                    );
+                    const productList = await response.json();
+                    setproductList(productList);
+                    setDataLoading(false);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            fetchData().then(() => {
+                setMinAndMaxPrice(productList);
+            });
+        }
     }, []);
 
     useEffect(() => {
@@ -89,6 +116,7 @@ function ShoppingList({cart, updateCart}) {
                     setEncensClique(false);
                     setToutClique(false);
                     setDataLoading(false);
+                    sessionStorage.setItem('categorieFiltre', JSON.stringify("bracelet"));
                 } catch (error) {
                     console.error(error);
                 }
@@ -96,6 +124,10 @@ function ShoppingList({cart, updateCart}) {
             fetchData();
         }
     }, [braceletsClique]);
+
+    useEffect(() => {
+        sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
+    }, [minPriceForThisCategory, maxPriceForThisCategory]);
 
     useEffect(() => {
         if (accesoiresClique) {
@@ -115,6 +147,8 @@ function ShoppingList({cart, updateCart}) {
                     setEncensClique(false);
                     setToutClique(false);
                     setDataLoading(false);
+                    sessionStorage.setItem('categorieFiltre', JSON.stringify("accessoire"));
+                    //sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
                 } catch (error) {
                     console.error(error);
                 }
@@ -133,7 +167,6 @@ function ShoppingList({cart, updateCart}) {
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
-                    setproductList([]);
                     setproductList(productList);
                     setBraceletsClique(false);
                     setBoucleOreilleClique(false);
@@ -141,6 +174,8 @@ function ShoppingList({cart, updateCart}) {
                     setAccesoiresClique(false);
                     setDataLoading(false);
                     setActiveCategory("tout");
+                    sessionStorage.setItem('categorieFiltre', JSON.stringify("tout"));
+                    sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
                 } catch (error) {
                     console.error(error);
                 }
@@ -159,15 +194,15 @@ function ShoppingList({cart, updateCart}) {
                     );
                     const productList = await response.json();
                     setMinAndMaxPrice(productList);
-                    setproductList([]);
                     setActiveCategory("encen");
                     setproductList(productList);
-                    setMinAndMaxPrice(productList);
                     setBraceletsClique(false);
                     setBoucleOreilleClique(false);
                     setAccesoiresClique(false);
                     setToutClique(false);
                     setDataLoading(false);
+                    sessionStorage.setItem('categorieFiltre', JSON.stringify("encen"));
+                    sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
                 } catch (error) {
                     console.error(error);
                 }
@@ -194,6 +229,8 @@ function ShoppingList({cart, updateCart}) {
                     setEncensClique(false);
                     setToutClique(false);
                     setDataLoading(false);
+                    sessionStorage.setItem('categorieFiltre', JSON.stringify("boucleOreille"));
+                    sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
                 } catch (error) {
                     console.error(error);
                 }
@@ -201,13 +238,6 @@ function ShoppingList({cart, updateCart}) {
             fetchData();
         }
     }, [boucleOreilleClique]);
-
-    useEffect(() => {
-        if (productAdd) {
-            navigate("/panier");
-            setProductAdd(false);
-        }
-    }, [productAdd]);
 
     const trie = () => {
         nameTable = [...productList];
@@ -247,6 +277,22 @@ function ShoppingList({cart, updateCart}) {
         setfiltreMobileOpen(false);
     };
 
+    /*
+    useEffect(() => {
+        console.log("dzqdzqdzqdqdqzdqz")
+        if (activeCategory === "bracelet") {
+            setBraceletsClique(true);
+        } else if (activeCategory === "accessoire") {
+            setAccesoiresClique(true);
+        } else if (activeCategory === "tout") {
+            setToutClique(true);
+        } else if (activeCategory === "encen") {
+            setEncensClique(true);
+        } else if (activeCategory === "boucleOreille") {
+            setBoucleOreilleClique(true);
+        }
+    }, [activeCategory]);
+*/
 
     const validerTrie = () => {
         setBtnValiderfiltreMobileOpenClique(true);
@@ -254,11 +300,53 @@ function ShoppingList({cart, updateCart}) {
         setfiltreMobileOpen(false);
     }
 
+    useEffect(() => {
+        if (!isBtnValiderfiltreMobileOpenClique) {
+            return;
+        }
+        setActiveCategory(filtreCategorieMobile);
+        console.log(filtreCategorieMobile);
+        console.log(activeCategory);
+    }, [filtreCategorieMobile && isBtnValiderfiltreMobileOpenClique]);
+
+    useEffect(() => {
+        if (!isBtnValiderfiltreMobileOpenClique || !minPrice || !maxPrice) {
+            return;
+        }
+        const getProductsByPrixPlusCategory = async () => {
+            console.log("salutttttttttttttttttttttttttttttt")
+            try {
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}products/${minPrice}/${maxPrice}/${activeCategory}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                if (response.ok) {
+                    const productList = await response.json();
+                    console.log(productList);
+                    setproductList(productList);
+                } else {
+                    console.error("Erreur lors de l'insertion des données.");
+                }
+            } catch (error) {
+                console.error("Erreur de connexion au serveur:", error);
+            } finally {
+                sessionStorage.setItem('filtrePrix', JSON.stringify([minPrice, maxPrice]));
+                sessionStorage.setItem('categorieFiltre', JSON.stringify(activeCategory));
+                console.log(activeCategory)
+            }
+        }
+        getProductsByPrixPlusCategory();
+    }, [minPrice, maxPrice, activeCategory]);
+
     const openfiltreMobileOpen = () => {
         setfiltreMobileOpen(true);
         setCancelFiltre(false);
         setBtnValiderfiltreMobileOpenClique(false);
-        console.log(triageActive);
     }
 
     return (
@@ -289,29 +377,21 @@ function ShoppingList({cart, updateCart}) {
                             productList={productList}
                             setproductList={setproductList}
                             isDataLoading={isDataLoading}
+                            setFiltreCategorieMobile={setFiltreCategorieMobile}
+                            filtreCategorieMobile={filtreCategorieMobile}
+                            setminPrice={setminPrice}
+                            setMaxPrice={setmaxPrice}
                         ></Categories>
                         <button onClick={() => validerTrie()}>Valider</button>
                     </div>
                 </>
             ) : (
                 <div className="lmj-shopping-list">
-                    {/**
-                     * Je ne sais pas si je garde la search bar
-                     <div className="div-recherche-produit">
-                     <input style={{cursor: "default"}}></input>
-                     <FontAwesomeIcon
-                     icon={faSearch}
-                     className="search-bar-class"
-                     ></FontAwesomeIcon>
-                     </div>
-                     */
-                    }
-
                     <div className="div-button-filtre-mobile-vue" onClick={() => openfiltreMobileOpen()
                     }>
                         <button>
-                            <FontAwesomeIcon icon={faFilter} style={{margin: "0 0.5em 0 0"}}></FontAwesomeIcon>
-                            Filtrer
+                            <FontAwesomeIcon icon={faSliders} style={{margin: "0 0.5em 0 0"}}></FontAwesomeIcon>
+                            Trier et filtrer
                         </button>
                     </div>
                     <div className="div-categories-plus-products-list">

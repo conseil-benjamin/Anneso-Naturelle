@@ -69,6 +69,11 @@
   margin: 1em 0 0 0;
   max-width: 25em;
 }
+@media (max-width: 1330px) {
+  .body-element-panier .panier .div-main-code-promo .div-code-promo-left {
+    margin: 0 0 1em 0;
+  }
+}
 .body-element-panier .panier .div-main-code-promo .div-code-promo-left :hover {
   cursor: pointer;
 }
@@ -80,7 +85,7 @@
 }
 @media (max-width: 1330px) {
   .body-element-panier .panier .div-main-code-promo .div-code-promo-right {
-    margin: 0 0 0 2em;
+    margin: 0 0 0 1em;
   }
 }
 .body-element-panier .panier .div-main-code-promo .div-code-promo-right button {

@@ -72,15 +72,20 @@ function Login() {
             const userData = data.user;
             const userName = `${userData.prenom}`;
             Cookies.set("name", userName, {expires: 7});
-            navigate("/profil/infos-persos", {
-              state: {
-                nom: userData.nom,
-                prenom: userData.prenom,
-                adresseEmail: userData.adresseEmail,
-                numeroTel: userData.numeroTel,
-                civilite: userData.civilite
-              },
-            });
+            if (userData.id === "1"){
+              Cookies.set("role", "admin", {expires: 7});
+              navigate("/admin")
+            } else{
+              navigate("/profil/infos-persos", {
+                state: {
+                  nom: userData.nom,
+                  prenom: userData.prenom,
+                  adresseEmail: userData.adresseEmail,
+                  numeroTel: userData.numeroTel,
+                  civilite: userData.civilite
+                },
+              });
+            }
           } else {
             Swal.fire({
               text: "Compte non trouvé avec cette combinaison email/mot de passe",

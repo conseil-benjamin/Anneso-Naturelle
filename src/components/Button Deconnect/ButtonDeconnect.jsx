@@ -9,14 +9,10 @@ function ButtonDeconnect() {
     const navigate = useNavigate();
 
     function deconnect() {
-        localStorage.setItem("cart", JSON.stringify([]));
-        console.log(JSON.parse(localStorage.getItem("cart")));
+        localStorage.clear();
         Cookies.remove("auth_token");
         Cookies.remove("name");
-        localStorage.setItem("nbArticles", 0);
-        localStorage.setItem("basketConcated", false);
-        localStorage.setItem("total", 0);
-        localStorage.setItem("nbElement", 0);
+        Cookies.remove("role");
         setTimeout(() => {
             navigate("/");
         }, 0);

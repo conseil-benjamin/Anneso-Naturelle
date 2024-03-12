@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import color from "../../utils/color";
+import {isMobile} from 'react-device-detect';
 
 function Categories({
     braceletClique,
@@ -22,7 +23,7 @@ function Categories({
     setproductList,
     activeCategory,
     minPriceForThisCategory,
-    maxPriceForThisCategory, productList,isDataLoading
+    maxPriceForThisCategory, productList,isDataLoading, setFiltreCategorieMobile, filtreCategorieMobile, setMaxPrice, setminPrice
 }) {
     const [categoriesClique, setCategoriesClique] = useState(false);
     const [prixClique, setPrixClique] = useState(false);
@@ -39,11 +40,15 @@ function Categories({
     const [hasPriceChanged, setPriceChanged] = useState(false);
     const [pierresBracelets, setPierresBracelets] = useState([]);
     const [pierresChoisies, setPierresChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
+    const [filtrePrix, setFiltrePrix] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) || []);
+    const [categorieFiltre, setCategorieFiltre] = useState(JSON.parse(sessionStorage.getItem('categorieFiltre')) || "");
+    const [couleursFiltre, setCouleursFiltre] = useState(JSON.parse(sessionStorage.getItem('couleursFiltre')) || []);
     const [colors, setColors] = useState([]);
 
     const handleDeleteAllFilters = () => {
         setPierresChoisies([]);
-        sessionStorage.removeItem('pierresChoisies');
+        sessionStorage.clear();
+        setToutClique(true);
         setproductList(productList);
     }
 
@@ -171,6 +176,7 @@ function Categories({
     useEffect(
         () =>
             async function () {
+                console.log(activeCategory);
                 try {
                     const response = await fetch(
                         `${process.env.REACT_APP_API_URL}products/${min}/${max}/${activeCategory}`,
@@ -189,6 +195,9 @@ function Categories({
                     }
                 } catch (error) {
                     console.error("Erreur de connexion au serveur:", error);
+                }
+                finally {
+                    sessionStorage.setItem('filtrePrix', JSON.stringify([min, max]));
                 }
                 setChangePriceClique(false);
             },
@@ -228,22 +237,52 @@ function Categories({
     };
 
     const trackStyle = {
-        backgroundColor: "#434748", // Remplacez par la couleur que vous souhaitez
+        backgroundColor: "#434748",
         height: 7,
     };
+
+    useEffect(() => {
+        if (categorieFiltre !== ""){
+            setCategoriesClique(true);
+            if (categorieFiltre === "tout"){
+                setToutClique(true);
+            } else if (categorieFiltre === "bracelet"){
+                setBraceletsClique(true);
+            } else if (categorieFiltre === "boucleOreille"){
+                setBoucleOreilleClique(true);
+            } else if (categorieFiltre === "encen"){
+                setEncensClique(true);
+            } else if (categorieFiltre === "accessoire"){
+                setAccesoiresClique(true);
+            }
+        }
+        if (filtrePrix.length !== 0){
+            setPrixClique(true);
+            setMin(filtrePrix[0]);
+            setMax(filtrePrix[1]);
+            setRange(filtrePrix);
+        }
+    }, []);
+
+    useEffect(() => {
+        setMin(minPriceForThisCategory);
+        setMax(maxPriceForThisCategory);
+        setRange([minPriceForThisCategory, maxPriceForThisCategory]);
+    }, [minPriceForThisCategory, maxPriceForThisCategory]);
 
     return (
         <>
             <div className="main-div-categories">
                 <div className={"header-filter"}>
-                    <div>
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
                         <FontAwesomeIcon icon={faSliders} style={{fontSize: "1.25em"}}/>
-                        <span style={{margin: "0 0 0 0.5em", fontSize: "1.25em"}}>
-                        Filtrer
+                        <span style={{fontSize: "1.10em", width: "100%", margin: "0 0 0 0.25em"}}>
+                       Trier & filtrer
                     </span>
                     </div>
-                    {pierresChoisies.length > 0 ? (
-                            <span style={{fontSize: "0.8em", textDecoration: "underline", cursor: "pointer"}} onClick={() =>handleDeleteAllFilters()}>Tout effacer</span>
+                    {/* Ajouter dans le localStorage les filtres suivant : Le prix, les couleurs, la catégorie en cours */}
+                    {pierresChoisies.length > 0 || categorieFiltre !== "tout" ? (
+                            <span style={{fontSize: "0.8em", textDecoration: "underline", cursor: "pointer", margin: "0 0 0 0.24em", padding: "0 0 0 1.5em"}} onClick={() =>handleDeleteAllFilters()}>Tout effacer</span>
                         ) : null}
                 </div>
                 <div className="categories-div">
@@ -325,7 +364,12 @@ function Categories({
                         )}
                     </div>
 
-                    {categoriesClique ? (
+                    {/* Faire un moyen de dissocier les filtres pc et mobile en désactivant pour mobile l'effet automatique des filtres.
+                        Avec un unique bouton valider appliquer l'ensemble des filtres choisis. [Prix, Couleurs, Pierres, Catégorie]
+                        Par exemple pour la catégorie, je stocke dans une variable la catégorie choisie avec un string, et en fonction de la catégorie choisit
+                        je vais une fois le bouton valider appuyer faire par exemple un setBraceletsClique(true) si la catégorie choisit est "bracelets"
+                     */}
+                    {categoriesClique && !isMobile ? (
                         <>
                             <a
                                 onClick={() =>{ setToutClique(true);
@@ -378,6 +422,65 @@ function Categories({
                                     setColorClique(false);}}
                                 style={{
                                     fontWeight: accesoiresClique ? "bold" : "300",
+                                    fontSize: 16,
+                                }}
+                            >
+                                Acessoires
+                            </a>
+                        </>
+                    ) : categoriesClique && isMobile ? (
+                        <>
+                            <a
+                                onClick={() =>{ setFiltreCategorieMobile("tout");
+                                    setPierresClique(false);
+                                    setColorClique(false);}}
+                                style={{
+                                    fontWeight: filtreCategorieMobile === "tout" ? "bold" : "300",
+                                    fontSize: 16,
+                                }}
+                            >
+                                Tout
+                            </a>
+                            <a
+                                onClick={() =>{ setFiltreCategorieMobile("bracelet");
+                                    setPierresClique(false);
+                                    setColorClique(false);}}
+                                style={{
+                                    fontWeight: filtreCategorieMobile === "bracelet" ? "bold" : "300",
+                                    fontSize: 16,
+                                }}
+                            >
+                                Bracelets
+                            </a>
+
+                            <a
+                                onClick={() =>{ setFiltreCategorieMobile("boucleOreille");
+                                    setPierresClique(false);
+                                    setColorClique(false);}}
+                                style={{
+                                    fontWeight: filtreCategorieMobile === "boucleOreille" ? "bold" : "300",
+                                    fontSize: 16,
+                                }}
+                            >
+                                Boucles d'oreilles
+                            </a>
+                            <a
+                                onClick={() => { setFiltreCategorieMobile("encen");
+                                    setPierresClique(false);
+                                    setColorClique(false);}}
+                                style={{
+                                    fontWeight: filtreCategorieMobile === "encen" ? "bold" : "300",
+                                    fontSize: 16,
+                                }}
+                            >
+                                Esotérique Support à encens
+                            </a>
+                            <a
+                                onClick={() => { setFiltreCategorieMobile("accessoire");
+                                    setPierresClique(false);
+                                    setColorClique(false);}}
+                                style={{
+                                    fontWeight: filtreCategorieMobile === "accessoire" ? "bold" : "300",
                                     fontSize: 16,
                                 }}
                             >
@@ -488,10 +591,6 @@ function Categories({
                             <div className="slider-div">
                                 <Slider
                                     range
-                                    defaultValue={[
-                                        minPriceForThisCategory,
-                                        maxPriceForThisCategory,
-                                    ]}
                                     min={minPriceForThisCategory}
                                     max={maxPriceForThisCategory}
                                     value={range}
@@ -500,13 +599,16 @@ function Categories({
                                     }
                                     trackStyle={[trackStyle]}
                                 />
-                                {hasPriceChanged ? (
+                                {hasPriceChanged && !isMobile ? (
                                     <button
                                         onClick={() => setChangePriceClique(true)}
                                         id="btn-valider-filtre-prix"
                                     >
                                         Valider
                                     </button>
+                                ) : hasPriceChanged && isMobile ? (
+                                    setminPrice(min),
+                                    setMaxPrice(max)
                                 ) : null}
                             </div>
                         </>

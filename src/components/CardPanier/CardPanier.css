@@ -40,6 +40,8 @@
 }
 @media (max-width: 930px) {
   .main-panier-page .card-panier-mobile-container-up-right {
+    margin: 0 1.5em 0 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }

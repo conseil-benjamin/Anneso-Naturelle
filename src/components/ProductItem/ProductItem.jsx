@@ -132,7 +132,6 @@ function ProductItem({
                         text: "Veuillez vous connecter ou créer un compte pour mettre des produits en favoris.",
                         showConfirmButton: true,
                         background: "#22242a",
-                        timer: 2500,
                         padding: "0.5em",
                         color: "#ffffff",
                     });

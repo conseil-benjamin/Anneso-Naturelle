@@ -129,7 +129,7 @@ function DetailsCommande() {
                         ) : commande.status !== "annule" ? (
                             <>
                                 <button onClick={() => window.open(
-                                    "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay,
+                                    "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay + "&codePostal=" + commande.codePostalCommande,
                                     "_blank"
                                 )}>
                                     <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>

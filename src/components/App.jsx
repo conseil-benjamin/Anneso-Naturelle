@@ -30,6 +30,10 @@ import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import Admin from "../pages/Admin/Admin";
+import AdminOrders from "../pages/Admin/AdminOrders";
+import AdminCodePromo from "../pages/Admin/AdminCodePromo";
+import AdminAddProduct from "../pages/Admin/AdminAddProduct";
 
 function App() {
 
@@ -58,10 +62,14 @@ function App() {
                             <Route path="/profil/commandes" element={<Commandes/>}/>
                             <Route path="/profil/adresses" element={<Adresses/>}/>
                             <Route path="/profil/favoris" element={<Favoris/>}/>
+                            <Route path={"/admin"} element={<Admin/>}/>
                             <Route
                                 path="/Profil/adresses/ajoutAdresse"
                                 element={<AjoutAdresse/>}
                             />
+                            <Route path="/admin/orders" element={<AdminOrders/>}/>
+                            <Route path="/admin/promo-code" element={<AdminCodePromo/>}/>
+                            <Route path={"/admin/add-product"} element={<AdminAddProduct/>}/>
                             <Route
                                 path="/Profil/adresses/:numAdresse"
                                 element={<DetailsAdresses/>}
