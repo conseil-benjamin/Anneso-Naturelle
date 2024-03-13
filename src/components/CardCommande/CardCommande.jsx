@@ -28,20 +28,25 @@ function CardCommande({ idCommande, date, prixTotal, contenuCommande, status }) 
       <div className="container-left">{coverImages[1]}</div>
       <div>
         <h4>Commande N°{idCommande}</h4>
-        {status === "annulé" ? (
+        {status === "Annulé" ? (
             <div className={"div-status-commande"}>
               <p><b>Statut : </b></p>
               <span style={{backgroundColor: "#FCE8E8", color: "#FF052D"}}>Annulé</span>
             </div>
-        ) : status === "en cours de livraison" ? (
+        ) : status === "En cours de livraison" ? (
             <div className={"div-status-commande"}>
               <p><b>Statut : </b></p>
               <p style={{backgroundColor: "#ECF3F8", color: "#1A425B"}}>En cours de livraison</p>
             </div>
-        ) : status === "livre" ? (
+        ) : status === "Livré" ? (
                 <div className={"div-status-commande"}>
                   <p><b>Statut : </b></p>
                   <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>Livré</p>
+                </div>
+            ) : status === "En cours de préparation" ? (
+                <div className={"div-status-commande"}>
+                  <p><b>Statut : </b></p>
+                  <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>En cours de préparation</p>
                 </div>
             ) :
             <div className={"div-status-commande"}>

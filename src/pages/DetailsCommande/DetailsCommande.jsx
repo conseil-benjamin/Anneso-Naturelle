@@ -80,21 +80,25 @@ function DetailsCommande() {
                         <div className={"div-recap-commande-1"}>
                             <h3>Commande N°{commande.idCommande}</h3>
                             <p><b>Date :</b> {commande.date}</p>
-                            {console.log(commande.status)}
-                            {commande.status === "annulé" ? (
+                            {commande.status === "Annulé" ? (
                                 <div className={"div-status-commande"}>
                                     <p><b>Statut : </b></p>
-                                    <p style={{backgroundColor: "#FCE8E8", color: "#FF052D"}}>Annule</p>
+                                    <p style={{backgroundColor: "#FCE8E8", color: "#FF052D"}}>Annulé</p>
                                 </div>
-                            ) : commande.status === "en cours de livraison" ? (
+                            ) : commande.status === "En cours de livraison" ? (
                                 <div className={"div-status-commande"}>
                                     <p><b>Statut : </b></p>
                                     <p style={{backgroundColor: "#ECF3F8", color: "#1A425B"}}>En cours de livraison</p>
                                 </div>
-                            ) : commande.status === "livre" ? (
+                            ) : commande.status === "Livré" ? (
                                     <div className={"div-status-commande"}>
                                         <p><b>Statut : </b></p>
                                         <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>Livré</p>
+                                    </div>
+                            ) : commande.status === "En cours de préparation" ? (
+                                    <div className={"div-status-commande"}>
+                                        <p><b>Statut : </b></p>
+                                        <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>En cours de préparation</p>
                                     </div>
                                 ) :
                                 <div className={"div-status-commande"}>
