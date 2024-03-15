@@ -76,6 +76,7 @@ function CardAdressses({
               Swal.fire({
                 text: "Adresse supprimé avec succès.",
                 toast: true,
+                icon: "success",
                 showConfirmButton: false,
                 background: "#fff",
                 timer: 2000,

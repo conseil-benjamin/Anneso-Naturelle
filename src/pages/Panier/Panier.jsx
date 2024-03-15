@@ -175,7 +175,7 @@ function Panier({cart, updateCart}) {
     }, [codePromoLocalStorage]);
 
     useEffect(() => {
-        const newTotal = (total >= 50 && reduc.reduction ? total * (1 - reduc.reduction) : total < 50 && reduc.reduction ? total * (1 - reduc.reduction) + 5 : total < 50 ? total + 5 : total);
+        const newTotal = (total >= 50 && reduc.reduction ? total * (1 - reduc.reduction) : total < 50 && reduc.reduction ? total * (1 - reduc.reduction) : total < 50 ? total : total);
         setotalWithReduction(newTotal);
     }, [total, reduc]);
 
@@ -218,8 +218,6 @@ function Panier({cart, updateCart}) {
                 </span>
                                 </div>
                                 <div className={"div-code-promo-right"}>
-                                    {codePromoClique ? (
-                                        <>
                                             <input
                                                 style={{width: "40%", padding: "0.5em"}}
                                                 onChange={(e) => setCodePromo(e.target.value)}
@@ -230,8 +228,6 @@ function Panier({cart, updateCart}) {
                                             >
                                                 Appliquer
                                             </button>
-                                        </>
-                                    ) : null}
                                 </div>
                             </div>
                             { codePromoLocalStorage ?

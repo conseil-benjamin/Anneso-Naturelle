@@ -1,6 +1,15 @@
+@import "../Register/Register";
+
 .div-main-checkout-delivery{
   display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     margin: 5em 1em 1em 1em;
+    .input-code-postal-relais{
+      position: relative;
+      #icon-input-code-postal-relais{
+      @include positioningEyeIcon();
+        top: 40%;
+    }
+  }
 }

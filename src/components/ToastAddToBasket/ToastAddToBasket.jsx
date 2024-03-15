@@ -9,6 +9,7 @@ function ToastAddToBasket({cart}) {
         color: "#000",
         allowOutsideClick: true,
         showCloseButton: true,
+        backdrop: `rgba(0,0,0,0.5)`,
         background: "#fff",
         customClass: {
             timerProgressBar: "background-color: #ffffff !important"
