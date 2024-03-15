@@ -1,0 +1,25 @@
+@charset "UTF-8";
+.order-progress-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+  margin: 1em;
+}
+.order-progress-main .order-progress__step-number {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #000;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid black; /* Changez la couleur selon vos préférences */
+  color: #333; /* Changez la couleur selon vos préférences */
+  overflow: visible;
+  text-align: center;
+  height: 1px;
+}
+
+/*# sourceMappingURL=OrderProgress.css.map */

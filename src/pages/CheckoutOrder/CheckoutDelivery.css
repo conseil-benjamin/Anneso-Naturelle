@@ -1,0 +1,8 @@
+.div-main-checkout-delivery {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 5em 1em 1em 1em;
+}
+
+/*# sourceMappingURL=CheckoutDelivery.css.map */
