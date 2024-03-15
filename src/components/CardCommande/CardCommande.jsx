@@ -46,7 +46,7 @@ function CardCommande({ idCommande, date, prixTotal, contenuCommande, status }) 
             ) : status === "En cours de préparation" ? (
                 <div className={"div-status-commande"}>
                   <p><b>Statut : </b></p>
-                  <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>En cours de préparation</p>
+                  <p>En cours de préparation</p>
                 </div>
             ) :
             <div className={"div-status-commande"}>

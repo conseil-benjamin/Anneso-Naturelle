@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import Toast from "../../components/Toast/toast";
 import {Loader} from "../../utils/Loader";
+import {useNavigate} from "react-router-dom";
 
 function Panier({cart, updateCart}) {
     const [total, setTotal] = useState(0);
@@ -22,6 +23,7 @@ function Panier({cart, updateCart}) {
     const [reduc, setReduc] = useState(codePromoLocalStorage ? JSON.parse(codePromoLocalStorage) : []);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [isDataFetched, setIsDataFetched] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!jwtToken) {
@@ -245,7 +247,7 @@ function Panier({cart, updateCart}) {
                             <hr/>
                             <div className={"div-summary-command"}>
                                 <p>Sous-total</p>
-                                <p>{total} €</p>
+                                <p>{total.toFixed(2)} €</p>
                             </div>
                             <div className={"div-summary-command"}>
                                 {codePromoLocalStorage ? <p>Promotion</p> : null}
@@ -254,15 +256,15 @@ function Panier({cart, updateCart}) {
                             <div className={"div-summary-command"}>
                                 <p>Frais de livraison
                                 </p>
-                                <p>{total >= 50 ? <span>Offerts*</span> : "5 €"}</p>
+                                <p>{total >= 50 ? <span>Offert</span> : "5.00 €"}</p>
                             </div>
                             <hr/>
                             <div className={"div-summary-command"}>
                                 <h3>Total</h3>
                                 <h3>{totalWithReduction.toFixed(2)} €</h3>
                             </div>
-                            <button>Passer commande</button>
-                            <p>
+                            <button onClick={()=> {jwtToken ? navigate("/checkout/delivery") : navigate("/auth/login")}}>Passer commande</button>
+                            <p style={{textAlign: "center"}}>
                                 <FontAwesomeIcon icon={faLock}/>
                                 {"\u00A0"} Paiement sécurisé
                             </p>

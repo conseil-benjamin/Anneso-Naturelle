@@ -34,6 +34,8 @@ import Admin from "../pages/Admin/Admin";
 import AdminOrders from "../pages/Admin/AdminOrders";
 import AdminCodePromo from "../pages/Admin/AdminCodePromo";
 import AdminAddProduct from "../pages/Admin/AdminAddProduct";
+import CheckoutDelivery from "../pages/CheckoutOrder/CheckoutDelivery";
+import CheckoutPayment from "../pages/CheckoutOrder/CheckoutPayment";
 
 function App() {
 
@@ -78,6 +80,8 @@ function App() {
                                 path="/Profil/commandes/:idCommande"
                                 element={<DetailsCommande/>}
                             />
+                            <Route path="/checkout/delivery" element={<CheckoutDelivery/>}/>
+                            <Route path="/checkout/payment" element={<CheckoutPayment/>}/>
                         </Route>
                         <Route path="/auth/reset-password/:token" element={<ResetPassword/>}/>
                         <Route path="/auth/register" element={<Register/>}/>

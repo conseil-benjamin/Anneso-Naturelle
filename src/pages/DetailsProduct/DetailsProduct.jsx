@@ -148,7 +148,7 @@ function DetailsProduct({cart, updateCart}) {
                             {tableauObjet.map((produit) => (
                                 <div key={produit.id}>
                                     <h1>{produit.name}</h1>
-                                    <p>Prix : {produit.price} €</p>
+                                    <h3>{produit.price} €</h3>
                                     <p className="description">{produit.description}</p>
                                     {produit.category === "bracelet" ? (
                                         <>

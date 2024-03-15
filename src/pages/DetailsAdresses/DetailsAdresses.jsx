@@ -1,7 +1,7 @@
-import { useLocation, useParams } from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import NavBarProfil from "../../components/NavBarProfil/NavBarProfil";
 import "./DetailsAdresses.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
@@ -41,6 +41,7 @@ function DetailsAdresses() {
   const [erreurInputNom, setErreurInputNom] = useState(null);
   const [erreurInputPrenom, setErreurInputPrenom] = useState(null);
   const [erreurInputTelephone, setErreurInputTelephone] = useState(null);
+  const navigate = useNavigate();
 
   // TODO : enlever ca et faire une requete pour récupérer les infos de l'adresse à la place
   const setValueInput = () => {
@@ -53,6 +54,10 @@ function DetailsAdresses() {
     setComplementAdresse(complementAdresse);
     setPays(pays);
   }
+
+    const handleGoBack = () => {
+        navigate(-1); // revenir une page en arrière
+    };
 
   const isFormValid = () => {
     if (Nom.length < 2) {
@@ -223,6 +228,14 @@ function DetailsAdresses() {
       <>
     <div className="div-main-details-adresse">
       <NavBarProfil></NavBarProfil>
+        <Link to="#" onClick={handleGoBack}>
+            <img
+                src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322943/Icon_retour_arriere.png"
+                alt="Description de l'image"
+                width={25}
+                height={25}
+            />
+        </Link>
       <div className="div-infos-adresse">
         <h1>Modifier votre adresse</h1>
         <div className="infos-details-adresse">

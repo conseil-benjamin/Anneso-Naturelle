@@ -98,7 +98,7 @@ function DetailsCommande() {
                             ) : commande.status === "En cours de préparation" ? (
                                     <div className={"div-status-commande"}>
                                         <p><b>Statut : </b></p>
-                                        <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>En cours de préparation</p>
+                                        <p>En cours de préparation</p>
                                     </div>
                                 ) :
                                 <div className={"div-status-commande"}>
@@ -132,10 +132,10 @@ function DetailsCommande() {
                             </button>
                         ) : commande.status !== "annule" ? (
                             <>
-                                <button onClick={() => window.open(
+                                <button onClick={() => {commande.typeLivraison === "En point relais" ? window.open(
                                     "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay + "&codePostal=" + commande.codePostalCommande,
                                     "_blank"
-                                )}>
+                                ) : window.open("https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=" + commande.numeroSuivieChronopost, "_blank")}}>
                                     <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>
                                     Suivre mon colis
                                 </button>
