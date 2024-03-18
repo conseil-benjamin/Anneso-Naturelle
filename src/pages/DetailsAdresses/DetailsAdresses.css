@@ -59,6 +59,11 @@
   flex-direction: row;
   background-color: #f2f0ec;
 }
+@media (max-width: 1300px) {
+  .div-main-details-adresse {
+    flex-direction: column;
+  }
+}
 
 .div-infos-adresse {
   display: flex;
@@ -75,6 +80,14 @@
 .div-infos-adresse .infos-details-adresse {
   display: flex;
   flex-direction: row;
+  margin: 0 0 0 5em;
+}
+@media (max-width: 1300px) {
+  .div-infos-adresse .infos-details-adresse {
+    flex-direction: column;
+    margin: 0;
+    align-items: center;
+  }
 }
 .div-infos-adresse .infos-details-adresse .container-adresse-left,
 .div-infos-adresse .infos-details-adresse .div-infos-perso {

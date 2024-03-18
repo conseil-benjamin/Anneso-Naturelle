@@ -9,22 +9,26 @@
   width: 100%;
   z-index: 1;
   padding: 0 0 2em 0;
+
   h2 {
     margin: 1em 0 0.05em 0;
   }
+
   .banner-mobile {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    #banner-title{
+
+    #banner-title {
       @media (max-width: 900px) {
         position: relative;
         right: 30vw;
       }
-      @media (max-width: 500px){
-          width: 2em;
+      @media (max-width: 500px) {
+        width: 2em;
       }
     }
+
     #icon-menu-mobile {
       display: none;
       @media (max-width: 900px) {
@@ -42,12 +46,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    .div-liens-pc{
+
+    .div-liens-pc {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: row;
       margin: 0;
+
       .lmj-title::after {
         content: "";
         display: block;
@@ -56,84 +62,96 @@
         background-color: #4C6945;
         transition: width 0.3s ease-in-out;
       }
+
       .lmj-title:hover::after {
         width: 100%;
       }
     }
+
     @media (max-width: 900px) {
       display: none;
     }
+
     .icon-socials-banner {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0 5em 1em 0;
+
       .iconSocial:hover {
         cursor: pointer;
       }
+
       @media (max-width: 1330px) {
-         display: none;
+        display: none;
       }
     }
+
     .icon-header {
       padding: 0 0 0 0.2em;
       position: relative;
+
       .span-nb-articles {
         background-color: #DDD1B1;
         color: #000000;
         border-radius: 10em;
         padding: 1px 6px;
         position: absolute;
-        top: 45%;
-        right: -1%;
+        top: -40%;
+        right: -20%;
       }
     }
   }
 }
 
-.mobile-banner{
-    display: none;
-    position: relative;
+.mobile-banner {
+  display: none;
+  position: relative;
+  transform: translate(-100%);
+  @media (max-width: 1330px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bc6c25;
+    height: 100%;
+    width: 100%;
+    position: fixed;
     transform: translate(-100%);
-    @media (max-width: 1330px){
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #bc6c25;
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        transform: translate(-100%);
-        z-index: 1;
-        transition: all 0.5s;
-    }
-  #menu-mobile{
+    z-index: 1;
+    transition: all 0.5s;
+  }
+
+  #menu-mobile {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
-    .div-mobile-liens-page-banner{
-      display: flex;
-      flex-direction: column;
-      margin: 2em 1.25em 2em 0;
-      text-align: center;
-      a{
-        margin: 0.5em;
-      }
+
+  .div-mobile-liens-page-banner {
+    display: flex;
+    flex-direction: column;
+    margin: 2em 1.25em 2em 0;
+    text-align: center;
+
+    a {
+      margin: 0.5em;
     }
-  .icon-header-mobile{
+  }
+
+  .icon-header-mobile {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .icon-socials-banner-mobile{
+
+  .icon-socials-banner-mobile {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 1.25em 0 0;
   }
-  }
+}
 
 .lmj-title {
   padding-left: 32px;
@@ -144,6 +162,7 @@
 #icone_panier {
   margin: 0 0 0 1em;
 }
+
 #icon-user-a {
   cursor: pointer;
 }
@@ -151,27 +170,30 @@
 
 // Style pc et mobile
 
-.name-under-basket-icon-navbar{
+.name-under-basket-icon-navbar {
   font-size: 0.8em;
   padding: 0;
   margin: 0.3em 0 0 3em;
   align-items: center
 }
-.div-icon-login-navbar{
+
+.div-icon-login-navbar {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   margin: 0 0 0 5em;
-  .name-under-login-icon-navbar{
+
+  .name-under-login-icon-navbar {
     font-size: 0.8em;
     padding: 0;
     margin: 0.3em 0 0 0;
     text-align: center;
   }
 }
-.div-icon-basket-navbar{
+
+.div-icon-basket-navbar {
   display: flex;
   justify-content: center;
   flex-direction: column;

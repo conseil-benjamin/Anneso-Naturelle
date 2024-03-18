@@ -1,7 +1,6 @@
 .bodyElementDetails {
   background-color: #f2f0ec;
   flex-direction: row;
-  padding: 0 0 2em 0;
   padding: 1.5em 0 1.5em 0;
 }
 .bodyElementDetails .loader-div {
@@ -9,6 +8,9 @@
   align-items: center;
   justify-content: center;
   margin: 15rem;
+}
+.bodyElementDetails .return-to-collection {
+  width: 7em;
 }
 .bodyElementDetails .return-to-collection a {
   margin: 2em;

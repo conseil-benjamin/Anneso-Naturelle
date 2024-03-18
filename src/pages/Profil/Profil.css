@@ -105,6 +105,18 @@ html {
   justify-content: start;
 }
 
+.div-client-plus-password {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 15em;
+}
+@media (max-width: 1300px) {
+  .div-client-plus-password {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+
 .div-infos-client {
   display: flex;
   align-items: center;

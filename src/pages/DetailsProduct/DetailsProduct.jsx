@@ -4,9 +4,10 @@ import "./Details.css";
 import {Loader} from "../../utils/Loader";
 import Select from "../../components/Select/Select.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faCartPlus} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import ToastAddToBasket from "../../components/ToastAddToBasket/ToastAddToBasket";
+import GoingBack from "../../components/GoingBack/GoingBack";
 
 function DetailsProduct({cart, updateCart}) {
     const navigate = useNavigate();
@@ -19,10 +20,6 @@ function DetailsProduct({cart, updateCart}) {
     const tableauObjet = Object.values(produit);
     const [selectedBraceletSize, setSelectedBraceletSize] = useState("");
     const jwtToken = Cookies.get("auth_token");
-
-    const handleGoBack = () => {
-        navigate(-1); // revenir une page en arrière
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -121,16 +118,7 @@ function DetailsProduct({cart, updateCart}) {
                 </div>
             ) : (
                 <>
-                    <div className="return-to-collection">
-                        <Link to="#" onClick={handleGoBack}>
-                            <img
-                                src="https://res.cloudinary.com/dc1p20eb2/image/upload/v1700322943/Icon_retour_arriere.png"
-                                alt="Description de l'image"
-                                width={25}
-                                height={25}
-                            />
-                        </Link>
-                    </div>
+                    <GoingBack/>
                     <div className="div-container-left-plus-right">
                         <div className="container-left-details">
                             {tableauObjet.map((produit) => (

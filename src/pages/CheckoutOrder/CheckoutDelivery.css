@@ -60,8 +60,15 @@
   justify-content: space-evenly;
   margin: 5em 1em 1em 1em;
 }
+@media (max-width: 1300px) {
+  .div-main-checkout-delivery {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 .div-main-checkout-delivery .input-code-postal-relais {
   position: relative;
+  margin: 0 0 3em 0;
 }
 .div-main-checkout-delivery .input-code-postal-relais #icon-input-code-postal-relais {
   position: absolute;

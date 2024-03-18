@@ -59,8 +59,22 @@
   flex-direction: row;
   background-color: #f2f0ec;
 }
+@media (max-width: 1300px) {
+  .body-page-addAdresse {
+    flex-direction: column;
+  }
+}
 .body-page-addAdresse .formulaire-ajout-adresse {
-  margin: 0 0 3em 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 3em 15em;
+}
+@media (max-width: 1300px) {
+  .body-page-addAdresse .formulaire-ajout-adresse {
+    align-items: center;
+    margin: 0 0 2em 0;
+    justify-content: center;
+  }
 }
 
 .formulaire-en-colonne {
@@ -71,15 +85,18 @@
   display: flex;
   flex-direction: row;
   font-size: 0.9em;
-  margin: 0.5em 0 0 0;
   align-items: center;
+  padding: 0;
+}
+.formulaire-en-colonne .div-error-message-register p {
+  margin: 0 0 0.5em 0;
 }
 .formulaire-en-colonne .div-error-message-register #icon-infos-error {
   margin: 0 0.5em 0 0;
   color: red;
 }
 .formulaire-en-colonne input {
-  margin: 0 0 0.4em 0;
+  margin: 0 0 0.5em 0;
 }
 
 #form1 {
