@@ -44,7 +44,6 @@ function DetailsAdresses() {
     const [erreurInputTelephone, setErreurInputTelephone] = useState(null);
     const navigate = useNavigate();
 
-    // TODO : enlever ca et faire une requete pour récupérer les infos de l'adresse à la place
     const setValueInput = () => {
         setNom(nomPersonne);
         setPrenom(prenomPersonne);
@@ -224,7 +223,6 @@ function DetailsAdresses() {
         }
     }, [btnUpdateAdresseClique]);
 
-    // TODO : Faire le responsive de la page
     return (
         <>
             <div className="div-main-details-adresse">

@@ -79,7 +79,7 @@ function Panier({cart, updateCart}) {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${jwtToken}`
                             },
-                            body: JSON.stringify({ panierUpdated })
+                            body: JSON.stringify({panierUpdated})
                         });
                         if (response.ok) {
                             console.log("Panier inséré dans la base de données");
@@ -91,8 +91,7 @@ function Panier({cart, updateCart}) {
                         }
                     } catch (error) {
                         console.error("Erreur de connexion au serveur:", error);
-                    }
-                    finally {
+                    } finally {
                         setIsDataFetched(false);
                     }
                 }
@@ -108,14 +107,14 @@ function Panier({cart, updateCart}) {
             0
         );
         const reduc = JSON.parse(localStorage.getItem("codePromoActif"));
-        if (reduc){
+        if (reduc) {
             setotalWithReduction(newTotal - reduc.reduction * newTotal);
         }
         setTotal(newTotal);
     }, [cart, codePromoLocalStorage]);
 
     useEffect(() => {
-        if (!codePromoAppliquer){
+        if (!codePromoAppliquer) {
             return;
         }
         const handleClickCodePromo = async () => {
@@ -127,12 +126,12 @@ function Panier({cart, updateCart}) {
                         },
                     },
                 );
-                if (response.ok){
+                if (response.ok) {
                     const reduction = await response.json();
                     console.log(reduction)
                     localStorage.setItem("codePromoActif", JSON.stringify(reduction));
                     setCodePromoCorrecte(true);
-                } else{
+                } else {
                     Swal.fire({
                         text: "Code promo non valide ou bien expiré.",
                         icon: "error"
@@ -140,8 +139,7 @@ function Panier({cart, updateCart}) {
                 }
             } catch (error) {
                 console.log(error);
-            }
-            finally {
+            } finally {
                 setCodePromoAppliquer(false);
             }
         }
@@ -149,7 +147,7 @@ function Panier({cart, updateCart}) {
     }, [codePromoAppliquer]);
 
     useEffect(() => {
-        if (!codePromoCorrecte){
+        if (!codePromoCorrecte) {
             return;
         }
         setToast({
@@ -158,7 +156,7 @@ function Panier({cart, updateCart}) {
         })
     }, [codePromoCorrecte]);
 
-    const removeCodePromo = () =>{
+    const removeCodePromo = () => {
         localStorage.removeItem("codePromoActif");
         setReduc([]);
         setCodePromoCorrecte(false);
@@ -181,96 +179,105 @@ function Panier({cart, updateCart}) {
 
     return (
         <>
-            {/* TODO: Toast s'affiche même quand on supprime le code promo*/}
             {toast.text && <Toast icon={toast.icon} text={toast.text}></Toast>}
             <div className="body-element-panier">
                 {isDataLoaded ? (
-                    <Loader></Loader>
-                ) :
-                cart.length > 0 ? (
-                    <>
-                        <div className="panier">
-                            <h3 id="title-panier">Mon panier</h3>
-                            <hr className="hr-custom"/>
-                            {cart.map((cartElement, index) => (
-                                <CardPanier
-                                    key={`${cartElement.name}-${index}`}
-                                    idProduct={cartElement.idProduct}
-                                    cover={cartElement.cover}
-                                    name={cartElement.name}
-                                    price={cartElement.price}
-                                    amount={cartElement.amount}
-                                    index={index}
-                                    totalPanier={total}
-                                    setTotalPanier={setTotal}
-                                    cart={cart}
-                                    updateCart={updateCart}
-                                />
-                            ))}
-                            <div className={"div-main-code-promo"}>
-                                <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
-                                >
+                        <Loader></Loader>
+                    ) :
+                    cart.length > 0 ? (
+                        <>
+                            <div className="panier">
+                                <h3 id="title-panier">Mon panier</h3>
+                                <hr className="hr-custom"/>
+                                {cart.map((cartElement, index) => (
+                                    <CardPanier
+                                        key={`${cartElement.name}-${index}`}
+                                        idProduct={cartElement.idProduct}
+                                        cover={cartElement.cover}
+                                        name={cartElement.name}
+                                        price={cartElement.price}
+                                        amount={cartElement.amount}
+                                        index={index}
+                                        totalPanier={total}
+                                        setTotalPanier={setTotal}
+                                        cart={cart}
+                                        updateCart={updateCart}
+                                    />
+                                ))}
+                                <div className={"div-main-code-promo"}>
+                                    <div className="div-code-promo-left" onClick={() => setCodePromoClique(true)}
+                                    >
                 <span id="span-code-promo">
                   <FontAwesomeIcon
                       icon={faTag}
                   />
                     {"\u00A0"} Saisir un code promo
                 </span>
+                                    </div>
+                                    <div className={"div-code-promo-right"}>
+                                        <input
+                                            style={{width: "40%", padding: "0.5em"}}
+                                            onChange={(e) => setCodePromo(e.target.value)}
+                                        ></input>
+                                        <button
+                                            style={{padding: "0.5em"}}
+                                            onClick={() => setCodePromoAppliquer(true)}
+                                        >
+                                            Appliquer
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className={"div-code-promo-right"}>
-                                            <input
-                                                style={{width: "40%", padding: "0.5em"}}
-                                                onChange={(e) => setCodePromo(e.target.value)}
-                                            ></input>
-                                            <button
-                                                style={{padding: "0.5em"}}
-                                                onClick={() => setCodePromoAppliquer(true)}
-                                            >
-                                                Appliquer
-                                            </button>
+                                {codePromoLocalStorage ?
+                                    <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                        <p style={{
+                                            backgroundColor: "#DCF5D3",
+                                            color: "#287834",
+                                            margin: "1em",
+                                            padding: "0.3em"
+                                        }}>Code promo
+                                            appliqué : {reduc.reductionValeurEntier} % de remise</p>
+                                        <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}}
+                                                         onClick={() => removeCodePromo()}></FontAwesomeIcon>
+                                    </div> : null
+                                }
+                            </div>
+                            <div className="panier-check-out">
+                                <h3>Résumé de la commande</h3>
+                                <hr/>
+                                <div className={"div-summary-command"}>
+                                    <p>Sous-total</p>
+                                    <p>{total.toFixed(2)} €</p>
                                 </div>
-                            </div>
-                            { codePromoLocalStorage ?
-                                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                                    <p style={{backgroundColor: "#DCF5D3", color: "#287834", margin: "1em", padding: "0.3em"}}>Code promo
-                                        appliqué : {reduc.reductionValeurEntier} % de remise</p>
-                                    <FontAwesomeIcon icon={faXmark} style={{cursor: "pointer"}} onClick={() => removeCodePromo()}></FontAwesomeIcon>
-                                </div> : null
-                            }
-                        </div>
-                        <div className="panier-check-out">
-                            <h3>Résumé de la commande</h3>
-                            <hr/>
-                            <div className={"div-summary-command"}>
-                                <p>Sous-total</p>
-                                <p>{total.toFixed(2)} €</p>
-                            </div>
-                            <div className={"div-summary-command"}>
-                                {codePromoLocalStorage ? <p>Promotion</p> : null}
-                                {codePromoLocalStorage ? <p style={{color: "#008000"}}>-{(total * reduc.reduction).toFixed(2)} €</p> : null}
-                            </div>
-                            <div className={"div-summary-command"}>
-                                <p>Frais de livraison
+                                <div className={"div-summary-command"}>
+                                    {codePromoLocalStorage ? <p>Promotion</p> : null}
+                                    {codePromoLocalStorage ?
+                                        <p style={{color: "#008000"}}>-{(total * reduc.reduction).toFixed(2)} €</p> : null}
+                                </div>
+                                <div className={"div-summary-command"}>
+                                    <p>Frais de livraison
+                                    </p>
+                                    <p>{total >= 50 ? <span>Offert</span> : "5.00 €"}</p>
+                                </div>
+                                <hr/>
+                                <div className={"div-summary-command"}>
+                                    <h3>Total</h3>
+                                    <h3>{totalWithReduction.toFixed(2)} €</h3>
+                                </div>
+                                <button onClick={() => {
+                                    jwtToken ? navigate("/checkout/delivery") : navigate("/auth/login")
+                                }}>Passer commande
+                                </button>
+                                <p style={{textAlign: "center"}}>
+                                    <FontAwesomeIcon icon={faLock}/>
+                                    {"\u00A0"} Paiement sécurisé
                                 </p>
-                                <p>{total >= 50 ? <span>Offert</span> : "5.00 €"}</p>
                             </div>
-                            <hr/>
-                            <div className={"div-summary-command"}>
-                                <h3>Total</h3>
-                                <h3>{totalWithReduction.toFixed(2)} €</h3>
-                            </div>
-                            <button onClick={()=> {jwtToken ? navigate("/checkout/delivery") : navigate("/auth/login")}}>Passer commande</button>
-                            <p style={{textAlign: "center"}}>
-                                <FontAwesomeIcon icon={faLock}/>
-                                {"\u00A0"} Paiement sécurisé
-                            </p>
+                        </>
+                    ) : (
+                        <div className="div-panier-vide">
+                            <h2>Votre panier est vide</h2>
                         </div>
-                    </>
-                ) : (
-                    <div className="div-panier-vide">
-                        <h2>Votre panier est vide</h2>
-                    </div>
-                )}
+                    )}
             </div>
         </>
     );
