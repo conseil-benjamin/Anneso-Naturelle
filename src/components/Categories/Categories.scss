@@ -3,6 +3,8 @@
 .main-div-categories {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 0 0 0 2em;
   .header-filter{
     display: flex;
@@ -12,7 +14,7 @@
   }
   .categories-div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     border-radius: 10px;
     border: 1.5px solid $color-border;
     min-width: 15em;

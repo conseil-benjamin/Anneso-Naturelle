@@ -1,8 +1,30 @@
 import imgAccueil from "../../Images/img_accueil.png";
 import braceletAccueil from "../../Images/bracelet_accueil.jpeg";
 import "./HomePage.scss";
+import {useEffect, useState} from "react";
 
 function HomePage() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const get1_example_of_each = async () => {
+        try{
+          const response = await fetch(`${process.env.REACT_APP_API_URL}products/1-example-of-each`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            },
+          });
+          if (response.ok){
+
+          }
+        } catch (error){
+          console.log(error)
+        }
+    }
+    get1_example_of_each();
+  }, []);
+
   return (
     <>
       <div className="first-page-accueil-body">
@@ -31,6 +53,19 @@ function HomePage() {
             </h3>
           </div>
         </div>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center", margin: "5em 0 5em 0"}}>
+            <img src={imgAccueil} width={300}
+                 height={350}/>
+            <p style={{margin: "0 5em 0 5em", fontSize: "1.5em"}}>Bien être</p>
+            <img src={imgAccueil} width={300}
+                 height={350}/>
+          <p style={{margin: "0 0 0 5em", fontSize: "1.5em"}}>Bien être</p>
+        </div>
+        <div style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}}>
+          <img src={imgAccueil} width={300} height={350}/>
+          <p style={{fontSize: "1.5em"}}>Bien être</p>
+        </div>
+        <h2 style={{textAlign: "center"}}>Exemple de produits</h2>
       </div>
     </>
   );

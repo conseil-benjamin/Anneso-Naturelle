@@ -36,6 +36,7 @@ import AdminCodePromo from "../pages/Admin/AdminCodePromo";
 import AdminAddProduct from "../pages/Admin/AdminAddProduct";
 import CheckoutDelivery from "../pages/CheckoutOrder/CheckoutDelivery";
 import CheckoutPayment from "../pages/CheckoutOrder/CheckoutPayment";
+import FiltreEtTrie from "./FiltreEtTrie/FiltreEtTrie";
 
 function App() {
 

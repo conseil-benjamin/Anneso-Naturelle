@@ -1,0 +1,74 @@
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.div-button-filtrer-trier {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 25%;
+  padding: 1.25em;
+  border-radius: 8px;
+  background-color: #F2F2F5;
+}
+.div-button-filtrer-trier p {
+  margin: 0 0 0 1em;
+}
+.div-button-filtrer-trier:hover {
+  cursor: pointer;
+  background-color: #040037;
+  color: #ffffff;
+}
+
+.main-div-filtre-et-trie {
+  width: 25%;
+  height: 100vh;
+  z-index: 88;
+  position: fixed;
+  right: 0;
+  visibility: hidden;
+  background-color: #ffffff;
+  animation: slideInFromRight 0.5s forwards;
+}
+@media (max-width: 768px) {
+  .main-div-filtre-et-trie {
+    width: 100%;
+  }
+}
+.main-div-filtre-et-trie .div-trie {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 1em 0 1em;
+  font-size: 1.05em;
+}
+.main-div-filtre-et-trie .div-trie input {
+  margin: 0 1em 0 0;
+  transform: scale(1.5);
+}
+.main-div-filtre-et-trie .slider-div {
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.main-div-filtre-et-trie .slider-div #btn-valider-filtre-prix {
+  margin: 1em 0 0 0;
+}
+.main-div-filtre-et-trie .div-max-and-min-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-div-filtre-et-trie .div-max-and-min-filter input {
+  max-width: 4em;
+  margin: 0 1.5em 0 1.5em;
+  border-radius: 5px;
+  padding: 0.2em;
+}
+
+/*# sourceMappingURL=FiltreEtTrie.css.map */

@@ -103,10 +103,10 @@ function AdminAddProduct () {
                 <label>Catégorie du produit</label>
                 <select value={categoryProduit} onChange={(e) => setCategoryProduit(e.target.value)} style={{margin: "0 0 1em 0", width: "83%", height: "3em"}}>
                     <option value="">Choisit une catégorie</option>
-                    <option value="bracelet">Bracelet</option>
-                    <option value="boucleOreille">Boucles d'oreilles</option>
+                    <option value="Bracelet">Bracelet</option>
+                    <option value="Boucle Oreille">Boucles d'oreilles</option>
                     <option value="encen">Encens</option>
-                    <option value="accesoire">Accesoires</option>
+                    <option value="Accesoire">Accesoires</option>
                 </select>
                 {(categoryProduit === "bracelet" || categoryProduit === "boucles-oreilles") &&
                     <>

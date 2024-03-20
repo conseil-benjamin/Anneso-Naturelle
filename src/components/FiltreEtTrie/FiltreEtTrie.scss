@@ -1,0 +1,71 @@
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.div-button-filtrer-trier{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 25%;
+    padding: 1.25em;
+    border-radius: 8px;
+    background-color: #F2F2F5;
+    p{
+        margin: 0 0 0 1em;
+    }
+    &:hover{
+        cursor: pointer;
+        background-color: #040037;
+        color: #ffffff;
+    }
+}
+
+.main-div-filtre-et-trie {
+  width: 25%;
+  height: 100vh;
+  z-index: 88;
+  position: fixed;
+  right: 0;
+  visibility: hidden;
+  background-color: #ffffff;
+  animation: slideInFromRight 0.5s forwards;
+  @media (max-width: 768px) {
+    width: 100%; // Prend tout l'écran sur les petits écrans
+  }
+  .div-trie{
+    display: flex;
+    flex-direction: column;
+    padding: 1em 1em 0 1em;
+    font-size: 1.05em;
+    input{
+      margin: 0 1em 0 0;
+      transform: scale(1.5);
+    }
+  }
+  .slider-div{
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    #btn-valider-filtre-prix{
+      margin: 1em 0 0 0;
+    }
+  }
+  .div-max-and-min-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    input {
+      max-width: 4em;
+      margin: 0 1.5em 0 1.5em;
+      border-radius: 5px;
+      padding: 0.20em;
+    }
+  }
+}

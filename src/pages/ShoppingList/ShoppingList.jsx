@@ -10,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {Loader} from "../../utils/Loader";
 import async from "async";
+import NavigationProductList from "../../components/NavigationProductList/NavigationProductList";
+import FiltreEtTrie from "../../components/FiltreEtTrie/FiltreEtTrie";
 
 function ShoppingList({cart, updateCart}) {
     const [activeCategory, setActiveCategory] = useState("");
@@ -26,6 +28,7 @@ function ShoppingList({cart, updateCart}) {
     const [maxPrice, setmaxPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
     const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
     const [cancelFiltre, setCancelFiltre] = useState(false);
+    const [filtreValider, setFiltreValider] = useState(false);
     const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
         useState(false);
 
@@ -97,6 +100,10 @@ function ShoppingList({cart, updateCart}) {
         setminPriceForThisCategory(minPrice);
         setmaxPriceForThisCategory(maxPrice);
     }, [minPriceForThisCategory, maxPriceForThisCategory]);
+
+    useEffect(() => {
+        setMinAndMaxPrice(productList);
+    }, [productList]);
 
     useEffect(() => {
         if (braceletsClique) {
@@ -241,7 +248,6 @@ function ShoppingList({cart, updateCart}) {
 
     const trie = () => {
         nameTable = [...productList];
-
         const sortFunctions = {
             croissant: (a, b) => a.price - b.price,
             decroissant: (a, b) => b.price - a.price,
@@ -260,54 +266,9 @@ function ShoppingList({cart, updateCart}) {
         }
     }
 
-    if (filtreMobileOpen && triageActive) {
-        nameTable = [...productList];
-    } else if (triageActive) {
+    if (triageActive && filtreValider === true) {
         trie();
     }
-
-    const cancelAndClosefiltreMobileOpen = () => {
-        if (isBtnValiderfiltreMobileOpenClique) {
-            setActiveTriage("");
-            trie(); // Appliquer le tri ici si le bouton de validation a été cliqué
-        } else {
-            setActiveTriage(""); // Ne pas appliquer le tri si le bouton de validation n'a pas été cliqué
-        }
-        setBtnValiderfiltreMobileOpenClique(false);
-        setfiltreMobileOpen(false);
-    };
-
-    /*
-    useEffect(() => {
-        console.log("dzqdzqdzqdqdqzdqz")
-        if (activeCategory === "bracelet") {
-            setBraceletsClique(true);
-        } else if (activeCategory === "accessoire") {
-            setAccesoiresClique(true);
-        } else if (activeCategory === "tout") {
-            setToutClique(true);
-        } else if (activeCategory === "encen") {
-            setEncensClique(true);
-        } else if (activeCategory === "boucleOreille") {
-            setBoucleOreilleClique(true);
-        }
-    }, [activeCategory]);
-*/
-
-    const validerTrie = () => {
-        setBtnValiderfiltreMobileOpenClique(true);
-        (triageActive && isBtnValiderfiltreMobileOpenClique) && trie();
-        setfiltreMobileOpen(false);
-    }
-
-    useEffect(() => {
-        if (!isBtnValiderfiltreMobileOpenClique) {
-            return;
-        }
-        setActiveCategory(filtreCategorieMobile);
-        console.log(filtreCategorieMobile);
-        console.log(activeCategory);
-    }, [filtreCategorieMobile && isBtnValiderfiltreMobileOpenClique]);
 
     useEffect(() => {
         if (!isBtnValiderfiltreMobileOpenClique || !minPrice || !maxPrice) {
@@ -343,79 +304,13 @@ function ShoppingList({cart, updateCart}) {
         getProductsByPrixPlusCategory();
     }, [minPrice, maxPrice, activeCategory]);
 
-    const openfiltreMobileOpen = () => {
-        setfiltreMobileOpen(true);
-        setCancelFiltre(false);
-        setBtnValiderfiltreMobileOpenClique(false);
-    }
-
     return (
         <>
-            {filtreMobileOpen ? (
-                <>
-                    <div>
-                        <FontAwesomeIcon icon={faXmark} size="2x" id={"xmark-filtre-mobile"}
-                                         onClick={() => cancelAndClosefiltreMobileOpen()} style={{cursor: "pointer"}}/>
-                    </div>
-                    <div className={"categories-div-mobile"}>
-                        <Categories
-                            braceletClique={braceletsClique}
-                            boucleOreilleClique={boucleOreilleClique}
-                            encensClique={encensClique}
-                            accesoiresClique={accesoiresClique}
-                            setBraceletsClique={setBraceletsClique}
-                            setAccesoiresClique={setAccesoiresClique}
-                            setBoucleOreilleClique={setBoucleOreilleClique}
-                            setEncensClique={setEncensClique}
-                            setToutClique={setToutClique}
-                            toutClique={toutClique}
-                            triageActive={triageActive}
-                            setActiveTriage={setActiveTriage}
-                            activeCategory={activeCategory}
-                            minPriceForThisCategory={minPriceForThisCategory}
-                            maxPriceForThisCategory={maxPriceForThisCategory}
-                            productList={productList}
-                            setproductList={setproductList}
-                            isDataLoading={isDataLoading}
-                            setFiltreCategorieMobile={setFiltreCategorieMobile}
-                            filtreCategorieMobile={filtreCategorieMobile}
-                            setminPrice={setminPrice}
-                            setMaxPrice={setmaxPrice}
-                        ></Categories>
-                        <button onClick={() => validerTrie()}>Valider</button>
-                    </div>
-                </>
-            ) : (
                 <div className="lmj-shopping-list">
-                    <div className="div-button-filtre-mobile-vue" onClick={() => openfiltreMobileOpen()
-                    }>
-                        <button>
-                            <FontAwesomeIcon icon={faSliders} style={{margin: "0 0.5em 0 0"}}></FontAwesomeIcon>
-                            Trier et filtrer
-                        </button>
-                    </div>
                     <div className="div-categories-plus-products-list">
-                        <div className="categories-and-filtre-and-trie">
-                            <Categories
-                                braceletClique={braceletsClique}
-                                boucleOreilleClique={boucleOreilleClique}
-                                encensClique={encensClique}
-                                accesoiresClique={accesoiresClique}
-                                setBraceletsClique={setBraceletsClique}
-                                setAccesoiresClique={setAccesoiresClique}
-                                setBoucleOreilleClique={setBoucleOreilleClique}
-                                setEncensClique={setEncensClique}
-                                setToutClique={setToutClique}
-                                toutClique={toutClique}
-                                triageActive={triageActive}
-                                setActiveTriage={setActiveTriage}
-                                setproductList={setproductList}
-                                activeCategory={activeCategory}
-                                minPriceForThisCategory={minPriceForThisCategory}
-                                maxPriceForThisCategory={maxPriceForThisCategory}
-                                productList={productList}
-                                isDataLoading={isDataLoading}
-                            ></Categories>
+                        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                            <NavigationProductList setProductList={setproductList} setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>
+                            <FiltreEtTrie setActiveTriage={setActiveTriage} triageActive={triageActive} filtreValide={filtreValider} setFiltreValider={setFiltreValider} maxPriceForThisCategory={maxPriceForThisCategory} minPriceForThisCategory={minPriceForThisCategory} setMaxPrice={setmaxPrice} setminPrice={setminPrice} activeCategory={activeCategory} productList={productList}/>
                         </div>
                         {isDataLoading ? (
                             <div className="loader-div-shopping-list">
@@ -423,15 +318,21 @@ function ShoppingList({cart, updateCart}) {
                             </div>
                         ) : (
                             <ul className="lmj-plant-list">
-                                {nameTable.map(({id, cover, name, water, light, price, category, description, pierres }) => (
+                                {nameTable.map(({
+                                                    id,
+                                                    cover,
+                                                    name,
+                                                    price,
+                                                    category,
+                                                    description,
+                                                    pierres
+                                                }) => (
                                     !activeCategory || activeCategory === category ? (
                                         <div key={id} className="div-product">
                                             <ProductItem
                                                 id={id}
                                                 cover={cover}
                                                 name={name}
-                                                water={water}
-                                                light={light}
                                                 price={price}
                                                 description={description}
                                                 category={category}
@@ -444,7 +345,6 @@ function ShoppingList({cart, updateCart}) {
                         )}
                     </div>
                 </div>
-            )}
         </>
     );
 }
