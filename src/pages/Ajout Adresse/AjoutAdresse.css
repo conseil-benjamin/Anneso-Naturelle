@@ -28,7 +28,7 @@
 .body-element-register {
   padding: 2em 0 0 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: #f2f0ec;
@@ -52,6 +52,79 @@
   display: flex;
   align-items: flex-start;
   justify-content: start;
+}
+
+.div-login-right {
+  width: 50%;
+  height: 100%;
+}
+.div-login-right img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px 5px 5px 0px;
+}
+@media (max-width: 1300px) {
+  .div-login-right {
+    display: none;
+  }
+}
+
+.div-login-left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.div-login-left .btn-google-login {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #fff;
+  width: 30%;
+  margin: 1.75em 0 1.75em 0;
+  color: #000;
+}
+@media (max-width: 1300px) {
+  .div-login-left .btn-google-login {
+    width: 60%;
+  }
+}
+@media (min-width: 500px) and (max-width: 900px) {
+  .div-login-left .btn-google-login {
+    width: 70%;
+  }
+}
+@media (min-width: 901px) and (max-width: 1300px) {
+  .div-login-left .btn-google-login {
+    width: 50%;
+  }
+}
+@media (max-width: 499px) {
+  .div-login-left {
+    width: 100%;
+  }
+}
+.div-login-left .div-connexion {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.div-login-left .div-connexion label {
+  text-align: start;
+}
+.div-login-left .div-connexion .div-password {
+  position: relative;
+}
+.div-login-left .div-connexion .div-password .input-login {
+  margin: 0;
+}
+.div-login-left .div-connexion .div-password #icon-eye-see-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .body-page-addAdresse {

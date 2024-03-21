@@ -34,46 +34,46 @@ function NavigationProductList({setProductList, setActiveCategory, activeCategor
                 <div className={'div-category-first-and-secondary'}>
                     <h3 onClick={() => setCategory("Bijoux")}>Bijoux et accessoires</h3>
                     <div className={"div-category-secondary"}>
-                        <h4 onClick={() => setCategory("Bracelet")} style={activeCategory === "Bracelet" ? {
+                        <p onClick={() => setCategory("Bracelet")} style={activeCategory === "Bracelet" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Bracelet</h4>                        <h4
-                        onClick={() => setCategory("Boucle Oreille")} style={activeCategory === "Boucle Oreille" ? {
+                        } : {}}>Bracelet</p>
+                        <p onClick={() => setCategory("Boucle Oreille")} style={activeCategory === "Boucle Oreille" ? {
                         textDecoration: "underline",
                         fontWeight: "bold",
                         color: "blue"
-                    } : {}}>Boucle d'oreille</h4>
-                        <h4 onClick={() => setCategory("Accessoire")} style={activeCategory === "Accessoire" ? {
+                    } : {}}>Boucle d'oreille</p>
+                        <p onClick={() => setCategory("Accessoire")} style={activeCategory === "Accessoire" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Accessoire</h4>
+                        } : {}}>Accessoire</p>
                     </div>
                 </div>
                 <div className={'div-category-first-and-secondary'}>
                     <h3 onClick={() => setCategory("Zen")} >Ambiance zen</h3>
                     <div className={"div-category-secondary"}>
-                        <h4 onClick={() => setCategory("Lampe sel")} style={activeCategory === "Lampe sel" ? {
+                        <p onClick={() => setCategory("Lampe sel")} style={activeCategory === "Lampe sel" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Lampe de sel</h4>
-                        <h4 onClick={() => setCategory("Fontaine interieur")} style={activeCategory === "Fontaine interieur" ? {
+                        } : {}}>Lampe de sel</p>
+                        <p onClick={() => setCategory("Fontaine interieur")} style={activeCategory === "Fontaine interieur" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Fontaine d'intérieur</h4>
-                        <h4 onClick={() => setCategory("Diffusseur")} style={activeCategory === "Diffusseur" ? {
+                        } : {}}>Fontaine d'intérieur</p>
+                        <p onClick={() => setCategory("Diffusseur")} style={activeCategory === "Diffusseur" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Diffuseur d'ambiance</h4>
-                        <h4 onClick={() => setCategory("Statue")} style={activeCategory === "Statue" ? {
+                        } : {}}>Diffuseur d'ambiance</p>
+                        <p onClick={() => setCategory("Statue")} style={activeCategory === "Statue" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Statue</h4>
+                        } : {}}>Statue</p>
                     </div>
                 </div>
                 <div className={'div-category-first-and-secondary'}>
@@ -83,21 +83,21 @@ function NavigationProductList({setProductList, setActiveCategory, activeCategor
                         color: "blue"
                     } : {}}>Bien être</h3>
                     <div className={"div-category-secondary"}>
-                        <h4 onClick={() => setCategory("Purifier")} style={activeCategory === "Purifier" ? {
+                        <hp onClick={() => setCategory("Purifier")} style={activeCategory === "Purifier" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Purifier / Assaisir</h4>
-                        <h4 onClick={() => setCategory("Plateau recharge")} style={activeCategory === "Plateau recharge" ? {
+                        } : {}}>Purifier / Assaisir</hp>
+                        <p onClick={() => setCategory("Plateau recharge")} style={activeCategory === "Plateau recharge" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>PLateau de recharge</h4>
-                        <h4 onClick={() => setCategory("Orgonite")} style={activeCategory === "Orgonite" ? {
+                        } : {}}>PLateau de recharge</p>
+                        <p onClick={() => setCategory("Orgonite")} style={activeCategory === "Orgonite" ? {
                             textDecoration: "underline",
                             fontWeight: "bold",
                             color: "blue"
-                        } : {}}>Orgonite</h4>
+                        } : {}}>Orgonite</p>
                     </div>
                 </div>
             </div>

@@ -248,21 +248,15 @@ function ShoppingList({cart, updateCart}) {
 
     const trie = () => {
         nameTable = [...productList];
+        const filteredData = nameTable.filter(item => item.price >= minPrice && item.price <= maxPrice)
         const sortFunctions = {
             croissant: (a, b) => a.price - b.price,
             decroissant: (a, b) => b.price - a.price,
             nom: (a, b) => (a.name > b.name ? 1 : -1),
-            /**
-             *
-             *       moinsArrosage: (a, b) => a.water - b.water,
-             *       plusArrosage: (a, b) => b.water - a.water,
-             *       moinsLumiere: (a, b) => a.light - b.light,
-             *       plusLumiere: (a, b) => b.light - a.light,
-             */
-        };
 
+        };
         if (sortFunctions[triageActive]) {
-            nameTable = [...nameTable].sort(sortFunctions[triageActive]);
+            nameTable = [...filteredData].sort(sortFunctions[triageActive]);
         }
     }
 

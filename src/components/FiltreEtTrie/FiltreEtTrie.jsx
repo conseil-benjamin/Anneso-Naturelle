@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSliders, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {useEffect, useState} from "react";
 import Slider from "rc-slider";
-import {isMobile} from "react-device-detect";
+import {useSwipeable} from "react-swipeable";
 
 function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPrice, setMaxPrice, minPriceForThisCategory, maxPriceForThisCategory, activeCategory ,productList}) {
     const [filtreClique, setFiltreClique] = useState(false);
@@ -18,10 +18,20 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
     const [pierresBracelets, setPierresBracelets] = useState([]);
     const [pierresChoisies, setPierresChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
 
+    const handleClose = () => {
+        setFiltreClique(false);
+    };
+
+    const handlers = useSwipeable({
+        onSwipedDown: handleClose,
+        preventDefaultTouchmoveEvent: true
+    });
 
     const handleSliderChange = (minParam, maxParam, range) => {
         setMin(minParam);
         setMax(maxParam);
+        setminPrice(minParam)
+        setMaxPrice(maxParam)
         setRange(range);
         minParam !== min || maxParam !== max
             ? setPriceChanged(true)
@@ -29,10 +39,9 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
     };
 
     const trackStyle = {
-        backgroundColor: "#434748",
-        height: 7,
+        backgroundColor: "#040037",
+        height: 8
     };
-
 
     /**
      * * Récupère les pierres de la liste de produit si les produits sont des bracelets
@@ -58,6 +67,23 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
         fetchPierresBracelet().then(r => console.log(r));
     }, [activeCategory, productList]);
 
+    const handleChoixPierres = async (pierre) => {
+        setPierresChoisies(prevPierresChoisies => {
+            const estDeselectionnee = prevPierresChoisies.includes(pierre);
+
+            let nouvellesPierresChoisies;
+
+            if (estDeselectionnee) {
+                // Si la pierre est déjà choisie, la retire de la liste
+                nouvellesPierresChoisies = prevPierresChoisies.filter(p => p !== pierre);
+            } else {
+                // Ajoute la pierre à la liste
+                nouvellesPierresChoisies = [...prevPierresChoisies, pierre];
+            }
+            // Mise à jour du state
+            return nouvellesPierresChoisies;
+        });
+    }
     return (
         <>
             <div className={"div-button-filtrer-trier"} onClick={() => setFiltreClique(true)}>
@@ -77,7 +103,7 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                                      style={{margin: "0 1em 0 0", fontSize: "1.5em", cursor: "pointer"}}/>
                 </div>
                 <div>
-                    <div style={{backgroundColor: "grey", padding: "0.5em"}}>
+                    <div style={{backgroundColor: "#F3F3F5", padding: "0.5em"}}>
                         <h4 style={{margin: 0}}>Trier par</h4>
                     </div>
                     <div className="div-trie">
@@ -114,22 +140,15 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                         </label>
                     </div>
                 </div>
-                <div style={{backgroundColor: "grey", padding: "0.5em", margin: "1em 0 1em 0"}}>
+                <div style={{backgroundColor: "#F3F3F5", padding: "0.5em", margin: "1em 0 1em 0"}}>
                     <h4 style={{margin: 0}}>Filtrer par</h4>
                 </div>
-                <h4 style={{margin: "0 0 2em 1em"}}>Prix</h4>
                 <div className="div-max-and-min-filter">
-                    <input
-                        onChange={(newRange) => setMin(newRange)}
-                        value={min}
-                    ></input>
-                    <input
-                        onChange={(newRange) => setMax(newRange)}
-                        value={max}
-                    ></input>
+                    <h4>Prix</h4>
+                    <p>{min} € - {max} € </p>
                 </div>
                 <div className="slider-div">
-                    <Slider
+                <Slider
                         range
                         min={minPriceForThisCategory}
                         max={maxPriceForThisCategory}
@@ -139,17 +158,6 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                         }
                         trackStyle={[trackStyle]}
                     />
-                    {hasPriceChanged && !isMobile ? (
-                        <button
-                            onClick={() => setChangePriceClique(true)}
-                            id="btn-valider-filtre-prix"
-                        >
-                            Valider
-                        </button>
-                    ) : hasPriceChanged && isMobile ? (
-                        setminPrice(min),
-                            setMaxPrice(max)
-                    ) : null}
                 </div>
                 {activeCategory === "Bracelet" ? (
                     pierresBracelets.map((pierre, index) => (
@@ -160,13 +168,10 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                         </div>
                     ))
                 ) : null}
-                <div>
-
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <button style={{width: "100%", backgroundColor: "#302D5B"}} onClick={() => setFiltreValider(true)}>Valider</button>
+                    </div>
                 </div>
-                <div style={{display: "flex", alignItems: "center", justifyContent: "center", margin: "2em 0 0 0"}}>
-                <button onClick={() => setFiltreValider(true)}>Valider</button>
-                </div>
-            </div>
         </>
     )
 }

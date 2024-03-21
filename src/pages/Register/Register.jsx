@@ -239,155 +239,162 @@ function Register() {
   };
 
   return (
-    <div className="body-element-register">
-      <h1>Création de compte</h1>
-        <div className={"div-input-register"}>
-        <label>Nom</label>
-        <input
-            className="input-login"
-            value={nomValue}
-            onBlur={handleOnblurName}
-            onChange={(e) => setNomValue(e.target.value)}
-            style={erreurInputName ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
-        ></input>
-            {erreurInputName && nomValue <= 0 &&
-                <div className={"div-error-message-register"}>
-                    <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
-                    <p style={{color: "red"}}>{erreurInputName} </p>
-                </div>
-            }
-        </div>
-        <div className={"div-input-register"}>
+      <div className="body-element-register">
+          <div className={"div-login-left"}>
+          <div className={"div-input-register"}>
+              <label>Nom</label>
+              <input
+                  className="input-login"
+                  value={nomValue}
+                  onBlur={handleOnblurName}
+                  onChange={(e) => setNomValue(e.target.value)}
+                  style={erreurInputName ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
+              ></input>
+              {erreurInputName && nomValue <= 0 &&
+                  <div className={"div-error-message-register"}>
+                      <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                      <p style={{color: "red"}}>{erreurInputName} </p>
+                  </div>
+              }
+          </div>
+          <div className={"div-input-register"}>
 
-        <label>Prénom</label>
-      <input
-        className="input-login"
-        value={prenomValue}
-        onBlur={handleOnblurFirstName}
-        onChange={(e) => setPrenomValue(e.target.value)}
-        style={erreurInputFirstName ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
-      ></input>
-        {erreurInputFirstName && prenomValue <= 0 &&
-            <div className={"div-error-message-register"}>
-                <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
-                <p style={{color: "red"}}>{erreurInputFirstName} </p>
-            </div>
-        }
-        </div>
-        <div className={"div-input-register"}>
+              <label>Prénom</label>
+              <input
+                  className="input-login"
+                  value={prenomValue}
+                  onBlur={handleOnblurFirstName}
+                  onChange={(e) => setPrenomValue(e.target.value)}
+                  style={erreurInputFirstName ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
+              ></input>
+              {erreurInputFirstName && prenomValue <= 0 &&
+                  <div className={"div-error-message-register"}>
+                      <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                      <p style={{color: "red"}}>{erreurInputFirstName} </p>
+                  </div>
+              }
+          </div>
+          <div className={"div-input-register"}>
 
-        <label>Numéro de téléphone</label>
-      <input
-        className="input-login"
-        value={numeroTelValue}
-        onBlur={handleOnblurTel}
-        onChange={(e) => setNumeroTelValue(e.target.value)}
-        style={erreurInputTel ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
-      ></input>
-        {erreurInputTel && !numeroTelVerif(numeroTelValue) &&
-            <div className={"div-error-message-register"}>
-                <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
-                <p style={{color: "red"}}>{erreurInputTel}</p>
-            </div>
-        }
-</div>
-        <div className={"div-input-register"}>
+              <label>Numéro de téléphone</label>
+              <input
+                  className="input-login"
+                  value={numeroTelValue}
+                  onBlur={handleOnblurTel}
+                  onChange={(e) => setNumeroTelValue(e.target.value)}
+                  style={erreurInputTel ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
+              ></input>
+              {erreurInputTel && !numeroTelVerif(numeroTelValue) &&
+                  <div className={"div-error-message-register"}>
+                      <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                      <p style={{color: "red"}}>{erreurInputTel}</p>
+                  </div>
+              }
+          </div>
+          <div className={"div-input-register"}>
 
-        <label>Adresse email</label>
-      <input
-        className="input-login"
-        value={email}
-        onBlur={handleOnblurEmail}
-        onChange={(e) => setemail(e.target.value)}
-        style={erreurInputEmail ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
-      ></input>
-        {erreurInputEmail && !emailVerif(email) &&
-            <div className={"div-error-message-register"}>
-                <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
-                <p style={{color: "red"}}>{erreurInputEmail}</p>
-            </div>}
-</div>
-        <div className={"div-input-register"}>
-            <label id={"label-mdp"}>Mot de passe</label>
-            <div className="div-password">
-                <input
-                    className="input-login"
-                    type={inputType}
-                    value={password}
-                    onBlur={handleOnblurPassword}
-                    onChange={(e) => setpassword(e.target.value)}
-                    style={erreurInputPassword ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
-                />
-                {inputType === "password" ? (
-                    <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
-                ) : (
-                    <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"} onClick={togglePasswordVisibility}></FontAwesomeIcon>
-                )}
-            </div>
-            {erreurInputPassword ?
-                <div className={"div-error-message-register"}>
-                    <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
-                    <p style={{color: "red"}}>{erreurInputPassword}</p>
-                </div>
-                : null}
-        </div>
+              <label>Adresse email</label>
+              <input
+                  className="input-login"
+                  value={email}
+                  onBlur={handleOnblurEmail}
+                  onChange={(e) => setemail(e.target.value)}
+                  style={erreurInputEmail ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
+              ></input>
+              {erreurInputEmail && !emailVerif(email) &&
+                  <div className={"div-error-message-register"}>
+                      <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                      <p style={{color: "red"}}>{erreurInputEmail}</p>
+                  </div>}
+          </div>
+          <div className={"div-input-register"}>
+              <label id={"label-mdp"}>Mot de passe</label>
+              <div className="div-password">
+                  <input
+                      className="input-login"
+                      type={inputType}
+                      value={password}
+                      onBlur={handleOnblurPassword}
+                      onChange={(e) => setpassword(e.target.value)}
+                      style={erreurInputPassword ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
+                  />
+                  {inputType === "password" ? (
+                      <FontAwesomeIcon icon={faEye} id={"icon-eye-see-password"}
+                                       onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                  ) : (
+                      <FontAwesomeIcon icon={faEyeSlash} id={"icon-eye-see-password"}
+                                       onClick={togglePasswordVisibility}></FontAwesomeIcon>
+                  )}
+              </div>
+              {erreurInputPassword ?
+                  <div className={"div-error-message-register"}>
+                      <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                      <p style={{color: "red"}}>{erreurInputPassword}</p>
+                  </div>
+                  : null}
+          </div>
 
-        <div className={"div-input-register"}>
-            <label>Confirmation mot de passe</label>
-            <input
-                className="input-login"
-                type={inputType}
-                value={confPassword}
-                onBlur={handleOnblurConfPassword}
-                onChange={(e) => setconfPassword(e.target.value)}
-                style={erreurInputPasswordConf ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
-            />
-            {erreurInputPasswordConf && !confirmPasswordVerif(confPassword) &&
-                <div className={"div-error-message-register"}>
-                    <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
-                    <p style={{color: "red"}}>{erreurInputPasswordConf}</p>
-                </div>
-            }
-        </div>
-        <div className="radio-btn-genre-register">
-        {Civilite === "Monsieur" ? (
-          <>
-            <button
-              className="btn-genre"
-              style={{ backgroundColor: "white", color: "black" }}
-              onClick={() => setCivilite("Madame")}
-            >
-              Madame
-            </button>
-            <button className="btn-genre">Monsieur</button>
-          </>
-        ) : (
-          <>
-            <button className="btn-genre">Madame</button>
-            <button
-              className="btn-genre"
-              style={{ backgroundColor: "white", color: "black" }}
-              onClick={() => setCivilite("Monsieur")}
-            >
-              Monsieur
-            </button>
-          </>
-        )}
-      </div>
-        {isDataLoading ?
-        <Loader></Loader> :
-      <button className="btn-login" onClick={() => handleClickRegister()}>
-        Créer mon compte
-        <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn" />
-      </button>
-        }
-      <div className="div-text-login">
-        <span>Déjà un compte ?</span>
-        <span className="bold-text" onClick={() => navigate("/auth/login")} style={{cursor: "pointer"}}>
+          <div className={"div-input-register"}>
+              <label>Confirmation mot de passe</label>
+              <input
+                  className="input-login"
+                  type={inputType}
+                  value={confPassword}
+                  onBlur={handleOnblurConfPassword}
+                  onChange={(e) => setconfPassword(e.target.value)}
+                  style={erreurInputPasswordConf ? {borderColor: "red"} : {borderColor: "#CFCFD0"}}
+              />
+              {erreurInputPasswordConf && !confirmPasswordVerif(confPassword) &&
+                  <div className={"div-error-message-register"}>
+                      <FontAwesomeIcon id={"icon-infos-error"} icon={faCircleInfo}></FontAwesomeIcon>
+                      <p style={{color: "red"}}>{erreurInputPasswordConf}</p>
+                  </div>
+              }
+          </div>
+          <div className="radio-btn-genre-register">
+              {Civilite === "Monsieur" ? (
+                  <>
+                      <button
+                          className="btn-genre"
+                          style={{backgroundColor: "white", color: "black"}}
+                          onClick={() => setCivilite("Madame")}
+                      >
+                          Madame
+                      </button>
+                      <button className="btn-genre">Monsieur</button>
+                  </>
+              ) : (
+                  <>
+                      <button className="btn-genre">Madame</button>
+                      <button
+                          className="btn-genre"
+                          style={{backgroundColor: "white", color: "black"}}
+                          onClick={() => setCivilite("Monsieur")}
+                      >
+                          Monsieur
+                      </button>
+                  </>
+              )}
+          </div>
+          {isDataLoading ?
+              <Loader></Loader> :
+              <button className="btn-login" onClick={() => handleClickRegister()}>
+                  Créer mon compte
+                  <FontAwesomeIcon icon={faSignInAlt} className="icon-signIn"/>
+              </button>
+          }
+          <div className="div-text-login">
+              <span>Déjà un compte ?</span>
+              <span className="bold-text" onClick={() => navigate("/auth/login")} style={{cursor: "pointer"}}>
           Connectez-vous
         </span>
+          </div>
       </div>
-    </div>
+          <div className={"div-login-right"}>
+              <img
+                  src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709209172/Page%20Login/sebastien.png"}></img>
+          </div>
+      </div>
   );
 }
 

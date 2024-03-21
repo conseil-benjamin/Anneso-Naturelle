@@ -27,7 +27,7 @@
 }
 
 .main-div-filtre-et-trie {
-  width: 25%;
+  width: 30%;
   height: 100vh;
   z-index: 88;
   position: fixed;
@@ -39,6 +39,7 @@
 @media (max-width: 768px) {
   .main-div-filtre-et-trie {
     width: 100%;
+    border-radius: 20px 20px 0 0;
   }
 }
 .main-div-filtre-et-trie .div-trie {
@@ -62,7 +63,9 @@
 .main-div-filtre-et-trie .div-max-and-min-filter {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 1em;
 }
 .main-div-filtre-et-trie .div-max-and-min-filter input {
   max-width: 4em;

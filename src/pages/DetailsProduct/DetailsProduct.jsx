@@ -37,7 +37,7 @@ function DetailsProduct({cart, updateCart}) {
             }
         };
         fetchData().then((r) => console.log(r), (e) => console.error(e));
-    }, [id]);
+    }, []);
 
     function addToCart(cover, name, price, idProduct) {
         if (jwtToken) {

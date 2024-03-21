@@ -19,11 +19,11 @@
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   transition: visibility 0.3s, opacity 0.3s linear;
 }
-.main-div-navigation-products .div-category-secondary h4 {
+.main-div-navigation-products .div-category-secondary p {
   position: relative;
   overflow: hidden;
 }
-.main-div-navigation-products .div-category-secondary h4::after {
+.main-div-navigation-products .div-category-secondary p::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -33,7 +33,7 @@
   background: #4C6945;
   transition: width 0.3s;
 }
-.main-div-navigation-products .div-category-secondary h4:hover::after {
+.main-div-navigation-products .div-category-secondary p:hover::after {
   width: 100%;
 }
 .main-div-navigation-products .div-category-first-and-secondary h3 {

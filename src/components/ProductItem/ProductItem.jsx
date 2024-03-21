@@ -25,15 +25,12 @@ function ProductItem({
     const handleDetailsClique = (
         cover,
         name,
-        water,
-        light,
         price,
         description,
         category, pierres
     ) => {
-        navigate("/Details/" + id, {
+        navigate("/details/" + id, {
             state: {
-                id: id,
                 cover: cover,
                 name: name,
                 price: price,
@@ -152,6 +149,7 @@ function ProductItem({
                 alt={`${name} cover`}
                 onClick={() =>
                     handleDetailsClique(
+                        id,
                         cover,
                         name,
                         price,
