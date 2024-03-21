@@ -1,31 +1,35 @@
 @import "../../styles/colors.scss";
 
 @mixin positioningEyeIcon() {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
-.div-input-register{
+.div-input-register {
   display: flex;
   flex-direction: column;
   margin: 0 0 0.40em 0;
-  .div-error-message-register{
+
+  .div-error-message-register {
     display: flex;
     flex-direction: row;
     font-size: 0.9em;
     margin: 0.5em 0 0 0;
     align-items: center;
-    #icon-infos-error{
+
+    #icon-infos-error {
       margin: 0 0.5em 0 0;
       color: red;
     }
   }
-  .div-password{
+
+  .div-password {
     position: relative;
-    #icon-eye-see-password{
+
+    #icon-eye-see-password {
       @include positioningEyeIcon();
     }
   }
@@ -38,48 +42,53 @@
   align-items: center;
   justify-content: center;
   background-color: $background-color;
-  p{
+
+  p {
     padding: 0;
     margin: 0 0 0.5em 0;
   }
-  input{
+
+  input {
     margin: 0;
   }
+
   .btn-genre {
     padding: 0.7em;
     width: auto;
     margin: 1em 1em 2em 0;
   }
-  .div-text-login{
+
+  .div-text-login {
     margin: 0 0 2em 0;
   }
-  .div-label-register{
+
+  .div-label-register {
     display: flex;
     align-items: flex-start;
     justify-content: start;
   }
 }
 
-.div-login-right{
+.div-login-right {
   width: 50%;
-  height: 100%;
-  img{
-    height: 100%;
+
+  img {
     width: 100%;
-    object-fit: cover;
     border-radius: 5px 5px 5px 0px;
   }
-  @media (max-width: 1300px){
+
+  @media (max-width: 1300px) {
     display: none;
   }
 }
 
-.div-login-left{
+.div-login-left {
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .btn-google-login{
+
+  .btn-google-login {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -87,32 +96,38 @@
     width: 30%;
     margin: 1.75em 0 1.75em 0;
     color: #000;
-    @media (max-width: 1300px){
+    @media (max-width: 1300px) {
       width: 60%;
     }
-    @media (min-width: 500px ) and (max-width: 900px) {
+    @media (min-width: 500px) and (max-width: 900px) {
       width: 70%;
     }
-    @media (min-width: 901px ) and (max-width: 1300px) {
+    @media (min-width: 901px) and (max-width: 1300px) {
       width: 50%;
     }
   }
+
   @media (max-width: 499px) {
     width: 100%;
   }
-  .div-connexion{
+
+  .div-connexion {
     padding: 1em;
     display: flex;
     flex-direction: column;
-    label{
+
+    label {
       text-align: start;
     }
-    .div-password{
+
+    .div-password {
       position: relative;
-      .input-login{
+
+      .input-login {
         margin: 0;
       }
-      #icon-eye-see-password{
+
+      #icon-eye-see-password {
         @include positioningEyeIcon();
       }
     }

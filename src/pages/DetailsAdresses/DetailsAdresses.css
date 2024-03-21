@@ -56,12 +56,9 @@
 
 .div-login-right {
   width: 50%;
-  height: 100%;
 }
 .div-login-right img {
-  height: 100%;
   width: 100%;
-  object-fit: cover;
   border-radius: 5px 5px 5px 0px;
 }
 @media (max-width: 1300px) {

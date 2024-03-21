@@ -9,22 +9,28 @@
   }
 }
 
-.div-button-filtrer-trier{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 25%;
-    padding: 1.25em;
-    border-radius: 8px;
-    background-color: #F2F2F5;
-    p{
-        margin: 0 0 0 1em;
-    }
-    &:hover{
-        cursor: pointer;
-        background-color: #040037;
-        color: #ffffff;
-    }
+.body-lock-scroll {
+  overflow: hidden;
+}
+
+.div-button-filtrer-trier {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 25%;
+  padding: 1.25em;
+  border-radius: 8px;
+  background-color: #F2F2F5;
+
+  p {
+    margin: 0 0 0 1em;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #040037;
+    color: #ffffff;
+  }
 }
 
 .main-div-filtre-et-trie {
@@ -33,37 +39,42 @@
   z-index: 88;
   position: fixed;
   right: 0;
-  visibility: hidden;
   background-color: #ffffff;
   animation: slideInFromRight 0.5s forwards;
   @media (max-width: 768px) {
     width: 100%; // Prend tout l'écran sur les petits écrans
     border-radius: 20px 20px 0 0;
   }
-  .div-trie{
+
+  .div-trie {
     display: flex;
     flex-direction: column;
     padding: 1em 1em 0 1em;
-    font-size: 1.05em;
-    input{
+    font-size: 1.01em;
+
+    input {
       margin: 0 1em 0 0;
-      transform: scale(1.5);
+      transform: scale(1.1);
     }
   }
-  .slider-div{
+
+  .slider-div {
     margin: 1em;
     display: flex;
     flex-direction: column;
-    #btn-valider-filtre-prix{
+
+    #btn-valider-filtre-prix {
       margin: 1em 0 0 0;
     }
   }
+
   .div-max-and-min-filter {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
     margin: 1em;
+
     input {
       max-width: 4em;
       margin: 0 1.5em 0 1.5em;

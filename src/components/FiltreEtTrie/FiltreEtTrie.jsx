@@ -4,9 +4,23 @@ import {faSliders, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {useEffect, useState} from "react";
 import Slider from "rc-slider";
 import {useSwipeable} from "react-swipeable";
+import {useFiltre} from '../../utils/FiltreContext';
 
-function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPrice, setMaxPrice, minPriceForThisCategory, maxPriceForThisCategory, activeCategory ,productList}) {
-    const [filtreClique, setFiltreClique] = useState(false);
+function FiltreEtTrie() {
+    const {
+        filtreOuvert,
+        setFiltreOuvert,
+        toggleFiltre,
+        activeCategory,
+        maxPriceForThisCategory,
+        minPriceForThisCategory,
+        setMaxPrice,
+        setActiveTriage,
+        triageActive,
+        setFiltreValider,
+        setminPrice,
+        productList
+    } = useFiltre();
     const [hasPriceChanged, setPriceChanged] = useState(false);
     const [changePriceClique, setChangePriceClique] = useState(false);
     const [min, setMin] = useState(minPriceForThisCategory);
@@ -17,14 +31,18 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
     ]);
     const [pierresBracelets, setPierresBracelets] = useState([]);
     const [pierresChoisies, setPierresChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
+    const [couleursChoisies, setCouleursChoisies] = useState(JSON.parse(sessionStorage.getItem('pierresChoisies')) || []);
+    const [colors, setColors] = useState([]);
+
 
     const handleClose = () => {
-        setFiltreClique(false);
+        setFiltreOuvert(false);
+        document.body.classList.remove('body-lock-scroll');
     };
 
     const handlers = useSwipeable({
-        onSwipedDown: handleClose,
-        preventDefaultTouchmoveEvent: true
+        onSwipedDown: () => handleClose(),
+        preventDefaultTouchmoveEvent: true,
     });
 
     const handleSliderChange = (minParam, maxParam, range) => {
@@ -48,10 +66,13 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
      * @returns {Promise<*>}
      */
     const functionPierresBracelet = async () => {
+        console.log(productList)
+        if (!productList) return [];
         const pierresBracelet = productList.reduce((acc, product) => {
-            if (product.category === "bracelet") {
+            if (product.category === "Bracelet") {
                 acc = acc.concat(product.pierres);
             }
+            console.log(acc)
             return acc;
         }, []);
         return pierresBracelet.filter(
@@ -81,17 +102,63 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                 nouvellesPierresChoisies = [...prevPierresChoisies, pierre];
             }
             // Mise à jour du state
+            sessionStorage.setItem('pierresChoisies', JSON.stringify(nouvellesPierresChoisies));
             return nouvellesPierresChoisies;
         });
     }
+
+    const handleChoixCouleurs = async (couleur) => {
+        setCouleursChoisies(prevCouleurChoisie => {
+            const estDeselectionnee = prevCouleurChoisie.includes(couleur);
+
+            let nouvellesCouleursChoisies;
+
+            if (estDeselectionnee) {
+                // Si la pierre est déjà choisie, la retire de la liste
+                nouvellesCouleursChoisies = prevCouleurChoisie.filter(p => p !== couleur);
+            } else {
+                // Ajoute la pierre à la liste
+                nouvellesCouleursChoisies = [...prevCouleurChoisie, couleur];
+            }
+            // Mise à jour du state
+            sessionStorage.setItem('couleursChoisies', JSON.stringify(nouvellesCouleursChoisies));
+            return nouvellesCouleursChoisies;
+        });
+    }
+
+    console.log(activeCategory)
+
+
+    /**
+     * Couleur des pierres de bracelets
+     * @returns {Promise<*>}
+     */
+    const functionColor = async () => {
+        if (!productList) return [];
+        const colorsProduct = productList.reduce((acc, product) => {
+            acc = acc.concat(product.color);
+            return acc;
+        }, []);
+        return colorsProduct.filter(
+            (color, index) => colorsProduct.indexOf(color) === index
+        );
+    }
+
+    useEffect(() => {
+        const fetchColor = async () => {
+            const colors = await functionColor();
+            setColors(colors);
+        }
+        fetchColor().then(r => console.log(r));
+    }, [activeCategory, productList]);
+
     return (
         <>
-            <div className={"div-button-filtrer-trier"} onClick={() => setFiltreClique(true)}>
-                <FontAwesomeIcon icon={faSliders}/>
-                <p>Trier & Filter</p>
-            </div>
-            <div className={'main-div-filtre-et-trie'}
-                 style={filtreClique ? {visibility: "visible"} : {visibility: "hidden"}}>
+            <div
+                className={`main-div-filtre-et-trie ${filtreOuvert ? "filtre-visible" : ""}`}
+                style={{visibility: filtreOuvert ? "visible" : "hidden"}}
+                {...handlers}
+            >
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
@@ -99,7 +166,7 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                     justifyContent: "space-between"
                 }}>
                     <h3>Trier et filtrer</h3>
-                    <FontAwesomeIcon icon={faXmark} onClick={() => setFiltreClique(false)}
+                    <FontAwesomeIcon icon={faXmark} onClick={() => setFiltreOuvert(false)}
                                      style={{margin: "0 1em 0 0", fontSize: "1.5em", cursor: "pointer"}}/>
                 </div>
                 <div>
@@ -143,12 +210,40 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                 <div style={{backgroundColor: "#F3F3F5", padding: "0.5em", margin: "1em 0 1em 0"}}>
                     <h4 style={{margin: 0}}>Filtrer par</h4>
                 </div>
+                <div style={{margin: "1em"}}>
+                    {(activeCategory === "Bracelet" || activeCategory === "Boucle Oreille") && <h4>Pierres</h4>}
+                    {activeCategory === "Bracelet" || activeCategory === "Boucle Oreille" ? (
+                        pierresBracelets.map((pierre, index) => (
+                            <div key={index} className={"div-une-pierre"}>
+                                <input type="checkbox" id={`pierre-${index}`} value={pierre}
+                                       checked={pierresChoisies.includes(pierre)}
+                                       onChange={() => handleChoixPierres(pierre)}
+                                />
+                                <label htmlFor={`pierre-${index}`}>{pierre}</label>
+                            </div>
+                        ))
+                    ) : null}
+                </div>
+                <div style={{margin: "1em"}}>
+                    {(activeCategory === "Bracelet" || activeCategory === "Boucle Oreille") && <h4>Couleurs</h4>}
+                    {activeCategory === "Bracelet" || activeCategory === "Boucle Oreille" ? (
+                        colors.map((color, index) => (
+                            <div key={index} className={"div-une-pierre"}>
+                                <input type="checkbox" id={`color-${index}`} value={color}
+                                       checked={couleursChoisies.includes(color)}
+                                       onChange={() => handleChoixCouleurs(color)}/>
+                                <label htmlFor={`color-${index}`}>{color}</label>
+                            </div>
+                        ))
+                    ) : null}
+                </div>
+
                 <div className="div-max-and-min-filter">
                     <h4>Prix</h4>
                     <p>{min} € - {max} € </p>
                 </div>
                 <div className="slider-div">
-                <Slider
+                    <Slider
                         range
                         min={minPriceForThisCategory}
                         max={maxPriceForThisCategory}
@@ -159,19 +254,12 @@ function FiltreEtTrie({triageActive, setActiveTriage, setFiltreValider, setminPr
                         trackStyle={[trackStyle]}
                     />
                 </div>
-                {activeCategory === "Bracelet" ? (
-                    pierresBracelets.map((pierre, index) => (
-                        <div key={index} className={"div-une-pierre"}>
-                            <input type="checkbox" id={`pierre-${index}`} value={pierre} checked={pierresChoisies.includes(pierre)} onChange={() => handleChoixPierres(pierre)}
-                            />
-                            <label htmlFor={`pierre-${index}`}>{pierre}</label>
-                        </div>
-                    ))
-                ) : null}
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                        <button style={{width: "100%", backgroundColor: "#302D5B"}} onClick={() => setFiltreValider(true)}>Valider</button>
-                    </div>
+                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <button style={{width: "100%", backgroundColor: "#302D5B"}}
+                            onClick={() => setFiltreValider(true)}>Valider
+                    </button>
                 </div>
+            </div>
         </>
     )
 }

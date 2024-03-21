@@ -22,21 +22,20 @@ import DetailsCommande from "../pages/DetailsCommande/DetailsCommande";
 import Favoris from "../pages/Favoris/Favoris";
 import HomePage from "../pages/HomePage/HomePage";
 import DetailsAdresses from "../pages/DetailsAdresses/DetailsAdresses";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
-import CartContex from "../utils/CartContex";
-import ButtonDeconnect from "./Button Deconnect/ButtonDeconnect";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import {Analytics} from "@vercel/analytics/react"
+import {SpeedInsights} from "@vercel/speed-insights/react"
 import Admin from "../pages/Admin/Admin";
 import AdminOrders from "../pages/Admin/AdminOrders";
 import AdminCodePromo from "../pages/Admin/AdminCodePromo";
 import AdminAddProduct from "../pages/Admin/AdminAddProduct";
 import CheckoutDelivery from "../pages/CheckoutOrder/CheckoutDelivery";
 import CheckoutPayment from "../pages/CheckoutOrder/CheckoutPayment";
+import {FiltreProvider, useFiltre} from '../utils/FiltreContext';
+import "./App.css";
 import FiltreEtTrie from "./FiltreEtTrie/FiltreEtTrie";
+import NavigationProductList from "./NavigationProductList/NavigationProductList";
 
 function App() {
 
@@ -47,72 +46,117 @@ function App() {
         localStorage.setItem("cart", JSON.stringify(cart));
         updateCart(cart);
     }, [cart]);
+    const [productList, setproductList] = useState([]);
 
     return (
-        <Router>
-            <div>
-                <Banner/>
-                <div className="lmj-layout-inner">
-                    <Routes>
-                        <Route exact path="/" element={<Home/>}/>{" "}
-                        <Route
-                            path="/Details/:id"
-                            element={<DetailsProduct cart={cart} updateCart={updateCart}/>}
-                        />
-                        <Route path="/auth/login" element={<Login/>}/>
-                        <Route element={<PrivateRoutes/>}>
-                            <Route path="/profil/infos-persos" element={<Profil/>}/>
-                            <Route path="/profil/commandes" element={<Commandes/>}/>
-                            <Route path="/profil/adresses" element={<Adresses/>}/>
-                            <Route path="/profil/favoris" element={<Favoris/>}/>
-                            <Route path={"/admin"} element={<Admin/>}/>
-                            <Route
-                                path="/Profil/adresses/ajoutAdresse"
-                                element={<AjoutAdresse/>}
-                            />
-                            <Route path="/admin/orders" element={<AdminOrders/>}/>
-                            <Route path="/admin/promo-code" element={<AdminCodePromo/>}/>
-                            <Route path={"/admin/add-product"} element={<AdminAddProduct/>}/>
-                            <Route
-                                path="/Profil/adresses/:numAdresse"
-                                element={<DetailsAdresses/>}
-                            />
-                            <Route
-                                path="/Profil/commandes/:idCommande"
-                                element={<DetailsCommande/>}
-                            />
-                            <Route path="/checkout/delivery" element={<CheckoutDelivery/>}/>
-                            <Route path="/checkout/payment" element={<CheckoutPayment/>}/>
-                        </Route>
-                        <Route path="/auth/reset-password/:token" element={<ResetPassword/>}/>
-                        <Route path="/auth/register" element={<Register/>}/>
-                        <Route path="apropos" element={<Apropos/>}/>
-                        <Route path="contact" element={<Contact/>}/>
-                        <Route path="mentions-legales" element={<MentionsLegales/>}/>
-                        <Route
-                            path="conditions-utilisations"
-                            element={<ConditionsUtilisations/>}
-                        />
-                        <Route
-                            path="conditions-generales"
-                            element={<ConditionsGenerales/>}
-                        />
-                        <Route
-                            path="panier"
-                            element={<Panier cart={cart} updateCart={updateCart}/>}
-                        />
-                        <Route
-                            path="collections"
-                            element={<ShoppingList/>}
-                        />
-                        <Route path="/*" element={<Erreur404/>}/>
-                    </Routes>
+        <FiltreProvider>
+            <Router>
+                <div>
+                    <FiltreEtTrieWrapper cart={cart} updateCart={updateCart} productList={productList}/>
+                    <AppContent cart={cart} updateCart={updateCart} productList={productList}
+                                setProductList={setproductList}/>
                 </div>
+            </Router>
+        </FiltreProvider>
+    )
+        ;
+}
+
+function FiltreEtTrieWrapper({productList}) {
+    const {
+        activeCategory,
+        setActiveCategory,
+        triageActive,
+        setActiveTriage,
+        minPriceForThisCategory,
+        setminPriceForThisCategory,
+        maxPriceForThisCategory,
+        setmaxPriceForThisCategory,
+        filtreValider,
+        setFiltreValider
+    } = useFiltre();
+
+    return (
+        <FiltreEtTrie
+            activeCategory={activeCategory}
+            maxPriceForThisCategory={maxPriceForThisCategory}
+            minPriceForThisCategory={minPriceForThisCategory}
+            setMaxPrice={setmaxPriceForThisCategory}
+            setActiveTriage={setActiveTriage}
+            triageActive={triageActive}
+            setFiltreValider={setFiltreValider}
+            setminPrice={setminPriceForThisCategory}
+            productList={productList}
+        />
+    );
+}
+
+function AppContent({cart, updateCart, productList, setProductList}) {
+    const {filtreOuvert, setFiltreOuvert, activeCategory, setActiveCategory} = useFiltre();
+
+    return (
+        <>
+            <div className={`${filtreOuvert ? "flou" : ""}`}>
+                <Banner/>
+                <Routes>
+                    <Route exact path="/" element={<Home/>}/>{" "}
+                    <Route
+                        path="/Details/:id"
+                        element={<DetailsProduct cart={cart} updateCart={updateCart}/>}
+                    />
+                    <Route path="/auth/login" element={<Login/>}/>
+                    <Route element={<PrivateRoutes/>}>
+                        <Route path="/profil/infos-persos" element={<Profil/>}/>
+                        <Route path="/profil/commandes" element={<Commandes/>}/>
+                        <Route path="/profil/adresses" element={<Adresses/>}/>
+                        <Route path="/profil/favoris" element={<Favoris/>}/>
+                        <Route path={"/admin"} element={<Admin/>}/>
+                        <Route
+                            path="/Profil/adresses/ajoutAdresse"
+                            element={<AjoutAdresse/>}
+                        />
+                        <Route path="/admin/orders" element={<AdminOrders/>}/>
+                        <Route path="/admin/promo-code" element={<AdminCodePromo/>}/>
+                        <Route path={"/admin/add-product"} element={<AdminAddProduct/>}/>
+                        <Route
+                            path="/Profil/adresses/:numAdresse"
+                            element={<DetailsAdresses/>}
+                        />
+                        <Route
+                            path="/Profil/commandes/:idCommande"
+                            element={<DetailsCommande/>}
+                        />
+                        <Route path="/checkout/delivery" element={<CheckoutDelivery/>}/>
+                        <Route path="/checkout/payment" element={<CheckoutPayment/>}/>
+                    </Route>
+                    <Route path="/auth/reset-password/:token" element={<ResetPassword/>}/>
+                    <Route path="/auth/register" element={<Register/>}/>
+                    <Route path="apropos" element={<Apropos/>}/>
+                    <Route path="contact" element={<Contact/>}/>
+                    <Route path="mentions-legales" element={<MentionsLegales/>}/>
+                    <Route
+                        path="conditions-utilisations"
+                        element={<ConditionsUtilisations/>}
+                    />
+                    <Route
+                        path="conditions-generales"
+                        element={<ConditionsGenerales/>}
+                    />
+                    <Route
+                        path="panier"
+                        element={<Panier cart={cart} updateCart={updateCart}/>}
+                    />
+                    <Route
+                        path="collections"
+                        element={<ShoppingList setproductList={setProductList} productList={productList}/>}
+                    />
+                    <Route path="/*" element={<Erreur404/>}/>
+                </Routes>
                 <Footer/>
-                <SpeedInsights />
-                <Analytics/>
             </div>
-        </Router>
+            <SpeedInsights/>
+            <Analytics/>
+        </>
     );
 }
 

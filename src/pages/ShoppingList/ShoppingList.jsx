@@ -11,24 +11,24 @@ import {
 import {Loader} from "../../utils/Loader";
 import async from "async";
 import NavigationProductList from "../../components/NavigationProductList/NavigationProductList";
-import FiltreEtTrie from "../../components/FiltreEtTrie/FiltreEtTrie";
+import {useFiltre} from "../../utils/FiltreContext";
 
-function ShoppingList({cart, updateCart}) {
-    const [activeCategory, setActiveCategory] = useState("");
-    const [triageActive, setActiveTriage] = useState("");
-    const [productList, setproductList] = useState([]);
+function ShoppingList({cart, updateCart, setproductList, productList}) {
+    //const [activeCategory, setActiveCategory] = useState("");
+    //const [triageActive, setActiveTriage] = useState("");
+    //const [minPriceForThisCategory, setminPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
+    //const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
+    //const [filtreValider, setFiltreValider] = useState(false);
+
     const [toutClique, setToutClique] = useState(false);
     const [braceletsClique, setBraceletsClique] = useState(false);
     const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
     const [encensClique, setEncensClique] = useState(false);
     const [accesoiresClique, setAccesoiresClique] = useState(false);
-    const [minPriceForThisCategory, setminPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
-    const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
     const [minPrice, setminPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
     const [maxPrice, setmaxPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
     const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
     const [cancelFiltre, setCancelFiltre] = useState(false);
-    const [filtreValider, setFiltreValider] = useState(false);
     const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
         useState(false);
 
@@ -38,6 +38,23 @@ function ShoppingList({cart, updateCart}) {
     let nameTable = productList;
     const [isDataLoading, setDataLoading] = useState(false);
     const [filtreCategorieMobile, setFiltreCategorieMobile] = useState("");
+
+    /**
+     * MISE A JOUR
+     * @param productList
+     */
+    const {
+        activeCategory,
+        setActiveCategory,
+        triageActive,
+        setActiveTriage,
+        minPriceForThisCategory,
+        setminPriceForThisCategory,
+        maxPriceForThisCategory,
+        setmaxPriceForThisCategory,
+        filtreValider,
+        setFiltreValider
+    } = useFiltre();
 
     const setMinAndMaxPrice = (productList) => {
         const minPrice = Math.min(...productList.map((product) => product.price));
@@ -74,7 +91,7 @@ function ShoppingList({cart, updateCart}) {
                 }
             }
             getProductsByPrixPlusCategory();
-        } else{
+        } else {
             const fetchData = async () => {
                 setDataLoading(true);
                 try {
@@ -300,45 +317,45 @@ function ShoppingList({cart, updateCart}) {
 
     return (
         <>
-                <div className="lmj-shopping-list">
-                    <div className="div-categories-plus-products-list">
-                        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-                            <NavigationProductList setProductList={setproductList} setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>
-                            <FiltreEtTrie setActiveTriage={setActiveTriage} triageActive={triageActive} filtreValide={filtreValider} setFiltreValider={setFiltreValider} maxPriceForThisCategory={maxPriceForThisCategory} minPriceForThisCategory={minPriceForThisCategory} setMaxPrice={setmaxPrice} setminPrice={setminPrice} activeCategory={activeCategory} productList={productList}/>
-                        </div>
-                        {isDataLoading ? (
-                            <div className="loader-div-shopping-list">
-                                <Loader/>
-                            </div>
-                        ) : (
-                            <ul className="lmj-plant-list">
-                                {nameTable.map(({
-                                                    id,
-                                                    cover,
-                                                    name,
-                                                    price,
-                                                    category,
-                                                    description,
-                                                    pierres
-                                                }) => (
-                                    !activeCategory || activeCategory === category ? (
-                                        <div key={id} className="div-product">
-                                            <ProductItem
-                                                id={id}
-                                                cover={cover}
-                                                name={name}
-                                                price={price}
-                                                description={description}
-                                                category={category}
-                                                pierres={pierres}
-                                            />
-                                        </div>
-                                    ) : null
-                                ))}
-                            </ul>
-                        )}
+            <div className="lmj-shopping-list">
+                <div className="div-categories-plus-products-list">
+                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                        <NavigationProductList setProductList={setproductList} setActiveCategory={setActiveCategory}
+                                               activeCategory={activeCategory}/>
                     </div>
+                    {isDataLoading ? (
+                        <div className="loader-div-shopping-list">
+                            <Loader/>
+                        </div>
+                    ) : (
+                        <ul className="lmj-plant-list">
+                            {nameTable.map(({
+                                                id,
+                                                cover,
+                                                name,
+                                                price,
+                                                category,
+                                                description,
+                                                pierres
+                                            }) => (
+                                !activeCategory || activeCategory === category ? (
+                                    <div key={id} className="div-product">
+                                        <ProductItem
+                                            id={id}
+                                            cover={cover}
+                                            name={name}
+                                            price={price}
+                                            description={description}
+                                            category={category}
+                                            pierres={pierres}
+                                        />
+                                    </div>
+                                ) : null
+                            ))}
+                        </ul>
+                    )}
                 </div>
+            </div>
         </>
     );
 }

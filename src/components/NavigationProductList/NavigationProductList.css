@@ -36,6 +36,9 @@
 .main-div-navigation-products .div-category-secondary p:hover::after {
   width: 100%;
 }
+.main-div-navigation-products .div-category-first-and-secondary {
+  margin: 0 2em 0 0;
+}
 .main-div-navigation-products .div-category-first-and-secondary h3 {
   background-color: #f8f9fa;
   padding: 0.5em;

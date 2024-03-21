@@ -235,7 +235,8 @@ function Login() {
                     </div>
                     <div className={"div-login-right"}>
                         <img
-                            src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709209172/Page%20Login/sebastien.png"}></img>
+                            src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1709209172/Page%20Login/sebastien.png"}>
+                        </img>
                     </div>
                 </>
             )}
