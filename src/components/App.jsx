@@ -93,7 +93,7 @@ function FiltreEtTrieWrapper({productList}) {
 
 function AppContent({cart, updateCart, productList, setProductList}) {
     const {filtreOuvert, setFiltreOuvert, activeCategory, setActiveCategory} = useFiltre();
-
+    
     return (
         <>
             <div className={`${filtreOuvert ? "flou" : ""}`}>

@@ -1,7 +1,7 @@
 import "./FiltreEtTrie.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSliders, faXmark} from "@fortawesome/free-solid-svg-icons";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Slider from "rc-slider";
 import {useSwipeable} from "react-swipeable";
 import {useFiltre} from '../../utils/FiltreContext';
@@ -155,6 +155,7 @@ function FiltreEtTrie() {
     return (
         <>
             <div
+                ref={ref}
                 className={`main-div-filtre-et-trie ${filtreOuvert ? "filtre-visible" : ""}`}
                 style={{visibility: filtreOuvert ? "visible" : "hidden"}}
                 {...handlers}
@@ -254,11 +255,13 @@ function FiltreEtTrie() {
                         trackStyle={[trackStyle]}
                     />
                 </div>
-                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    <button style={{width: "100%", backgroundColor: "#302D5B"}}
-                            onClick={() => setFiltreValider(true)}>Valider
-                    </button>
-                </div>
+                {filtreOuvert ? (
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <button style={{width: "100%", backgroundColor: "#302D5B"}}
+                                onClick={() => setFiltreValider(true)}>Valider
+                        </button>
+                    </div>
+                ) : null}
             </div>
         </>
     )
