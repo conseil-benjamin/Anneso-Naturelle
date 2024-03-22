@@ -1,0 +1,9 @@
+.main-div-checkout-payment{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5em;
+  @media (max-width: 1300px) {
+    flex-direction: column;
+  }
+}

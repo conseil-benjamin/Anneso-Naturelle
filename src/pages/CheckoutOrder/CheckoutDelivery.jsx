@@ -9,12 +9,11 @@ import {useNavigate} from "react-router-dom";
 
 function CheckoutDelivery() {
     const [adresses, setAdresses] = useState([]);
-    const [idAdresseDomicileChoisie, setidAdresseDomicileChoisie] = useState("");
+    const [adresseId, setidAdresseDomicileChoisie] = useState("");
     const [inputErreurChoixLivraison, setInputErreurChoixLivraison] = useState("");
     const [inputErreurCodePostal, setInputErreurCodePostal] = useState("");
     const [codePostal, setCodePostal] = useState("");
     const navigate = useNavigate();
-    console.log(idAdresseDomicileChoisie);
 
     useEffect(() => {
         try {
@@ -38,7 +37,7 @@ function CheckoutDelivery() {
     }, []);
 
     const validerChoixLivraison = () => {
-        if (idAdresseDomicileChoisie === "") {
+        if (adresseId === "") {
             setInputErreurChoixLivraison("Veuillez choisir une adresse de livraison ou en ajouter une.");
         } else {
             navigate("/checkout/payment");
@@ -60,6 +59,10 @@ function CheckoutDelivery() {
         const relais = await response.json();
         console.log(relais);
     }
+
+    useEffect(() => {
+        sessionStorage.setItem('adresseId', adresseId);
+    }, [adresseId]);
 
     return (
         <div style={{display: "flex", flexDirection: "column", margin: "0 0 2em 0"}}>
@@ -106,7 +109,7 @@ function CheckoutDelivery() {
                                     <div style={{display: "flex", alignItems: "center", flexDirection: "row"}}>
                                         <input type={"radio"} value={adresse._id}
                                                onChange={() => setidAdresseDomicileChoisie(adresse._id)}
-                                               checked={idAdresseDomicileChoisie === adresse._id}
+                                               checked={adresseId === adresse._id}
                                                style={{margin: "0 1em 0 0"}}/>
                                         <CardAdresses
                                             adresseId={adresse._id}
