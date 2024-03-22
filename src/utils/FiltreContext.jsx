@@ -8,6 +8,7 @@ export const FiltreProvider = ({children}) => {
     const [triageActive, setActiveTriage] = useState("");
     const [minPriceForThisCategory, setminPriceForThisCategory] = useState(0);
     const [maxPriceForThisCategory, setmaxPriceForThisCategory] = useState(0);
+    const [filtreValider, setFiltreValider] = useState(false);
 
     const toggleFiltre = () => {
         setFiltreOuvert(!filtreOuvert);
@@ -25,7 +26,9 @@ export const FiltreProvider = ({children}) => {
             setminPriceForThisCategory,
             maxPriceForThisCategory,
             setmaxPriceForThisCategory,
-            setFiltreOuvert
+            setFiltreOuvert,
+            setFiltreValider,
+            filtreValider
         }}>
             {children}
         </FiltreContext.Provider>

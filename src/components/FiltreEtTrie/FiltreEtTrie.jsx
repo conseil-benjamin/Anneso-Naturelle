@@ -6,20 +6,21 @@ import Slider from "rc-slider";
 import {useSwipeable} from "react-swipeable";
 import {useFiltre} from '../../utils/FiltreContext';
 
-function FiltreEtTrie() {
+function FiltreEtTrie({productList}) {
     const {
         filtreOuvert,
-        setFiltreOuvert,
         toggleFiltre,
         activeCategory,
-        maxPriceForThisCategory,
-        minPriceForThisCategory,
-        setMaxPrice,
-        setActiveTriage,
+        setActiveCategory,
         triageActive,
-        setFiltreValider,
-        setminPrice,
-        productList
+        setActiveTriage,
+        minPriceForThisCategory,
+        setminPriceForThisCategory,
+        maxPriceForThisCategory,
+        setmaxPriceForThisCategory,
+        setFiltreOuvert,
+        filtreValider,
+        setFiltreValider
     } = useFiltre();
     const [hasPriceChanged, setPriceChanged] = useState(false);
     const [changePriceClique, setChangePriceClique] = useState(false);
@@ -48,8 +49,6 @@ function FiltreEtTrie() {
     const handleSliderChange = (minParam, maxParam, range) => {
         setMin(minParam);
         setMax(maxParam);
-        setminPrice(minParam)
-        setMaxPrice(maxParam)
         setRange(range);
         minParam !== min || maxParam !== max
             ? setPriceChanged(true)
@@ -155,7 +154,6 @@ function FiltreEtTrie() {
     return (
         <>
             <div
-                ref={ref}
                 className={`main-div-filtre-et-trie ${filtreOuvert ? "filtre-visible" : ""}`}
                 style={{visibility: filtreOuvert ? "visible" : "hidden"}}
                 {...handlers}
@@ -164,7 +162,7 @@ function FiltreEtTrie() {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "space-between"
+                    justifyContent: "space-between", margin: "0 0 0 1em"
                 }}>
                     <h3>Trier et filtrer</h3>
                     <FontAwesomeIcon icon={faXmark} onClick={() => setFiltreOuvert(false)}

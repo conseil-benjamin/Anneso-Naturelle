@@ -35,10 +35,8 @@ import CheckoutPayment from "../pages/CheckoutOrder/CheckoutPayment";
 import {FiltreProvider, useFiltre} from '../utils/FiltreContext';
 import "./App.css";
 import FiltreEtTrie from "./FiltreEtTrie/FiltreEtTrie";
-import NavigationProductList from "./NavigationProductList/NavigationProductList";
 
 function App() {
-
     const jwtToken = Cookies.get("auth_token");
     const savedCart = localStorage.getItem("cart");
     const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
@@ -52,7 +50,7 @@ function App() {
         <FiltreProvider>
             <Router>
                 <div>
-                    <FiltreEtTrieWrapper cart={cart} updateCart={updateCart} productList={productList}/>
+                    <FiltreEtTrieWrapper productList={productList}/>
                     <AppContent cart={cart} updateCart={updateCart} productList={productList}
                                 setProductList={setproductList}/>
                 </div>

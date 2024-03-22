@@ -41,6 +41,7 @@
   right: 0;
   background-color: #ffffff;
   animation: slideInFromRight 0.5s forwards;
+  border-radius: 10px 0 0 10px;
   @media (max-width: 768px) {
     width: 100%; // Prend tout l'écran sur les petits écrans
     border-radius: 20px 20px 0 0;

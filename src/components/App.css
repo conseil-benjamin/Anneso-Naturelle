@@ -1,0 +1,7 @@
+@charset "UTF-8";
+.flou {
+  filter: blur(5px); /* Applique un flou de 5 pixels */
+  pointer-events: none; /* Empêche les interactions avec les éléments floutés */
+}
+
+/*# sourceMappingURL=App.css.map */
