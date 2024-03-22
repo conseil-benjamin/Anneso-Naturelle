@@ -61,6 +61,9 @@ html {
   margin: 0.5em 0 0 0;
   align-items: center;
 }
+.div-input-register .div-error-message-register p {
+  margin: 0;
+}
 .div-input-register .div-error-message-register #icon-infos-error {
   margin: 0 0.5em 0 0;
   color: red;
@@ -83,6 +86,7 @@ html {
   align-items: center;
   justify-content: center;
   background-color: #f2f0ec;
+  height: 80vh;
 }
 .body-element-register p {
   padding: 0;
@@ -106,7 +110,11 @@ html {
 }
 
 .div-login-right {
+  display: flex;
+  justify-content: center;
   width: 50%;
+  max-height: 100vh;
+  object-fit: cover;
 }
 .div-login-right img {
   width: 100%;

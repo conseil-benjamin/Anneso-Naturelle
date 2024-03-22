@@ -6,7 +6,7 @@ import Slider from "rc-slider";
 import {useSwipeable} from "react-swipeable";
 import {useFiltre} from '../../utils/FiltreContext';
 
-function FiltreEtTrie({productList}) {
+function FiltreEtTrie({productList, setminPrice, setMaxPrice, minPrice, maxPrice}) {
     const {
         filtreOuvert,
         toggleFiltre,
@@ -15,7 +15,7 @@ function FiltreEtTrie({productList}) {
         triageActive,
         setActiveTriage,
         minPriceForThisCategory,
-        setminPriceForThisCategory,
+        setMinPriceForThisCategory,
         maxPriceForThisCategory,
         setmaxPriceForThisCategory,
         setFiltreOuvert,
@@ -50,6 +50,8 @@ function FiltreEtTrie({productList}) {
         setMin(minParam);
         setMax(maxParam);
         setRange(range);
+        setminPrice(minParam)
+        setMaxPrice(maxParam)
         minParam !== min || maxParam !== max
             ? setPriceChanged(true)
             : setPriceChanged(false);
@@ -150,6 +152,11 @@ function FiltreEtTrie({productList}) {
         }
         fetchColor().then(r => console.log(r));
     }, [activeCategory, productList]);
+
+    const handleFiltreValider = () => {
+        setFiltreValider(true)
+        setFiltreOuvert(false)
+    }
 
     return (
         <>
@@ -256,7 +263,7 @@ function FiltreEtTrie({productList}) {
                 {filtreOuvert ? (
                     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                         <button style={{width: "100%", backgroundColor: "#302D5B"}}
-                                onClick={() => setFiltreValider(true)}>Valider
+                                onClick={() => handleFiltreValider()}>Valider
                         </button>
                     </div>
                 ) : null}

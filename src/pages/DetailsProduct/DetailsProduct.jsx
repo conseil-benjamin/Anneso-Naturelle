@@ -29,6 +29,7 @@ function DetailsProduct({cart, updateCart}) {
                     `${process.env.REACT_APP_API_URL}products/${id}`
                 );
                 const product = await response.json();
+                console.log(product);
                 setProduit(product);
             } catch (error) {
                 console.error(error);

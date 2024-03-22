@@ -45,14 +45,16 @@ function App() {
         updateCart(cart);
     }, [cart]);
     const [productList, setproductList] = useState([]);
+    const [minPrice, setminPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
+    const [maxPrice, setmaxPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
 
     return (
         <FiltreProvider>
             <Router>
                 <div>
-                    <FiltreEtTrieWrapper productList={productList}/>
+                    <FiltreEtTrieWrapper productList={productList} minPrice={minPrice} maxPrice={maxPrice} setMinPrice={setminPrice} setMaxPrice={setmaxPrice}/>
                     <AppContent cart={cart} updateCart={updateCart} productList={productList}
-                                setProductList={setproductList}/>
+                                setProductList={setproductList} minPrice={minPrice} maxPrice={maxPrice} setMinPrice={setminPrice} setMaxPrice={setmaxPrice}/>
                 </div>
             </Router>
         </FiltreProvider>
@@ -60,7 +62,7 @@ function App() {
         ;
 }
 
-function FiltreEtTrieWrapper({productList}) {
+function FiltreEtTrieWrapper({productList, minPrice, maxPrice, setMaxPrice, setMinPrice}) {
     const {
         activeCategory,
         setActiveCategory,
@@ -83,13 +85,17 @@ function FiltreEtTrieWrapper({productList}) {
             setActiveTriage={setActiveTriage}
             triageActive={triageActive}
             setFiltreValider={setFiltreValider}
-            setminPrice={setminPriceForThisCategory}
+            setMinPrice={setminPriceForThisCategory}
             productList={productList}
+            setmaxPrice={setMaxPrice}
+            setminPrice={setMinPrice}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
         />
     );
 }
 
-function AppContent({cart, updateCart, productList, setProductList}) {
+function AppContent({cart, updateCart, productList, setProductList, minPrice, setMinPrice, maxPrice, setMaxPrice}) {
     const {filtreOuvert, setFiltreOuvert, activeCategory, setActiveCategory} = useFiltre();
     
     return (
@@ -146,7 +152,7 @@ function AppContent({cart, updateCart, productList, setProductList}) {
                     />
                     <Route
                         path="collections"
-                        element={<ShoppingList setproductList={setProductList} productList={productList}/>}
+                        element={<ShoppingList setproductList={setProductList} productList={productList} minPrice={minPrice} maxPrice={maxPrice} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice}/>}
                     />
                     <Route path="/*" element={<Erreur404/>}/>
                 </Routes>

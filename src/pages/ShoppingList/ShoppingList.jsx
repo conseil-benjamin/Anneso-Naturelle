@@ -13,7 +13,7 @@ import async from "async";
 import NavigationProductList from "../../components/NavigationProductList/NavigationProductList";
 import {useFiltre} from "../../utils/FiltreContext";
 
-function ShoppingList({cart, updateCart, setproductList, productList}) {
+function ShoppingList({cart, updateCart, setproductList, productList, minPrice, setMinPrice, maxPrice, setMaxPrice}) {
     //const [activeCategory, setActiveCategory] = useState("");
     //const [triageActive, setActiveTriage] = useState("");
     //const [minPriceForThisCategory, setminPriceForThisCategory] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
@@ -25,8 +25,6 @@ function ShoppingList({cart, updateCart, setproductList, productList}) {
     const [boucleOreilleClique, setBoucleOreilleClique] = useState(false);
     const [encensClique, setEncensClique] = useState(false);
     const [accesoiresClique, setAccesoiresClique] = useState(false);
-    const [minPrice, setminPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
-    const [maxPrice, setmaxPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
     const [filtreMobileOpen, setfiltreMobileOpen] = useState(false);
     const [cancelFiltre, setCancelFiltre] = useState(false);
     const [isBtnValiderfiltreMobileOpenClique, setBtnValiderfiltreMobileOpenClique] =
@@ -62,36 +60,35 @@ function ShoppingList({cart, updateCart, setproductList, productList}) {
         console.log(minPrice, maxPrice);
         setminPriceForThisCategory(minPrice);
         setmaxPriceForThisCategory(maxPrice);
-        setminPrice(minPrice);
-        setmaxPrice(maxPrice);
+        setMinPrice(minPrice);
+        setMaxPrice(maxPrice);
     };
 
     useEffect(() => {
         // faire la même chose pour les pierres par exemple
-        if (sessionStorage.getItem('categorieFiltre') && sessionStorage.getItem('filtrePrix')) {
-            const getProductsByPrixPlusCategory = async () => {
-                try {
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}products/${JSON.parse(sessionStorage.getItem('filtrePrix'))[0]}/${JSON.parse(sessionStorage.getItem('filtrePrix'))[1]}/${JSON.parse(sessionStorage.getItem('categorieFiltre'))}`,
-                        {
+        if (sessionStorage.getItem('categorieFiltre')){
+            console.log("dzqdzqdzq")
+            try {
+                const fetchProductsFromOneCategory = async () => {
+                    try {
+                        console.log(JSON.parse((sessionStorage.getItem('categorieFiltre'))))
+                        const response = await fetch(`${process.env.REACT_APP_API_URL}products/category/${JSON.parse(sessionStorage.getItem('categorieFiltre'))}`, {
                             method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
                             },
-                        }
-                    );
-                    if (response.ok) {
-                        const productList = await response.json();
-                        setproductList(productList);
-                    } else {
-                        console.error("Erreur lors de l'insertion des données.");
+                        });
+                        const products = await response.json();
+                        setproductList(products);
+                    } catch (error) {
+                        console.error("Erreur de connexion au serveur:", error);
                     }
-                } catch (error) {
-                    console.error("Erreur de connexion au serveur:", error);
-                }
-            }
-            getProductsByPrixPlusCategory();
-        } else {
+                };
+                fetchProductsFromOneCategory();
+        } catch (error){
+                console.log(error)}
+        }
+        else {
             const fetchData = async () => {
                 setDataLoading(true);
                 try {
@@ -123,145 +120,9 @@ function ShoppingList({cart, updateCart, setproductList, productList}) {
     }, [productList]);
 
     useEffect(() => {
-        if (braceletsClique) {
-            const fetchData = async () => {
-                setDataLoading(true);
-                try {
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}products/bracelets`
-                    );
-                    const productList = await response.json();
-                    setMinAndMaxPrice(productList);
-                    setproductList([]);
-                    setActiveCategory("bracelet");
-                    setproductList(productList);
-                    setAccesoiresClique(false);
-                    setBoucleOreilleClique(false);
-                    setEncensClique(false);
-                    setToutClique(false);
-                    setDataLoading(false);
-                    sessionStorage.setItem('categorieFiltre', JSON.stringify("bracelet"));
-                } catch (error) {
-                    console.error(error);
-                }
-            };
-            fetchData();
-        }
-    }, [braceletsClique]);
-
-    useEffect(() => {
         sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
     }, [minPriceForThisCategory, maxPriceForThisCategory]);
 
-    useEffect(() => {
-        if (accesoiresClique) {
-            const fetchData = async () => {
-                setDataLoading(true);
-                try {
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}products/accessoires`
-                    );
-                    const productList = await response.json();
-                    setMinAndMaxPrice(productList);
-                    setproductList([]);
-                    setActiveCategory("accessoire");
-                    setproductList(productList);
-                    setBraceletsClique(false);
-                    setBoucleOreilleClique(false);
-                    setEncensClique(false);
-                    setToutClique(false);
-                    setDataLoading(false);
-                    sessionStorage.setItem('categorieFiltre', JSON.stringify("accessoire"));
-                    //sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
-                } catch (error) {
-                    console.error(error);
-                }
-            };
-            fetchData();
-        }
-    }, [accesoiresClique]);
-
-    useEffect(() => {
-        if (toutClique) {
-            const fetchData = async () => {
-                setDataLoading(true);
-                try {
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}products`
-                    );
-                    const productList = await response.json();
-                    setMinAndMaxPrice(productList);
-                    setproductList(productList);
-                    setBraceletsClique(false);
-                    setBoucleOreilleClique(false);
-                    setEncensClique(false);
-                    setAccesoiresClique(false);
-                    setDataLoading(false);
-                    setActiveCategory("tout");
-                    sessionStorage.setItem('categorieFiltre', JSON.stringify("tout"));
-                    sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
-                } catch (error) {
-                    console.error(error);
-                }
-            };
-            fetchData();
-        }
-    }, [toutClique]);
-
-    useEffect(() => {
-        if (encensClique) {
-            const fetchData = async () => {
-                setDataLoading(true);
-                try {
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}products/encens`
-                    );
-                    const productList = await response.json();
-                    setMinAndMaxPrice(productList);
-                    setActiveCategory("encen");
-                    setproductList(productList);
-                    setBraceletsClique(false);
-                    setBoucleOreilleClique(false);
-                    setAccesoiresClique(false);
-                    setToutClique(false);
-                    setDataLoading(false);
-                    sessionStorage.setItem('categorieFiltre', JSON.stringify("encen"));
-                    sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
-                } catch (error) {
-                    console.error(error);
-                }
-            };
-            fetchData();
-        }
-    }, [encensClique]);
-
-    useEffect(() => {
-        if (boucleOreilleClique) {
-            const fetchData = async () => {
-                setDataLoading(true);
-                try {
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}products/boucles-oreilles`
-                    );
-                    const productList = await response.json();
-                    setMinAndMaxPrice(productList);
-                    setproductList([]);
-                    setActiveCategory("boucleOreille");
-                    setproductList(productList);
-                    setBraceletsClique(false);
-                    setAccesoiresClique(false);
-                    setEncensClique(false);
-                    setToutClique(false);
-                    setDataLoading(false);
-                    sessionStorage.setItem('categorieFiltre', JSON.stringify("boucleOreille"));
-                    sessionStorage.setItem('filtrePrix', JSON.stringify([minPriceForThisCategory, maxPriceForThisCategory]));
-                } catch (error) {
-                    console.error(error);
-                }
-            };
-            fetchData();
-        }
-    }, [boucleOreilleClique]);
 
     const trie = () => {
         nameTable = [...productList];
@@ -270,7 +131,6 @@ function ShoppingList({cart, updateCart, setproductList, productList}) {
             croissant: (a, b) => a.price - b.price,
             decroissant: (a, b) => b.price - a.price,
             nom: (a, b) => (a.name > b.name ? 1 : -1),
-
         };
         if (sortFunctions[triageActive]) {
             nameTable = [...filteredData].sort(sortFunctions[triageActive]);
@@ -280,40 +140,6 @@ function ShoppingList({cart, updateCart, setproductList, productList}) {
     if (triageActive && filtreValider === true) {
         trie();
     }
-
-    useEffect(() => {
-        if (!isBtnValiderfiltreMobileOpenClique || !minPrice || !maxPrice) {
-            return;
-        }
-        const getProductsByPrixPlusCategory = async () => {
-            console.log("salutttttttttttttttttttttttttttttt")
-            try {
-                const response = await fetch(
-                    `${process.env.REACT_APP_API_URL}products/${minPrice}/${maxPrice}/${activeCategory}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                if (response.ok) {
-                    const productList = await response.json();
-                    console.log(productList);
-                    setproductList(productList);
-                } else {
-                    console.error("Erreur lors de l'insertion des données.");
-                }
-            } catch (error) {
-                console.error("Erreur de connexion au serveur:", error);
-            } finally {
-                sessionStorage.setItem('filtrePrix', JSON.stringify([minPrice, maxPrice]));
-                sessionStorage.setItem('categorieFiltre', JSON.stringify(activeCategory));
-                console.log(activeCategory)
-            }
-        }
-        getProductsByPrixPlusCategory();
-    }, [minPrice, maxPrice, activeCategory]);
 
     return (
         <>

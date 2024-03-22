@@ -10,6 +10,9 @@
   margin: 0.5em 0 0 0;
   align-items: center;
 }
+.div-input-register .div-error-message-register p {
+  margin: 0;
+}
 .div-input-register .div-error-message-register #icon-infos-error {
   margin: 0 0.5em 0 0;
   color: red;
@@ -32,6 +35,7 @@
   align-items: center;
   justify-content: center;
   background-color: #f2f0ec;
+  height: 80vh;
 }
 .body-element-register p {
   padding: 0;
@@ -55,7 +59,11 @@
 }
 
 .div-login-right {
+  display: flex;
+  justify-content: center;
   width: 50%;
+  max-height: 100vh;
+  object-fit: cover;
 }
 .div-login-right img {
   width: 100%;
@@ -138,7 +146,7 @@
 }
 .div-main-checkout-delivery .input-code-postal-relais {
   position: relative;
-  margin: 0 0 3em 0;
+  margin: 0 0 0.5em 0;
 }
 .div-main-checkout-delivery .input-code-postal-relais #icon-input-code-postal-relais {
   position: absolute;

@@ -16,10 +16,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 25%;
   padding: 1.25em;
   border-radius: 8px;
   background-color: #F2F2F5;
+  margin: 1em 0 0 0;
 }
 .div-button-filtrer-trier p {
   margin: 0 0 0 1em;

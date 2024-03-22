@@ -12,7 +12,7 @@ function NavigationProductList({setProductList, setActiveCategory, activeCategor
         try {
             const fetchProductsFromOneCategory = async () => {
                 try {
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}products/${category}`, {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}products/category/${category}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",

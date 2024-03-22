@@ -19,7 +19,9 @@
     font-size: 0.9em;
     margin: 0.5em 0 0 0;
     align-items: center;
-
+    p{
+      margin: 0;
+    }
     #icon-infos-error {
       margin: 0 0.5em 0 0;
       color: red;
@@ -42,7 +44,7 @@
   align-items: center;
   justify-content: center;
   background-color: $background-color;
-
+  height: 80vh;
   p {
     padding: 0;
     margin: 0 0 0.5em 0;
@@ -70,13 +72,15 @@
 }
 
 .div-login-right {
+  display: flex;
+  justify-content: center;
   width: 50%;
-
+  max-height: 100vh;
+  object-fit: cover;
   img {
     width: 100%;
     border-radius: 5px 5px 5px 0px;
   }
-
   @media (max-width: 1300px) {
     display: none;
   }
@@ -87,7 +91,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   .btn-google-login {
     display: flex;
     align-items: center;
