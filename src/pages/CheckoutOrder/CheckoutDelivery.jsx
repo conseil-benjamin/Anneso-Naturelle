@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import {faLocationArrow} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
+import GoingBack from "../../components/GoingBack/GoingBack";
 
 function CheckoutDelivery() {
     const [adresses, setAdresses] = useState([]);
@@ -17,6 +18,7 @@ function CheckoutDelivery() {
 
     useEffect(() => {
         try {
+            window.scroll(0, 0);
             const getAllAdressesForAclient = async () => {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}adresses/`,
                     {
@@ -67,6 +69,7 @@ function CheckoutDelivery() {
     return (
         <div style={{display: "flex", flexDirection: "column", margin: "0 0 2em 0"}}>
             <OrderProgress/>
+            <GoingBack/>
             <div className={"div-main-checkout-delivery"}>
                 <div>
                     <div style={{
