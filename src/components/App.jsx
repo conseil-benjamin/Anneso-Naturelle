@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useLocation} from "react-router-dom";
 import Banner from "./Banner";
 import Footer from "./Footer/Footer";
 import ShoppingList from "../pages/ShoppingList/ShoppingList";
@@ -47,7 +47,6 @@ function App() {
     const [productList, setproductList] = useState([]);
     const [minPrice, setminPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[0] : 0);
     const [maxPrice, setmaxPrice] = useState(JSON.parse(sessionStorage.getItem('filtrePrix')) ? JSON.parse(sessionStorage.getItem('filtrePrix'))[1] : 0);
-
     return (
         <FiltreProvider>
             <Router>
@@ -97,11 +96,13 @@ function FiltreEtTrieWrapper({productList, minPrice, maxPrice, setMaxPrice, setM
 
 function AppContent({cart, updateCart, productList, setProductList, minPrice, setMinPrice, maxPrice, setMaxPrice}) {
     const {filtreOuvert, setFiltreOuvert, activeCategory, setActiveCategory} = useFiltre();
-    
+    const location = useLocation();
+
     return (
         <>
             <div className={`${filtreOuvert ? "flou" : ""}`}>
-                <Banner/>
+                {console.log(location.pathname)}
+                {(location.pathname !== '/checkout/payment' && location.pathname !==  '/checkout/delivery') && <Banner />}
                 <Routes>
                     <Route exact path="/" element={<Home/>}/>{" "}
                     <Route

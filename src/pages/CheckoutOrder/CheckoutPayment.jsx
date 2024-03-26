@@ -53,17 +53,59 @@ function CheckoutPayment () {
     const handleClickPayerCommande = () => {
         if (!conditionsAccepter){
             setErreurConditionsNonAccepter("Vous devez accepter les conditions générales de ventes pour finaliser votre commande.")
+            return;
+        }
+        try {
+            const commande = {
+                idCommande: "CMD55",
+                idClient: Cookies.get("auth_token"),
+                date: new Date(),
+                nbArticles: products.length,
+                adresseLivraison: sessionStorage.getItem("adresseId"),
+                prixTotal: totalCommande,
+                contenuCommande: products,
+                numeroSuivieMondialRelay: "",
+                status: "En cours de préparation",
+                typeLivraison: sessionStorage.getItem("adresseId") ? "A domicile" : "En point relais",
+                fraisLivraison: sessionStorage.getItem("adresseId") ? 5.99 : 3.99,
+                codePostalCommande: adresse[6],
+                numeroSuivieChronopost: ""
+            }
+            const ajoutCommande = async () => {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}commandes/addOrder`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${Cookies.get("auth_token")}`,
+                        },
+                        body: JSON.stringify(commande)
+                    });
+                const result = await response.json();
+                console.log(result)
+            }
+            ajoutCommande();
+        } catch (error) {
+            console.log(error)
         }
     }
 
     return (
         <div>
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <a href={"/"}>
+                    <img
+                        src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1711445140/Anne%27so%20Naturelle/logo/logo.png"}
+                        alt={"logo"} height={125} width={200}/>
+                </a>
+            </div>
+
             <OrderProgress/>
             <GoingBack/>
             {isDataLoading ? (
-                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    <Loader/>
-                </div>
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <Loader/>
+                    </div>
                 ) :
                 <div className={"main-div-checkout-payment"}>
                     <div>
@@ -116,7 +158,8 @@ function CheckoutPayment () {
                                 type="checkbox"
                                 onChange={(e) => setConditionsAccepter(e.target.checked)}
                             />
-                            <label>J'ai lu et j'accepte les <a href={"/conditions-generales"}><u>conditions générales de ventes</u></a></label>
+                            <label>J'ai lu et j'accepte les <a href={"/conditions-generales"}><u>conditions générales de
+                                ventes</u></a></label>
                         </div>
                         {console.log(conditionsAccepter)}
                         {erreurConditionsNonAccepter && !conditionsAccepter && <p style={{

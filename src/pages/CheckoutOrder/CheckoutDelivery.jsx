@@ -68,11 +68,18 @@ function CheckoutDelivery() {
 
     return (
         <div style={{display: "flex", flexDirection: "column", margin: "0 0 2em 0"}}>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+                <a href={"/"}>
+                    <img
+                        src={"https://res.cloudinary.com/dc1p20eb2/image/upload/v1711445140/Anne%27so%20Naturelle/logo/logo.png"}
+                        alt={"logo"} height={125} width={200}/>
+                </a>
+            </div>
             <OrderProgress/>
             <GoingBack/>
             <div className={"div-main-checkout-delivery"}>
                 <div>
-                    <div style={{
+                <div style={{
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",

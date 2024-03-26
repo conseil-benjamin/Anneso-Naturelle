@@ -72,7 +72,7 @@ function Login() {
                         const userData = data.user;
                         const userName = `${userData.prenom}`;
                         Cookies.set("name", userName, {expires: 7});
-                        if (userData.id === "1707863408369") {
+                        if (userData.id === process.env.REACT_APP_ADMIN_ID) {
                             Cookies.set("role", "admin", {expires: 7});
                             navigate("/admin")
                         } else {
