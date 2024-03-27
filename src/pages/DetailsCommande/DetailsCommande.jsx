@@ -18,52 +18,52 @@ function DetailsCommande() {
   const [dataLoading, setDataLoading] = useState(false);
 
   useEffect(() => {
-    const fetchCommande = async () => {
-        setDataLoading(true);
-      try {
-        const response = await fetch(
-            `${process.env.REACT_APP_API_URL}commandes/${idCommande}`,
-            {
-                method: "GET",
-                headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwtToken}`,
-                },
-            }
-        );
-        const commande = await response.json();
-        console.log(commande);
-        setCommande(commande);
-        setAdresseId(commande.adresseLivraison);
-        setDataLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchCommande();
+          const fetchCommande = async () => {
+              setDataLoading(true);
+              try {
+                  const response = await fetch(
+                      `${process.env.REACT_APP_API_URL}commandes/${idCommande}`,
+                      {
+                          method: "GET",
+                          headers: {
+                              "Content-Type": "application/json",
+                              Authorization: `Bearer ${jwtToken}`,
+                          },
+                      }
+                  );
+                  const commande = await response.json();
+                  console.log(commande);
+                  setCommande(commande);
+                  setAdresseId(commande.adresseLivraison);
+                  setDataLoading(false);
+              } catch (error) {
+                  console.error(error);
+              }
+          };
+          fetchCommande();
   }, []);
 
     useEffect(() => {
-        const fetchAdresse = async () => {
-            console.log(adresseId);
-            try {
-                const response = await fetch(
-                    `${process.env.REACT_APP_API_URL}adresses/${adresseId}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${jwtToken}`
-                        },
-                    }
-                );
-                const adresse = await response.json();
-                console.log(adresse);
-                setAdresse(adresse);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchAdresse();
+            const fetchAdresse = async () => {
+                console.log(adresseId);
+                try {
+                    const response = await fetch(
+                        `${process.env.REACT_APP_API_URL}adresses/${adresseId}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${jwtToken}`
+                            },
+                        }
+                    );
+                    const adresse = await response.json();
+                    console.log(adresse);
+                    setAdresse(adresse);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            fetchAdresse();
     }, [adresseId]);
 
     return (
@@ -91,10 +91,10 @@ function DetailsCommande() {
                                     <p style={{backgroundColor: "#ECF3F8", color: "#1A425B"}}>En cours de livraison</p>
                                 </div>
                             ) : commande.status === "Livré" ? (
-                                    <div className={"div-status-commande"}>
-                                        <p><b>Statut : </b></p>
-                                        <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>Livré</p>
-                                    </div>
+                                <div className={"div-status-commande"}>
+                                    <p><b>Statut : </b></p>
+                                    <p style={{backgroundColor: "#DCF5D3", color: "#287834"}}>Livré</p>
+                                </div>
                             ) : commande.status === "En cours de préparation" ? (
                                     <div className={"div-status-commande"}>
                                         <p><b>Statut : </b></p>
@@ -110,17 +110,17 @@ function DetailsCommande() {
                         <hr id={"vertical-hr"}/>
                         <div className={"div-recap-commande-1"}>
                             {
-                                commande.typeLivraison === "A Domicile" ? (
+                                commande.typeLivraison === "A domicile" ? (
                                     <h3>Votre adresse de livraison</h3>
                                 ) : (
                                     <h3>Votre point Relais</h3>
                                 )}
-                                    <p>{adresse.adresse}</p>
-                                    <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                                        <p style={{margin: "0 0.5em 0.5em 0"}}>{adresse.codePostal}</p>
-                                        <p style={{margin: "0 0.5em 0.5em 0"}}>{adresse.ville}</p>
-                                    </div>
-                                    <p>{adresse.pays}</p>
+                            <p>{adresse.adresse}</p>
+                            <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                <p style={{margin: "0 0.5em 0.5em 0"}}>{adresse.codePostal}</p>
+                                <p style={{margin: "0 0.5em 0.5em 0"}}>{adresse.ville}</p>
+                            </div>
+                            <p>{adresse.pays}</p>
                         </div>
                     </div>
                     <div className={"div-buttons-actions-details-commande"}>
@@ -132,15 +132,19 @@ function DetailsCommande() {
                             </button>
                         ) : commande.status !== "annule" ? (
                             <>
-                                <button onClick={() => {commande.typeLivraison === "En point relais" ? window.open(
-                                    "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay + "&codePostal=" + commande.codePostalCommande,
-                                    "_blank"
-                                ) : window.open("https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=" + commande.numeroSuivieChronopost, "_blank")}}>
-                                    <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>
+                                <button onClick={() => {
+                                    commande.typeLivraison === "En point relais" ? window.open(
+                                        "https://www.mondialrelay.fr/suivi-de-colis?numeroExpedition=" + commande.numeroSuivieMondialRelay + "&codePostal=" + commande.codePostalCommande,
+                                        "_blank"
+                                    ) : window.open("https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=" + commande.numeroSuivieChronopost, "_blank")
+                                }}>
+                                    <FontAwesomeIcon id={"icon-buttons-actions-details-commande"}
+                                                     icon={faTruckFast}></FontAwesomeIcon>
                                     Suivre mon colis
                                 </button>
                                 <button>
-                                    <FontAwesomeIcon id={"icon-buttons-actions-details-commande"} icon={faTruckFast}></FontAwesomeIcon>
+                                    <FontAwesomeIcon id={"icon-buttons-actions-details-commande"}
+                                                     icon={faTruckFast}></FontAwesomeIcon>
                                     Retourner un produit
                                 </button>
                             </>
@@ -149,6 +153,7 @@ function DetailsCommande() {
                         )}
                     </div>
                     <div className="div-commandes">
+                        <h4>{contenuCommande.nbArticles}</h4>
                         {commande ? (
                             contenuCommande.map((commande) => {
                                 return (
@@ -160,7 +165,8 @@ function DetailsCommande() {
                                             alt="image_produit"
                                         ></img>
                                         <p>{commande.produit}</p>
-                                        <p>Prix : {commande.prix} €</p>
+                                        <p>Prix : {commande.price} €</p>
+                                        <p>x{commande.amount}</p>
                                     </div>
                                 );
                             })
@@ -169,6 +175,10 @@ function DetailsCommande() {
                                 <h2>Aucune commande pour le moment</h2>
                             </div>
                         )}
+                    </div>
+                    <div className={"div-prix-details-commande"}>
+                        <p><b>Total :</b></p>
+                        <p>{commande.prixTotal} €</p>
                     </div>
                     <div className={"div-prix-details-commande"}>
                         <p><b>Frais de livraison :</b></p>

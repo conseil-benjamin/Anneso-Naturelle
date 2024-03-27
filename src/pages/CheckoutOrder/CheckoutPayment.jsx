@@ -3,7 +3,6 @@ import "./CheckOutPayment.scss";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import GoingBack from "../../components/GoingBack/GoingBack";
-import ProductItem from "../../components/ProductItem/ProductItem";
 import {Loader} from "../../utils/Loader";
 function CheckoutPayment () {
     const [adresse, setAdresse] = useState([]);
@@ -12,7 +11,9 @@ function CheckoutPayment () {
     const [conditionsAccepter, setConditionsAccepter] = useState(false);
     const [erreurConditionsNonAccepter, setErreurConditionsNonAccepter] = useState("");
     const [isDataLoading, setDataLoading] = useState(false);
+    const [paiementOk, setPaiementOk] = useState(false);
     console.log(adresse)
+    console.log(products)
 
     useEffect(() => {
         try {
@@ -50,45 +51,78 @@ function CheckoutPayment () {
         }
     }, []);
 
+
     const handleClickPayerCommande = () => {
-        if (!conditionsAccepter){
-            setErreurConditionsNonAccepter("Vous devez accepter les conditions générales de ventes pour finaliser votre commande.")
-            return;
-        }
-        try {
-            const commande = {
-                idCommande: "CMD55",
-                idClient: Cookies.get("auth_token"),
-                date: new Date(),
-                nbArticles: products.length,
-                adresseLivraison: sessionStorage.getItem("adresseId"),
-                prixTotal: totalCommande,
-                contenuCommande: products,
-                numeroSuivieMondialRelay: "",
-                status: "En cours de préparation",
-                typeLivraison: sessionStorage.getItem("adresseId") ? "A domicile" : "En point relais",
-                fraisLivraison: sessionStorage.getItem("adresseId") ? 5.99 : 3.99,
-                codePostalCommande: adresse[6],
-                numeroSuivieChronopost: ""
+        const payerCommande = async () => {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}payment/create-checkout-session`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${Cookies.get("auth_token")}`,
+                    },
+                    body: JSON.stringify(products)
+                });
+            const result = await response.json();
+            console.log(result)
+            console.log(result.url)
+            console.log(result.status === "success")
+            if (response.ok) {
+                console.log("dzdqz");
+                setPaiementOk(true);
+                window.location.href = result.url;
             }
-            const ajoutCommande = async () => {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}commandes/addOrder`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${Cookies.get("auth_token")}`,
-                        },
-                        body: JSON.stringify(commande)
-                    });
-                const result = await response.json();
-                console.log(result)
-            }
-            ajoutCommande();
-        } catch (error) {
-            console.log(error)
         }
+        payerCommande();
     }
+
+    useEffect(() => {
+        const createOrder = () => {
+            if (!conditionsAccepter){
+                setErreurConditionsNonAccepter("Vous devez accepter les conditions générales de ventes pour finaliser votre commande.")
+                return;
+            }
+            if (paiementOk) {
+                try {
+                    const commande = {
+                        idCommande: "CMD556",
+                        idClient: Cookies.get("auth_token"),
+                        date: new Date(),
+                        nbArticles: products.length,
+                        adresseLivraison: sessionStorage.getItem("adresseId") ? sessionStorage.getItem("adresseId") : "",
+                        prixTotal: totalCommande,
+                        contenuCommande: products,
+                        numeroSuivieMondialRelay: "",
+                        status: "En cours de préparation",
+                        typeLivraison: sessionStorage.getItem("adresseId") ? "A domicile" : "En point relais",
+                        fraisLivraison: sessionStorage.getItem("adresseId") ? 5.99 : 3.99,
+                        codePostalCommande: adresse[6],
+                        numeroSuivieChronopost: ""
+                    }
+                    const ajoutCommande = async () => {
+                        const response = await fetch(`${process.env.REACT_APP_API_URL}commandes/addOrder`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${Cookies.get("auth_token")}`,
+                                },
+                                body: JSON.stringify(commande)
+                            });
+                        const result = await response.json();
+                        console.log(result)
+                    }
+                    ajoutCommande();
+
+                } catch (error) {
+                    console.log(error)
+                } finally {
+                    sessionStorage.clear();
+                }
+            }
+        }
+        createOrder();
+    }, [paiementOk]);
 
     return (
         <div>

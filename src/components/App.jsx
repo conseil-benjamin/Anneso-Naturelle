@@ -35,6 +35,7 @@ import CheckoutPayment from "../pages/CheckoutOrder/CheckoutPayment";
 import {FiltreProvider, useFiltre} from '../utils/FiltreContext';
 import "./App.css";
 import FiltreEtTrie from "./FiltreEtTrie/FiltreEtTrie";
+import CreateOrder from "../pages/CheckoutOrder/CreateOrder";
 
 function App() {
     const jwtToken = Cookies.get("auth_token");
@@ -133,6 +134,7 @@ function AppContent({cart, updateCart, productList, setProductList, minPrice, se
                         />
                         <Route path="/checkout/delivery" element={<CheckoutDelivery/>}/>
                         <Route path="/checkout/payment" element={<CheckoutPayment/>}/>
+                        <Route path="/checkout/success" element={<CreateOrder/>}/>
                     </Route>
                     <Route path="/auth/reset-password/:token" element={<ResetPassword/>}/>
                     <Route path="/auth/register" element={<Register/>}/>
